@@ -17,7 +17,7 @@ author_profile: true
 ## Work in progress:
 
 
-1. **Issue Competition between Elections** with Lukas F. Stoetzer, and Heike Klüver
+1. **Issue Competition between Elections** with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
 
 1. **Buying Voter Support for Unpopular Policies: Evidence from 2022 German Nuclear Power Plants**
