@@ -7,37 +7,24 @@ author_profile: true
 
 {% include base_path %}
 
+## The PARTYPRESS Database (published soon)
+### A new Comparative Database 2022 of Parties’ Press Releases 
+with Heike Klüver and Lukas F. Stoetzer (presented at EPSA 2022)
+Github repository: [scripts-issue-agendas](https://github.com/cornelius-erfort/scripts-issue-agendas)
 
-## Election Dataset Germany 1953-2017 ([GitHub](https://github.com/cornelius-erfort/germany-53-17-districts))
+*Abstract:* We present the newly compiled PARTYPRESS Database which compiles more than 250,000 published press releases from 67 parties in nine European countries. The database covers the press releases of the most relevant political parties starting from 2010 onward. It provides a hand-labeled subset in 21 unique issue categories according to a general codebook. We discuss and evaluate different supervised machine learning approaches to obtain evolving issue agendas of the different parties. We extend a recent analysis in [Gessler & Hunger 2022](https://doi.org/10.1017/psrm.2021.64) to illustrate the usefulness of our approach in studying dynamic party competition, communication, and behavior.
 
-County-level results made comparable over time using geodata and areal weighted interpolation
 
-## [germany-53-17-districts](https://github.com/cornelius-erfort/germany-53-17-districts)
+## Election Dataset Germany 1953-2017
+### County-level results made comparable over time using geodata and areal weighted interpolation
+Github repository: [germany-53-17-districts](https://github.com/cornelius-erfort/germany-53-17-districts)
 
-This repository provides historic, comparable county-level election results for West Germany. These can be easily merged with other historic data on the county level using offical county ID numbers that are also provided. 
+This repository provides historic, comparable county-level election results for West Germany since 1953. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. 
 
-The final dataset contains estimates for the vote share for each election since 1953 (within the boundaries of the 2017 counties) obtained from areal weighted interpolation. The conversion of past into current counties benefits from the way that German counties were modified: Usually two or more old counties were merged entirely into a new one.
+The final dataset contains estimates for the vote share of all major parties for each election since 1953 (within the boundaries of the 2017 counties) obtained from areal weighted interpolation. 
 
-In order to convert historic election results into the 2017 counties, I use geodata and areal weighted interpolation. More specifically, I calculate the share of historic counties that lie within the boundaries of 2017 counties. Subsequently, I multiply these shares with the election results of each year. This requires the assumption, that the vote share was distributed equally throughout the county. Note that the geographical share of a county is different to the population share of a county. The geographical changes are likely greater than the actual population changes as county borders are more likely redrawn in rural, less densely populated areas.
+In order to convert historic election results into the 2017 counties, I use geodata and areal weighted interpolation. More specifically, I calculate the share of historic counties that lie within the boundaries of 2017 counties. Subsequently, I multiply these shares with the election results of each year. This requires the assumption, that the vote share was distributed equally throughout the county.
 
-This repository also contains the conversion tables of (West) German districts (Landkreise und kreisfreie Städte) since 1953. The columns correspond to the 2017 counties, whereas the rows correspond to the counties of the specific year.
-
-The final dataset "election-results-53-17.dta" contains the vote share for all major parties for each election since 1953. Counties can be merged to other data on the county level using the ID (AGS, Allgemeiner Gemeindeschlüssel).
-
-### Example: Recklinghausen
-
-In order to demonstrate the logic behind the conversion, the following image illustrates the conversion of 1953 counties to the 2017 county "Recklinghausen" (in red). We can see that most 1953 counties were almost entirely merged into the new county. Recklinghausen (2017) is made up of the former counties Recklinghausen, Stadt (1953), Recklinghausen (1953), Gladbeck (1953), and Castrop-Rauxel (1953).  For each of these counties, more than 90% of the former county area is now part of the new county. Only small fractions of other adjacent counties were added to the newly formed county. This is a pattern that can be observed throughout West Germany: tow or mroe smaller counties are merged into larger ones, often cities and the surrunding rural areas are combined. 
-
-*Example of conversion of old into new counties for the county "Recklinghausen*
-<img src="https://github.com/cornelius-erfort/germany-53-17-districts/raw/main/plots/conversion_example.png" width="40%">
-
-### Measurement validity
-
-The following map shows the 1953 West German counties. The color shading indicates the size of the largest chunk of old county that was incorporated into a new county. 100% or "dark green" signifies that the entire county was incorporated into a new one. Smaller percentages indicate that the county was broken up into smaller fragments with negative consequences for the validity of the measurement.
-
-*Conversion of 1953 into 2017 counties: Share of largest coherent part of old county in new county*
-<img src="https://raw.githubusercontent.com/cornelius-erfort/germany-53-17-districts/main/plots/coverage_map_1953-2017.png" width="40%">
-
-### Correlation of registered voters
+The conversion of past into current counties benefits from the way that German counties were modified: Usually two or more old counties were merged entirely into a new one, often cities and the surrunding rural areas are combined. Only in rare cases, large parts of counties were reassigned.
 
 The correlation of registered voters over time is very high. There seem to be no sudden changes in the size of the electorate suggesting that the conversion works quite well.
