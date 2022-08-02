@@ -8,7 +8,7 @@ author_profile: true
 {% include base_path %}
 
 
-# Election Dataset Germany 1953-2017 ([GitHub](https://github.com/cornelius-erfort/germany-53-17-districts)) 2021
+## Election Dataset Germany 1953-2017 ([GitHub](https://github.com/cornelius-erfort/germany-53-17-districts))
 
 County-level results made comparable over time using geodata
 
