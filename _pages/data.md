@@ -10,13 +10,15 @@ author_profile: true
 
 ## Election Dataset Germany 1953-2017 ([GitHub](https://github.com/cornelius-erfort/germany-53-17-districts))
 
-County-level results made comparable over time using geodata
+County-level results made comparable over time using geodata and areal weighted interpolation
 
 ## [germany-53-17-districts](https://github.com/cornelius-erfort/germany-53-17-districts)
 
-This repository provides historic, comparable county-level election results for West Germany. The final dataset contains estimates for the vote share for each election since 1953 (within the boundaries of the 2017 counties). The conversion of past into current counties benefits from the way that German counties were modified: Usually two or more old counties were merged entirely into a new one.
+This repository provides historic, comparable county-level election results for West Germany. These can be easily merged with other historic data on the county level using offical county ID numbers that are also provided. 
 
-In order to convert historic election results into the 2017 counties, I use geodata. More specifically, I calculate the share of historic counties that lie within the boundaries of 2017 counties. Subsequently, I multiply these shares with the election results of each year. This requires the assumption, that the vote share was distributed equally throughout the county. Note that the geographical share of a county is different to the population share of a county. The geographical changes are likely greater than the actual population changes as county borders are more likely redrawn in rural, less densely populated areas.
+The final dataset contains estimates for the vote share for each election since 1953 (within the boundaries of the 2017 counties) obtained from areal weighted interpolation. The conversion of past into current counties benefits from the way that German counties were modified: Usually two or more old counties were merged entirely into a new one.
+
+In order to convert historic election results into the 2017 counties, I use geodata and areal weighted interpolation. More specifically, I calculate the share of historic counties that lie within the boundaries of 2017 counties. Subsequently, I multiply these shares with the election results of each year. This requires the assumption, that the vote share was distributed equally throughout the county. Note that the geographical share of a county is different to the population share of a county. The geographical changes are likely greater than the actual population changes as county borders are more likely redrawn in rural, less densely populated areas.
 
 This repository also contains the conversion tables of (West) German districts (Landkreise und kreisfreie Städte) since 1953. The columns correspond to the 2017 counties, whereas the rows correspond to the counties of the specific year.
 
