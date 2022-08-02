@@ -19,12 +19,4 @@ Github repository: [scripts-issue-agendas](https://github.com/cornelius-erfort/s
 ### County-level results made comparable over time using geodata and areal weighted interpolation
 Github repository: [germany-53-17-districts](https://github.com/cornelius-erfort/germany-53-17-districts)
 
-This repository provides historic, comparable county-level election results for West Germany since 1953. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. 
-
-The final dataset contains estimates for the vote share of all major parties for each election since 1953 (within the boundaries of the 2017 counties) obtained from areal weighted interpolation. 
-
-In order to convert historic election results into the 2017 counties, I use geodata and areal weighted interpolation. More specifically, I calculate the share of historic counties that lie within the boundaries of 2017 counties. Subsequently, I multiply these shares with the election results of each year. This requires the assumption, that the vote share was distributed equally throughout the county.
-
-The conversion of past into current counties benefits from the way that German counties were modified: Usually two or more old counties were merged entirely into a new one, often cities and the surrunding rural areas are combined. Only in rare cases, large parts of counties were reassigned.
-
-The correlation of registered voters over time is very high. There seem to be no sudden changes in the size of the electorate suggesting that the conversion works quite well.
+This repository provides historic, comparable county-level election results for West Germany since 1953. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. The final dataset contains estimates for the vote share of all major parties for each election from 1953-2017 (within the boundaries of the 2017 counties) obtained from areal weighted interpolation. 
