@@ -21,7 +21,7 @@ On this website, you can find more information on my research projects and downl
 
 </div>
 <div class="col-md-6">
-<a class="twitter-timeline" data-lang="en" data-theme="light" href="https://twitter.com/cornelius_mer?ref_src=twsrc%5Etfw" width="50%">Tweets by cornelius_mer</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a class="twitter-timeline" data-lang="en" data-theme="light" href="https://twitter.com/cornelius_mer?ref_src=twsrc%5Etfw">Tweets by cornelius_mer</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 </div>
