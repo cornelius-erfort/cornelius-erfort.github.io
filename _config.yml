@@ -309,3 +309,13 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+  # parse markdown inside block-level HTML tag
+  parse_block_html: true
+
