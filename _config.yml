@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Cornelius Erfort"
   avatar           : "profile.jpeg"
-  bio              : "PhD Candidate in Political Science at [DYNAMICS](testlink.de)" # , Humboldt-Universität zu Berlin
+  bio              : "PhD Candidate in Political Science at <a href="testlink.de">DYNAMICS</a>" # , Humboldt-Universität zu Berlin
   location         : "Berlin, Germany"
   employer         : "Humboldt-Universität <br> zu Berlin"
   pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
