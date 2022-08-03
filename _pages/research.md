@@ -11,7 +11,7 @@ author_profile: true
 
 1. **Group Appeals towards Women on Facebook: Evidence from the 2019 EP elections** (presented at EPSA 2022)
 
-2. **The PARTYPRESS Database: A new Comparative Database 2022 of Parties’ Press Releases** with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) (presented at EPSA 2022)
+2. **The PARTYPRESS Database: A new Comparative Database of Parties’ Press Releases** with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) (presented at EPSA 2022)
 
 
 ## Work in progress:
