@@ -1,4 +1,8 @@
 {
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0"
+  },
   "name": "minimal-mistakes",
   "version": "3.4.2",
   "description": "Minimal Mistakes Jekyll theme npm build scripts",
