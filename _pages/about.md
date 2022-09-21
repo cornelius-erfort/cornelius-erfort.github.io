@@ -10,7 +10,7 @@ redirect_from:
 
 
 
-I am a doctoral researcher at the cluster of excellence SCRIPTS and a PhD candidate at the [DYNAMICS](https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about) graduate school which is jointly organized by [Humboldt-Universität zu Berlin](https://www.hu-berlin.de/en) and the [Hertie School](https://www.hertie-school.org/en/).
+I am a PhD candidate at the [DYNAMICS](https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about) graduate school which is jointly organized by [Humboldt-Universität zu Berlin](https://www.hu-berlin.de/en) and the [Hertie School](https://www.hertie-school.org/en/). I previously worked at the cluster of excellence [SCRIPTS](https://www.scripts-berlin.eu/).
 
 My main interests are in comparative politics and quantitative methods. More specifically, I focus on the political behavior of candidates, representatives and political parties in the face of changing demographics and new technology using quantitative social science methods. In my dissertation, which is supervised by [Heike Klüver](http://www.heike-kluever.com/), I analyze how parties’ use the targeting capabilities of social media advertising.
 
