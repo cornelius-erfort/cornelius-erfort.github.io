@@ -19,7 +19,7 @@ I completed my pre-doctoral studies at the Humboldt-Universität, spent a semest
 On this website, you can find more information on my research projects and download my [CV](/cv).
 
 
-<!-----
+<!----
 <a class="twitter-timeline" data-lang="en" data-theme="light" href="https://twitter.com/cornelius_mer?ref_src=twsrc%5Etfw">Tweets by cornelius_mer</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
