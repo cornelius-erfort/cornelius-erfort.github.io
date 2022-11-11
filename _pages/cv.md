@@ -20,7 +20,7 @@ Education
 * BA in Social Sciences, Humboldt-Universität zu Berlin, Oct 2015 - Mar 2019
 * BSc in  Ind. Engineering and Management, Technische Universität Berlin, Oct 2011 - Jul 2015
 * Exchange Semester, CIDE, Mexico City, 2017
-* Exchange Semester, Northwestern University, Chicago, 2020 (cancelled due to pandemic)
+* Exchange Semester, Northwestern University, Chicago, 2020 (declined due to pandemic)
 
 
 Work experience
