@@ -115,7 +115,8 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-
+  mastodon         :  "@CorneliusErfort@sciences.social"
+  mastodon-url     :  "https://sciences.social/@CorneliusErfort"
 
 # Reading Files
 include:
