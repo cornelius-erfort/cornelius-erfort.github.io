@@ -9,7 +9,7 @@ author_profile: true
 
 ## Working Papers:
 
-1. **Group Appeals towards Women on Facebook: Evidence from the 2019 EP elections**<br>(presented at EPSA 2022)
+1. **Gendered targeting: Do parties tailor their campaign ads to women?**<br>(presented at EPSA 2022) Preprint: [https://osf.io/5vs9b](https://osf.io/5vs9b)
 
 2. **The PARTYPRESS Database: A new Comparative Database of Parties’ Press Releases**<br>with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) (presented at EPSA 2022)
 
