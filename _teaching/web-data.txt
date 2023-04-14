@@ -1,10 +1,10 @@
 ---
-title: "Comparative Politics and International Relations (Grundkurs)"
+title: "Automated Web Data Collection and Text as Data"
 collection: teaching
 type: "Undergraduate course"
-# permalink: /teaching/2022-comp-pol-and-ir
+# permalink: /teaching/2023-web-data
 venue: "Humboldt-Universität zu Berlin"
-date: 2022-10-01
+date: 2023-04-18
 location: "Berlin, Germany"
 ---
 
