@@ -1,0 +1,12 @@
+---
+title: "Comparative Politics and International Relations (Grundkurs)"
+collection: teaching
+type: "Undergraduate course"
+# permalink: /teaching/2022-comp-pol-and-ir
+venue: "Humboldt-Universität zu Berlin"
+date: 2022-10-01
+location: "Berlin, Germany"
+---
+
+
+Lecturer, Automated Web Data Collection and Text as Data, Summer Semester 2023
