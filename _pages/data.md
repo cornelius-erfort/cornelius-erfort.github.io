@@ -11,8 +11,9 @@ author_profile: true
 ### A new Comparative Database of Parties’ Press Releases <br>
 with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http://heike-kluever.com/) (forthcoming at Research and Politics)
 
+Dataverse repository: (soon)
 
-Hugging Face repository: [[https://huggingface.co/partypress](https://huggingface.co/partypress)
+Hugging Face repository: [https://huggingface.co/partypress](https://huggingface.co/partypress)
 
 Github repository: [https://github.com/cornelius-erfort/partypress](https://github.com/cornelius-erfort/partypress)
 
