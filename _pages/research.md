@@ -20,4 +20,4 @@ author_profile: true
 1. **Issue Competition between Elections**<br>with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
 
-1. **Buying Voter Support for Unpopular Policies: Evidence from 2022 German Nuclear Power Plants**<br>with [António Valentim](https://antoniovalentim.github.io/), and [Heike Klüver](http://heike-kluever.com/)
+1. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants**<br>with [António Valentim](https://antoniovalentim.github.io/), and [Heike Klüver](http://heike-kluever.com/)
