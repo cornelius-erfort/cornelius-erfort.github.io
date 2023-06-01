@@ -8,10 +8,12 @@ author_profile: true
 {% include base_path %}
 
 ## The PARTYPRESS Database (published soon)
-### A new Comparative Database 2022 of Parties’ Press Releases 
+### A new Comparative Database of Parties’ Press Releases 
 with Heike Klüver and Lukas F. Stoetzer (presented at EPSA 2022)
 
-Github repository: [cornelius-erfort/scripts-issue-agendas](https://github.com/cornelius-erfort/scripts-issue-agendas)
+Hugging Face repository: [[https://huggingface.co/partypress](https://huggingface.co/partypress)
+
+Github repository: [https://github.com/cornelius-erfort/partypress](https://github.com/cornelius-erfort/partypress)
 
 *Abstract:* We present the newly compiled PARTYPRESS Database which compiles more than 250,000 published press releases from 67 parties in nine European countries. The database covers the press releases of the most relevant political parties starting from 2010 onward. It provides a hand-labeled subset in 21 unique issue categories according to a general codebook. We discuss and evaluate different supervised machine learning approaches to obtain evolving issue agendas of the different parties. We extend a recent analysis in [Gessler & Hunger (2022)](https://doi.org/10.1017/psrm.2021.64) to illustrate the usefulness of our approach in studying dynamic party competition, communication, and behavior.
 
