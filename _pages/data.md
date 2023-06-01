@@ -8,8 +8,9 @@ author_profile: true
 {% include base_path %}
 
 ## The PARTYPRESS Database
-### A new Comparative Database of Parties’ Press Releases 
-with Lukas F. Stoetzer and  Heike Klüver (forthcoming at Research and Politics)
+### A new Comparative Database of Parties’ Press Releases <br>
+with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http://heike-kluever.com/) (forthcoming at Research and Politics)
+
 
 Hugging Face repository: [[https://huggingface.co/partypress](https://huggingface.co/partypress)
 
