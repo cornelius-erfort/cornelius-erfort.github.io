@@ -11,7 +11,7 @@ author_profile: true
 
 1. **Gendered targeting: Do parties tailor their campaign ads to women?**<br>(presented at EPSA 2022) Preprint: [https://osf.io/5vs9b](https://osf.io/5vs9b)
 
-2. **The PARTYPRESS Database: A new Comparative Database of Parties’ Press Releases**<br>with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) (presented at EPSA 2022)
+2. **The PARTYPRESS Database: A new Comparative Database of Parties’ Press Releases**<br> with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http://heike-kluever.com/) (forthcoming at Research and Politics)
 
 *Abstract:* We present the newly compiled PARTYPRESS Database which compiles more than 250,000 published press releases from 67 parties in nine European countries. The database covers the press releases of the most relevant political parties starting from 2010 onward. It provides a hand-labeled subset in 21 unique issue categories according to a general codebook. We discuss and evaluate different supervised machine learning approaches to obtain evolving issue agendas of the different parties. We extend a recent analysis in [Gessler & Hunger (2022)](https://doi.org/10.1017/psrm.2021.64) to illustrate the usefulness of our approach in studying dynamic party competition, communication, and behavior.
 
