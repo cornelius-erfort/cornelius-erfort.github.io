@@ -9,7 +9,7 @@ author_profile: true
 
 ## The PARTYPRESS Database (published soon)
 ### A new Comparative Database of Parties’ Press Releases 
-with Heike Klüver and Lukas F. Stoetzer (presented at EPSA 2022)
+with Lukas F. Stoetzer and  Heike Klüver (forthcoming at Research and Politics)
 
 Hugging Face repository: [[https://huggingface.co/partypress](https://huggingface.co/partypress)
 
