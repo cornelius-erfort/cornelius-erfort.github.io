@@ -7,7 +7,7 @@ author_profile: true
 
 {% include base_path %}
 
-## The PARTYPRESS Database (published soon)
+## The PARTYPRESS Database
 ### A new Comparative Database of Parties’ Press Releases 
 with Lukas F. Stoetzer and  Heike Klüver (forthcoming at Research and Politics)
 
