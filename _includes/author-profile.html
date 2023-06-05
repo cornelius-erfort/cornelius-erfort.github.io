@@ -115,6 +115,9 @@
       {% if author.mastodon %}
         <li><a rel="me" href="{{ author.mastodon-url }}">Mastodon</a></li>
       {% endif %}
+      {% if author.huggingface %}
+        <li><a rel="me" href="{{ author.huggingface-url }}">Hugging Face</a></li>
+      {% endif %}
       {% if author.impactstory %}
         <li><a href="{{ author.impactstory }}"><i class="ai ai-impactstory ai-fw"></i> Impactstory</a></li>
       {% endif %}
