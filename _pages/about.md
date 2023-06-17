@@ -21,12 +21,6 @@ On this website, you can find more information on my research projects and downl
 # Office hours
 By appointment via [Calendly](https://calendly.com/cornelius-erfort/30min?back=1&month=2023-01) or email. If not agreed otherwise, we meet on Zoom.
 
-# Test
-{% for post in site.teaching reversed %}
-  {% include archive-single.html %}
-{% endfor %}
-
-
 <!----
 <a class="twitter-timeline" data-lang="en" data-theme="light" href="https://twitter.com/cornelius_mer?ref_src=twsrc%5Etfw">Tweets by cornelius_mer</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
