@@ -13,11 +13,13 @@ author_profile: true
 
 ## Working Papers:
 
+### Under Review:
+
 1. **Gendered targeting: Do parties tailor their campaign ads to women?**<br>(presented at EPSA 2022) Preprint: [https://osf.io/5vs9b](https://osf.io/5vs9b)
 
-## Work in progress:
-
-1. **Issue Competition between Elections**<br>with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
-
-
 1. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants**<br>with [António Valentim](https://antoniovalentim.github.io/), and [Heike Klüver](http://heike-kluever.com/)
+
+### Work in Progress:
+
+1. **Parties' issue adaption between elections**<br> (EPSA 2023) with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
+
