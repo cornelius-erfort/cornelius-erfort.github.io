@@ -23,7 +23,7 @@ On this website, you can find more information on my research projects and downl
 <table BORDER=”0″>
 <tr>
 <td width="10%">
-  <img src="/files/57369_RAP.jpg"> <br>
+  <img src="/files/57369_RAP.jpg">
 
 </td>
   <td>
