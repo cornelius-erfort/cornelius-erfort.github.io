@@ -19,6 +19,9 @@ I completed my pre-doctoral studies at the Humboldt-Universität, spent a semest
 On this website, you can find more information on my research projects and download my [CV](/cv).
 
 # PARTYPRESS Database
+<img style="float: right;" src="/files/57369_RAP.jpg" width="10%">
+
+
 
 <img style="float: right;" src="/files/huggingface.png">
 
