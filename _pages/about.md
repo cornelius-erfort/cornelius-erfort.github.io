@@ -20,9 +20,20 @@ On this website, you can find more information on my research projects and downl
 
 # Publications
 
-<img src="/files/57369_RAP.jpg" width="10%"> The PARTYPRESS Database <br>
-<ins>Cornelius Erfort</ins>, [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/)
+<table>
+<tr>
+<td>
+  <img src="/files/57369_RAP.jpg" width="10%">  <br>
+
+</td>
+  <td>
+    The PARTYPRESS Database <br>
+    <ins>Cornelius Erfort</ins>, [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/) <br>
 *Research and Politics*, 2023
+</td>
+</tr>
+</table>
+
 
 <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
 <a class="bibtex btn btn-sm z-depth-0" role="button">Bibtex</a>
