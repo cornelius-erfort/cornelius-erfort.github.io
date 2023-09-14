@@ -20,7 +20,7 @@ On this website, you can find more information on my research projects and downl
 
 # Publications
 
-<table>
+<table BORDER=”0″>
 <tr>
 <td width="10%">
   <img src="/files/57369_RAP.jpg" <br>
