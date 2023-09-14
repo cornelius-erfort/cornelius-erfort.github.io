@@ -36,6 +36,9 @@ On this website, you can find more information on my research projects and downl
                                         <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
                                         <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
                                         <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
+                                        <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
+
+                                        
 
 
 # Office hours
