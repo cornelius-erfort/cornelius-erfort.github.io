@@ -42,24 +42,6 @@ On this website, you can find more information on my research projects and downl
                                         <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
 
 
-
-<details>
-  <summary>Click me</summary>
-  
-  ### Heading
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
-
-  ### Some Javascript
-  ```js
-  function logSomething(something) {
-    console.log('Something', something);
-  }
-  ```
-</details>
-
 # Office hours
 By appointment via [Calendly](https://calendly.com/cornelius-erfort/30min?back=1&month=2023-01) or email. If not agreed otherwise, we meet on Zoom.
 
