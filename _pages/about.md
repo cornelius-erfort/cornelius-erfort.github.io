@@ -22,21 +22,22 @@ On this website, you can find more information on my research projects and downl
 
 <table style="border:0">
 <tr>
-<td width="10%">
+<td width="20%">
   <img src="/files/57369_RAP.jpg">
 
 </td>
   <td>
     The PARTYPRESS Database <br>
-    <ins>Cornelius Erfort</ins>, [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/) <br>
+    <ins>Cornelius Erfort</ins>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
 *Research and Politics*, 2023
-</td>
-</tr>
-</table>
-                                        <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
+     <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
                                         <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
                                         <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
                                         <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
+</td>
+</tr>
+</table>
+                                       
 
                                         
 
