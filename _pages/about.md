@@ -22,11 +22,11 @@ On this website, you can find more information on my research projects and downl
 
 <table style="border:none">
 <tr>
-<td width="20%">
+<td width="20%" style="border:none">
   <img src="/files/57369_RAP.jpg">
 
 </td>
-  <td>
+  <td style="border:none">
     The PARTYPRESS Database <br>
     <ins>Cornelius Erfort</ins>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
 <i>Research and Politics</i>, 2023 <br>
