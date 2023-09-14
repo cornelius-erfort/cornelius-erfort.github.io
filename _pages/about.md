@@ -18,12 +18,11 @@ I completed my pre-doctoral studies at the Humboldt-Universität, spent a semest
 
 On this website, you can find more information on my research projects and download my [CV](/cv).
 
-# PARTYPRESS Database
-<img style="float: right;" src="/files/57369_RAP.jpg" width="10%">
+# Publications
 
+<img style="float: right;" src="/files/57369_RAP.jpg" width="10%"> The PARTYPRESS Database
+<ins>Cornelius Erfort, [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/)</ins>
 
-
-<img style="float: right;" src="/files/huggingface.png">
 
 
 # Office hours
