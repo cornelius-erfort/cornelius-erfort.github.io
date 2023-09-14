@@ -24,10 +24,11 @@ On this website, you can find more information on my research projects and downl
 <ins>Cornelius Erfort</ins>, [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/)
 *Research and Politics*, 2023
 
-<a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
-                                        <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
-                                        <a href="https://doi.org/10.7910/DVN/HULLNG" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-                                        <a href="[https://doi.org/10.1017/S0003055420000155](https://doi.org/10.1177/20531680231183512)" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
+<a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
+<a class="bibtex btn btn-sm z-depth-0" role="button">Bibtex</a>
+                                        <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
+                                        <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
+                                        <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
 
 
 
