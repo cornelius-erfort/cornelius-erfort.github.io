@@ -22,8 +22,8 @@ On this website, you can find more information on my research projects and downl
 
 <table>
 <tr>
-<td>
-  <img src="/files/57369_RAP.jpg" width="10%">  <br>
+<td width="10%">
+  <img src="/files/57369_RAP.jpg" <br>
 
 </td>
   <td>
