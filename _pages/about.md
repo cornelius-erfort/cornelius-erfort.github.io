@@ -23,7 +23,7 @@ On this website, you can find more information on my research projects and downl
 <table style="border:none">
 <tr>
 <td width="20%" style="border:none">
-  <img src="/files/57369_RAP.jpg">
+  <img src="/files/57369_RAP.jpg" href="https://doi.org/10.1177/20531680231183512">
 
 </td>
   <td style="border:none">
