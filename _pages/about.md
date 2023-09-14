@@ -20,6 +20,8 @@ On this website, you can find more information on my research projects and downl
 
 # PARTYPRESS Database
 
+<img style="float: right;" src="/files/huggingface.png">
+
 
 # Office hours
 By appointment via [Calendly](https://calendly.com/cornelius-erfort/30min?back=1&month=2023-01) or email. If not agreed otherwise, we meet on Zoom.
