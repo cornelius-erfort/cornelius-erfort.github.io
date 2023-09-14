@@ -29,7 +29,7 @@ On this website, you can find more information on my research projects and downl
   <td>
     The PARTYPRESS Database <br>
     <ins>Cornelius Erfort</ins>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
-<i>Research and Politics</td>i, 2023
+<i>Research and Politics</i>, 2023
      <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
                                         <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
                                         <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
