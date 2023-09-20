@@ -36,7 +36,9 @@ author_profile: true
 
 1. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>(presented at EPSA 2022) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
+<sub>
 *Abstract:* Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
+</sub>
 
 1. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
