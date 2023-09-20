@@ -44,3 +44,6 @@ author_profile: true
 
 1. **Parties' issue adaption between elections**<br> (EPSA 2023) with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
+1. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  <br> <a href="https://osf.io/g9t8y/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+
+
