@@ -18,6 +18,8 @@ with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http:/
                                         <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
                                         <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
 
+This dataset consists of more than 250,000 published press releases from 67 parties in nine European countries. It provides a hand-labeled subset in 21 unique CAP issue categories. It can be used to dynamically measure parties' issue salience.
+
 
 ## Election Dataset Germany 1953-2021
 ### County-level results made comparable over time using geodata and areal weighted interpolation
