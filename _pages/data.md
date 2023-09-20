@@ -17,7 +17,7 @@ with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http:/
                                         <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
 
 <sub>
-This dataset consists of more than 250,000 published press releases from 67 parties in nine European countries. It provides a hand-labeled subset in 21 unique CAP issue categories. It can be used to dynamically measure parties' issue salience.
+**Description:** This dataset consists of more than 250,000 published press releases from 67 parties in nine European countries. It provides a hand-labeled subset in 21 unique CAP issue categories. It can be used to dynamically measure parties' issue salience.
 </sub>
 
 
@@ -27,6 +27,6 @@ This dataset consists of more than 250,000 published press releases from 67 part
 <a href="https://github.com/cornelius-erfort/germany-53-17-districts" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github 2017</a> <a href="https://github.com/cornelius-erfort/germany-53-21-districts" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github 2021</a> 
 
 <sub>
-This repository provides historic, comparable county-level election results for West Germany since 1953 in the borders of 2017 and 2021 counties. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. The final dataset contains estimates for the vote share of all major parties for each election from 1953-2017/2021  (within the boundaries of the 2017/2021 counties) obtained from areal weighted interpolation. 
+**Description:** This repository provides historic, comparable county-level election results for West Germany since 1953 in the borders of 2017 and 2021 counties. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. The final dataset contains estimates for the vote share of all major parties for each election from 1953-2017/2021  (within the boundaries of the 2017/2021 counties) obtained from areal weighted interpolation. 
 </sub>
 
