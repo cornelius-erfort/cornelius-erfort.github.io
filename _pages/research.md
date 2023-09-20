@@ -35,9 +35,10 @@ author_profile: true
 
 ### Under Review
 
-1. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>(presented at EPSA 2022) <br> <a href="https://osf.io/5vs9b/]" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+1. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>(presented at EPSA 2022) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
-1. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io/), and [Heike Klüver](http://heike-kluever.com/)
+1. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim] <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+(https://antoniovalentim.github.io/), and [Heike Klüver](http://heike-kluever.com/)
 
 ### Work in Progress
 
