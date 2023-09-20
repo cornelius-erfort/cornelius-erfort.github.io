@@ -50,7 +50,8 @@ author_profile: true
 
 ### Work in Progress
 
-1\. **Parties' issue adaption between elections**<br> (EPSA 2023) with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) <br>
+1\. **Parties' issue adaption between elections**<br>  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) <br>
+(presented EPSA 2023) <br>
 (Draft available upon request)
 
 <sub>
