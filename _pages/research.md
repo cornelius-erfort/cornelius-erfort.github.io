@@ -36,13 +36,13 @@ author_profile: true
 
 ### Under Review
 
-1. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>(presented at EPSA 2022) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+1\. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>(presented at EPSA 2022) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
 **Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
 </sub>
 
-3. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+2\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
 **Abstract:** How can governments ensure voters’ support for unpopular policies? Policymakers often have to implement policies that are unpopular in local communities, such as the construction of windmills or nuclear power plants. However, little is known about how policymakers can increase local support. We argue that perceived economic benefits increase support for otherwise unpopular policies. We test our argument by studying the consequences of nuclear power plants on support for the Green Party in Germany, a strong opponent of nuclear energy. We collected a novel dataset on the geographic location of nuclear plants and voting records since the 1980s. Using difference-in-differences and instrumental variable designs, we find that the opening of nuclear power plants has a negative effect on the vote share of the Greens. Additional individual-level panel analyses suggest that this effect is driven by economic considerations. Overall, these results are relevant for the study of energy transitions and the design of unpopular policies more generally.
@@ -50,14 +50,14 @@ author_profile: true
 
 ### Work in Progress
 
-1. **Parties' issue adaption between elections**<br> (EPSA 2023) with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
+1\. **Parties' issue adaption between elections**<br> (EPSA 2023) with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 (Draft available upon request)
 
 <sub>
 **Abstract:** Are parties responsive to short-term changes in election polls? While party responsiveness to election results has received much attention, we know little about the dynamics of issue attention between elections. In this study, we address this question based on the novel comprehensive PARTYPRESS Database. We rely on supervised machine learning methods to build a dynamic measure of parties' issue attention on the basis of more than 250,000 press releases from 68 parties across nine countries from 2010 until 2020. We find little support that losing in the polls leads parties to change their issue attention. When political parties lose support in the polls, they do not clearly prioritize their owned issue, they do not pay more attention to popular issues, and they do not adapt the issue focus of successful competitors. These findings have important implications for our understanding of party responsiveness and the dynamics of electoral competition.
 </sub>
 
-2. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  <br> <a href="https://osf.io/g9t8y/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+2\. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  <br> <a href="https://osf.io/g9t8y/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
 **Abstract:** Protests are an important and well researched aspect of political behavior, making measurement validity crucial. But protests can be difficult to observe. Most studies use newspapers for event coding, introducing a selection bias. Validation usually involves comparing different newspapers or using independent sources. I benchmark a manually and a partly automatically coded dataset from the PolDem project against a large government dataset covering all extreme right demonstrations in Germany from 2005 to 2020. Coverage in newspapers mainly depends on region and size. Machine learning can provide a good estimate about the possible misdetection of events. The results have important implications for the study of protests. Researchers should carefully assess the advantages and shortfalls of media-based datasets.
