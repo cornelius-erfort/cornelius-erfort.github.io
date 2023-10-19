@@ -17,7 +17,7 @@ author_profile: true
 </td>
   <td style="border:none">
     The PARTYPRESS Database <br>
-    <ins>Cornelius Erfort</ins>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
 <i>Research and Politics</i>, 2023 <br>
      <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
                                         <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
