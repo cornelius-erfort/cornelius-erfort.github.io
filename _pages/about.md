@@ -14,7 +14,7 @@ I am a PhD candidate and member of the Research Training Group [DYNAMICS](https:
 
 My main interests are in comparative politics and quantitative methods. More specifically, I focus on the political behavior of candidates, representatives and political parties in the face of changing demographics and new technology using quantitative social science methods. 
 
-In my dissertation, which is supervised by [Heike Klüver](http://www.heike-kluever.com/), I analyze how parties’ use the targeting capabilities of digital advertising.
+In my dissertation, which is supervised by [Heike Klüver](http://www.heike-kluever.com/), I analyze how parties use the targeting capabilities of digital advertising.
 
 I completed my pre-doctoral studies at the Humboldt-Universität, spent a semester at the CIDE in Mexico City and have a background in mechanical engineering.
 
