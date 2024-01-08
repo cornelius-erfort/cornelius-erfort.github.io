@@ -39,6 +39,8 @@ On this website, you can find more information on my research projects and downl
 </td>
 </tr>
 </table>
+
+You can find a list of my publications and  working papers under [Research](https://corneliuserfort.de/research/).
                                        
                                         
 
