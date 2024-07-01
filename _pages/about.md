@@ -45,19 +45,19 @@ On this website, you can find more information on my research projects and downl
 ## Revise & Resubmit
 
 
-1\. **[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)** <br>Journal of Politics (JOP) 
+1\. **[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, Journal of Politics (JOP) 
 
-2\. **Targeting Voters Online: How Parties’ Target Differ Differ** <br> Electoral Studies 
+2\. **Targeting Voters Online: How Parties’ Target Differ Differ**, Electoral Studies 
 
 ## Under Review
 
-1\. **[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
+1\. **[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)**, with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
 
 ## Working Papers
 
-1\. **Parties' issue adaption between elections**<br>  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) 
+1\. **Parties' issue adaption between elections**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) 
 
-2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
+2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies**, with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
 
 3\. **[Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data](https://osf.io/g9t8y/)**  
 
