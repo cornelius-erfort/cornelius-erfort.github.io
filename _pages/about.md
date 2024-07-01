@@ -43,22 +43,18 @@ You can find more details about my research under [Research](https://corneliuser
 
                                        
                                         
-## Revise & Resubmit
-
-
-**[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, Journal of Politics (JOP) 
-
-**Targeting Voters Online: How Parties’ Target Differ Differ**, Electoral Studies 
-
-## Under Review
-
-**[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)**, with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
-
 ## Working Papers
 
-**Parties' issue adaption between elections**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) 
+
+**[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, D&R at Journal of Politics (JOP) 
+
+**Targeting Voters Online: How Parties’ Target Differ Differ**, R&R at Electoral Studies 
+
+**[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)**, with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/), Under Review
 
 **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies**, with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
+
+**Parties' issue adaption between elections**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
 **[Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data](https://osf.io/g9t8y/)**  
 
