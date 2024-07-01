@@ -40,29 +40,28 @@ On this website, you can find more information on my research projects and downl
 </tr>
 </table>
 
-You can find a list of my publications and  working papers under [Research](https://corneliuserfort.de/research/).
                                        
                                         
 ## Revise & Resubmit
 
 
-1\. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>Journal of Politics (JOP) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+1\. **[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)** <br>Journal of Politics (JOP) 
 
-2\. **Targeting Voters Online: How Parties’ Target Differ Differ** <br> Electoral Studies <br>
+2\. **Targeting Voters Online: How Parties’ Target Differ Differ** <br> Electoral Studies 
 
 ## Under Review
 
-1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
 
 ## Working Papers
 
-1\. **Parties' issue adaption between elections**<br>  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) <br>
-(presented EPSA 2023) <br>
-(Draft available upon request)
+1\. **Parties' issue adaption between elections**<br>  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) 
 
-2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) <br> 
+2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
 
-3\. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  <br> <a href="https://osf.io/g9t8y/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+3\. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  
+
+You can find more details about my research under [Research](https://corneliuserfort.de/research/).
 
 
 # Office hours
