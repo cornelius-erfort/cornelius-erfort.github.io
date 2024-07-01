@@ -51,7 +51,7 @@ On this website, you can find more information on my research projects and downl
 
 ## Under Review
 
-1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
+1\. **[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/)
 
 ## Working Papers
 
@@ -59,7 +59,7 @@ On this website, you can find more information on my research projects and downl
 
 2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
 
-3\. **Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data**  
+3\. **[Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data](https://osf.io/g9t8y/)**  
 
 You can find more details about my research under [Research](https://corneliuserfort.de/research/).
 
