@@ -21,6 +21,7 @@ I completed my pre-doctoral studies at the Humboldt-Universität, spent a semest
 On this website, you can find more information on my research projects and download a copy of my [CV (PDF)](/cv).
 
 # Publications
+You can find more details about my research under [Research](https://corneliuserfort.de/research/).
 
 <table style="border:none">
 <tr>
@@ -61,7 +62,6 @@ On this website, you can find more information on my research projects and downl
 
 3\. **[Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data](https://osf.io/g9t8y/)**  
 
-You can find more details about my research under [Research](https://corneliuserfort.de/research/).
 
 
 # Office hours
