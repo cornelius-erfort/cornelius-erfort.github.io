@@ -42,7 +42,7 @@ author_profile: true
 </sub>
 
 
-2\. **Targeting Voters Online: How Parties’ Target Differ Differ** <br> Electoral Studies <br>
+2\. **Targeting Voters Online: How Parties’ Target Differ** <br> Electoral Studies <br>
 
 <sub>
 **Abstract:** How do parties target campaign ads online? Despite the growing importance of digital campaigns, only one recent study has analyzed comparatively whom parties are targeting. This paper analyzes how parties target and how they differ in their use of targeting using a new and comprehensive dataset, matching data from the Facebook Ad Library with EES survey responses. The dataset contains over 100,000 Facebook and Instagram ads of 136 parties for the 2019 European Parliament elections. The results show that smaller and niche parties have targeting strategies more narrowly focused on their supporters whereas larger parties target a broader audience. My findings have important implications for research on voter targeting, party competition and the ongoing debate about the regulation of campaigns online. 
