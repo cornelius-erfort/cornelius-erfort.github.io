@@ -50,7 +50,7 @@ author_profile: true
 
 ## Under Review
 
-1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://osf.io/jnarh/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://doi.org/10.31219/osf.io/jnarh" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
 **Abstract:** How can governments ensure voters’ support for unpopular policies? Policymakers often have to implement policies that are unpopular in local communities, such as the construction of windmills or nuclear power plants. However, little is known about how policymakers can increase local support. We argue that perceived economic benefits increase support for otherwise unpopular policies. We test our argument by studying the consequences of nuclear power plants on support for the Green Party in Germany, a strong opponent of nuclear energy. We collected a novel dataset on the geographic location of nuclear plants and voting records since the 1980s. Using difference-in-differences and instrumental variable designs, we find that the opening of nuclear power plants has a negative effect on the vote share of the Greens. Additional individual-level panel analyses suggest that this effect is driven by economic considerations. Overall, these results are relevant for the study of energy transitions and the design of unpopular policies more generally.
@@ -59,8 +59,10 @@ author_profile: true
 ## Working Papers
 
 1\. **Parties' issue adaption between elections**<br>  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/) <br>
-(presented EPSA 2023) <br>
-(Draft available upon request)
+(presented EPSA 2023) <br> <a href="https://doi.org/10.31219/osf.io/6n3z4" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+
+
+
 
 <sub>
 **Abstract:** Are parties responsive to short-term changes in election polls? While party responsiveness to election results has received much attention, we know little about the dynamics of issue attention between elections. In this study, we address this question based on the novel comprehensive PARTYPRESS Database. We rely on supervised machine learning methods to build a dynamic measure of parties' issue attention on the basis of more than 250,000 press releases from 68 parties across nine countries from 2010 until 2020. We find little support that losing in the polls leads parties to change their issue attention. When political parties lose support in the polls, they do not clearly prioritize their owned issue, they do not pay more attention to popular issues, and they do not adapt the issue focus of successful competitors. These findings have important implications for our understanding of party responsiveness and the dynamics of electoral competition.
