@@ -54,7 +54,7 @@ You can find more details about my research under [Research](https://corneliuser
 
 **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies**, with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
 
-**Parties' issue adaption between elections**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
+**[Parties' issue adaption between elections](https://doi.org/10.31219/osf.io/6n3z4)**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
 **[Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data](https://osf.io/g9t8y/)**  
 
