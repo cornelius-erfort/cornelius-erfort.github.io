@@ -82,12 +82,12 @@ analytics:
 author:
   name             : "Cornelius Erfort"
   avatar           : "profile.jpeg"
-  bio              : "PhD Candidate in Political Science at DYNAMICS" # , Humboldt-Universität zu Berlin
-  location         : "Berlin, Germany"
-  employer         : "Humboldt-Universität <br> zu Berlin"
+  bio              : "Postdoctoral Researcher" # , Humboldt-Universität zu Berlin
+  location         : "Witten, Germany"
+  employer         : "University Witten/Herdecke"
   pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : # "http://yourfullgooglescholarurl.com"
-  email            : "cornelius.erfort@hu-berlin.de"
+  email            : "cornelius.erfort@uni-wh.de"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
