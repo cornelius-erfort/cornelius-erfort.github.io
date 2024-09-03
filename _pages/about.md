@@ -10,7 +10,7 @@ redirect_from:
 
 
 
-I am a Postdoc at the [University Witten/Herdecke](https://www.uni-wh.de) working on the project [Election Forecasts for the German Federal Election 2025](https://gepris.dfg.de/gepris/projekt/529544178?language=en). 
+I am a Postdoc at the [University Witten/Herdecke](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025](https://gepris.dfg.de/gepris/projekt/529544178?language=en). 
 
 My general interests are in comparative politics and quantitative methods. More specifically, I am working on voter targeting, interest groups, and voting behavior.
 
