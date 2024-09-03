@@ -8,15 +8,13 @@ redirect_from:
   - /about.html
 ---
 
-
-
-I am a Postdoc at the [University Witten/Herdecke](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025](https://gepris.dfg.de/gepris/projekt/529544178?language=en). 
+I am a Postdoc at the [University Witten/Herdecke](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025](https://zweitstimme.org/en/).
 
 My general interests are in comparative politics and quantitative methods. More specifically, I am working on voter targeting, interest groups, and voting behavior.
 
-I have co-authored work with [António Valentim](https://antoniovalentim.github.io), [Jan Stuckatz](https://www.janstuckatz.com), [Felix Hartmann](https://hartmannfelix.github.io), [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/).
-
 In my dissertation, I analyzed how parties use the target and tailor their digital election ads. I was member of the Research Training Group [DYNAMICS](https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about) which is jointly organized by [Humboldt-Universität zu Berlin](https://www.hu-berlin.de/en) and the [Hertie School](https://www.hertie-school.org/en/study/graduate-programmes/phd/phd-programmes/dynamics). During my PhD, I visited the [LSE Department of Government](https://www.lse.ac.uk/government) for one term (2023). I completed my pre-doctoral studies at the Humboldt-Universität, spent a semester at the [CIDE](https://www.cide.edu) in Mexico City (2017) and have a background in mechanical engineering.
+
+I have co-authored work with [António Valentim](https://antoniovalentim.github.io), [Jan Stuckatz](https://www.janstuckatz.com), [Felix Hartmann](https://hartmannfelix.github.io), [Lukas F. Stoetzer](https://www.lukas-stoetzer.org), and [Heike Klüver](http://www.heike-kluever.com/).
 
 On this website, you can find more information on my research projects and download a copy of my [CV (PDF)](/cv).
 
