@@ -37,12 +37,25 @@ You can find more details about my research under [Research](https://corneliuser
                                         <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
 </td>
 </tr>
+
+<tr>
+<td width="15%" style="border:none">
+  <img src="/files/jelst.jpg" href="https://doi.org/10.1177/20531680231183512">
+
+</td>
+  <td style="border:none">
+    Targeting Voters Online: How Parties’ Campaigns Differ <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
+<i>Electoral Studies</i>, forthcoming <br>
+     
+</td>
+</tr>
+
 </table>
 
                                        
                                         
 ## Working Papers
-
 
 **[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, D&R at Journal of Politics (JOP) 
 
