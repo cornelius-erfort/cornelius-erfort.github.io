@@ -22,6 +22,21 @@ On this website, you can find more information on my research projects and downl
 You can find more details about my research under [Research](https://corneliuserfort.de/research/).
 
 <table style="border:none">
+
+
+<tr>
+<td width="15%" style="border:none">
+  <img src="/files/jelst.jpg" href="https://doi.org/10.1177/20531680231183512">
+
+</td>
+  <td style="border:none">
+    <b>Targeting Voters Online: How Parties’ Campaigns Differ</b> <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
+<i>Electoral Studies</i>, forthcoming <br>
+     
+</td>
+</tr>
+
 <tr>
 <td width="15%" style="border:none">
   <img src="/files/57369_RAP.jpg" href="https://doi.org/10.1177/20531680231183512">
@@ -35,19 +50,6 @@ You can find more details about my research under [Research](https://corneliuser
                                         <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
                                         <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
                                         <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
-</td>
-</tr>
-
-<tr>
-<td width="15%" style="border:none">
-  <img src="/files/jelst.jpg" href="https://doi.org/10.1177/20531680231183512">
-
-</td>
-  <td style="border:none">
-    <b>Targeting Voters Online: How Parties’ Campaigns Differ</b> <br>
-    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
-<i>Electoral Studies</i>, forthcoming <br>
-     
 </td>
 </tr>
 
