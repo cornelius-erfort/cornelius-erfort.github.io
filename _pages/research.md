@@ -32,6 +32,27 @@ author_profile: true
 **Abstract:** We present the newly compiled PARTYPRESS Database which compiles more than 250,000 published press releases from 67 parties in nine European countries. The database covers the press releases of the most relevant political parties starting from 2010 onward. It provides a hand-labeled subset in 21 unique issue categories according to a general codebook. We discuss and evaluate different supervised machine learning approaches to obtain evolving issue agendas of the different parties. We extend a recent analysis in [Gessler & Hunger (2022)](https://doi.org/10.1017/psrm.2021.64) to illustrate the usefulness of our approach in studying dynamic party competition, communication, and behavior.
 </sub>
 
+<table style="border:none">
+
+<tr>
+<td width="15%" style="border:none">
+  <img src="/files/jelst.jpg" href="https://doi.org/10.1177/20531680231183512">
+
+</td>
+  <td style="border:none">
+    Targeting Voters Online: How Parties’ Campaigns Differ <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
+<i>Electoral Studies</i>, forthcoming <br>
+     
+</td>
+</tr>
+</table>
+
+<sub>
+**Abstract:** How do parties target campaign ads online? Despite the growing importance of digital campaigns, only a few recent studies have analyzed whom parties are targeting. Do parties aim to persuade or mobilize voters? This paper analyzes how parties target and how they differ in their use of targeting using a new and comprehensive dataset, matching data from the Facebook Ad Library with EES survey responses. The dataset contains over 100,000 Facebook and Instagram ads from 148 parties for the 2019 European Parliament elections. The results show that smaller and niche parties have targeting strategies more narrowly focused on their supporters, whereas larger parties target a broader audience. My findings have important implications for research on voter targeting and the ongoing debate about the regulation of campaigns online.
+</sub>
+
+
 ## Revise & Resubmit
 
 
@@ -41,12 +62,6 @@ author_profile: true
 **Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
 </sub>
 
-
-2\. **Targeting Voters Online: How Parties’ Target Differ** <br> Electoral Studies <br>
-
-<sub>
-**Abstract:** How do parties target campaign ads online? Despite the growing importance of digital campaigns, only one recent study has analyzed comparatively whom parties are targeting. This paper analyzes how parties target and how they differ in their use of targeting using a new and comprehensive dataset, matching data from the Facebook Ad Library with EES survey responses. The dataset contains over 100,000 Facebook and Instagram ads of 136 parties for the 2019 European Parliament elections. The results show that smaller and niche parties have targeting strategies more narrowly focused on their supporters whereas larger parties target a broader audience. My findings have important implications for research on voter targeting, party competition and the ongoing debate about the regulation of campaigns online. 
-</sub>
 
 ## Under Review
 
