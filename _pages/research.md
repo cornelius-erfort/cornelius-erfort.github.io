@@ -30,16 +30,6 @@ author_profile: true
 </sub>
 
 
-## Revise & Resubmit
-
-
-1\. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>Journal of Politics (JOP) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
-
-<sub>
-**Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
-</sub>
-
-
 <table style="border:none">
 <tr>
 <td width="15%" style="border:none">
@@ -62,6 +52,18 @@ author_profile: true
 <sub>
 **Abstract:** We present the newly compiled PARTYPRESS Database which compiles more than 250,000 published press releases from 67 parties in nine European countries. The database covers the press releases of the most relevant political parties starting from 2010 onward. It provides a hand-labeled subset in 21 unique issue categories according to a general codebook. We discuss and evaluate different supervised machine learning approaches to obtain evolving issue agendas of the different parties. We extend a recent analysis in [Gessler & Hunger (2022)](https://doi.org/10.1017/psrm.2021.64) to illustrate the usefulness of our approach in studying dynamic party competition, communication, and behavior.
 </sub>
+
+
+## Revise & Resubmit
+
+
+1\. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>Journal of Politics (JOP) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+
+<sub>
+**Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
+</sub>
+
+
 
 
 
