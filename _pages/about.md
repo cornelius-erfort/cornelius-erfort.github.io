@@ -28,7 +28,7 @@ You can find more details about my research under [Research](https://corneliuser
 
 </td>
   <td style="border:none">
-    The PARTYPRESS Database <br>
+    <b>The PARTYPRESS Database</b> <br>
     <a href="https://www.corneliuserfort.de">Cornelius Erfort</a>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
 <i>Research and Politics</i>, 2023 <br>
      <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
@@ -44,7 +44,7 @@ You can find more details about my research under [Research](https://corneliuser
 
 </td>
   <td style="border:none">
-    Targeting Voters Online: How Parties’ Campaigns Differ <br>
+    <b>Targeting Voters Online: How Parties’ Campaigns Differ</b> <br>
     <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
 <i>Electoral Studies</i>, forthcoming <br>
      
