@@ -63,7 +63,7 @@ You can find more details about my research under [Research](https://corneliuser
 
 **[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)**, with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/), Under Review
 
-**Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies**, with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
+**Who Becomes a Lobbyist?**, with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) 
 
 **[Parties' issue adaption between elections](https://doi.org/10.31219/osf.io/6n3z4)**,  with [Lukas F. Stoetzer](http://lukas-stoetzer.org/), and [Heike Klüver](http://heike-kluever.com/)
 
