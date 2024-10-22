@@ -40,7 +40,7 @@ You can find more details about my research under [Research](https://corneliuser
 
 <tr>
 <td width="15%" style="border:none">
-  <a href="https://doi.org/10.1177/20531680231183512"><img src="/files/57369_RAP.jpg"</a>
+  <a href="https://doi.org/10.1177/20531680231183512"><img src="/files/57369_RAP.jpg"></a>
 
 </td>
   <td style="border:none">
