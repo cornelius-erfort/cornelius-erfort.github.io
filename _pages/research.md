@@ -13,7 +13,7 @@ author_profile: true
 
 <tr>
 <td width="15%" style="border:none">
-  <img src="/files/jelst.jpg" href="https://doi.org/10.1016/j.electstud.2024.102872">
+  <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
 
 </td>
   <td style="border:none">
@@ -35,7 +35,7 @@ author_profile: true
 <table style="border:none">
 <tr>
 <td width="15%" style="border:none">
-  <img src="/files/57369_RAP.jpg" href="https://doi.org/10.1177/20531680231183512">
+  <a href="https://doi.org/10.1177/20531680231183512"><img src="/files/57369_RAP.jpg"></a>
 
 </td>
   <td style="border:none">
