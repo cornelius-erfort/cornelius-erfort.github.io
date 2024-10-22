@@ -36,10 +36,6 @@ You can find more details about my research under [Research](https://corneliuser
      <a href="https://doi.org/10.1016/j.electstud.2024.102872" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
                                         <a href="https://github.com/cornelius-erfort/targeting-voters-online" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
 </td>
-
-
-     https://doi.org/10.1016/j.electstud.2024.102872
-</td>
 </tr>
 
 <tr>
