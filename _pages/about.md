@@ -26,14 +26,19 @@ You can find more details about my research under [Research](https://corneliuser
 
 <tr>
 <td width="15%" style="border:none">
-  <img src="/files/jelst.jpg" href="https://doi.org/10.1177/20531680231183512">
+  <img src="/files/jelst.jpg" href="https://doi.org/10.1016/j.electstud.2024.102872">
 
 </td>
   <td style="border:none">
     <b>Targeting Voters Online: How Parties’ Campaigns Differ</b> <br>
     <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
-<i>Electoral Studies</i>, forthcoming <br>
-     
+<i>Electoral Studies</i>, 2024 <br>
+     <a href="https://doi.org/10.1016/j.electstud.2024.102872" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
+                                        <a href="https://github.com/cornelius-erfort/targeting-voters-online" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
+</td>
+
+
+     https://doi.org/10.1016/j.electstud.2024.102872
 </td>
 </tr>
 
