@@ -60,7 +60,7 @@ You can find more details about my research under [Research](https://corneliuser
                                         
 ## Working Papers
 
-**[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, D&R at Journal of Politics (JOP) 
+**[Gendered targeting: Do parties tailor their campaign ads to women?](https://osf.io/5vs9b/)**, R&R at Journal of Politics (JOP) 
 
 **[Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants](https://osf.io/jnarh/)**, with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/), Under Review
 
