@@ -410,8 +410,12 @@ td:not(.publication-image-cell) {
 }
 </style>
 
-<script>
-function toggleContent(id) {
+<!-- Add jQuery at the top -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+// Define the function in the global scope
+window.toggleContent = function(id) {
     const allContent = document.querySelectorAll('.pub-content');
     const clickedContent = document.getElementById(id);
     
@@ -431,5 +435,11 @@ function toggleContent(id) {
         clickedContent.classList.add('active');
         clickedContent.style.height = clickedContent.scrollHeight + 'px';
     }
-}
+};
+
+// Make sure the function is available after DOM loads
+$(document).ready(function() {
+    // Re-assign the function to make sure it's available
+    window.toggleContent = window.toggleContent;
+});
 </script>
