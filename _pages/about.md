@@ -10,27 +10,29 @@ redirect_from:
 
 <!-- Place the script at the top of the markdown file -->
 <script type="text/javascript">
-function toggleContent(id) {
-    var allContent = document.getElementsByClassName('pub-content');
-    var clickedContent = document.getElementById(id);
-    
-    // Close all other content sections first
-    for (var i = 0; i < allContent.length; i++) {
-        if (allContent[i].id !== id) {
-            allContent[i].style.height = '0';
-            allContent[i].classList.remove('active');
+(function() {
+    window.toggleContent = function(id) {
+        var allContent = document.getElementsByClassName('pub-content');
+        var clickedContent = document.getElementById(id);
+        
+        // Close all other content sections first
+        for (var i = 0; i < allContent.length; i++) {
+            if (allContent[i].id !== id) {
+                allContent[i].style.height = '0';
+                allContent[i].classList.remove('active');
+            }
         }
-    }
-    
-    // Toggle the clicked content
-    if (clickedContent.classList.contains('active')) {
-        clickedContent.style.height = '0';
-        clickedContent.classList.remove('active');
-    } else {
-        clickedContent.classList.add('active');
-        clickedContent.style.height = clickedContent.scrollHeight + 'px';
-    }
-}
+        
+        // Toggle the clicked content
+        if (clickedContent.classList.contains('active')) {
+            clickedContent.style.height = '0';
+            clickedContent.classList.remove('active');
+        } else {
+            clickedContent.classList.add('active');
+            clickedContent.style.height = clickedContent.scrollHeight + 'px';
+        }
+    };
+})();
 </script>
 
 I am a Postdoc at the [Witten/Herdecke University](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025](https://zweitstimme.org/).
