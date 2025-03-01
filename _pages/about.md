@@ -21,7 +21,6 @@ redirect_from:
             return;
         }
 
-        // Close all other content sections first
         for (var i = 0; i < allContent.length; i++) {
             if (allContent[i].id !== id) {
                 allContent[i].style.height = '0';
@@ -29,7 +28,6 @@ redirect_from:
             }
         }
         
-        // Toggle the clicked content
         if (clickedContent.classList.contains('active')) {
             clickedContent.style.height = '0';
             clickedContent.classList.remove('active');
