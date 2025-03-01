@@ -193,29 +193,43 @@ td:not(.publication-image-cell) {
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Move the toggleContent function inside the event listener
-    window.toggleContent = function(id) {
-        const allContent = document.querySelectorAll('.pub-content');
-        const clickedContent = document.getElementById(id);
-        
-        // Close all other content sections first
-        allContent.forEach(div => {
-            if (div.id !== id) {
-                div.style.height = '0';
-                setTimeout(() => div.classList.remove('active'), 300);
+(function() {
+    function initToggleContent() {
+        window.toggleContent = function(id) {
+            const allContent = document.querySelectorAll('.pub-content');
+            const clickedContent = document.getElementById(id);
+            
+            // Close all other content sections first
+            allContent.forEach(div => {
+                if (div.id !== id) {
+                    div.style.height = '0';
+                    div.classList.remove('active');
+                }
+            });
+            
+            // Toggle the clicked content
+            if (clickedContent.classList.contains('active')) {
+                clickedContent.style.height = '0';
+                clickedContent.classList.remove('active');
+            } else {
+                clickedContent.classList.add('active');
+                clickedContent.style.height = clickedContent.scrollHeight + 'px';
             }
-        });
-        
-        // Toggle the clicked content
-        if (clickedContent.classList.contains('active')) {
-            clickedContent.style.height = '0';
-            setTimeout(() => clickedContent.classList.remove('active'), 300);
-        } else {
-            clickedContent.classList.add('active');
-            clickedContent.style.height = clickedContent.scrollHeight + 'px';
-        }
-    };
-});
+        };
+    }
+
+    // Try to initialize immediately
+    initToggleContent();
+
+    // Also wait for DOMContentLoaded as a fallback
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initToggleContent);
+    }
+
+    // Additional fallback for dynamic loading
+    if (typeof window.toggleContent === 'undefined') {
+        window.addEventListener('load', initToggleContent);
+    }
+})();
 </script>
 
