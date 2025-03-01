@@ -122,10 +122,8 @@ function loadPDF() {
     });
 }
 
-// Initialize PDF viewer
 loadPDF();
 
-// Add keyboard navigation
 document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowLeft') changePage(-1);
     if (e.key === 'ArrowRight') changePage(1);

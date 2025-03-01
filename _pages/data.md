@@ -197,7 +197,6 @@ function toggleContent(id) {
     const allContent = document.querySelectorAll('.pub-content');
     const clickedContent = document.getElementById(id);
     
-    // Close all other content sections first
     allContent.forEach(div => {
         if (div.id !== id) {
             div.style.height = '0';
@@ -205,7 +204,6 @@ function toggleContent(id) {
         }
     });
     
-    // Toggle the clicked content
     if (clickedContent.classList.contains('active')) {
         clickedContent.style.height = '0';
         clickedContent.classList.remove('active');
