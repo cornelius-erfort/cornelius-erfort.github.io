@@ -12,9 +12,15 @@ redirect_from:
 <script type="text/javascript">
 (function() {
     window.toggleContent = function(id) {
+        console.log("Toggling content for ID:", id);
         var allContent = document.getElementsByClassName('pub-content');
         var clickedContent = document.getElementById(id);
         
+        if (!clickedContent) {
+            console.error("No element found with ID:", id);
+            return;
+        }
+
         // Close all other content sections first
         for (var i = 0; i < allContent.length; i++) {
             if (allContent[i].id !== id) {
