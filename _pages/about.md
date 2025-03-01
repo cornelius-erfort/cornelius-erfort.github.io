@@ -8,6 +8,31 @@ redirect_from:
   - /about.html
 ---
 
+<!-- Place the script at the top of the markdown file -->
+<script type="text/javascript">
+function toggleContent(id) {
+    var allContent = document.getElementsByClassName('pub-content');
+    var clickedContent = document.getElementById(id);
+    
+    // Close all other content sections first
+    for (var i = 0; i < allContent.length; i++) {
+        if (allContent[i].id !== id) {
+            allContent[i].style.height = '0';
+            allContent[i].classList.remove('active');
+        }
+    }
+    
+    // Toggle the clicked content
+    if (clickedContent.classList.contains('active')) {
+        clickedContent.style.height = '0';
+        clickedContent.classList.remove('active');
+    } else {
+        clickedContent.classList.add('active');
+        clickedContent.style.height = clickedContent.scrollHeight + 'px';
+    }
+}
+</script>
+
 I am a Postdoc at the [Witten/Herdecke University](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025](https://zweitstimme.org/).
 
 My general interests are in comparative politics and quantitative methods. More specifically, I am working on voter targeting, interest groups, and voting behavior.
@@ -30,10 +55,10 @@ On this website, you can find more information on my research projects and downl
     <span class="author-name">Cornelius Erfort</span> <br>
     <i>The Journal of Politics</i>, forthcoming <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract1">Abstract</button>
-        <button class="pub-button" data-target="bibtex1">BibTeX</button>
-        <button class="pub-button" data-target="preprint1">Preprint</button>
-        <button class="pub-button" data-target="data1">Data</button>
+        <button class="pub-button" onclick="toggleContent('abstract1')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex1')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('preprint1')">Preprint</button>
+        <button class="pub-button" onclick="toggleContent('data1')">Data</button>
     </div>
     
     <div id="abstract1" class="pub-content">
@@ -72,10 +97,10 @@ On this website, you can find more information on my research projects and downl
     <span class="author-name">Cornelius Erfort</span> <br>
     <i>Electoral Studies</i>, 2024 <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract2">Abstract</button>
-        <button class="pub-button" data-target="bibtex2">BibTeX</button>
-        <button class="pub-button" data-target="article2">Article</button>
-        <button class="pub-button" data-target="github2">Github</button>
+        <button class="pub-button" onclick="toggleContent('abstract2')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex2')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article2')">Article</button>
+        <button class="pub-button" onclick="toggleContent('github2')">Github</button>
     </div>
     
     <div id="abstract2" class="pub-content">
@@ -120,12 +145,12 @@ On this website, you can find more information on my research projects and downl
     <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, and <a href="http://www.heike-kluever.com">Heike Klüver</a> <br>
     <i>Research and Politics</i>, 2023 <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract3">Abstract</button>
-        <button class="pub-button" data-target="bibtex3">BibTeX</button>
-        <button class="pub-button" data-target="article3">Article</button>
-        <button class="pub-button" data-target="github3">Github</button>
-        <button class="pub-button" data-target="data3">Data</button>
-        <button class="pub-button" data-target="model3">Model</button>
+        <button class="pub-button" onclick="toggleContent('abstract3')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex3')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article3')">Article</button>
+        <button class="pub-button" onclick="toggleContent('github3')">Github</button>
+        <button class="pub-button" onclick="toggleContent('data3')">Data</button>
+        <button class="pub-button" onclick="toggleContent('model3')">Model</button>
     </div>
     
     <div id="abstract3" class="pub-content">
@@ -182,9 +207,9 @@ On this website, you can find more information on my research projects and downl
     <span class="author-name">Cornelius Erfort</span>, <a href="https://antoniovalentim.github.io">António Valentim</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
     R&R <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract4">Abstract</button>
-        <button class="pub-button" data-target="bibtex4">BibTeX</button>
-        <button class="pub-button" data-target="preprint4">Preprint</button>
+        <button class="pub-button" onclick="toggleContent('abstract4')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex4')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('preprint4')">Preprint</button>
     </div>
     
     <div id="abstract4" class="pub-content">
@@ -215,9 +240,9 @@ On this website, you can find more information on my research projects and downl
     <b>Parties' issue adaption between elections</b> <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="http://lukas-stoetzer.org/">Lukas F. Stoetzer</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract5">Abstract</button>
-        <button class="pub-button" data-target="bibtex5">BibTeX</button>
-        <button class="pub-button" data-target="preprint5">Preprint</button>
+        <button class="pub-button" onclick="toggleContent('abstract5')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex5')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('preprint5')">Preprint</button>
     </div>
     
     <div id="abstract5" class="pub-content">
@@ -247,9 +272,9 @@ On this website, you can find more information on my research projects and downl
     <b>Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data</b> <br>
     <span class="author-name">Cornelius Erfort</span> <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract6">Abstract</button>
-        <button class="pub-button" data-target="bibtex6">BibTeX</button>
-        <button class="pub-button" data-target="preprint6">Preprint</button>
+        <button class="pub-button" onclick="toggleContent('abstract6')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex6')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('preprint6')">Preprint</button>
     </div>
     
     <div id="abstract6" class="pub-content">
@@ -279,8 +304,8 @@ On this website, you can find more information on my research projects and downl
     <b>Who Becomes a Lobbyist?</b> <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="https://www.janstuckatz.com">Jan Stuckatz</a>, <a href="https://hartmannfelix.github.io">Felix Hartmann</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
     <div class="publication-buttons">
-        <button class="pub-button" data-target="abstract7">Abstract</button>
-        <button class="pub-button" data-target="bibtex7">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('abstract7')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex7')">BibTeX</button>
     </div>
     
     <div id="abstract7" class="pub-content">
@@ -409,36 +434,3 @@ td:not(.publication-image-cell) {
     width: auto;
 }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all buttons
-    const buttons = document.querySelectorAll('.pub-button');
-    
-    // Add click event listener to each button
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('data-target');
-            const allContent = document.querySelectorAll('.pub-content');
-            const clickedContent = document.getElementById(targetId);
-            
-            // Close all other content sections first
-            allContent.forEach(div => {
-                if (div.id !== targetId) {
-                    div.style.height = '0';
-                    div.classList.remove('active');
-                }
-            });
-            
-            // Toggle the clicked content
-            if (clickedContent.classList.contains('active')) {
-                clickedContent.style.height = '0';
-                clickedContent.classList.remove('active');
-            } else {
-                clickedContent.classList.add('active');
-                clickedContent.style.height = clickedContent.scrollHeight + 'px';
-            }
-        });
-    });
-});
-</script>
