@@ -413,25 +413,28 @@ td:not(.publication-image-cell) {
 </style>
 
 <script>
-function toggleContent(id) {
-    const allContent = document.querySelectorAll('.pub-content');
-    const clickedContent = document.getElementById(id);
-    
-    // Close all other content sections first
-    allContent.forEach(div => {
-        if (div.id !== id) {
-            div.style.height = '0';
-            setTimeout(() => div.classList.remove('active'), 300);
+document.addEventListener('DOMContentLoaded', function() {
+    // Move the toggleContent function inside the event listener
+    window.toggleContent = function(id) {
+        const allContent = document.querySelectorAll('.pub-content');
+        const clickedContent = document.getElementById(id);
+        
+        // Close all other content sections first
+        allContent.forEach(div => {
+            if (div.id !== id) {
+                div.style.height = '0';
+                setTimeout(() => div.classList.remove('active'), 300);
+            }
+        });
+        
+        // Toggle the clicked content
+        if (clickedContent.classList.contains('active')) {
+            clickedContent.style.height = '0';
+            setTimeout(() => clickedContent.classList.remove('active'), 300);
+        } else {
+            clickedContent.classList.add('active');
+            clickedContent.style.height = clickedContent.scrollHeight + 'px';
         }
-    });
-    
-    // Toggle the clicked content
-    if (clickedContent.classList.contains('active')) {
-        clickedContent.style.height = '0';
-        setTimeout(() => clickedContent.classList.remove('active'), 300);
-    } else {
-        clickedContent.classList.add('active');
-        clickedContent.style.height = clickedContent.scrollHeight + 'px';
-    }
-}
+    };
+});
 </script>

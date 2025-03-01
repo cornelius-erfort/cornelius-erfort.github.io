@@ -118,11 +118,16 @@ author_profile: true
     height: 0;
     overflow: hidden;
     transition: height 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 .pub-content.active {
     display: block;
     height: auto;
     animation: slideDown 0.3s ease;
+}
+.publication-entry {
+    vertical-align: top;
 }
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
@@ -150,29 +155,67 @@ author_profile: true
     background: #e9ecef;
     text-decoration: none;
 }
+
+.author-name {
+    border-bottom: 1px dashed #494e52;
+    padding-bottom: 1px;
+}
+
+.publication-image-cell {
+    width: 120px;
+    min-width: 120px;
+    vertical-align: top;
+}
+
+.publication-image-cell img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Add media query for mobile devices */
+@media screen and (max-width: 768px) {
+    .publication-image-cell {
+        width: 80px;
+        min-width: 80px;
+        padding-right: 15px;
+    }
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+td:not(.publication-image-cell) {
+    width: auto;
+}
 </style>
 
 <script>
-function toggleContent(id) {
-    const allContent = document.querySelectorAll('.pub-content');
-    const clickedContent = document.getElementById(id);
-    
-    // Close all other content sections first
-    allContent.forEach(div => {
-        if (div.id !== id) {
-            div.style.height = '0';
-            setTimeout(() => div.classList.remove('active'), 300);
+document.addEventListener('DOMContentLoaded', function() {
+    // Move the toggleContent function inside the event listener
+    window.toggleContent = function(id) {
+        const allContent = document.querySelectorAll('.pub-content');
+        const clickedContent = document.getElementById(id);
+        
+        // Close all other content sections first
+        allContent.forEach(div => {
+            if (div.id !== id) {
+                div.style.height = '0';
+                setTimeout(() => div.classList.remove('active'), 300);
+            }
+        });
+        
+        // Toggle the clicked content
+        if (clickedContent.classList.contains('active')) {
+            clickedContent.style.height = '0';
+            setTimeout(() => clickedContent.classList.remove('active'), 300);
+        } else {
+            clickedContent.classList.add('active');
+            clickedContent.style.height = clickedContent.scrollHeight + 'px';
         }
-    });
-    
-    // Toggle the clicked content
-    if (clickedContent.classList.contains('active')) {
-        clickedContent.style.height = '0';
-        setTimeout(() => clickedContent.classList.remove('active'), 300);
-    } else {
-        clickedContent.classList.add('active');
-        clickedContent.style.height = clickedContent.scrollHeight + 'px';
-    }
-}
+    };
+});
 </script>
 
