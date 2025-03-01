@@ -7,15 +7,125 @@ author_profile: true
 
 {% include base_path %}
 
+<table style="border:none">
+<tr>
+<td style="border:none">
+    <b>Automated Web Data Collection and Text as Data</b> <br>
+    Undergraduate course, Humboldt-Universität zu Berlin, 2023<br>
+    Lecturer, Summer Semester 2023 <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('materials1')">Materials</button>
+    </div>
+    
+    <div id="materials1" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://github.com/cornelius-erfort/web-data-and-text-r" target="_blank" rel="noopener">View Course Materials on Github →</a>
+        </div>
+    </div>
+</td>
+</tr>
 
-<h3>Automated Web Data Collection and Text as Data</h3>
-Undergraduate course, Humboldt-Universität zu Berlin, 2023 <br>
+<tr>
+<td style="border:none">
+    <b>Comparative Politics and International Relations (Grundkurs)</b> <br>
+    Undergraduate course, Humboldt-Universität zu Berlin, 2022<br>
+    Lecturer, Winter Semester 2022-23
+</td>
+</tr>
+</table>
 
-Lecturer, Automated Web Data Collection and Text as Data, Summer Semester 2023 <br>
+<style>
+.publication-buttons {
+    margin-top: 8px;
+}
+.pub-button, .btn.btn-sm.z-depth-0 {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: #494e52 !important;
+    display: inline-block;
+    font-weight: normal !important;
+    box-shadow: none !important;
+}
+.pub-button:hover, .btn.btn-sm.z-depth-0:hover {
+    background: #e9ecef;
+    text-decoration: none;
+    color: #494e52 !important;
+}
+.pub-button:focus, .btn.btn-sm.z-depth-0:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+.pub-content {
+    display: none;
+    margin: 10px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9em;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+.pub-content.active {
+    display: block;
+    height: auto;
+    animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-<a href="https://github.com/cornelius-erfort/web-data-and-text-r" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
+.external-link-content {
+    margin-top: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+.external-link-content a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #494e52;
+    transition: all 0.2s ease;
+}
+.external-link-content a:hover {
+    background: #e9ecef;
+    text-decoration: none;
+}
+</style>
 
-<h3>Comparative Politics and International Relations (Grundkurs)</h3>
-Undergraduate course, Humboldt-Universität zu Berlin, 2022 <br>
-
-Lecturer, Comparative Politics and International Relations (Grundkurs), Winter Semester 2022-23
+<script>
+function toggleContent(id) {
+    const allContent = document.querySelectorAll('.pub-content');
+    const clickedContent = document.getElementById(id);
+    
+    // Close all other content sections first
+    allContent.forEach(div => {
+        if (div.id !== id) {
+            div.style.height = '0';
+            setTimeout(() => div.classList.remove('active'), 300);
+        }
+    });
+    
+    // Toggle the clicked content
+    if (clickedContent.classList.contains('active')) {
+        clickedContent.style.height = '0';
+        setTimeout(() => clickedContent.classList.remove('active'), 300);
+    } else {
+        clickedContent.classList.add('active');
+        clickedContent.style.height = clickedContent.scrollHeight + 'px';
+    }
+}
+</script>

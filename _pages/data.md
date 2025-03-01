@@ -7,26 +7,172 @@ author_profile: true
 
 {% include base_path %}
 
-## The PARTYPRESS Database
-### A new Comparative Database of Parties’ Press Releases <br>
-with [Lukas F. Stoetzer](http://lukas-stoetzer.org/)  and [Heike Klüver](http://heike-kluever.com/) (Research and Politics, 2023)
+<table style="border:none">
+<tr>
+<td style="border:none">
+    <b>The PARTYPRESS Database: A new Comparative Database of Parties' Press Releases</b> <br>
+    <span class="author-name">Cornelius Erfort</span>, <a href="http://lukas-stoetzer.org/">Lukas F. Stoetzer</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
+    <i>Research and Politics</i>, 2023 <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('description1')">Description</button>
+        <button class="pub-button" onclick="toggleContent('article1')">Article</button>
+        <button class="pub-button" onclick="toggleContent('github1')">Github</button>
+        <button class="pub-button" onclick="toggleContent('data1')">Data</button>
+        <button class="pub-button" onclick="toggleContent('model1')">Model</button>
+    </div>
+    
+    <div id="description1" class="pub-content">
+        This dataset consists of more than 250,000 published press releases from 67 parties in nine European countries. It provides a hand-labeled subset in 21 unique CAP issue categories. It can be used to dynamically measure parties' issue salience.
+    </div>
+    
+    <div id="article1" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://doi.org/10.1177/20531680231183512" target="_blank" rel="noopener">View on Research & Politics →</a>
+        </div>
+    </div>
+    
+    <div id="github1" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://github.com/cornelius-erfort/partypress" target="_blank" rel="noopener">View Code Repository →</a>
+        </div>
+    </div>
+    
+    <div id="data1" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://doi.org/10.7910/DVN/OINX7Q" target="_blank" rel="noopener">View on Dataverse →</a>
+        </div>
+    </div>
+    
+    <div id="model1" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://huggingface.co/partypress/partypress-multilingual" target="_blank" rel="noopener">View on Hugging Face →</a>
+        </div>
+    </div>
+</td>
+</tr>
 
- <a href="https://doi.org/10.1177/20531680231183512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
-                                        <a href="https://github.com/cornelius-erfort/partypress" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github</a>
-                                        <a href="https://doi.org/10.7910/DVN/OINX7Q" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Dataverse</a>
-                                        <a href="https://huggingface.co/partypress/partypress-multilingual" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Hugging Face</a>
+<tr>
+<td style="border:none">
+    <b>Election Dataset Germany 1953-2021 and 1953-2017: County-level results made comparable over time using geodata and areal weighted interpolation</b> <br>
+    <span class="author-name">Cornelius Erfort</span> <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('description2')">Description</button>
+        <button class="pub-button" onclick="toggleContent('github2017')">Github 2017</button>
+        <button class="pub-button" onclick="toggleContent('github2021')">Github 2021</button>
+    </div>
+    
+    <div id="description2" class="pub-content">
+        This repository provides historic, comparable county-level election results for West Germany since 1953 in the borders of 2017 and 2021 counties. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. The final dataset contains estimates for the vote share of all major parties for each election from 1953-2017/2021 (within the boundaries of the 2017/2021 counties) obtained from areal weighted interpolation.
+    </div>
+    
+    <div id="github2017" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://github.com/cornelius-erfort/germany-53-17-districts" target="_blank" rel="noopener">View 2017 Repository →</a>
+        </div>
+    </div>
+    
+    <div id="github2021" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://github.com/cornelius-erfort/germany-53-21-districts" target="_blank" rel="noopener">View 2021 Repository →</a>
+        </div>
+    </div>
+</td>
+</tr>
+</table>
 
-<sub>
-**Description:** This dataset consists of more than 250,000 published press releases from 67 parties in nine European countries. It provides a hand-labeled subset in 21 unique CAP issue categories. It can be used to dynamically measure parties' issue salience.
-</sub>
+<style>
+.publication-buttons {
+    margin-top: 8px;
+}
+.pub-button, .btn.btn-sm.z-depth-0 {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: #494e52 !important;
+    display: inline-block;
+    font-weight: normal !important;
+    box-shadow: none !important;
+}
+.pub-button:hover, .btn.btn-sm.z-depth-0:hover {
+    background: #e9ecef;
+    text-decoration: none;
+    color: #494e52 !important;
+}
+.pub-button:focus, .btn.btn-sm.z-depth-0:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+.pub-content {
+    display: none;
+    margin: 10px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9em;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+.pub-content.active {
+    display: block;
+    height: auto;
+    animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
+.external-link-content {
+    margin-top: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+.external-link-content a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #494e52;
+    transition: all 0.2s ease;
+}
+.external-link-content a:hover {
+    background: #e9ecef;
+    text-decoration: none;
+}
+</style>
 
-## Election Dataset Germany 1953-2021 and 1953-2017
-### County-level results made comparable over time using geodata and areal weighted interpolation
-
-<a href="https://github.com/cornelius-erfort/germany-53-17-districts" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github 2017</a> <a href="https://github.com/cornelius-erfort/germany-53-21-districts" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Github 2021</a> 
-
-<sub>
-**Description:** This repository provides historic, comparable county-level election results for West Germany since 1953 in the borders of 2017 and 2021 counties. These can be easily merged with other historic data on the county level using offical county ID numbers (AGS, Allgemeiner Gemeindeschlüssel) that are also provided. The final dataset contains estimates for the vote share of all major parties for each election from 1953-2017/2021  (within the boundaries of the 2017/2021 counties) obtained from areal weighted interpolation. 
-</sub>
+<script>
+function toggleContent(id) {
+    const allContent = document.querySelectorAll('.pub-content');
+    const clickedContent = document.getElementById(id);
+    
+    // Close all other content sections first
+    allContent.forEach(div => {
+        if (div.id !== id) {
+            div.style.height = '0';
+            setTimeout(() => div.classList.remove('active'), 300);
+        }
+    });
+    
+    // Toggle the clicked content
+    if (clickedContent.classList.contains('active')) {
+        clickedContent.style.height = '0';
+        setTimeout(() => clickedContent.classList.remove('active'), 300);
+    } else {
+        clickedContent.classList.add('active');
+        clickedContent.style.height = clickedContent.scrollHeight + 'px';
+    }
+}
+</script>
 
