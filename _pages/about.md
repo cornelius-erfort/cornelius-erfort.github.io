@@ -76,7 +76,7 @@ On this website, you can find more information on my research projects and downl
   title = {Gendered targeting: {Do} parties tailor their campaign ads to women?},
   author = {Erfort, Cornelius},
   year = {forthcoming},
-  note = {The Journal of Politics}
+  journal = {The Journal of Politics}
 }</pre>
     </div>
     
