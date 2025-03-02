@@ -72,7 +72,7 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex1" class="pub-content">
-        <pre>@unpublished{erfort_2024_gendered,
+        <pre>@article{erfort_2024_gendered,
   title = {Gendered targeting: {Do} parties tailor their campaign ads to women?},
   author = {Erfort, Cornelius},
   year = {forthcoming},
