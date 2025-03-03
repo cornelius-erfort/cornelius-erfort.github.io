@@ -84,7 +84,6 @@ function renderPage(pageNum) {
         var canvas = document.getElementById('cvCanvas');
         var context = canvas.getContext('2d');
         
-        // A4 aspect ratio is 1:1.4142
         var desiredWidth = canvas.parentElement.clientWidth;
         var viewport = page.getViewport({scale: 1.0});
         var scale = desiredWidth / viewport.width;
@@ -105,7 +104,6 @@ function changePage(offset) {
     document.getElementById('page-num').textContent = currentPage;
     renderPage(currentPage);
     
-    // Update button states
     document.getElementById('prev').disabled = currentPage <= 1;
     document.getElementById('next').disabled = currentPage >= pdfDoc.numPages;
 }
