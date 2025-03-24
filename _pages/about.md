@@ -404,39 +404,39 @@ On this website, you can find more information on my research projects and downl
 
 ## Media
 
-<div class="media-grid" id="media-grid" markdown=0>
-  <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" class="media-item" target="_blank" rel="noopener noreferrer">
-    <div class="media-content">
-      <h3>The Guardian</h3>
-      <p>"The far right wants us to play by their rules: Can German Greens survive 'witch-hunt'?"</p>
-      <span class="media-date">February 12, 2025</span>
-    </div>
-  </a>
+<table style="border:none">
+<tr>
+<td style="border:none">
+    <b>The Guardian</b> <br>
+    <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" target="_blank" rel="noopener noreferrer">"The far right wants us to play by their rules: Can German Greens survive 'witch-hunt'?"</a> <br>
+    <span class="media-date">February 12, 2025</span>
+</td>
+</tr>
 
-  <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" class="media-item" target="_blank" rel="noopener noreferrer">
-    <div class="media-content">
-      <h3>The Economist</h3>
-      <p>"Who is ahead in the race for Germany's next parliament?"</p>
-      <span class="media-date">January 28, 2025</span>
-    </div>
-  </a>
+<tr>
+<td style="border:none">
+    <b>The Economist</b> <br>
+    <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" target="_blank" rel="noopener noreferrer">"Who is ahead in the race for Germany's next parliament?"</a> <br>
+    <span class="media-date">January 28, 2025</span>
+</td>
+</tr>
 
-  <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" class="media-item" target="_blank" rel="noopener noreferrer">
-    <div class="media-content">
-      <h3>ZEIT ONLINE</h3>
-      <p>"Friedrich Merz: Das wären seine Koalitionen"</p>
-      <span class="media-date">February 4, 2025</span>
-    </div>
-  </a>
+<tr>
+<td style="border:none">
+    <b>ZEIT ONLINE</b> <br>
+    <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" target="_blank" rel="noopener noreferrer">"Friedrich Merz: Das wären seine Koalitionen"</a> <br>
+    <span class="media-date">February 4, 2025</span>
+</td>
+</tr>
 
-  <a href="https://www.abendzeitung-muenchen.de/muenchen/welche-folgen-hat-das-neue-wahlrecht-fuer-muenchen-art-1033918" class="media-item" target="_blank" rel="noopener noreferrer">
-    <div class="media-content">
-      <h3>Abendzeitung München</h3>
-      <p>"Wahlrechtsreform und CSU: Wer in München um das Direktmandat kämpft"</p>
-      <span class="media-date">January 27, 2025</span>
-    </div>
-  </a>
-</div>
+<tr>
+<td style="border:none">
+    <b>Abendzeitung München</b> <br>
+    <a href="https://www.abendzeitung-muenchen.de/muenchen/welche-folgen-hat-das-neue-wahlrecht-fuer-muenchen-art-1033918" target="_blank" rel="noopener noreferrer">"Wahlrechtsreform und CSU: Wer in München um das Direktmandat kämpft"</a> <br>
+    <span class="media-date">January 27, 2025</span>
+</td>
+</tr>
+</table>
 
 <style>
 .publication-buttons {
@@ -598,5 +598,15 @@ td:not(.publication-image-cell) {
   .media-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Remove the old media grid styles and add new media styles */
+.media-date {
+    color: #999;
+    font-size: 0.85em;
+}
+
+table td {
+    padding: 10px 0;
 }
 </style>
