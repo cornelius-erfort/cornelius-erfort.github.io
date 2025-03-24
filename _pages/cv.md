@@ -14,7 +14,7 @@ redirect_from:
 .cv-container {
     margin: 20px 0;
     max-width: 595px; /* A4 width at 72dpi */
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
 }
 .pdf-viewer {
@@ -89,7 +89,7 @@ function renderPage(pageNum) {
         var scale = desiredWidth / viewport.width;
         viewport = page.getViewport({scale: scale});
         
-        canvas.height = viewport.width * 1.4142; // A4 ratio
+        canvas.height = viewport.width * 1.4142;
         canvas.width = viewport.width;
         
         page.render({
