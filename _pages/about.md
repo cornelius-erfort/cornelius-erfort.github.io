@@ -539,6 +539,7 @@ On this website, you can find more information on my research projects and downl
     width: 120px;
     min-width: 120px;
     vertical-align: top;
+    padding-right: 20px;
 }
 
 .publication-image-cell img {
