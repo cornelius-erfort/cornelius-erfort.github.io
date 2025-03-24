@@ -13,11 +13,49 @@ author_profile: true
 
 <tr>
 <td width="15%" style="border:none">
+  <a href="https://osf.io/5vs9b/"><img src="/files/jop.jpeg"></a>
+</td>
+  <td style="border:none">
+    <b>Gendered targeting: Do parties tailor their campaign ads to women?</b> <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
+<i>The Journal of Politics</i>, forthcoming <br>
+     <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
+                                        <a href="https://doi.org/10.7910/DVN/WLKM8J" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Data</a>
+</td>
+</tr>
+</table>
+
+<sub>
+**Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 151 parties during the 2019 European Parliament election. Large-scale computational vision identifies the audience-specific tailoring of ads targeted for female audiences in parties' social media ad images and videos. The results show that parties tailor the content of their ads to women. The findings are important because they uncover gendered strategies in parties' campaign communication which have important implications for political representation and opinion formation.
+</sub>
+
+<table style="border:none">
+<tr>
+<td width="15%" style="border:none">
+  <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D"><img src="/files/ps.jpg"></a>
+</td>
+  <td style="border:none">
+    <b>The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts</b> <br>
+    <a href="https://www.corneliuserfort.de">Cornelius Erfort</a>, Lukas F. Stoetzer, Thomas Gschwend, Elias Koch, Simon Munzert, and Hannah Rajski <br>
+<i>PS: Political Science & Politics</i>, 2025 <br>
+     <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
+</td>
+</tr>
+</table>
+
+<sub>
+**Abstract:** In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and "vacant districts" under the recent electoral reforms.
+</sub>
+
+<table style="border:none">
+
+<tr>
+<td width="15%" style="border:none">
   <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
 
 </td>
   <td style="border:none">
-    <b>Targeting Voters Online: How Parties’ Campaigns Differ</b> <br>
+    <b>Targeting Voters Online: How Parties' Campaigns Differ</b> <br>
     <a href="https://www.corneliuserfort.de">Cornelius Erfort</a> <br>
 <i>Electoral Studies</i>, 2024 <br>
      <a href="https://doi.org/10.1016/j.electstud.2024.102872" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Article</a>
@@ -62,7 +100,7 @@ author_profile: true
 1\. **Gendered targeting: Do parties tailor their campaign ads to women?** <br>Journal of Politics (JOP) <br> <a href="https://osf.io/5vs9b/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
-**Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties’ campaign communication which have important implications for political representation and opinion formation.
+**Abstract:** Are parties communicating differently to women? A growing literature documents gender differences in the political behavior of both voters and politicians, and suggests that this can help or hurt parties electorally. We still know little, however, about whether and how parties adapt their campaign strategies and differentiate their communication accordingly. I analyze how parties strategically vary their communication in ads targeting women using a new comprehensive dataset of over 60,000 Facebook and Instagram ads from 146 parties during the 2019 European Parliament election. Large-scale computational vision identifies the tailoring of ads to female audiences in parties' social media ads. The results show that parties not only strategically target women, but that they also tailor the content of ads to women. The findings are important because they uncover gendered strategies in parties' campaign communication which have important implications for political representation and opinion formation.
 </sub>
 
 
@@ -74,7 +112,7 @@ author_profile: true
 1\. **Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants** <br>with [António Valentim](https://antoniovalentim.github.io), and [Heike Klüver](http://heike-kluever.com/) <br> <a href="https://doi.org/10.31219/osf.io/jnarh" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Preprint</a>
 
 <sub>
-**Abstract:** How can governments ensure voters’ support for unpopular policies? Policymakers often have to implement policies that are unpopular in local communities, such as the construction of windmills or nuclear power plants. However, little is known about how policymakers can increase local support. We argue that perceived economic benefits increase support for otherwise unpopular policies. We test our argument by studying the consequences of nuclear power plants on support for the Green Party in Germany, a strong opponent of nuclear energy. We collected a novel dataset on the geographic location of nuclear plants and voting records since the 1980s. Using difference-in-differences and instrumental variable designs, we find that the opening of nuclear power plants has a negative effect on the vote share of the Greens. Additional individual-level panel analyses suggest that this effect is driven by economic considerations. Overall, these results are relevant for the study of energy transitions and the design of unpopular policies more generally.
+**Abstract:** How can governments ensure voters' support for unpopular policies? Policymakers often have to implement policies that are unpopular in local communities, such as the construction of windmills or nuclear power plants. However, little is known about how policymakers can increase local support. We argue that perceived economic benefits increase support for otherwise unpopular policies. We test our argument by studying the consequences of nuclear power plants on support for the Green Party in Germany, a strong opponent of nuclear energy. We collected a novel dataset on the geographic location of nuclear plants and voting records since the 1980s. Using difference-in-differences and instrumental variable designs, we find that the opening of nuclear power plants has a negative effect on the vote share of the Greens. Additional individual-level panel analyses suggest that this effect is driven by economic considerations. Overall, these results are relevant for the study of energy transitions and the design of unpopular policies more generally.
 </sub>
 
 ## Working Papers
@@ -90,7 +128,7 @@ author_profile: true
 </sub>
 
 
-2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists’ Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) <br> 
+2\. **Who Becomes a Lobbyist? Evidence from German Lobbyists' Biographies** <br> with [Jan Stuckatz](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/jaegb), [Felix Hartmann](https://www.cbs.dk/en/research/departments-and-centres/department-of-international-economics-government-and-business/staff/fehaegb), and [Heike Klüver](http://heike-kluever.com/) <br> 
 
 <sub>
 **Abstract:** Who represents the diverse interests of interest groups in parliament? Lobbyists crucially inform the legislative process, yet our knowledge about who these lobbyists are is based almost exclusively on evidence from the US. However, we argue that incentives to become, but also recruit professional lobbyists  importantly differ with the institutional context like the electoral system, transparency rules and decision-making competences. We therefore address this important gap by shedding light on the selection of lobbyists in Germany. We combine data from the newly established lobby register of the German Bundestag with comprehensive biographical data that we scraped from the LinkedIn pages of more than 7,000 registered lobbyists. We map typical career trajectories using sequence analyses to shed light on the characteristics of lobbyists. We furthermore investigate the role of networks, partisan affiliation and factual expertise. Our findings have important implications for our understanding of lobbying and political representation.
