@@ -36,6 +36,19 @@ redirect_from:
             clickedContent.style.height = clickedContent.scrollHeight + 'px';
         }
     };
+
+    window.downloadBibtex = function(id) {
+        var bibtexContent = document.getElementById(id).querySelector('pre').textContent;
+        var blob = new Blob([bibtexContent], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'citation.bib';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
 })();
 </script>
 
@@ -72,12 +85,15 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex1" class="pub-content">
-        <pre>@article{erfort_2024_gendered,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_2024_gendered,
   title = {Gendered targeting: {Do} parties tailor their campaign ads to women?},
   author = {Erfort, Cornelius},
   year = {forthcoming},
   journal = {The Journal of Politics}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex1')">Download</button>
+        </div>
     </div>
     
     <div id="preprint1" class="pub-content">
@@ -109,17 +125,20 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="abstract8" class="pub-content">
-        In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and “vacant districts” under the recent electoral reforms.
+        In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and "vacant districts" under the recent electoral reforms.
     </div>
     
     <div id="bibtex8" class="pub-content">
-        <pre>@article{Erfort_Stoetzer_Gschwend_Koch_Munzert_Rajski_2025, 
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{Erfort_Stoetzer_Gschwend_Koch_Munzert_Rajski_2025, 
         title={The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts}, DOI={10.1017/S1049096525000150}, 
         journal={PS: Political Science &#38; Politics}, 
         author={Erfort, Cornelius and Stoetzer, Lukas F. and Gschwend, Thomas and Koch, Elias and Munzert, Simon and Rajski, Hannah}, 
         year={2025}, 
         pages={1–12}}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex8')">Download</button>
+        </div>
     </div>
     
     <div id="article8" class="pub-content">
@@ -150,7 +169,8 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex2" class="pub-content">
-        <pre>@article{erfort_2024,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_2024,
   title = {Targeting voters online: How parties' campaigns differ},
   journal = {Electoral Studies},
   volume = {92},
@@ -162,6 +182,8 @@ On this website, you can find more information on my research projects and downl
   author = {Cornelius Erfort},
   keywords = {Voter targeting, Party competition, Electoral campaigns, Political behavior}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex2')">Download</button>
+        </div>
     </div>
     
     <div id="article2" class="pub-content">
@@ -200,7 +222,8 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex3" class="pub-content">
-        <pre>@article{erfort_2023,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_2023,
   title = {The PARTYPRESS Database: A new comparative database of parties' press releases},
   author = {Erfort, Cornelius and Stoetzer, Lukas F and Klüver, Heike},
   journal = {Research \& Politics},
@@ -211,6 +234,8 @@ On this website, you can find more information on my research projects and downl
   doi = {10.1177/20531680231183512},
   url = {https://doi.org/10.1177/20531680231183512}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex3')">Download</button>
+        </div>
     </div>
     
     <div id="article3" class="pub-content">
