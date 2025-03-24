@@ -87,7 +87,7 @@ function renderPage(pageNum) {
         var containerWidth = canvas.parentElement.clientWidth;
         var viewport = page.getViewport({scale: 1.0});
         
-        var desiredDPI = 150; // Higher DPI for better quality
+        var desiredDPI = 150;
         var scale = (containerWidth / viewport.width) * (desiredDPI / 72); 
         
         viewport = page.getViewport({scale: scale});
