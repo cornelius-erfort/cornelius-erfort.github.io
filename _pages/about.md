@@ -407,6 +407,22 @@ On this website, you can find more information on my research projects and downl
 <table style="border:none">
 <tr>
 <td style="border:none">
+    <b>POLITICO</b> <br>
+    <a href="https://www.politico.eu/article/schwerin-city-expose-germany-deep-migration-divide/" target="_blank" rel="noopener noreferrer">"The city that exposes Germany's deep migration divide"</a> <br>
+    <span class="media-date">February 18, 2025</span>
+</td>
+</tr>
+
+<tr>
+<td style="border:none">
+    <b>Tagesspiegel</b> <br>
+    <a href="https://www.tagesspiegel.de/potsdam/brandenburg/erst-und-zweitstimme-taktisch-wahlen-und-co-wie-viel-einfluss-hat-der-brandenburger-wahler-13221547.html" target="_blank" rel="noopener noreferrer">"Mit der Erst- und Zweitstimme taktisch wählen: Wie viel Einfluss hat der Brandenburger Wähler?"</a> <br>
+    <span class="media-date">February 21, 2025</span>
+</td>
+</tr>
+
+<tr>
+<td style="border:none">
     <b>The Guardian</b> <br>
     <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" target="_blank" rel="noopener noreferrer">"The far right wants us to play by their rules: Can German Greens survive 'witch-hunt'?"</a> <br>
     <span class="media-date">February 12, 2025</span>
@@ -415,17 +431,17 @@ On this website, you can find more information on my research projects and downl
 
 <tr>
 <td style="border:none">
-    <b>The Economist</b> <br>
-    <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" target="_blank" rel="noopener noreferrer">"Who is ahead in the race for Germany's next parliament?"</a> <br>
-    <span class="media-date">January 28, 2025</span>
+    <b>ZEIT ONLINE</b> <br>
+    <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" target="_blank" rel="noopener noreferrer">"Friedrich Merz: Das wären seine Koalitionen"</a> <br>
+    <span class="media-date">February 4, 2025</span>
 </td>
 </tr>
 
 <tr>
 <td style="border:none">
-    <b>ZEIT ONLINE</b> <br>
-    <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" target="_blank" rel="noopener noreferrer">"Friedrich Merz: Das wären seine Koalitionen"</a> <br>
-    <span class="media-date">February 4, 2025</span>
+    <b>The Economist</b> <br>
+    <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" target="_blank" rel="noopener noreferrer">"Who is ahead in the race for Germany's next parliament?"</a> <br>
+    <span class="media-date">January 28, 2025</span>
 </td>
 </tr>
 
