@@ -84,17 +84,25 @@ function renderPage(pageNum) {
         var canvas = document.getElementById('cvCanvas');
         var context = canvas.getContext('2d');
         
-        var desiredWidth = canvas.parentElement.clientWidth;
+        var containerWidth = canvas.parentElement.clientWidth;
         var viewport = page.getViewport({scale: 1.0});
-        var scale = desiredWidth / viewport.width;
+        
+        var desiredDPI = 150; // Higher DPI for better quality
+        var scale = (containerWidth / viewport.width) * (desiredDPI / 72); 
+        
         viewport = page.getViewport({scale: scale});
         
-        canvas.height = viewport.width * 1.4142;
         canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = 'high';
         
         page.render({
             canvasContext: context,
-            viewport: viewport
+            viewport: viewport,
+            renderInteractiveForms: false,
+            background: 'white'
         });
     });
 }
