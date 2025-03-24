@@ -284,7 +284,8 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex4" class="pub-content">
-        <pre>@unpublished{erfort_valentim_kluver_2024,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@unpublished{erfort_valentim_kluver_2024,
   title = {Buying Voter Support for Unpopular Policies: {Evidence} from {German} Nuclear Power Plants},
   author = {Erfort, Cornelius and Valentim, António and Klüver, Heike},
   year = {2024},
@@ -292,6 +293,8 @@ On this website, you can find more information on my research projects and downl
   doi = {10.31219/osf.io/jnarh},
   url = {https://osf.io/jnarh}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex4')">Download</button>
+        </div>
     </div>
     
     <div id="preprint4" class="pub-content">
@@ -317,13 +320,16 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex5" class="pub-content">
-        <pre>@unpublished{erfort_stoetzer_kluver_2024,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@unpublished{erfort_stoetzer_kluver_2024,
   title = {Parties' issue adaption between elections},
   author = {Erfort, Cornelius and Stoetzer, Lukas F. and Klüver, Heike},
   year = {2024},
   doi = {10.31219/osf.io/6n3z4},
   url = {https://doi.org/10.31219/osf.io/6n3z4}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex5')">Download</button>
+        </div>
     </div>
     
     <div id="preprint5" class="pub-content">
@@ -349,13 +355,16 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex6" class="pub-content">
-        <pre>@unpublished{erfort_2024_measuring,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@unpublished{erfort_2024_measuring,
   title = {Measuring protest through news articles: {A} validation approach for manual and semi-supervised methods using government data},
   author = {Erfort, Cornelius},
   year = {2024},
   doi = {10.31219/osf.io/g9t8y},
   url = {https://osf.io/g9t8y}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex6')">Download</button>
+        </div>
     </div>
     
     <div id="preprint6" class="pub-content">
@@ -380,11 +389,14 @@ On this website, you can find more information on my research projects and downl
     </div>
     
     <div id="bibtex7" class="pub-content">
-        <pre>@unpublished{erfort_stuckatz_hartmann_kluver_2024,
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@unpublished{erfort_stuckatz_hartmann_kluver_2024,
   title = {Who Becomes a Lobbyist?},
   author = {Erfort, Cornelius and Stuckatz, Jan and Hartmann, Felix and Klüver, Heike},
   year = {2024}
 }</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex7')">Download</button>
+        </div>
     </div>
 </td>
 </tr>
