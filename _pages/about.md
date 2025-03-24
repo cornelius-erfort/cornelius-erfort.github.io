@@ -402,6 +402,42 @@ On this website, you can find more information on my research projects and downl
 </tr>
 </table>
 
+## Media
+
+<div class="media-grid" id="media-grid">
+  <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" class="media-item" target="_blank" rel="noopener noreferrer">
+    <div class="media-content">
+      <h3>The Guardian</h3>
+      <p>"The far right wants us to play by their rules: Can German Greens survive 'witch-hunt'?"</p>
+      <span class="media-date">February 12, 2025</span>
+    </div>
+  </a>
+
+  <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" class="media-item" target="_blank" rel="noopener noreferrer">
+    <div class="media-content">
+      <h3>The Economist</h3>
+      <p>"Who is ahead in the race for Germany's next parliament?"</p>
+      <span class="media-date">January 28, 2025</span>
+    </div>
+  </a>
+
+  <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" class="media-item" target="_blank" rel="noopener noreferrer">
+    <div class="media-content">
+      <h3>ZEIT ONLINE</h3>
+      <p>"Friedrich Merz: Das wären seine Koalitionen"</p>
+      <span class="media-date">February 4, 2025</span>
+    </div>
+  </a>
+
+  <a href="https://www.abendzeitung-muenchen.de/muenchen/welche-folgen-hat-das-neue-wahlrecht-fuer-muenchen-art-1033918" class="media-item" target="_blank" rel="noopener noreferrer">
+    <div class="media-content">
+      <h3>Abendzeitung München</h3>
+      <p>"Wahlrechtsreform und CSU: Wer in München um das Direktmandat kämpft"</p>
+      <span class="media-date">January 27, 2025</span>
+    </div>
+  </a>
+</div>
+
 <style>
 .publication-buttons {
     margin-top: 8px;
@@ -511,5 +547,56 @@ table {
 
 td:not(.publication-image-cell) {
     width: auto;
+}
+
+/* Media Grid Styles */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.media-item {
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.media-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.media-content {
+  padding: 20px;
+}
+
+.media-content h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.media-content p {
+  margin: 0 0 10px 0;
+  color: #666;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.media-date {
+  color: #999;
+  font-size: 0.85em;
+}
+
+@media screen and (max-width: 768px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
