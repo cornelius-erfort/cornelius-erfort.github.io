@@ -96,6 +96,42 @@ On this website, you can find more information on my research projects and downl
 
 <tr>
 <td class="publication-image-cell" style="border:none">
+  <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D"><img src="/files/ps.jpg"></a>
+</td>
+<td style="border:none">
+    <b>The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts</b> <br>
+    <span class="author-name">Cornelius Erfort</span>, Lukas F. Stoetzer, Thomas Gschwend, Elias Koch, Simon Munzert, and Hannah Rajski <br>
+    <i>PS: Political Science & Politics</i>, 2025 <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('abstract8')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex8')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article8')">Article</button>
+    </div>
+    
+    <div id="abstract8" class="pub-content">
+        In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and “vacant districts” under the recent electoral reforms.
+    </div>
+    
+    <div id="bibtex8" class="pub-content">
+        <pre>@article{Erfort_Stoetzer_Gschwend_Koch_Munzert_Rajski_2025, 
+        title={The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts}, DOI={10.1017/S1049096525000150}, 
+        journal={PS: Political Science &#38; Politics}, 
+        author={Erfort, Cornelius and Stoetzer, Lukas F. and Gschwend, Thomas and Koch, Elias and Munzert, Simon and Rajski, Hannah}, 
+        year={2025}, 
+        pages={1–12}}
+}</pre>
+    </div>
+    
+    <div id="article8" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" target="_blank" rel="noopener">View on Cambridge Core →</a>
+        </div>
+    </div>
+</td>
+</tr>
+
+<tr>
+<td class="publication-image-cell" style="border:none">
   <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
 </td>
 <td style="border:none">
