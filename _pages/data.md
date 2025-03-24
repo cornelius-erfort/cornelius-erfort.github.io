@@ -7,6 +7,23 @@ author_profile: true
 
 {% include base_path %}
 
+<script type="text/javascript">
+(function() {
+    window.downloadBibtex = function(id) {
+        var bibtexContent = document.getElementById(id).querySelector('pre').textContent;
+        var blob = new Blob([bibtexContent], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'citation.bib';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+})();
+</script>
+
 <table style="border:none">
 <tr>
 <td style="border:none">
@@ -19,6 +36,7 @@ author_profile: true
         <button class="pub-button" onclick="toggleContent('github1')">Github</button>
         <button class="pub-button" onclick="toggleContent('data1')">Data</button>
         <button class="pub-button" onclick="toggleContent('model1')">Model</button>
+        <button class="pub-button" onclick="toggleContent('bibtex1')">BibTeX</button>
     </div>
     
     <div id="description1" class="pub-content">
@@ -48,6 +66,24 @@ author_profile: true
             <a href="https://huggingface.co/partypress/partypress-multilingual" target="_blank" rel="noopener">View on Hugging Face →</a>
         </div>
     </div>
+
+    <div id="bibtex1" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_2023,
+  title = {The PARTYPRESS Database: A new comparative database of parties' press releases},
+  author = {Erfort, Cornelius and Stoetzer, Lukas F and Kl{\"u}ver, Heike},
+  journal = {Research \& Politics},
+  volume = {10},
+  number = {3},
+  pages = {20531680231183512},
+  year = {2023},
+  doi = {10.1177/20531680231183512},
+  url = {https://doi.org/10.1177/20531680231183512}
+}
+</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex1')">Download</button>
+        </div>
+    </div>
 </td>
 </tr>
 
@@ -59,6 +95,7 @@ author_profile: true
         <button class="pub-button" onclick="toggleContent('description2')">Description</button>
         <button class="pub-button" onclick="toggleContent('github2017')">Github 2017</button>
         <button class="pub-button" onclick="toggleContent('github2021')">Github 2021</button>
+        <button class="pub-button" onclick="toggleContent('bibtex2')">BibTeX</button>
     </div>
     
     <div id="description2" class="pub-content">
@@ -74,6 +111,20 @@ author_profile: true
     <div id="github2021" class="pub-content">
         <div class="external-link-content">
             <a href="https://github.com/cornelius-erfort/germany-53-21-districts" target="_blank" rel="noopener">View 2021 Repository →</a>
+        </div>
+    </div>
+
+    <div id="bibtex2" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@dataset{erfort_2023_election,
+  title = {Election Dataset {Germany} 1953-2021 and 1953-2017: County-level results made comparable over time using geodata and areal weighted interpolation},
+  author = {Erfort, Cornelius},
+  year = {2023},
+  publisher = {GitHub},
+  url = {https://github.com/cornelius-erfort/germany-53-21-districts},
+  note = {Version 1.0}
+}</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex2')">Download</button>
         </div>
     </div>
 </td>
