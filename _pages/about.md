@@ -404,7 +404,7 @@ On this website, you can find more information on my research projects and downl
 
 ## Media
 
-<div class="media-grid" id="media-grid">
+<div class="media-grid" id="media-grid" markdown=0>
   <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" class="media-item" target="_blank" rel="noopener noreferrer">
     <div class="media-content">
       <h3>The Guardian</h3>
