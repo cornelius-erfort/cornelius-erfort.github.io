@@ -72,7 +72,7 @@ On this website, you can find more information on my research projects and downl
 <td style="border:none">
     <b>Gendered targeting: Do parties tailor their campaign ads to women?</b> <br>
     <span class="author-name">Cornelius Erfort</span> <br>
-    <i>The Journal of Politics</i>, forthcoming <br>
+    <i>The Journal of Politics</i>, conditionally accepted <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract1')">Abstract</button>
         <button class="pub-button" onclick="toggleContent('bibtex1')">BibTeX</button>
@@ -89,7 +89,7 @@ On this website, you can find more information on my research projects and downl
             <pre>@article{erfort_2024_gendered,
   title = {Gendered targeting: {Do} parties tailor their campaign ads to women?},
   author = {Erfort, Cornelius},
-  year = {forthcoming},
+  year = {conditionally accepted},
   journal = {The Journal of Politics}
 }</pre>
             <button class="pub-button" onclick="downloadBibtex('bibtex1')">Download</button>
