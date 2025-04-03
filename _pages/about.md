@@ -86,11 +86,14 @@ On this website, you can find more information on my research projects and downl
     
     <div id="bibtex1" class="pub-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@article{erfort_2024_gendered,
-  title = {Gendered targeting: {Do} parties tailor their campaign ads to women?},
-  author = {Erfort, Cornelius},
-  year = {forthcoming},
-  journal = {The Journal of Politics}
+            <pre>@article{erfort_2025,
+author = {Erfort, Cornelius},
+title = {Gendered targeting: Do parties tailor their campaign ads to women?},
+journal = {The Journal of Politics},
+year = {forthcoming},
+doi = {10.1086/736027},
+URL = {https://doi.org/10.1086/736027},
+eprint = { https://doi.org/10.1086/736027}
 }</pre>
             <button class="pub-button" onclick="downloadBibtex('bibtex1')">Download</button>
         </div>
