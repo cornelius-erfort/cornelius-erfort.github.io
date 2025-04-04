@@ -89,6 +89,7 @@ excerpt: "Visualization of parties' issue agendas"
 .chart-container {
     margin: 20px 0;
     height: 400px;
+    margin-bottom: 100px;
 }
 .issues-grid {
     display: grid;
@@ -138,9 +139,10 @@ excerpt: "Visualization of parties' issue agendas"
     padding: 10px;
     background-color: #f8f9fa;
     border-radius: 5px;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-bottom: 30px;
 }
 .legend-item {
     display: flex;
@@ -200,7 +202,6 @@ excerpt: "Visualization of parties' issue agendas"
 </style>
 </head>
 <body>
-<p>This page visualizes parties' issue agendas based on the PARTYPRESS Database.</p>
 <h2>Interactive Visualization</h2>
 <div class="controls">
     <div class="selector-container">
@@ -256,6 +257,41 @@ excerpt: "Visualization of parties' issue agendas"
     <canvas id="issue-chart"></canvas>
     <div id="chart-legend" class="chart-legend"></div>
 </div>
+
+<div class="tool-description">
+    
+    <p>This interactive visualization tool allows you to explore the PARTYPRESS Database, which contains information on the issue agendas of political parties in 9 European countries from about 2010 to 2020. The database is based on the coding of 250,000+ press releases from 68 political parties.</p>
+    
+    <h2>What is PARTYPRESS?</h2>
+    <p>PARTYPRESS is a comprehensive database that measures the issue agendas of political parties in Europe. It contains information on the relative emphasis parties place on different issues in their press releases, allowing researchers to analyze how parties prioritize various policy areas over time.</p>
+    
+    <p>The database includes data on 9 European countries and covers 23 different issues, from macroeconomics to immigration, environment, and European integration. Each issue is measured as a percentage of a party's total press releases in a given month.</p>
+    
+    <h2>How to Use This Tool</h2>
+    <ol>
+        <li><strong>Select Issues:</strong> Choose one or more issues from the list to visualize.</li>
+        <li><strong>Select Parties:</strong> Choose specific parties or countries to compare.</li>
+        <li><strong>Visualization Options:</strong>
+            <ul>
+                <li><strong>Smooth Data:</strong> Apply smoothing to reduce noise in the data.</li>
+                <li><strong>Within-Country Averages:</strong> View the average issue emphasis across all selected parties within each country.</li>
+                <li><strong>Overall Average:</strong> View the average issue emphasis across all selected parties, countries and issues.</li>
+                <li><strong>Export to CSV:</strong> Download the current visualization data as a CSV file.</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <h2>Interpreting the Results</h2>
+    <p>The y-axis shows the percentage of a party's press releases devoted to a particular issue. Higher values indicate that a party emphasized that issue more frequently in its communication. The x-axis shows time, allowing you to track how issue emphasis changes over time.</p>
+    
+    <p>You can click on items in the legend to show/hide specific data series, making it easier to focus on particular parties or countries.</p>
+    
+    <h2>About the Data</h2>
+    <p>This tool visualizes data from the PARTYPRESS Database, which is described in detail in the paper "PARTYPRESS: A New Database of Party Issue Agendas" (2023). The database is freely available for research purposes.</p>
+    
+    <p>For more information about the database and its construction, please refer to the original paper: <a href="https://journals.sagepub.com/doi/10.1177/20531680231183512" target="_blank">PARTYPRESS: A New Database of Party Issue Agendas</a></p>
+</div>
+
 <script>
 let allData = null;
 let partyInfo = null;
@@ -276,7 +312,6 @@ function toggleAllParties() {
         }
     });
     
-    // Also select/deselect all country headers
     const countryHeaders = document.querySelectorAll('#party-list .country-header');
     countryHeaders.forEach(header => {
         if (selectAll) {
@@ -524,7 +559,6 @@ function capitalizeWords(str) {
 function toggleSelection(element) {
     element.classList.toggle('selected');
     
-    // Check if all parties in the country are selected
     const countryColumn = element.closest('.country-column');
     if (countryColumn) {
         const countryHeader = countryColumn.querySelector('.country-header');
@@ -664,21 +698,17 @@ function estimatePartyImportance(partyInfo) {
 
 async function loadPartyData() {
     try {
-        console.log("Starting to load party data...");
-        
         const dataResponse = await fetch('/files/party_issue_data.json');
         if (!dataResponse.ok) {
             throw new Error(`Failed to load party issue data: ${dataResponse.status} ${dataResponse.statusText}`);
         }
         allData = await dataResponse.json();
-        console.log("Party issue data loaded successfully:", allData.length, "parties");
         
         const partyInfoResponse = await fetch('/files/party_info.json');
         if (!partyInfoResponse.ok) {
             throw new Error(`Failed to load party info: ${partyInfoResponse.status} ${partyInfoResponse.statusText}`);
         }
         partyInfo = await partyInfoResponse.json();
-        console.log("Party info loaded successfully:", partyInfo.length, "party info entries");
         
         const partyList = document.getElementById('party-list');
         partyList.innerHTML = '';
@@ -722,8 +752,6 @@ async function loadPartyData() {
         const sortedCountries = Object.keys(partiesByCountry).sort((a, b) => {
             return a.localeCompare(b);
         });
-        
-        console.log("Countries found:", sortedCountries);
         
         sortedCountries.forEach(country => {
             const countryColumn = document.createElement('div');
@@ -770,15 +798,12 @@ async function loadPartyData() {
             partyList.appendChild(countryColumn);
         });
         
-        console.log("Party list populated successfully");
         updateData();
     } catch (error) {
-        console.error('Error loading data:', error);
         const partyList = document.getElementById('party-list');
         partyList.innerHTML = `<div class="select-item" style="color: red;">Error loading data: ${error.message}</div>`;
         
         if (error.message.includes("Failed to load")) {
-            console.log("Attempting to load data from alternative paths...");
             try {
                 const dataResponse = await fetch('./files/party_issue_data.json');
                 if (!dataResponse.ok) {
@@ -792,10 +817,8 @@ async function loadPartyData() {
                 }
                 partyInfo = await partyInfoResponse.json();
                 
-                console.log("Successfully loaded data from alternative paths");
                 loadPartyData();
             } catch (altError) {
-                console.error('Error loading data from alternative paths:', altError);
                 partyList.innerHTML = `<div class="select-item" style="color: red;">Error loading data: ${altError.message}</div>`;
             }
         }
@@ -862,10 +885,6 @@ function updateChart(selectedParties, selectedIssues) {
         monthToIndex[month] = index;
     });
     
-    console.log("Smoothing enabled:", smoothingEnabled);
-    console.log("Country averages enabled:", countryAveragesEnabled);
-    console.log("Overall average enabled:", overallAverageEnabled);
-    
     if (overallAverageEnabled) {
         const overallAverageDataset = calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, monthToIndex);
         if (overallAverageDataset) {
@@ -874,15 +893,6 @@ function updateChart(selectedParties, selectedIssues) {
     } else if (countryAveragesEnabled) {
         try {
             datasets = calculateCountryAverages(selectedParties, selectedIssues);
-            console.log("Country averages calculated, datasets:", datasets.length);
-            
-            if (datasets.length > 0) {
-                console.log("First dataset sample:", {
-                    label: datasets[0].label,
-                    dataLength: datasets[0].data.length,
-                    firstFewValues: datasets[0].data.slice(0, 5)
-                });
-            }
         } catch (error) {
             console.error("Error calculating country averages:", error);
         }
@@ -944,11 +954,8 @@ function updateChart(selectedParties, selectedIssues) {
     }
     
     if (datasets.length === 0) {
-        console.log("No datasets to display");
         return;
     }
-    
-    console.log("Creating chart with", datasets.length, "datasets");
     
     try {
         chart = new Chart(ctx, {
@@ -999,15 +1006,12 @@ function updateChart(selectedParties, selectedIssues) {
         });
         
         createCustomLegend(datasets);
-        
-        console.log("Chart created successfully");
     } catch (error) {
         console.error("Error creating chart:", error);
     }
 }
 
 function createCustomLegend(datasets) {
-    console.log("Creating custom legend with", datasets.length, "datasets");
     const legendContainer = document.getElementById('chart-legend');
     
     legendContainer.innerHTML = '';
@@ -1042,6 +1046,21 @@ function createCustomLegend(datasets) {
     
     legendContainer.style.display = 'flex';
     
+    const numItems = datasets.length;
+    let marginBottom = 30;
+    
+    if (numItems > 50) {
+        marginBottom = 150;
+    } else if (numItems > 30) {
+        marginBottom = 100;
+    } else if (numItems > 15) {
+        marginBottom = 80;
+    } else if (numItems > 5) {
+        marginBottom = 50;
+    }
+    
+    legendContainer.style.marginBottom = marginBottom + 'px';
+    
     if (datasets.length > 20) {
         const scrollMessage = document.createElement('div');
         scrollMessage.style.width = '100%';
@@ -1052,8 +1071,6 @@ function createCustomLegend(datasets) {
         scrollMessage.textContent = 'Scroll to see more items';
         legendContainer.appendChild(scrollMessage);
     }
-    
-    console.log("Legend created with", legendContainer.children.length, "items");
 }
 
 function toggleSmoothing() {
@@ -1073,7 +1090,6 @@ function toggleCountryAverages() {
     
     if (countryAveragesEnabled) {
         button.classList.add('active');
-        // Deactivate overall average when country averages are enabled
         overallAverageEnabled = false;
         document.getElementById('overall-avg-button').classList.remove('active');
     } else {
@@ -1089,7 +1105,6 @@ function toggleOverallAverage() {
     
     if (overallAverageEnabled) {
         button.classList.add('active');
-        // Deactivate country averages when overall average is enabled
         countryAveragesEnabled = false;
         document.getElementById('country-avg-button').classList.remove('active');
     } else {
@@ -1118,8 +1133,6 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
         partiesByCountry[countryName].push(partyId);
     });
     
-    console.log("Parties by country:", partiesByCountry);
-    
     const datasets = [];
     let colorIndex = 0;
     
@@ -1134,7 +1147,6 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
     });
     
     const sortedMonths = Array.from(allMonths).sort();
-    console.log("Total months:", sortedMonths.length);
     
     const monthToIndex = {};
     sortedMonths.forEach((month, index) => {
@@ -1143,8 +1155,6 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
     
     Object.keys(partiesByCountry).forEach(country => {
         const countryPartyIds = partiesByCountry[country];
-        
-        console.log(`Processing ${country} with ${countryPartyIds.length} parties`);
         
         selectedIssues.forEach(issueId => {
             const dataIssueId = issueId.includes('.') ? issueId.replace('.', '') : issueId;
@@ -1178,7 +1188,6 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
             }
             
             if (smoothingEnabled) {
-                console.log(`Applying smoothing to ${country} - ${issueId}`);
                 data = smoothData(data);
             }
             
@@ -1214,7 +1223,6 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
         });
     });
     
-    console.log("Returning", datasets.length, "country average datasets");
     return datasets;
 }
 
@@ -1304,8 +1312,6 @@ function calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, 
         return null;
     }
     
-    console.log("Calculating overall average across all selected parties and issues");
-    
     let data = new Array(sortedMonths.length).fill(null);
     const counts = new Array(sortedMonths.length).fill(0);
     
@@ -1339,7 +1345,6 @@ function calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, 
     }
     
     if (smoothingEnabled) {
-        console.log("Applying smoothing to overall average");
         data = smoothData(data);
     }
     
@@ -1440,7 +1445,6 @@ document.addEventListener('DOMContentLoaded', function() {
         countryAveragesEnabled = true;
         document.getElementById('country-avg-button').classList.add('active');
         
-        // Do not activate overall average by default
         overallAverageEnabled = false;
         document.getElementById('overall-avg-button').classList.remove('active');
         
