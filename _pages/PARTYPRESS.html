@@ -1083,17 +1083,15 @@ function createCustomLegend(datasets) {
         legendContainer.appendChild(scrollMessage);
     }
     
-    // Add a spacer div after the legend to ensure separation from content below
     const spacer = document.createElement('div');
     spacer.style.height = '50px';
     spacer.style.width = '100%';
     spacer.style.clear = 'both';
     legendContainer.appendChild(spacer);
     
-    // Adjust the chart container's height based on the legend size
     const chartContainer = document.querySelector('.chart-container');
     const legendHeight = legendContainer.offsetHeight;
-    const minHeight = 400; // Minimum height for the chart container
+    const minHeight = 400; 
     chartContainer.style.height = Math.max(minHeight, legendHeight + 400) + 'px';
 }
 
