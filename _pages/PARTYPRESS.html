@@ -248,6 +248,7 @@ excerpt: "Visualization of parties' issue agendas"
     <div class="function-buttons">
         <button id="smooth-button" class="function-button" onclick="toggleSmoothing()">Smooth Data</button>
         <button id="country-avg-button" class="function-button" onclick="toggleCountryAverages()">Within-Country Averages</button>
+        <button id="overall-avg-button" class="function-button" onclick="toggleOverallAverage()">Overall Average</button>
         <button id="export-button" class="function-button" onclick="exportToCSV()">Export to CSV</button>
     </div>
 </div>
@@ -261,6 +262,7 @@ let partyInfo = null;
 let chart = null;
 let smoothingEnabled = false;
 let countryAveragesEnabled = false;
+let overallAverageEnabled = false;
 
 function toggleAllParties() {
     const selectAll = !document.querySelector('#party-list .select-item.selected');
@@ -271,6 +273,16 @@ function toggleAllParties() {
             item.classList.add('selected');
         } else {
             item.classList.remove('selected');
+        }
+    });
+    
+    // Also select/deselect all country headers
+    const countryHeaders = document.querySelectorAll('#party-list .country-header');
+    countryHeaders.forEach(header => {
+        if (selectAll) {
+            header.classList.add('selected');
+        } else {
+            header.classList.remove('selected');
         }
     });
     
@@ -511,6 +523,21 @@ function capitalizeWords(str) {
 
 function toggleSelection(element) {
     element.classList.toggle('selected');
+    
+    // Check if all parties in the country are selected
+    const countryColumn = element.closest('.country-column');
+    if (countryColumn) {
+        const countryHeader = countryColumn.querySelector('.country-header');
+        const partyItems = countryColumn.querySelectorAll('.select-item');
+        const allSelected = Array.from(partyItems).every(item => item.classList.contains('selected'));
+        
+        if (allSelected) {
+            countryHeader.classList.add('selected');
+        } else {
+            countryHeader.classList.remove('selected');
+        }
+    }
+    
     updateData();
 }
 
@@ -837,8 +864,14 @@ function updateChart(selectedParties, selectedIssues) {
     
     console.log("Smoothing enabled:", smoothingEnabled);
     console.log("Country averages enabled:", countryAveragesEnabled);
+    console.log("Overall average enabled:", overallAverageEnabled);
     
-    if (countryAveragesEnabled) {
+    if (overallAverageEnabled) {
+        const overallAverageDataset = calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, monthToIndex);
+        if (overallAverageDataset) {
+            datasets.push(overallAverageDataset);
+        }
+    } else if (countryAveragesEnabled) {
         try {
             datasets = calculateCountryAverages(selectedParties, selectedIssues);
             console.log("Country averages calculated, datasets:", datasets.length);
@@ -1037,11 +1070,32 @@ function toggleSmoothing() {
 function toggleCountryAverages() {
     countryAveragesEnabled = !countryAveragesEnabled;
     const button = document.getElementById('country-avg-button');
+    
     if (countryAveragesEnabled) {
         button.classList.add('active');
+        // Deactivate overall average when country averages are enabled
+        overallAverageEnabled = false;
+        document.getElementById('overall-avg-button').classList.remove('active');
     } else {
         button.classList.remove('active');
     }
+    
+    updateData();
+}
+
+function toggleOverallAverage() {
+    overallAverageEnabled = !overallAverageEnabled;
+    const button = document.getElementById('overall-avg-button');
+    
+    if (overallAverageEnabled) {
+        button.classList.add('active');
+        // Deactivate country averages when overall average is enabled
+        countryAveragesEnabled = false;
+        document.getElementById('country-avg-button').classList.remove('active');
+    } else {
+        button.classList.remove('active');
+    }
+    
     updateData();
 }
 
@@ -1245,6 +1299,74 @@ function getPartyColor(partyName) {
     return partyColors.default;
 }
 
+function calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, monthToIndex) {
+    if (selectedParties.length === 0 || selectedIssues.length === 0) {
+        return null;
+    }
+    
+    console.log("Calculating overall average across all selected parties and issues");
+    
+    let data = new Array(sortedMonths.length).fill(null);
+    const counts = new Array(sortedMonths.length).fill(0);
+    
+    selectedParties.forEach(partyId => {
+        const partyData = allData.find(item => item.p.includes(partyId));
+        if (!partyData) return;
+        
+        selectedIssues.forEach(issueId => {
+            const dataIssueId = issueId.includes('.') ? issueId.replace('.', '') : issueId;
+            
+            partyData.d.forEach(item => {
+                const month = item.m[0];
+                const index = monthToIndex[month];
+                if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
+                    if (data[index] === null) {
+                        data[index] = 0;
+                    }
+                    data[index] += item.i[dataIssueId][2] * 100;
+                    counts[index]++;
+                }
+            });
+        });
+    });
+    
+    for (let i = 0; i < data.length; i++) {
+        if (counts[i] > 0) {
+            data[i] = data[i] / counts[i];
+        } else {
+            data[i] = null;
+        }
+    }
+    
+    if (smoothingEnabled) {
+        console.log("Applying smoothing to overall average");
+        data = smoothData(data);
+    }
+    
+    const issueLabels = selectedIssues.map(issueId => {
+        return document.querySelector(`#issue-list .select-item[data-value="${issueId}"]`).textContent.trim();
+    });
+    
+    let datasetLabel = "Overall Average";
+    if (selectedIssues.length === 1) {
+        datasetLabel += ` - ${issueLabels[0]}`;
+    } else {
+        datasetLabel += ` (${selectedIssues.length} issues)`;
+    }
+    
+    return {
+        label: datasetLabel,
+        data: data,
+        borderColor: "rgb(0, 0, 0)",
+        tension: smoothingEnabled ? 0.3 : 0.1,
+        spanGaps: true,
+        borderWidth: 3,
+        pointRadius: 0,
+        pointStyle: 'none',
+        borderDash: [5, 5]
+    };
+}
+
 function exportToCSV() {
     if (!chart || !chart.data || !chart.data.datasets || chart.data.datasets.length === 0) {
         alert("No data available to export");
@@ -1317,6 +1439,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         countryAveragesEnabled = true;
         document.getElementById('country-avg-button').classList.add('active');
+        
+        // Do not activate overall average by default
+        overallAverageEnabled = false;
+        document.getElementById('overall-avg-button').classList.remove('active');
         
         const germanParties = document.querySelectorAll('#party-list .country-column');
         germanParties.forEach(column => {
