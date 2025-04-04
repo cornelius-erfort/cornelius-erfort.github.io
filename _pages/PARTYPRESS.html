@@ -30,7 +30,7 @@ excerpt: "Visualization of parties' issue agendas"
     background-color: white;
 }
 .select-item {
-    margin-bottom: 0px;
+    margin-bottom: 1px;
     font-size: 0.55em;
     cursor: pointer;
     padding: 1px 3px;
@@ -101,21 +101,26 @@ excerpt: "Visualization of parties' issue agendas"
     gap: 5px;
     overflow-x: auto;
     padding-bottom: 5px;
+    width: 100%;
 }
 .country-column {
     flex: 0 0 auto;
-    min-width: 50px;
-    max-width: 60px;
+    min-width: 60px;
+    max-width: 120px;
+    margin-bottom: 5px;
 }
 .country-header {
     font-weight: bold;
-    padding: 1px;
+    padding: 2px 4px;
     background-color: #e9ecef;
     border-radius: 2px;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
     text-align: center;
     font-size: 0.65em;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .country-header:hover {
     background-color: #dde2e6;
@@ -157,6 +162,40 @@ excerpt: "Visualization of parties' issue agendas"
 .legend-hidden {
     opacity: 0.5;
     text-decoration: line-through;
+}
+@media (max-width: 1200px) {
+    .country-column {
+        min-width: 50px;
+        max-width: 100px;
+    }
+}
+@media (max-width: 992px) {
+    .country-column {
+        min-width: 45px;
+        max-width: 90px;
+    }
+}
+@media (max-width: 768px) {
+    .country-column {
+        min-width: 40px;
+        max-width: 80px;
+    }
+}
+@media (max-width: 576px) {
+    .country-column {
+        min-width: 35px;
+        max-width: 70px;
+    }
+    
+    .country-header {
+        font-size: 0.6em;
+        padding: 1px 3px;
+    }
+    
+    .select-item {
+        font-size: 0.5em;
+        padding: 1px 2px;
+    }
 }
 </style>
 </head>
