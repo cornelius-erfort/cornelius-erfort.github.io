@@ -209,6 +209,7 @@ excerpt: "Visualization of parties' issue agendas"
     <div class="function-buttons">
         <button id="smooth-button" class="function-button" onclick="toggleSmoothing()">Smooth Data</button>
         <button id="country-avg-button" class="function-button" onclick="toggleCountryAverages()">Within-Country Averages</button>
+        <button id="export-button" class="function-button" onclick="exportToCSV()">Export to CSV</button>
     </div>
 </div>
 <div class="chart-container">
@@ -634,13 +635,23 @@ function estimatePartyImportance(partyInfo) {
 
 async function loadPartyData() {
     try {
+        console.log("Starting to load party data...");
+        
         // Load party issue data
-        const response = await fetch('/files/party_issue_data.json');
-        allData = await response.json();
+        const dataResponse = await fetch('/files/party_issue_data.json');
+        if (!dataResponse.ok) {
+            throw new Error(`Failed to load party issue data: ${dataResponse.status} ${dataResponse.statusText}`);
+        }
+        allData = await dataResponse.json();
+        console.log("Party issue data loaded successfully:", allData.length, "parties");
         
         // Load party info
         const partyInfoResponse = await fetch('/files/party_info.json');
+        if (!partyInfoResponse.ok) {
+            throw new Error(`Failed to load party info: ${partyInfoResponse.status} ${partyInfoResponse.statusText}`);
+        }
         partyInfo = await partyInfoResponse.json();
+        console.log("Party info loaded successfully:", partyInfo.length, "party info entries");
         
         const partyList = document.getElementById('party-list');
         partyList.innerHTML = '';
@@ -689,6 +700,8 @@ async function loadPartyData() {
         const sortedCountries = Object.keys(partiesByCountry).sort((a, b) => {
             return a.localeCompare(b);
         });
+        
+        console.log("Countries found:", sortedCountries);
         
         // Create columns for each country
         sortedCountries.forEach(country => {
@@ -741,10 +754,38 @@ async function loadPartyData() {
             partyList.appendChild(countryColumn);
         });
         
+        console.log("Party list populated successfully");
         updateData();
     } catch (error) {
         console.error('Error loading data:', error);
-        document.getElementById('party-list').innerHTML = '<div class="select-item">Error loading data</div>';
+        const partyList = document.getElementById('party-list');
+        partyList.innerHTML = `<div class="select-item" style="color: red;">Error loading data: ${error.message}</div>`;
+        
+        // Try alternative paths if the standard paths fail
+        if (error.message.includes("Failed to load")) {
+            console.log("Attempting to load data from alternative paths...");
+            try {
+                // Try with relative paths
+                const dataResponse = await fetch('./files/party_issue_data.json');
+                if (!dataResponse.ok) {
+                    throw new Error(`Failed to load party issue data from alternative path: ${dataResponse.status} ${dataResponse.statusText}`);
+                }
+                allData = await dataResponse.json();
+                
+                const partyInfoResponse = await fetch('./files/party_info.json');
+                if (!partyInfoResponse.ok) {
+                    throw new Error(`Failed to load party info from alternative path: ${partyInfoResponse.status} ${partyInfoResponse.statusText}`);
+                }
+                partyInfo = await partyInfoResponse.json();
+                
+                // If we get here, we successfully loaded the data from alternative paths
+                console.log("Successfully loaded data from alternative paths");
+                loadPartyData(); // Call the function again to populate the UI
+            } catch (altError) {
+                console.error('Error loading data from alternative paths:', altError);
+                partyList.innerHTML = `<div class="select-item" style="color: red;">Error loading data: ${altError.message}</div>`;
+            }
+        }
     }
 }
 
@@ -1279,6 +1320,76 @@ function getPartyColor(partyName) {
     
     // Return default color if no match found
     return partyColors.default;
+}
+
+// Function to export data to CSV
+function exportToCSV() {
+    if (!chart || !chart.data || !chart.data.datasets || chart.data.datasets.length === 0) {
+        alert("No data available to export");
+        return;
+    }
+    
+    // Get the current datasets and labels
+    const datasets = chart.data.datasets;
+    const labels = chart.data.labels;
+    
+    // Create CSV header row
+    let csvContent = "Month";
+    
+    // Add dataset names to header
+    datasets.forEach(dataset => {
+        csvContent += `,"${dataset.label}"`;
+    });
+    
+    csvContent += "\n";
+    
+    // Add data rows
+    for (let i = 0; i < labels.length; i++) {
+        csvContent += labels[i];
+        
+        // Add data from each dataset
+        datasets.forEach(dataset => {
+            const value = dataset.data[i];
+            // Handle null values
+            csvContent += `,${value === null ? "" : value.toFixed(2)}`;
+        });
+        
+        csvContent += "\n";
+    }
+    
+    // Create a Blob with the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create a download link
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        // Create a URL for the Blob
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        
+        // Generate filename based on current selections
+        let filename = "party_press_data";
+        
+        // Add selected issues to filename
+        const selectedIssues = Array.from(document.querySelectorAll('#issue-list .select-item.selected'))
+            .map(item => item.textContent.trim().replace(/\s+/g, '_'));
+        
+        if (selectedIssues.length > 0) {
+            filename += "_" + selectedIssues.join("_");
+        }
+        
+        // Add date to filename
+        const now = new Date();
+        filename += "_" + now.getFullYear() + "-" + 
+                   (now.getMonth() + 1).toString().padStart(2, '0') + "-" + 
+                   now.getDate().toString().padStart(2, '0');
+        
+        link.setAttribute("download", filename + ".csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
