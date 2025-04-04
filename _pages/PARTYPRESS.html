@@ -223,6 +223,22 @@ let chart = null;
 let smoothingEnabled = false;
 let countryAveragesEnabled = false;
 
+// Define toggleAllParties function at the top level
+function toggleAllParties() {
+    const selectAll = !document.querySelector('#party-list .select-item.selected');
+    const items = document.querySelectorAll('#party-list .select-item');
+    
+    items.forEach(item => {
+        if (selectAll) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+    
+    updateData();
+}
+
 // Country ISO codes mapping
 const countryISOCodes = {
     "austria": "AT",
@@ -787,21 +803,6 @@ async function loadPartyData() {
             }
         }
     }
-}
-
-function toggleAllParties() {
-    const selectAll = !document.querySelector('#party-list .select-item.selected');
-    const items = document.querySelectorAll('#party-list .select-item');
-    
-    items.forEach(item => {
-        if (selectAll) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
-    });
-    
-    updateData();
 }
 
 function toggleAllIssues() {
