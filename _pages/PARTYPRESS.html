@@ -1,0 +1,1325 @@
+---
+permalink: /partypress/
+title: "PARTYPRESS Database"
+excerpt: "Visualization of parties' issue agendas"
+---
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.controls {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+.selector-container {
+    margin-bottom: 15px;
+}
+.selector-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.checkbox-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 6px;
+    border-radius: 4px;
+    background-color: white;
+}
+.select-item {
+    margin-bottom: 0px;
+    font-size: 0.55em;
+    cursor: pointer;
+    padding: 1px 3px;
+    border-radius: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+.select-item:hover {
+    background-color: #f0f0f0;
+}
+.select-item.selected {
+    background-color: #d4edda;
+    color: #155724;
+}
+.select-item .party-id {
+    display: none;
+}
+.select-item:hover .party-id {
+    display: inline;
+}
+.select-all-button {
+    margin-bottom: 5px;
+    padding: 2px 5px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    font-size: 0.6em;
+    cursor: pointer;
+}
+.select-all-button:hover {
+    background-color: #dde2e6;
+}
+.function-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+.function-button {
+    padding: 3px 8px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    font-size: 0.7em;
+    cursor: pointer;
+}
+.function-button:hover {
+    background-color: #dde2e6;
+}
+.function-button.active {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.chart-container {
+    margin: 20px 0;
+    height: 400px;
+}
+.issues-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+.parties-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+.country-column {
+    flex: 0 0 auto;
+    min-width: 50px;
+    max-width: 60px;
+}
+.country-header {
+    font-weight: bold;
+    padding: 1px;
+    background-color: #e9ecef;
+    border-radius: 2px;
+    margin-bottom: 1px;
+    text-align: center;
+    font-size: 0.65em;
+    cursor: pointer;
+}
+.country-header:hover {
+    background-color: #dde2e6;
+}
+.country-header.selected {
+    background-color: #d4edda;
+    color: #155724;
+}
+.chart-legend {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.legend-item:hover {
+    background-color: #e9ecef;
+}
+.legend-color {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+.legend-hidden {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+</style>
+</head>
+<body>
+<p>This page visualizes parties' issue agendas based on the PARTYPRESS Database.</p>
+<h2>Interactive Visualization</h2>
+<div class="controls">
+    <div class="selector-container">
+        <div class="selector-title">Select Issues:</div>
+        <div id="issue-checkboxes" class="checkbox-container">
+            <button id="select-all-issues" class="select-all-button" onclick="toggleAllIssues()">Select All Issues</button>
+            <div id="issue-list" class="issues-grid">
+                <div class="select-item" data-value="1" onclick="toggleSelection(this)">1 - Macroeconomics</div>
+                <div class="select-item" data-value="2" onclick="toggleSelection(this)">2 - Civil Rights</div>
+                <div class="select-item" data-value="3" onclick="toggleSelection(this)">3 - Health</div>
+                <div class="select-item" data-value="4" onclick="toggleSelection(this)">4 - Agriculture</div>
+                <div class="select-item" data-value="5" onclick="toggleSelection(this)">5 - Labor</div>
+                <div class="select-item" data-value="6" onclick="toggleSelection(this)">6 - Education</div>
+                <div class="select-item" data-value="7" onclick="toggleSelection(this)">7 - Environment</div>
+                <div class="select-item" data-value="8" onclick="toggleSelection(this)">8 - Energy</div>
+                <div class="select-item" data-value="9" onclick="toggleSelection(this)">9 - Immigration</div>
+                <div class="select-item" data-value="10" onclick="toggleSelection(this)">10 - Transportation</div>
+                <div class="select-item" data-value="12" onclick="toggleSelection(this)">12 - Law and Crime</div>
+                <div class="select-item" data-value="13" onclick="toggleSelection(this)">13 - Social Welfare</div>
+                <div class="select-item" data-value="14" onclick="toggleSelection(this)">14 - Housing</div>
+                <div class="select-item" data-value="15" onclick="toggleSelection(this)">15 - Domestic Commerce</div>
+                <div class="select-item" data-value="16" onclick="toggleSelection(this)">16 - Defense</div>
+                <div class="select-item" data-value="17" onclick="toggleSelection(this)">17 - Technology</div>
+                <div class="select-item" data-value="18" onclick="toggleSelection(this)">18 - Foreign Trade</div>
+                <div class="select-item" data-value="19.1" onclick="toggleSelection(this)">19.1 - International Affairs</div>
+                <div class="select-item" data-value="19.2" onclick="toggleSelection(this)">19.2 - European Integration</div>
+                <div class="select-item" data-value="20" onclick="toggleSelection(this)">20 - Government Operations</div>
+                <div class="select-item" data-value="23" onclick="toggleSelection(this)">23 - Culture</div>
+                <div class="select-item" data-value="98" onclick="toggleSelection(this)">98 - Non-thematic</div>
+                <div class="select-item" data-value="99" onclick="toggleSelection(this)">99 - Other</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="selector-container">
+        <div class="selector-title">Select Parties:</div>
+        <div id="party-checkboxes" class="checkbox-container">
+            <button id="select-all-parties" class="select-all-button" onclick="toggleAllParties()">Select All Parties</button>
+            <div id="party-list" class="parties-container">
+                <div class="select-item">Loading parties...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="function-buttons">
+        <button id="smooth-button" class="function-button" onclick="toggleSmoothing()">Smooth Data</button>
+        <button id="country-avg-button" class="function-button" onclick="toggleCountryAverages()">Within-Country Averages</button>
+    </div>
+</div>
+<div class="chart-container">
+    <canvas id="issue-chart"></canvas>
+    <div id="chart-legend" class="chart-legend"></div>
+</div>
+<script>
+let allData = null;
+let partyInfo = null;
+let chart = null;
+let smoothingEnabled = false;
+let countryAveragesEnabled = false;
+
+// Country ISO codes mapping
+const countryISOCodes = {
+    "austria": "AT",
+    "belgium": "BE",
+    "bulgaria": "BG",
+    "croatia": "HR",
+    "cyprus": "CY",
+    "czech republic": "CZ",
+    "denmark": "DK",
+    "estonia": "EE",
+    "finland": "FI",
+    "france": "FR",
+    "germany": "DE",
+    "greece": "GR",
+    "hungary": "HU",
+    "ireland": "IE",
+    "italy": "IT",
+    "latvia": "LV",
+    "lithuania": "LT",
+    "luxembourg": "LU",
+    "malta": "MT",
+    "netherlands": "NL",
+    "poland": "PL",
+    "portugal": "PT",
+    "romania": "RO",
+    "slovakia": "SK",
+    "slovenia": "SI",
+    "spain": "ES",
+    "sweden": "SE",
+    "uk": "GB"
+};
+
+// Colors for different datasets
+const colors = [
+    'rgb(75, 192, 192)',
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 206, 86)',
+    'rgb(153, 102, 255)',
+    'rgb(255, 159, 64)',
+    'rgb(75, 192, 75)',
+    'rgb(192, 75, 192)',
+    'rgb(75, 75, 192)',
+    'rgb(192, 192, 75)'
+];
+
+// Party-specific colors based on party family and country
+const partyColors = {
+    // Germany
+    "CDU": "rgb(0, 0, 0)", // Black (Christian Democratic Union)
+    "CSU": "rgb(0, 0, 0)", // Black (Christian Social Union)
+    "SPD": "rgb(255, 0, 0)", // Red (Social Democratic Party)
+    "FDP": "rgb(255, 215, 0)", // Gold (Free Democratic Party)
+    "Die Linke": "rgb(128, 0, 128)", // Purple (The Left)
+    "Grüne": "rgb(0, 128, 0)", // Green (Alliance 90/The Greens)
+    "AfD": "rgb(0, 0, 255)", // Blue (Alternative for Germany)
+    
+    // France
+    "Les Républicains": "rgb(0, 0, 128)", // Blue (The Republicans)
+    "Parti Socialiste": "rgb(255, 0, 0)", // Red (Socialist Party)
+    "La République En Marche": "rgb(0, 128, 255)", // Light Blue (La République En Marche)
+    "Rassemblement National": "rgb(0, 0, 0)", // Black (National Rally)
+    
+    // UK
+    "Conservative": "rgb(0, 0, 128)", // Blue (Conservative Party)
+    "Labour": "rgb(255, 0, 0)", // Red (Labour Party)
+    "Liberal Democrat": "rgb(255, 165, 0)", // Orange (Liberal Democrats)
+    "Scottish National": "rgb(255, 215, 0)", // Gold (Scottish National Party)
+    "SNP": "rgb(255, 215, 0)", // Gold (Scottish National Party)
+    "Plaid Cymru": "rgb(0, 128, 0)", // Green (Plaid Cymru)
+    "UKIP": "rgb(128, 0, 128)", // Purple (UK Independence Party)
+    "Brexit": "rgb(128, 0, 128)", // Purple (Brexit Party)
+    
+    // Italy
+    "Forza Italia": "rgb(0, 0, 255)", // Blue (Forza Italia)
+    "Partito Democratico": "rgb(255, 0, 0)", // Red (Democratic Party)
+    "Lega": "rgb(0, 128, 0)", // Green (League)
+    "Fratelli d'Italia": "rgb(0, 0, 0)", // Black (Brothers of Italy)
+    "Movimento 5 Stelle": "rgb(255, 215, 0)", // Gold (Five Star Movement)
+    
+    // Spain
+    "Partido Popular": "rgb(0, 0, 128)", // Blue (People's Party)
+    "Partido Socialista": "rgb(255, 0, 0)", // Red (Spanish Socialist Workers' Party)
+    "Ciudadanos": "rgb(0, 128, 255)", // Light Blue (Citizens)
+    "Podemos": "rgb(128, 0, 128)", // Purple (We Can)
+    "Vox": "rgb(0, 0, 0)", // Black (Vox)
+    
+    // Netherlands
+    "VVD": "rgb(0, 0, 128)", // Blue (People's Party for Freedom and Democracy)
+    "CDA": "rgb(0, 128, 0)", // Green (Christian Democratic Appeal)
+    "PVDA": "rgb(255, 0, 0)", // Red (Labour Party)
+    "D66": "rgb(0, 128, 255)", // Light Blue (Democrats 66)
+    "PVDD": "rgb(0, 128, 0)", // Green (Party for the Animals)
+    "SP": "rgb(255, 0, 0)", // Red (Socialist Party)
+    "GroenLinks": "rgb(0, 128, 0)", // Green (GreenLeft)
+    "FVD": "rgb(0, 0, 0)", // Black (Forum for Democracy)
+    
+    // Sweden
+    "Socialdemokraterna": "rgb(255, 0, 0)", // Red (Social Democrats)
+    "Moderaterna": "rgb(0, 0, 128)", // Blue (Moderate Party)
+    "Centerpartiet": "rgb(0, 128, 0)", // Green (Centre Party)
+    "Vänsterpartiet": "rgb(128, 0, 128)", // Purple (Left Party)
+    "Kristdemokraterna": "rgb(0, 128, 0)", // Green (Christian Democrats)
+    "Liberalerna": "rgb(0, 128, 255)", // Light Blue (Liberals)
+    "Miljöpartiet": "rgb(0, 128, 0)", // Green (Green Party)
+    "Sverigedemokraterna": "rgb(0, 0, 0)", // Black (Sweden Democrats)
+    
+    // Austria
+    "ÖVP": "rgb(0, 0, 0)", // Black (Austrian People's Party)
+    "SPÖ": "rgb(255, 0, 0)", // Red (Social Democratic Party of Austria)
+    "FPÖ": "rgb(0, 0, 128)", // Blue (Freedom Party of Austria)
+    "Die Grünen": "rgb(0, 128, 0)", // Green (The Greens)
+    "NEOS": "rgb(255, 165, 0)", // Orange (NEOS)
+    
+    // Belgium
+    "CD&V": "rgb(0, 0, 0)", // Black (Christian Democratic and Flemish)
+    "Open Vld": "rgb(0, 128, 255)", // Light Blue (Open Flemish Liberals and Democrats)
+    "N-VA": "rgb(255, 215, 0)", // Gold (New Flemish Alliance)
+    "VB": "rgb(0, 0, 0)", // Black (Flemish Interest)
+    "PS": "rgb(255, 0, 0)", // Red (Socialist Party)
+    "MR": "rgb(0, 128, 255)", // Light Blue (Reformist Movement)
+    "Ecolo": "rgb(0, 128, 0)", // Green (Ecolo)
+    "Groen": "rgb(0, 128, 0)", // Green (Groen)
+    
+    // Denmark
+    "Venstre": "rgb(0, 128, 255)", // Light Blue (Venstre)
+    "Socialdemokraterne": "rgb(255, 0, 0)", // Red (Social Democrats)
+    "Dansk Folkeparti": "rgb(0, 0, 0)", // Black (Danish People's Party)
+    "Radikale Venstre": "rgb(0, 128, 255)", // Light Blue (Social Liberal Party)
+    "Enhedslisten": "rgb(128, 0, 128)", // Purple (Red-Green Alliance)
+    "Alternativet": "rgb(0, 128, 0)", // Green (The Alternative)
+    
+    // Finland
+    "Kokoomus": "rgb(0, 0, 128)", // Blue (National Coalition Party)
+    "SDP": "rgb(255, 0, 0)", // Red (Social Democratic Party)
+    "Perussuomalaiset": "rgb(0, 0, 0)", // Black (Finns Party)
+    "Keskusta": "rgb(0, 128, 0)", // Green (Centre Party)
+    "Vihreät": "rgb(0, 128, 0)", // Green (Green League)
+    "Vasemmistoliitto": "rgb(128, 0, 128)", // Purple (Left Alliance)
+    
+    // Greece
+    "ND": "rgb(0, 0, 128)", // Blue (New Democracy)
+    "SYRIZA": "rgb(128, 0, 128)", // Purple (Coalition of the Radical Left)
+    "KINAL": "rgb(255, 0, 0)", // Red (Movement for Change)
+    "KKE": "rgb(255, 0, 0)", // Red (Communist Party of Greece)
+    "Elliniki Lysi": "rgb(0, 0, 0)", // Black (Greek Solution)
+    
+    // Ireland
+    "Fine Gael": "rgb(0, 128, 255)", // Light Blue (Fine Gael)
+    "Fianna Fáil": "rgb(0, 128, 0)", // Green (Fianna Fáil)
+    "Sinn Féin": "rgb(0, 128, 0)", // Green (Sinn Féin)
+    "Labour": "rgb(255, 0, 0)", // Red (Labour Party)
+    "Green": "rgb(0, 128, 0)", // Green (Green Party)
+    
+    // Poland
+    "PiS": "rgb(0, 0, 128)", // Blue (Law and Justice)
+    "PO": "rgb(0, 128, 255)", // Light Blue (Civic Platform)
+    "SLD": "rgb(255, 0, 0)", // Red (Democratic Left Alliance)
+    "PSL": "rgb(0, 128, 0)", // Green (Polish People's Party)
+    "Nowoczesna": "rgb(0, 128, 255)", // Light Blue (Modern)
+    "Lewica": "rgb(255, 0, 0)", // Red (The Left)
+    
+    // Portugal
+    "PS": "rgb(255, 0, 0)", // Red (Socialist Party)
+    "PSD": "rgb(0, 0, 128)", // Blue (Social Democratic Party)
+    "CDS-PP": "rgb(0, 0, 0)", // Black (CDS - People's Party)
+    "BE": "rgb(128, 0, 128)", // Purple (Left Bloc)
+    "PCP": "rgb(255, 0, 0)", // Red (Portuguese Communist Party)
+    "PAN": "rgb(0, 128, 0)", // Green (People, Animals, Nature)
+    
+    // Romania
+    "PSD": "rgb(255, 0, 0)", // Red (Social Democratic Party)
+    "PNL": "rgb(0, 0, 128)", // Blue (National Liberal Party)
+    "USR": "rgb(0, 128, 255)", // Light Blue (Save Romania Union)
+    "UDMR": "rgb(0, 128, 0)", // Green (Democratic Alliance of Hungarians in Romania)
+    "ALDE": "rgb(0, 128, 255)", // Light Blue (Alliance of Liberals and Democrats)
+    
+    // Slovakia
+    "Smer-SD": "rgb(255, 0, 0)", // Red (Direction – Social Democracy)
+    "SaS": "rgb(0, 128, 255)", // Light Blue (Freedom and Solidarity)
+    "OĽaNO": "rgb(0, 128, 255)", // Light Blue (Ordinary People and Independent Personalities)
+    "Kotleba": "rgb(0, 0, 0)", // Black (People's Party Our Slovakia)
+    "SNS": "rgb(0, 0, 0)", // Black (Slovak National Party)
+    
+    // Slovenia
+    "SDS": "rgb(0, 0, 128)", // Blue (Slovenian Democratic Party)
+    "SD": "rgb(255, 0, 0)", // Red (Social Democrats)
+    "Levica": "rgb(255, 0, 0)", // Red (The Left)
+    "SMC": "rgb(0, 128, 255)", // Light Blue (Modern Centre Party)
+    "NSi": "rgb(0, 0, 0)", // Black (New Slovenia)
+    
+    // Czech Republic
+    "ANO": "rgb(0, 128, 255)", // Light Blue (Action of Dissatisfied Citizens)
+    "ODS": "rgb(0, 0, 128)", // Blue (Civic Democratic Party)
+    "ČSSD": "rgb(255, 0, 0)", // Red (Czech Social Democratic Party)
+    "KSČM": "rgb(255, 0, 0)", // Red (Communist Party of Bohemia and Moravia)
+    "TOP 09": "rgb(0, 128, 255)", // Light Blue (TOP 09)
+    "SPD": "rgb(0, 0, 0)", // Black (Freedom and Direct Democracy)
+    
+    // Hungary
+    "Fidesz": "rgb(0, 0, 128)", // Blue (Fidesz)
+    "Jobbik": "rgb(0, 0, 0)", // Black (Jobbik)
+    "MSZP": "rgb(255, 0, 0)", // Red (Hungarian Socialist Party)
+    "DK": "rgb(0, 128, 255)", // Light Blue (Democratic Coalition)
+    "LMP": "rgb(0, 128, 0)", // Green (Politics Can Be Different)
+    
+    // Croatia
+    "HDZ": "rgb(0, 0, 128)", // Blue (Croatian Democratic Union)
+    "SDP": "rgb(255, 0, 0)", // Red (Social Democratic Party)
+    "Most": "rgb(0, 128, 255)", // Light Blue (Bridge of Independent Lists)
+    "Živi zid": "rgb(0, 0, 0)", // Black (Human Shield)
+    
+    // Bulgaria
+    "GERB": "rgb(0, 0, 128)", // Blue (Citizens for European Development of Bulgaria)
+    "BSP": "rgb(255, 0, 0)", // Red (Bulgarian Socialist Party)
+    "DPS": "rgb(0, 128, 0)", // Green (Movement for Rights and Freedoms)
+    "Volya": "rgb(0, 0, 0)", // Black (Volya)
+    
+    // Cyprus
+    "DISY": "rgb(0, 0, 128)", // Blue (Democratic Rally)
+    "AKEL": "rgb(255, 0, 0)", // Red (Progressive Party of Working People)
+    "DIKO": "rgb(0, 128, 255)", // Light Blue (Democratic Party)
+    "EDEK": "rgb(255, 0, 0)", // Red (Socialist Party)
+    
+    // Estonia
+    "Reform": "rgb(0, 128, 255)", // Light Blue (Reform Party)
+    "Kesk": "rgb(0, 128, 0)", // Green (Centre Party)
+    "SDE": "rgb(255, 0, 0)", // Red (Social Democratic Party)
+    "IRL": "rgb(0, 0, 128)", // Blue (Pro Patria and Res Publica Union)
+    "EKRE": "rgb(0, 0, 0)", // Black (Conservative People's Party)
+    
+    // Latvia
+    "Vienotība": "rgb(0, 0, 128)", // Blue (Unity)
+    "ZZS": "rgb(0, 128, 0)", // Green (Union of Greens and Farmers)
+    "NA": "rgb(0, 0, 0)", // Black (National Alliance)
+    "Saskaņa": "rgb(255, 0, 0)", // Red (Harmony)
+    "KPV LV": "rgb(0, 128, 255)", // Light Blue (Who Owns the State?)
+    
+    // Lithuania
+    "TS-LKD": "rgb(0, 0, 128)", // Blue (Homeland Union)
+    "LSDP": "rgb(255, 0, 0)", // Red (Lithuanian Social Democratic Party)
+    "LVŽS": "rgb(0, 128, 0)", // Green (Lithuanian Farmers and Greens Union)
+    "LRLS": "rgb(0, 128, 255)", // Light Blue (Liberal Movement)
+    
+    // Luxembourg
+    "CSV": "rgb(0, 0, 0)", // Black (Christian Social People's Party)
+    "LSAP": "rgb(255, 0, 0)", // Red (Luxembourg Socialist Workers' Party)
+    "DP": "rgb(0, 128, 255)", // Light Blue (Democratic Party)
+    "Déi Gréng": "rgb(0, 128, 0)", // Green (The Greens)
+    "Déi Lénk": "rgb(255, 0, 0)", // Red (The Left)
+    
+    // Malta
+    "PN": "rgb(0, 0, 128)", // Blue (Nationalist Party)
+    "PL": "rgb(255, 0, 0)", // Red (Labour Party)
+    "AD": "rgb(0, 128, 0)", // Green (Democratic Alternative)
+    
+    // Default colors for parties not in the list
+    "default": "rgb(128, 128, 128)" // Gray
+};
+
+// Function to capitalize first letter of each word
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// Function to toggle selection of an item
+function toggleSelection(element) {
+    element.classList.toggle('selected');
+    updateData();
+}
+
+// Function to toggle selection of all parties in a country
+function toggleCountryParties(countryHeader) {
+    const countryColumn = countryHeader.parentElement;
+    const partyItems = countryColumn.querySelectorAll('.select-item');
+    const isSelected = countryHeader.classList.contains('selected');
+    
+    // Toggle the country header
+    countryHeader.classList.toggle('selected');
+    
+    // Toggle all party items in this country
+    partyItems.forEach(item => {
+        if (isSelected) {
+            item.classList.remove('selected');
+        } else {
+            item.classList.add('selected');
+        }
+    });
+    
+    updateData();
+}
+
+// Function to estimate a party's importance based on common knowledge
+function estimatePartyImportance(partyInfo) {
+    if (!partyInfo) return 0;
+    
+    let importance = 0;
+    
+    // Check party family - major party families get higher importance
+    if (partyInfo.family_name) {
+        const familyName = partyInfo.family_name.toLowerCase();
+        
+        // Major party families in European politics
+        if (familyName.includes("social democratic") || familyName.includes("socialist")) {
+            importance += 30; // Social democrats are typically major parties
+        } else if (familyName.includes("conservative") || familyName.includes("christian democratic")) {
+            importance += 30; // Conservatives and Christian democrats are typically major parties
+        } else if (familyName.includes("liberal")) {
+            importance += 25; // Liberals are often significant
+        } else if (familyName.includes("green")) {
+            importance += 20; // Greens are important but often smaller
+        } else if (familyName.includes("radical right") || familyName.includes("populist right")) {
+            importance += 20; // Radical right parties have gained importance
+        } else if (familyName.includes("communist") || familyName.includes("left")) {
+            importance += 15; // Communist and left parties vary in size
+        } else if (familyName.includes("regional")) {
+            importance += 10; // Regional parties are often smaller
+        }
+    }
+    
+    // Check if it's a government party
+    if (partyInfo.in_government === 1) {
+        importance += 15; // Government parties are important
+    }
+    
+    // Check if it's a parliamentary party
+    if (partyInfo.in_parliament === 1) {
+        importance += 10; // Parliamentary parties have some importance
+    }
+    
+    // Check party name for keywords that might indicate size
+    const partyName = partyInfo.party.toLowerCase();
+    
+    // Major party name indicators
+    if (partyName.includes("national") || partyName.includes("democratic") || 
+        partyName.includes("people") || partyName.includes("union") ||
+        partyName.includes("republican") || partyName.includes("labour") ||
+        partyName.includes("labor")) {
+        importance += 5; // These terms often indicate larger parties
+    }
+    
+    // Country-specific adjustments
+    if (partyInfo.country_name) {
+        const country = partyInfo.country_name.toLowerCase();
+        
+        // Germany
+        if (country === "germany") {
+            if (partyName.includes("cdu") || partyName.includes("csu") || 
+                partyName.includes("spd") || partyName.includes("fdp") || 
+                partyName.includes("die linke") || partyName.includes("grüne") ||
+                partyName.includes("afd")) {
+                importance += 10; // Major German parties
+            }
+        }
+        // France
+        else if (country === "france") {
+            if (partyName.includes("républicain") || partyName.includes("socialiste") || 
+                partyName.includes("en marche") || partyName.includes("rassemblement national") ||
+                partyName.includes("les républicains") || partyName.includes("parti socialiste")) {
+                importance += 10; // Major French parties
+            }
+        }
+        // UK
+        else if (country === "united kingdom" || country === "uk") {
+            if (partyName.includes("conservative") || partyName.includes("labour") || 
+                partyName.includes("liberal democrat") || partyName.includes("scottish national") ||
+                partyName.includes("snp") || partyName.includes("plaid cymru") ||
+                partyName.includes("ukip") || partyName.includes("brexit")) {
+                importance += 10; // Major UK parties
+            }
+        }
+        // Italy
+        else if (country === "italy") {
+            if (partyName.includes("forza italia") || partyName.includes("partito democratico") || 
+                partyName.includes("lega") || partyName.includes("fratelli d'italia") ||
+                partyName.includes("movimento 5 stelle")) {
+                importance += 10; // Major Italian parties
+            }
+        }
+        // Spain
+        else if (country === "spain") {
+            if (partyName.includes("partido popular") || partyName.includes("partido socialista") || 
+                partyName.includes("ciudadanos") || partyName.includes("podemos") ||
+                partyName.includes("vox")) {
+                importance += 10; // Major Spanish parties
+            }
+        }
+        // Netherlands
+        else if (country === "netherlands") {
+            if (partyName.includes("vvd") || partyName.includes("cda") || 
+                partyName.includes("pvda") || partyName.includes("d66") ||
+                partyName.includes("pvdd") || partyName.includes("sp") ||
+                partyName.includes("groenlinks") || partyName.includes("fvd")) {
+                importance += 10; // Major Dutch parties
+            }
+        }
+        // Sweden
+        else if (country === "sweden") {
+            if (partyName.includes("socialdemokraterna") || partyName.includes("moderaterna") || 
+                partyName.includes("centerpartiet") || partyName.includes("vänsterpartiet") ||
+                partyName.includes("kristdemokraterna") || partyName.includes("liberalerna") ||
+                partyName.includes("miljöpartiet") || partyName.includes("sverigedemokraterna")) {
+                importance += 10; // Major Swedish parties
+            }
+        }
+    }
+    
+    return importance;
+}
+
+async function loadPartyData() {
+    try {
+        // Load party issue data
+        const response = await fetch('/files/party_issue_data.json');
+        allData = await response.json();
+        
+        // Load party info
+        const partyInfoResponse = await fetch('/files/party_info.json');
+        partyInfo = await partyInfoResponse.json();
+        
+        const partyList = document.getElementById('party-list');
+        partyList.innerHTML = '';
+        
+        // Create a map of party IDs to party info for faster lookup
+        const partyInfoMap = {};
+        partyInfo.forEach(info => {
+            partyInfoMap[info.parlgov_id] = info;
+        });
+        
+        // Group parties by country
+        const partiesByCountry = {};
+        
+        allData.forEach(party => {
+            const partyId = party.p[0];
+            const partyInfoItem = partyInfoMap[partyId];
+            
+            if (partyInfoItem) {
+                let countryName = partyInfoItem.country_name;
+                
+                // Rename "United Kingdom" to "UK" in the data structure
+                if (countryName.toLowerCase() === "united kingdom") {
+                    countryName = "UK";
+                }
+                
+                if (!partiesByCountry[countryName]) {
+                    partiesByCountry[countryName] = [];
+                }
+                partiesByCountry[countryName].push({
+                    id: partyId,
+                    info: partyInfoItem
+                });
+            } else {
+                // Handle parties without country info
+                if (!partiesByCountry['Other']) {
+                    partiesByCountry['Other'] = [];
+                }
+                partiesByCountry['Other'].push({
+                    id: partyId,
+                    info: null
+                });
+            }
+        });
+        
+        // Sort countries alphabetically
+        const sortedCountries = Object.keys(partiesByCountry).sort((a, b) => {
+            return a.localeCompare(b);
+        });
+        
+        // Create columns for each country
+        sortedCountries.forEach(country => {
+            const countryColumn = document.createElement('div');
+            countryColumn.className = 'country-column';
+            
+            const countryHeader = document.createElement('div');
+            countryHeader.className = 'country-header';
+            
+            // Display the country name (already renamed if it was "United Kingdom")
+            if (country === "UK") {
+                countryHeader.textContent = "UK";
+            } else {
+                countryHeader.textContent = capitalizeWords(country);
+            }
+            
+            // Make country header clickable
+            countryHeader.onclick = function() { toggleCountryParties(this); };
+            
+            countryColumn.appendChild(countryHeader);
+            
+            // Sort parties by estimated importance
+            partiesByCountry[country].sort((a, b) => {
+                // Get estimated importance for each party
+                const aImportance = estimatePartyImportance(a.info);
+                const bImportance = estimatePartyImportance(b.info);
+                
+                // Sort by importance (descending)
+                return bImportance - aImportance;
+            });
+            
+            partiesByCountry[country].forEach(party => {
+                const div = document.createElement('div');
+                div.className = 'select-item';
+                div.setAttribute('data-value', party.id);
+                div.onclick = function() { toggleSelection(this); };
+                
+                let partyText;
+                if (party.info) {
+                    const partyName = party.info.party;
+                    partyText = partyName;
+                } else {
+                    partyText = "Party";
+                }
+                
+                div.textContent = partyText;
+                countryColumn.appendChild(div);
+            });
+            
+            partyList.appendChild(countryColumn);
+        });
+        
+        updateData();
+    } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('party-list').innerHTML = '<div class="select-item">Error loading data</div>';
+    }
+}
+
+function toggleAllParties() {
+    const selectAll = !document.querySelector('#party-list .select-item.selected');
+    const items = document.querySelectorAll('#party-list .select-item');
+    
+    items.forEach(item => {
+        if (selectAll) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+    
+    updateData();
+}
+
+function toggleAllIssues() {
+    const selectAll = !document.querySelector('#issue-list .select-item.selected');
+    const items = document.querySelectorAll('#issue-list .select-item');
+    
+    items.forEach(item => {
+        if (selectAll) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+    
+    updateData();
+}
+
+function updateData() {
+    const selectedParties = Array.from(document.querySelectorAll('#party-list .select-item.selected'))
+        .map(item => parseInt(item.getAttribute('data-value')));
+    
+    const selectedIssues = Array.from(document.querySelectorAll('#issue-list .select-item.selected'))
+        .map(item => item.getAttribute('data-value'));
+    
+    if (selectedParties.length === 0 || selectedIssues.length === 0) {
+        return;
+    }
+    
+    updateChart(selectedParties, selectedIssues);
+}
+
+function updateChart(selectedParties, selectedIssues) {
+    const ctx = document.getElementById('issue-chart').getContext('2d');
+    if (chart) {
+        chart.destroy();
+    }
+    
+    let datasets = [];
+    let colorIndex = 0;
+    
+    // Create a map of party IDs to party info for faster lookup
+    const partyInfoMap = {};
+    partyInfo.forEach(info => {
+        partyInfoMap[info.parlgov_id] = info;
+    });
+    
+    // First, collect all months from all selected parties
+    const allMonths = new Set();
+    selectedParties.forEach(partyId => {
+        const partyData = allData.find(item => item.p.includes(partyId));
+        if (partyData) {
+            partyData.d.forEach(item => {
+                allMonths.add(item.m[0]);
+            });
+        }
+    });
+    
+    const sortedMonths = Array.from(allMonths).sort();
+    
+    // Create a map of month to index for easier lookup
+    const monthToIndex = {};
+    sortedMonths.forEach((month, index) => {
+        monthToIndex[month] = index;
+    });
+    
+    console.log("Smoothing enabled:", smoothingEnabled);
+    console.log("Country averages enabled:", countryAveragesEnabled);
+    
+    // If country averages are enabled, calculate and show only the averages
+    if (countryAveragesEnabled) {
+        try {
+            datasets = calculateCountryAverages(selectedParties, selectedIssues);
+            console.log("Country averages calculated, datasets:", datasets.length);
+            
+            // Debug the datasets
+            if (datasets.length > 0) {
+                console.log("First dataset sample:", {
+                    label: datasets[0].label,
+                    dataLength: datasets[0].data.length,
+                    firstFewValues: datasets[0].data.slice(0, 5)
+                });
+            }
+        } catch (error) {
+            console.error("Error calculating country averages:", error);
+        }
+    } else {
+        // Add individual party datasets
+        selectedParties.forEach(partyId => {
+            const partyData = allData.find(item => item.p.includes(partyId));
+            if (!partyData) return;
+            
+            selectedIssues.forEach(issueId => {
+                const dataIssueId = issueId.includes('.') ? issueId.replace('.', '') : issueId;
+                
+                // Create an array with null values for all months
+                let data = new Array(sortedMonths.length).fill(null);
+                
+                // Fill in the data for months that have values
+                partyData.d.forEach(item => {
+                    const month = item.m[0];
+                    const index = monthToIndex[month];
+                    if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
+                        data[index] = item.i[dataIssueId][2] * 100;
+                    }
+                });
+                
+                // Apply smoothing if enabled
+                if (smoothingEnabled) {
+                    data = smoothData(data);
+                }
+                
+                const partyInfoItem = partyInfoMap[partyId];
+                const issueLabel = document.querySelector(`#issue-list .select-item[data-value="${issueId}"]`).textContent.trim();
+                
+                let datasetLabel;
+                let borderColor;
+                
+                if (partyInfoItem) {
+                    const partyName = partyInfoItem.party;
+                    datasetLabel = `${partyName} (${partyId}) - ${issueLabel}`;
+                    
+                    // Use party-specific color if only one issue is selected
+                    if (selectedIssues.length === 1) {
+                        borderColor = getPartyColor(partyName);
+                    } else {
+                        borderColor = colors[colorIndex % colors.length];
+                    }
+                } else {
+                    datasetLabel = `Party (${partyId}) - ${issueLabel}`;
+                    borderColor = colors[colorIndex % colors.length];
+                }
+                
+                datasets.push({
+                    label: datasetLabel,
+                    data: data,
+                    borderColor: borderColor,
+                    tension: smoothingEnabled ? 0.3 : 0.1,
+                    spanGaps: true,
+                    pointRadius: 0,
+                    pointStyle: 'none'
+                });
+                
+                colorIndex++;
+            });
+        });
+    }
+    
+    if (datasets.length === 0) {
+        console.log("No datasets to display");
+        return;
+    }
+    
+    console.log("Creating chart with", datasets.length, "datasets");
+    
+    try {
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: sortedMonths,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Share (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toFixed(2) + '%';
+                                } else {
+                                    label += 'No data';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Create custom legend
+        createCustomLegend(datasets);
+        
+        console.log("Chart created successfully");
+    } catch (error) {
+        console.error("Error creating chart:", error);
+    }
+}
+
+// Function to create a custom legend
+function createCustomLegend(datasets) {
+    console.log("Creating custom legend with", datasets.length, "datasets");
+    const legendContainer = document.getElementById('chart-legend');
+    
+    // Clear existing legend items
+    legendContainer.innerHTML = '';
+    
+    // Create legend items for each dataset
+    datasets.forEach((dataset, index) => {
+        const legendItem = document.createElement('div');
+        legendItem.className = 'legend-item';
+        legendItem.setAttribute('data-index', index);
+        
+        const colorBox = document.createElement('div');
+        colorBox.className = 'legend-color';
+        colorBox.style.backgroundColor = dataset.borderColor;
+        
+        const label = document.createElement('span');
+        label.textContent = dataset.label;
+        
+        legendItem.appendChild(colorBox);
+        legendItem.appendChild(label);
+        
+        // Add click event to toggle dataset visibility
+        legendItem.addEventListener('click', function() {
+            const datasetIndex = parseInt(this.getAttribute('data-index'));
+            const meta = chart.getDatasetMeta(datasetIndex);
+            
+            // Toggle visibility
+            meta.hidden = meta.hidden === null ? !chart.data.datasets[datasetIndex].hidden : null;
+            chart.update();
+            
+            // Update legend item style
+            this.classList.toggle('legend-hidden');
+        });
+        
+        legendContainer.appendChild(legendItem);
+    });
+    
+    // Make sure the legend container is visible
+    legendContainer.style.display = 'flex';
+    
+    // Add a message if there are many items
+    if (datasets.length > 20) {
+        const scrollMessage = document.createElement('div');
+        scrollMessage.style.width = '100%';
+        scrollMessage.style.textAlign = 'center';
+        scrollMessage.style.fontSize = '0.8em';
+        scrollMessage.style.color = '#666';
+        scrollMessage.style.marginTop = '5px';
+        scrollMessage.textContent = 'Scroll to see more items';
+        legendContainer.appendChild(scrollMessage);
+    }
+    
+    console.log("Legend created with", legendContainer.children.length, "items");
+}
+
+// Function to toggle smoothing
+function toggleSmoothing() {
+    smoothingEnabled = !smoothingEnabled;
+    const button = document.getElementById('smooth-button');
+    if (smoothingEnabled) {
+        button.classList.add('active');
+    } else {
+        button.classList.remove('active');
+    }
+    updateData();
+}
+
+// Function to toggle country averages
+function toggleCountryAverages() {
+    countryAveragesEnabled = !countryAveragesEnabled;
+    const button = document.getElementById('country-avg-button');
+    if (countryAveragesEnabled) {
+        button.classList.add('active');
+    } else {
+        button.classList.remove('active');
+    }
+    updateData();
+}
+
+// Function to calculate country averages
+function calculateCountryAverages(selectedParties, selectedIssues) {
+    // Group parties by country
+    const partiesByCountry = {};
+    
+    selectedParties.forEach(partyId => {
+        const partyInfoItem = partyInfo.find(info => info.parlgov_id === partyId);
+        if (!partyInfoItem) return;
+        
+        let countryName = partyInfoItem.country_name;
+        
+        // Rename "United Kingdom" to "UK" in the data structure
+        if (countryName.toLowerCase() === "united kingdom") {
+            countryName = "UK";
+        }
+        
+        if (!partiesByCountry[countryName]) {
+            partiesByCountry[countryName] = [];
+        }
+        partiesByCountry[countryName].push(partyId);
+    });
+    
+    console.log("Parties by country:", partiesByCountry);
+    
+    // Create datasets for country averages
+    const datasets = [];
+    let colorIndex = 0;
+    
+    // First, collect all months from all selected parties
+    const allMonths = new Set();
+    selectedParties.forEach(partyId => {
+        const partyData = allData.find(item => item.p.includes(partyId));
+        if (partyData) {
+            partyData.d.forEach(item => {
+                allMonths.add(item.m[0]);
+            });
+        }
+    });
+    
+    const sortedMonths = Array.from(allMonths).sort();
+    console.log("Total months:", sortedMonths.length);
+    
+    // Create a map of month to index for easier lookup
+    const monthToIndex = {};
+    sortedMonths.forEach((month, index) => {
+        monthToIndex[month] = index;
+    });
+    
+    // Process each country
+    Object.keys(partiesByCountry).forEach(country => {
+        const countryPartyIds = partiesByCountry[country];
+        
+        // Process all countries, even those with only one party
+        console.log(`Processing ${country} with ${countryPartyIds.length} parties`);
+        
+        selectedIssues.forEach(issueId => {
+            const dataIssueId = issueId.includes('.') ? issueId.replace('.', '') : issueId;
+            
+            // Create an array with null values for all months
+            let data = new Array(sortedMonths.length).fill(null);
+            const counts = new Array(sortedMonths.length).fill(0);
+            
+            // Fill in the data for months that have values
+            countryPartyIds.forEach(partyId => {
+                const partyData = allData.find(item => item.p.includes(partyId));
+                if (!partyData) return;
+                
+                partyData.d.forEach(item => {
+                    const month = item.m[0];
+                    const index = monthToIndex[month];
+                    if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
+                        if (data[index] === null) {
+                            data[index] = 0;
+                        }
+                        data[index] += item.i[dataIssueId][2] * 100;
+                        counts[index]++;
+                    }
+                });
+            });
+            
+            // Calculate averages
+            for (let i = 0; i < data.length; i++) {
+                if (counts[i] > 0) {
+                    data[i] = data[i] / counts[i];
+                } else {
+                    data[i] = null;
+                }
+            }
+            
+            // Apply smoothing if enabled
+            if (smoothingEnabled) {
+                console.log(`Applying smoothing to ${country} - ${issueId}`);
+                data = smoothData(data);
+            }
+            
+            const issueLabel = document.querySelector(`#issue-list .select-item[data-value="${issueId}"]`).textContent.trim();
+            
+            // Capitalize country name for the legend
+            const formattedCountryName = country === "UK" ? "UK" : capitalizeWords(country);
+            const datasetLabel = `${formattedCountryName} Within-Country Average - ${issueLabel}`;
+            
+            // Use country-specific color if only one issue is selected
+            let borderColor;
+            if (selectedIssues.length === 1) {
+                // Try to find a dominant party in the country to determine color
+                const dominantParty = findDominantParty(country, countryPartyIds);
+                if (dominantParty) {
+                    borderColor = getPartyColor(dominantParty);
+                } else {
+                    borderColor = colors[colorIndex % colors.length];
+                }
+            } else {
+                borderColor = colors[colorIndex % colors.length];
+            }
+            
+            datasets.push({
+                label: datasetLabel,
+                data: data,
+                borderColor: borderColor,
+                tension: smoothingEnabled ? 0.3 : 0.1,
+                spanGaps: true,
+                borderWidth: 2,
+                pointRadius: 0,
+                pointStyle: 'none'
+            });
+            
+            colorIndex++;
+        });
+    });
+    
+    console.log("Returning", datasets.length, "country average datasets");
+    return datasets;
+}
+
+// Function to find the dominant party in a country
+function findDominantParty(country, partyIds) {
+    // Get all parties in the country
+    const countryParties = partyIds.map(id => {
+        return partyInfo.find(info => info.parlgov_id === id);
+    }).filter(Boolean);
+    
+    if (countryParties.length === 0) return null;
+    
+    // Sort by importance
+    countryParties.sort((a, b) => {
+        return estimatePartyImportance(b) - estimatePartyImportance(a);
+    });
+    
+    // Return the most important party
+    return countryParties[0].party;
+}
+
+// Function to apply smoothing to a dataset
+function smoothData(data, windowSize = 5) {
+    if (data.length < windowSize) return data;
+    
+    const smoothed = new Array(data.length);
+    
+    // Handle the first and last points
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] === null) {
+            smoothed[i] = null;
+            continue;
+        }
+        
+        let sum = data[i];
+        let count = 1;
+        
+        // Look at previous points
+        for (let j = 1; j <= Math.floor(windowSize / 2); j++) {
+            if (i - j >= 0 && data[i - j] !== null) {
+                sum += data[i - j];
+                count++;
+            }
+        }
+        
+        // Look at next points
+        for (let j = 1; j <= Math.floor(windowSize / 2); j++) {
+            if (i + j < data.length && data[i + j] !== null) {
+                sum += data[i + j];
+                count++;
+            }
+        }
+        
+        smoothed[i] = sum / count;
+    }
+    
+    return smoothed;
+}
+
+// Function to get color for a party
+function getPartyColor(partyName) {
+    if (!partyName) return colors[0];
+    
+    // Check if the party name contains any of the known party names
+    for (const knownParty in partyColors) {
+        if (partyName.toLowerCase().includes(knownParty.toLowerCase())) {
+            return partyColors[knownParty];
+        }
+    }
+    
+    // Check for party family
+    const partyInfoItem = partyInfo.find(info => info.party === partyName);
+    if (partyInfoItem && partyInfoItem.family_name) {
+        const familyName = partyInfoItem.family_name.toLowerCase();
+        
+        if (familyName.includes("social democratic") || familyName.includes("socialist")) {
+            return "rgb(255, 0, 0)"; // Red for social democrats
+        } else if (familyName.includes("conservative") || familyName.includes("christian democratic")) {
+            return "rgb(0, 0, 128)"; // Blue for conservatives
+        } else if (familyName.includes("liberal")) {
+            return "rgb(0, 128, 255)"; // Light blue for liberals
+        } else if (familyName.includes("green")) {
+            return "rgb(0, 128, 0)"; // Green for greens
+        } else if (familyName.includes("radical right") || familyName.includes("populist right")) {
+            return "rgb(0, 0, 0)"; // Black for radical right
+        } else if (familyName.includes("communist") || familyName.includes("left")) {
+            return "rgb(128, 0, 128)"; // Purple for communists/left
+        } else if (familyName.includes("regional")) {
+            return "rgb(255, 215, 0)"; // Gold for regional parties
+        }
+    }
+    
+    // Return default color if no match found
+    return partyColors.default;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadPartyData();
+    
+    // Set up initial state after data is loaded
+    setTimeout(function() {
+        // Select housing and immigration issues
+        const housingIssue = document.querySelector('#issue-list .select-item[data-value="14"]');
+        const immigrationIssue = document.querySelector('#issue-list .select-item[data-value="9"]');
+        
+        if (housingIssue) housingIssue.classList.add('selected');
+        if (immigrationIssue) immigrationIssue.classList.add('selected');
+        
+        // Enable smoothing and country averages
+        smoothingEnabled = true;
+        document.getElementById('smooth-button').classList.add('active');
+        
+        countryAveragesEnabled = true;
+        document.getElementById('country-avg-button').classList.add('active');
+        
+        // Select all German parties and highlight the Germany country button
+        const germanParties = document.querySelectorAll('#party-list .country-column');
+        germanParties.forEach(column => {
+            const header = column.querySelector('.country-header');
+            if (header && header.textContent === 'Germany') {
+                // Highlight the Germany country button
+                header.classList.add('selected');
+                
+                // Select all party items in the Germany column
+                const partyItems = column.querySelectorAll('.select-item');
+                partyItems.forEach(item => {
+                    item.classList.add('selected');
+                });
+            }
+        });
+        
+        // Update the chart with the initial selections
+        updateData();
+    }, 1000); // Wait for data to load
+});
+</script>
+</body>
+</html> 
