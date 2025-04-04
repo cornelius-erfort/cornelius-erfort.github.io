@@ -90,6 +90,8 @@ excerpt: "Visualization of parties' issue agendas"
     margin: 20px 0;
     height: 400px;
     margin-bottom: 100px;
+    position: relative;
+    z-index: 1;
 }
 .issues-grid {
     display: grid;
@@ -143,6 +145,8 @@ excerpt: "Visualization of parties' issue agendas"
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
 }
 .legend-item {
     display: flex;
@@ -198,6 +202,13 @@ excerpt: "Visualization of parties' issue agendas"
         font-size: 0.5em;
         padding: 1px 2px;
     }
+}
+.tool-description {
+    position: relative;
+    z-index: 0;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
 }
 </style>
 </head>
@@ -1071,6 +1082,19 @@ function createCustomLegend(datasets) {
         scrollMessage.textContent = 'Scroll to see more items';
         legendContainer.appendChild(scrollMessage);
     }
+    
+    // Add a spacer div after the legend to ensure separation from content below
+    const spacer = document.createElement('div');
+    spacer.style.height = '50px';
+    spacer.style.width = '100%';
+    spacer.style.clear = 'both';
+    legendContainer.appendChild(spacer);
+    
+    // Adjust the chart container's height based on the legend size
+    const chartContainer = document.querySelector('.chart-container');
+    const legendHeight = legendContainer.offsetHeight;
+    const minHeight = 400; // Minimum height for the chart container
+    chartContainer.style.height = Math.max(minHeight, legendHeight + 400) + 'px';
 }
 
 function toggleSmoothing() {
