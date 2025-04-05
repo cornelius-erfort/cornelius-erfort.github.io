@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-<!-- Place the script at the top of the markdown file -->https://www.journals.uchicago.edu/doi/10.1086/736027
+<!-- Place the script at the top of the markdown file -->
 <script type="text/javascript">
 (function() {
     window.toggleContent = function(id) {
