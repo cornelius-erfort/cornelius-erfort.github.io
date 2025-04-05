@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-<!-- Place the script at the top of the markdown file -->
+<!-- Place the script at the top of the markdown file -->https://www.journals.uchicago.edu/doi/10.1086/736027
 <script type="text/javascript">
 (function() {
     window.toggleContent = function(id) {
@@ -101,7 +101,7 @@ eprint = { https://doi.org/10.1086/736027}
     
     <div id="preprint1" class="pub-content">
         <div class="external-link-content">
-            <a href="https://www.journals.uchicago.edu/doi/10.1086/736027" target="_blank" rel="noopener">View on OSF →</a>
+            <a href="https://www.journals.uchicago.edu/doi/10.1086/736027" target="_blank" rel="noopener">View on Chicago Press →</a>
         </div>
     </div>
 
