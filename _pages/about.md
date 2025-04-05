@@ -76,7 +76,7 @@ On this website, you can find more information on my research projects and downl
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract1')">Abstract</button>
         <button class="pub-button" onclick="toggleContent('bibtex1')">BibTeX</button>
-        <button class="pub-button" onclick="toggleContent('preprint1')">Preprint</button>
+        <button class="pub-button" onclick="toggleContent('preprint1')">Article</button>
         <button class="pub-button" onclick="toggleContent('data1')">Data</button>
     </div>
     
@@ -101,7 +101,7 @@ eprint = { https://doi.org/10.1086/736027}
     
     <div id="preprint1" class="pub-content">
         <div class="external-link-content">
-            <a href="https://osf.io/5vs9b/" target="_blank" rel="noopener">View on OSF →</a>
+            <a href="https://www.journals.uchicago.edu/doi/10.1086/736027" target="_blank" rel="noopener">View on OSF →</a>
         </div>
     </div>
 
