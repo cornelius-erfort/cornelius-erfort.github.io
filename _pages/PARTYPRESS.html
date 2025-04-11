@@ -727,19 +727,25 @@ async function loadPartyData() {
         
         const partyInfoMap = {};
         partyInfo.forEach(info => {
-            partyInfoMap[info.parlgov_id] = info;
+            if (info && info.parlgov_id) {
+                partyInfoMap[info.parlgov_id] = info;
+            }
         });
         
         const partiesByCountry = {};
         
         allData.forEach(party => {
+            if (!party || !party.p || !party.p[0]) return;
+            
             const partyId = party.p[0];
             const partyInfoItem = partyInfoMap[partyId];
             
             if (partyInfoItem) {
                 let countryName = partyInfoItem.country_name;
                 
-                if (countryName.toLowerCase() === "united kingdom") {
+                if (!countryName) {
+                    countryName = 'Other';
+                } else if (countryName.toLowerCase() === "united kingdom") {
                     countryName = "UK";
                 }
                 
@@ -796,11 +802,11 @@ async function loadPartyData() {
                 div.onclick = function() { toggleSelection(this); };
                 
                 let partyText;
-                if (party.info) {
+                if (party.info && party.info.party) {
                     const partyName = party.info.party;
                     partyText = partyName;
                 } else {
-                    partyText = "Party";
+                    partyText = `Party ${party.id}`;
                 }
                 
                 div.textContent = partyText;
