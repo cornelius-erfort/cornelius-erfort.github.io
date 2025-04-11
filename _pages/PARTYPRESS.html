@@ -740,12 +740,10 @@ async function loadPartyData() {
             const partyId = party.p[0];
             const partyInfoItem = partyInfoMap[partyId];
             
-            if (partyInfoItem) {
+            if (partyInfoItem && partyInfoItem.country_name) {
                 let countryName = partyInfoItem.country_name;
                 
-                if (!countryName) {
-                    countryName = 'Other';
-                } else if (countryName.toLowerCase() === "united kingdom") {
+                if (countryName.toLowerCase() === "united kingdom") {
                     countryName = "UK";
                 }
                 
@@ -755,14 +753,6 @@ async function loadPartyData() {
                 partiesByCountry[countryName].push({
                     id: partyId,
                     info: partyInfoItem
-                });
-            } else {
-                if (!partiesByCountry['Other']) {
-                    partiesByCountry['Other'] = [];
-                }
-                partiesByCountry['Other'].push({
-                    id: partyId,
-                    info: null
                 });
             }
         });
