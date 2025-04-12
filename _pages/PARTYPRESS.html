@@ -214,7 +214,14 @@ excerpt: "Visualization of parties' issue agendas"
 </head>
 <body>
 <h2>Interactive Visualization</h2>
-<p>This interactive visualization tool allows you to explore the PARTYPRESS Database, which contains information on the issue agendas of political parties in 9 European countries from about 2010 to 2020. The database is based on the coding of 250,000+ press releases from 68 political parties.</p>
+<p>This interactive visualization tool allows you to explore the PARTYPRESS Database and a preview of a new database which extends PARTYPRESS to significantly more countries and more recent time frames.
+    The combined database contains information on the issue agendas of political parties in 25 European countries from about 2010 to 2025. The database is based on the coding of 400,000+ press releases from over 150 political parties.</p>
+
+<div style="text-align: center; margin: 20px 0;">
+    <a href="#tool-description" class="function-button" style="display: inline-block; padding: 10px 20px; font-size: 1em; text-decoration: none;">
+        Read more about PARTYPRESS
+    </a>
+</div>
 
 <div class="controls">
     <div class="selector-container">
@@ -271,13 +278,11 @@ excerpt: "Visualization of parties' issue agendas"
     <div id="chart-legend" class="chart-legend"></div>
 </div>
 
-<div class="tool-description">
-    
-    
+<div class="tool-description" id="tool-description">
     <h2>What is PARTYPRESS?</h2>
     <p>PARTYPRESS is a comprehensive database that measures the issue agendas of political parties in Europe. It contains information on the relative emphasis parties place on different issues in their press releases, allowing researchers to analyze how parties prioritize various policy areas over time.</p>
     
-    <p>The database includes data on 9 European countries and covers 23 different issues, from macroeconomics to immigration, environment, and European integration. Each issue is measured as a percentage of a party's total press releases in a given month.</p>
+    <p>The database includes data on 25 European countries and covers 23 different issues, from macroeconomics to immigration, environment, and European integration. Each issue is measured as a percentage of a party's total press releases in a given month. The data spans from about 2010 to 2025 and is based on the coding of 400,000+ press releases from over 150 political parties.</p>
     
     <h2>How to Use This Tool</h2>
     <ol>
@@ -716,11 +721,19 @@ async function loadPartyData() {
         }
         allData = await dataResponse.json();
         
+        if (typeof allData !== 'object' || allData === null) {
+            throw new Error("Party issue data is not in the expected format (not an object)");
+        }
+        
         const partyInfoResponse = await fetch('/files/party_info.json');
         if (!partyInfoResponse.ok) {
             throw new Error(`Failed to load party info: ${partyInfoResponse.status} ${partyInfoResponse.statusText}`);
         }
         partyInfo = await partyInfoResponse.json();
+        
+        if (!Array.isArray(partyInfo)) {
+            throw new Error("Party info data is not in the expected format (not an array)");
+        }
         
         const partyList = document.getElementById('party-list');
         partyList.innerHTML = '';
@@ -734,10 +747,9 @@ async function loadPartyData() {
         
         const partiesByCountry = {};
         
-        allData.forEach(party => {
-            if (!party || !party.p || !party.p[0]) return;
+        Object.entries(allData).forEach(([partyId, partyData]) => {
+            if (!partyData || !partyData.p || !partyData.p[0]) return;
             
-            const partyId = party.p[0];
             const partyInfoItem = partyInfoMap[partyId];
             
             if (partyInfoItem && partyInfoItem.country_name) {
@@ -819,11 +831,19 @@ async function loadPartyData() {
                 }
                 allData = await dataResponse.json();
                 
+                if (typeof allData !== 'object' || allData === null) {
+                    throw new Error("Party issue data from alternative path is not in the expected format (not an object)");
+                }
+                
                 const partyInfoResponse = await fetch('./files/party_info.json');
                 if (!partyInfoResponse.ok) {
                     throw new Error(`Failed to load party info from alternative path: ${partyInfoResponse.status} ${partyInfoResponse.statusText}`);
                 }
                 partyInfo = await partyInfoResponse.json();
+                
+                if (!Array.isArray(partyInfo)) {
+                    throw new Error("Party info data from alternative path is not in the expected format (not an array)");
+                }
                 
                 loadPartyData();
             } catch (altError) {
@@ -878,10 +898,10 @@ function updateChart(selectedParties, selectedIssues) {
     
     const allMonths = new Set();
     selectedParties.forEach(partyId => {
-        const partyData = allData.find(item => item.p.includes(partyId));
-        if (partyData) {
-            partyData.d.forEach(item => {
-                allMonths.add(item.m[0]);
+        const partyData = allData[partyId];
+        if (partyData && partyData.d) {
+            Object.keys(partyData.d).forEach(month => {
+                allMonths.add(month);
             });
         }
     });
@@ -906,7 +926,7 @@ function updateChart(selectedParties, selectedIssues) {
         }
     } else {
         selectedParties.forEach(partyId => {
-            const partyData = allData.find(item => item.p.includes(partyId));
+            const partyData = allData[partyId];
             if (!partyData) return;
             
             selectedIssues.forEach(issueId => {
@@ -914,11 +934,10 @@ function updateChart(selectedParties, selectedIssues) {
                 
                 let data = new Array(sortedMonths.length).fill(null);
                 
-                partyData.d.forEach(item => {
-                    const month = item.m[0];
+                Object.entries(partyData.d).forEach(([month, monthData]) => {
                     const index = monthToIndex[month];
-                    if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
-                        data[index] = item.i[dataIssueId][2] * 100;
+                    if (index !== undefined && monthData.i && monthData.i[dataIssueId] && monthData.i[dataIssueId][2] !== undefined) {
+                        data[index] = monthData.i[dataIssueId][2] * 100;
                     }
                 });
                 
@@ -1157,10 +1176,10 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
     
     const allMonths = new Set();
     selectedParties.forEach(partyId => {
-        const partyData = allData.find(item => item.p.includes(partyId));
-        if (partyData) {
-            partyData.d.forEach(item => {
-                allMonths.add(item.m[0]);
+        const partyData = allData[partyId];
+        if (partyData && partyData.d) {
+            Object.keys(partyData.d).forEach(month => {
+                allMonths.add(month);
             });
         }
     });
@@ -1182,17 +1201,16 @@ function calculateCountryAverages(selectedParties, selectedIssues) {
             const counts = new Array(sortedMonths.length).fill(0);
             
             countryPartyIds.forEach(partyId => {
-                const partyData = allData.find(item => item.p.includes(partyId));
-                if (!partyData) return;
+                const partyData = allData[partyId];
+                if (!partyData || !partyData.d) return;
                 
-                partyData.d.forEach(item => {
-                    const month = item.m[0];
+                Object.entries(partyData.d).forEach(([month, monthData]) => {
                     const index = monthToIndex[month];
-                    if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
+                    if (index !== undefined && monthData.i && monthData.i[dataIssueId] && monthData.i[dataIssueId][2] !== undefined) {
                         if (data[index] === null) {
                             data[index] = 0;
                         }
-                        data[index] += item.i[dataIssueId][2] * 100;
+                        data[index] += monthData.i[dataIssueId][2] * 100;
                         counts[index]++;
                     }
                 });
@@ -1335,20 +1353,19 @@ function calculateOverallAverage(selectedParties, selectedIssues, sortedMonths, 
     const counts = new Array(sortedMonths.length).fill(0);
     
     selectedParties.forEach(partyId => {
-        const partyData = allData.find(item => item.p.includes(partyId));
-        if (!partyData) return;
+        const partyData = allData[partyId];
+        if (!partyData || !partyData.d) return;
         
         selectedIssues.forEach(issueId => {
             const dataIssueId = issueId.includes('.') ? issueId.replace('.', '') : issueId;
             
-            partyData.d.forEach(item => {
-                const month = item.m[0];
+            Object.entries(partyData.d).forEach(([month, monthData]) => {
                 const index = monthToIndex[month];
-                if (index !== undefined && item.i[dataIssueId] && item.i[dataIssueId][2] !== undefined) {
+                if (index !== undefined && monthData.i && monthData.i[dataIssueId] && monthData.i[dataIssueId][2] !== undefined) {
                     if (data[index] === null) {
                         data[index] = 0;
                     }
-                    data[index] += item.i[dataIssueId][2] * 100;
+                    data[index] += monthData.i[dataIssueId][2] * 100;
                     counts[index]++;
                 }
             });
