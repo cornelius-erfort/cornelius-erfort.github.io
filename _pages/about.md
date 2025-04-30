@@ -118,7 +118,7 @@ eprint = { https://doi.org/10.1086/736027}
 </td>
 <td style="border:none">
     <b>An Election Forecasting Model for Subnational Elections</b> <br>
-    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
+    <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <span class="author-name">Cornelius Erfort</span>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
     <i>Electoral Studies</i>, forthcoming <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract9')">Abstract</button>
