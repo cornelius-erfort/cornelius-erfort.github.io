@@ -113,13 +113,45 @@ eprint = { https://doi.org/10.1086/736027}
 </td>
 </tr>
 
+
+<tr>
+<td class="publication-image-cell" style="border:none">
+  <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
+</td>
+<td style="border:none">
+    <b>An Election Forecasting Model for Subnational Elections</b> <br>
+    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
+    <i>Electoral Studies</i>, forthcoming <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('abstract9')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex9')">BibTeX</button>
+    </div>
+    
+    <div id="abstract9" class="pub-content">
+        While election forecasts predominantly focus on national contests, many democratic elections take place at the subnational level.  Subnational elections pose unique challenges for traditional fundamentals forecasting models due to less available polling data and idiosyncratic subnational politics. In this article, we present and evaluate the performance of Bayesian forecasting models for German state elections from 1990 to 2024. Our forecasts demonstrate high accuracy at lead times of two days, two weeks, and two months, and offer valuable ex-ante predictions for three state elections held in September 2024. These findings underscore the potential for applying election forecasting models effectively to subnational elections.
+    </div>
+    
+    <div id="bibtex9" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2024,
+  title = {An Election Forecasting Model for Subnational Elections},
+  author = {Erfort, Cornelius and Stoetzer, Lukas F. and Rajski, Hannah and Gschwend, Thomas and Munzert, Simon and Koch, Elias},
+  journal = {Electoral Studies},
+  year = {forthcoming}
+}</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex9')">Download</button>
+        </div>
+    </div>
+</td>
+</tr>
+
 <tr>
 <td class="publication-image-cell" style="border:none">
   <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D"><img src="/files/ps.jpg"></a>
 </td>
 <td style="border:none">
     <b>The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts</b> <br>
-    <span class="author-name">Cornelius Erfort</span>, Lukas F. Stoetzer, Thomas Gschwend, Elias Koch, Simon Munzert, and Hannah Rajski <br>
+    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://elias-koch.com">Elias Koch</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a> <br>
     <i>PS: Political Science & Politics</i>, 2025 <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract8')">Abstract</button>
@@ -151,6 +183,7 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
 </td>
 </tr>
+
 
 <tr>
 <td class="publication-image-cell" style="border:none">
