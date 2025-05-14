@@ -114,15 +114,16 @@ eprint = { https://doi.org/10.1086/736027}
 
 <tr>
 <td class="publication-image-cell" style="border:none">
-  <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
+  <a href="https://doi.org/10.1016/j.electstud.2025.102939"><img src="/files/jelst.jpg"></a>
 </td>
 <td style="border:none">
     <b>An Election Forecasting Model for Subnational Elections</b> <br>
     <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <span class="author-name">Cornelius Erfort</span>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
-    <i>Electoral Studies</i>, forthcoming <br>
+    <i>Electoral Studies</i>, 2025 <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract9')">Abstract</button>
         <button class="pub-button" onclick="toggleContent('bibtex9')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article9')">Article</button>
     </div>
     
     <div id="abstract9" class="pub-content">
@@ -131,13 +132,22 @@ eprint = { https://doi.org/10.1086/736027}
     
     <div id="bibtex9" class="pub-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2024,
+            <pre>@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2025,
   title = {An Election Forecasting Model for Subnational Elections},
   author = {Erfort, Cornelius and Stoetzer, Lukas F. and Rajski, Hannah and Gschwend, Thomas and Munzert, Simon and Koch, Elias},
   journal = {Electoral Studies},
-  year = {forthcoming}
+  volume = {95},
+  pages = {102939},
+  year = {2025},
+  issn = {0261-3794},
+  doi = {https://doi.org/10.1016/j.electstud.2025.102939}
 }</pre>
             <button class="pub-button" onclick="downloadBibtex('bibtex9')">Download</button>
+        </div>
+    </div>
+    <div id="article9" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://doi.org/10.1016/j.electstud.2025.102939" target="_blank" rel="noopener">View on Electoral Studies →</a>
         </div>
     </div>
 </td>
