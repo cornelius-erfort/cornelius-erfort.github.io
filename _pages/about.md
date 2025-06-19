@@ -307,16 +307,15 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
 </td>
 </tr>
-</table>
 
-## Working Papers
-
-<table style="border:none">
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <a href="https://osf.io/jnarh/"><img src="/files/jelst.jpg"></a>
+</td>
 <td style="border:none">
     <b>Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants</b> <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="https://antoniovalentim.github.io">António Valentim</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
-    R&R <br>
+    <i>Electoral Studies</i>, forthcoming <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract4')">Abstract</button>
         <button class="pub-button" onclick="toggleContent('bibtex4')">BibTeX</button>
@@ -329,11 +328,11 @@ eprint = { https://doi.org/10.1086/736027}
     
     <div id="bibtex4" class="pub-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@unpublished{erfort_valentim_kluver_2024,
+            <pre>@article{erfort_valentim_kluver_2024,
   title = {Buying Voter Support for Unpopular Policies: {Evidence} from {German} Nuclear Power Plants},
   author = {Erfort, Cornelius and Valentim, António and Klüver, Heike},
-  year = {2024},
-  note = {Under Review},
+  journal = {Electoral Studies},
+  year = {forthcoming},
   doi = {10.31219/osf.io/jnarh},
   url = {https://osf.io/jnarh}
 }</pre>
@@ -348,7 +347,11 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
 </td>
 </tr>
+</table>
 
+## Working Papers
+
+<table style="border:none">
 <tr>
 <td style="border:none">
     <b>Parties' issue adaption between elections</b> <br>
