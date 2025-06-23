@@ -610,6 +610,35 @@ eprint = { https://doi.org/10.1086/736027}
   <div class="document-icon">📄</div>
 </td>
 <td style="border:none">
+    <b>Who Becomes a Lobbyist? Evidence from the US and Germany</b> <br>
+    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.janstuckatz.com">Jan Stuckatz</a>, <a href="https://hartmannfelix.github.io">Felix Hartmann</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('abstract7')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex7')">BibTeX</button>
+    </div>
+    
+    <div id="abstract7" class="pub-content">
+        Abstract content would go here when available
+    </div>
+    
+    <div id="bibtex7" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@unpublished{erfort_stuckatz_hartmann_kluver_2024,
+  title = {Who Becomes a Lobbyist?},
+  author = {Erfort, Cornelius and Stuckatz, Jan and Hartmann, Felix and Klüver, Heike},
+  year = {2024}
+}</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex7')">Download</button>
+        </div>
+    </div>
+</td>
+</tr>
+
+<tr>
+<td class="publication-image-cell" style="border:none">
+  <div class="document-icon">📄</div>
+</td>
+<td style="border:none">
     <b>Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data</b> <br>
     <span class="author-name">Cornelius Erfort</span> <br>
     <div class="publication-buttons">
@@ -638,35 +667,6 @@ eprint = { https://doi.org/10.1086/736027}
     <div id="preprint6" class="pub-content">
         <div class="external-link-content">
             <a href="https://osf.io/g9t8y/" target="_blank" rel="noopener">View on OSF →</a>
-        </div>
-    </div>
-</td>
-</tr>
-
-<tr>
-<td class="publication-image-cell" style="border:none">
-  <div class="document-icon">📄</div>
-</td>
-<td style="border:none">
-    <b>Who Becomes a Lobbyist? Evidence from the US and Germany</b> <br>
-    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.janstuckatz.com">Jan Stuckatz</a>, <a href="https://hartmannfelix.github.io">Felix Hartmann</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
-    <div class="publication-buttons">
-        <button class="pub-button" onclick="toggleContent('abstract7')">Abstract</button>
-        <button class="pub-button" onclick="toggleContent('bibtex7')">BibTeX</button>
-    </div>
-    
-    <div id="abstract7" class="pub-content">
-        Abstract content would go here when available
-    </div>
-    
-    <div id="bibtex7" class="pub-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@unpublished{erfort_stuckatz_hartmann_kluver_2024,
-  title = {Who Becomes a Lobbyist?},
-  author = {Erfort, Cornelius and Stuckatz, Jan and Hartmann, Felix and Klüver, Heike},
-  year = {2024}
-}</pre>
-            <button class="pub-button" onclick="downloadBibtex('bibtex7')">Download</button>
         </div>
     </div>
 </td>
