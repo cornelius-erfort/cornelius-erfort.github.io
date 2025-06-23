@@ -8,9 +8,11 @@ redirect_from:
   - /about.html
 ---
 
-<!-- Place the script at the top of the markdown file -->
 <script type="text/javascript">
 (function() {
+    // Global variable to track default sorting order
+    window.defaultSortOrder = [];
+    
     window.toggleContent = function(id) {
         console.log("Toggling content for ID:", id);
         var allContent = document.getElementsByClassName('pub-content');
@@ -49,6 +51,168 @@ redirect_from:
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     };
+
+    window.resetFilters = function() {
+        document.getElementById('yearFilter').value = '';
+        document.getElementById('journalFilter').value = '';
+        filterPublications();
+    };
+
+    function getSortFunction(sortBy) {
+        if (sortBy === 'year') {
+            return function(a, b) {
+                var yearOrder = {'forthcoming': 0, '2025': 1, '2024': 2, '2023': 3};
+                var aYear = a.getAttribute('data-year');
+                var bYear = b.getAttribute('data-year');
+                var aVal = yearOrder[aYear] !== undefined ? yearOrder[aYear] : 99;
+                var bVal = yearOrder[bYear] !== undefined ? yearOrder[bYear] : 99;
+                if (aVal !== bVal) return aVal - bVal;
+                // fallback to default order if same year
+                var aIndex = window.defaultSortOrder.indexOf(a);
+                var bIndex = window.defaultSortOrder.indexOf(b);
+                return aIndex - bIndex;
+            };
+        } else if (sortBy === 'journal') {
+            return function(a, b) {
+                var aJournal = a.getAttribute('data-journal') || '';
+                var bJournal = b.getAttribute('data-journal') || '';
+                if (aJournal < bJournal) return -1;
+                if (aJournal > bJournal) return 1;
+                // fallback to default order if same journal
+                var aIndex = window.defaultSortOrder.indexOf(a);
+                var bIndex = window.defaultSortOrder.indexOf(b);
+                return aIndex - bIndex;
+            };
+        } else {
+            // default
+            return function(a, b) {
+                var aIndex = window.defaultSortOrder.indexOf(a);
+                var bIndex = window.defaultSortOrder.indexOf(b);
+                return aIndex - bIndex;
+            };
+        }
+    }
+
+    window.filterPublications = function() {
+        var yearFilter = document.getElementById('yearFilter').value;
+        var journalFilter = document.getElementById('journalFilter').value;
+        var sortBy = document.getElementById('sortBy') ? document.getElementById('sortBy').value : 'default';
+        var publications = Array.from(document.querySelectorAll('#publicationsTable tr'));
+        var visible = [];
+
+        publications.forEach(function(pub) {
+            var year = pub.getAttribute('data-year');
+            var journal = pub.getAttribute('data-journal');
+            
+            var yearMatch = !yearFilter || year === yearFilter;
+            var journalMatch = !journalFilter || journal === journalFilter;
+            
+            if (yearMatch && journalMatch) {
+                visible.push(pub);
+            }
+        });
+
+        // Sorting
+        visible.sort(getSortFunction(sortBy));
+        
+        // Hide all first
+        publications.forEach(function(pub) { pub.style.display = 'none'; });
+        // Show filtered and sorted
+        visible.forEach(function(pub, i) {
+            if (i < 3) {
+                pub.style.display = '';
+            } else {
+                pub.style.display = 'none';
+            }
+        });
+        
+        var loadMoreBtn = document.getElementById('loadMoreBtn');
+        var resetFiltersBtn = document.getElementById('resetFiltersBtn');
+        var totalVisible = visible.length;
+        
+        if (totalVisible > 3) {
+            loadMoreBtn.style.display = 'inline-block';
+            resetFiltersBtn.style.display = 'none';
+        } else if (totalVisible === 0) {
+            loadMoreBtn.style.display = 'none';
+            resetFiltersBtn.style.display = 'inline-block';
+        } else {
+            loadMoreBtn.style.display = 'none';
+            resetFiltersBtn.style.display = 'none';
+        }
+    };
+
+    window.loadMorePublications = function() {
+        var yearFilter = document.getElementById('yearFilter').value;
+        var journalFilter = document.getElementById('journalFilter').value;
+        var sortBy = document.getElementById('sortBy') ? document.getElementById('sortBy').value : 'default';
+        var publications = Array.from(document.querySelectorAll('#publicationsTable tr'));
+        var maxVisible = 8;
+        var visible = [];
+
+        publications.forEach(function(pub) {
+            var year = pub.getAttribute('data-year');
+            var journal = pub.getAttribute('data-journal');
+            
+            var yearMatch = !yearFilter || year === yearFilter;
+            var journalMatch = !journalFilter || journal === journalFilter;
+            
+            if (yearMatch && journalMatch) {
+                visible.push(pub);
+            }
+        });
+
+        // Sorting
+        visible.sort(getSortFunction(sortBy));
+        
+        // Hide all first
+        publications.forEach(function(pub) { pub.style.display = 'none'; });
+        // Show filtered and sorted
+        visible.forEach(function(pub, i) {
+            if (i < maxVisible) {
+                pub.style.display = '';
+            } else {
+                pub.style.display = 'none';
+            }
+        });
+        var loadMoreBtn = document.getElementById('loadMoreBtn');
+        var totalVisible = visible.length;
+        if (maxVisible >= totalVisible) {
+            loadMoreBtn.style.display = 'none';
+        } else if (totalVisible > maxVisible) {
+            loadMoreBtn.style.display = 'inline-block';
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
+    };
+
+    function getVisiblePublications() {
+        var yearFilter = document.getElementById('yearFilter').value;
+        var journalFilter = document.getElementById('journalFilter').value;
+        var publications = document.querySelectorAll('#publicationsTable tr');
+        var visible = [];
+
+        publications.forEach(function(pub, index) {
+            var year = pub.getAttribute('data-year');
+            var journal = pub.getAttribute('data-journal');
+            
+            var yearMatch = !yearFilter || year === yearFilter;
+            var journalMatch = !journalFilter || journal === journalFilter;
+            
+            if (yearMatch && journalMatch) {
+                visible.push(pub);
+            }
+        });
+
+        return visible;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize default sort order based on the current DOM order
+        var publications = Array.from(document.querySelectorAll('#publicationsTable tr'));
+        window.defaultSortOrder = publications.slice();
+        filterPublications();
+    });
 })();
 </script>
 
@@ -61,9 +225,32 @@ In my dissertation, I analyzed how parties use the target and tailor their digit
 On this website, you can find more information on my research projects and download a copy of my [CV (PDF)](/cv).
 
 # Publications
-
-<table style="border:none">
-<tr>
+<div class="filter-controls" markdown="0">
+    <label for="yearFilter">Year:</label>
+    <select id="yearFilter" onchange="filterPublications()">
+        <option value="">All Years</option>
+        <option value="forthcoming">Forthcoming</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+    </select>
+    <label for="journalFilter">Journal:</label>
+    <select id="journalFilter" onchange="filterPublications()">
+        <option value="">All Journals</option>
+        <option value="The Journal of Politics">The Journal of Politics</option>
+        <option value="Electoral Studies">Electoral Studies</option>
+        <option value="PS: Political Science & Politics">PS: Political Science & Politics</option>
+        <option value="Research and Politics">Research and Politics</option>
+    </select>
+    <label for="sortBy">Sort by:</label>
+    <select id="sortBy" onchange="filterPublications()">
+        <option value="default">Default</option>
+        <option value="year">Year</option>
+        <option value="journal">Journal</option>
+    </select>
+</div>
+<table id="publicationsTable" style="border:none">
+<tr data-year="forthcoming" data-journal="The Journal of Politics">
 <td class="publication-image-cell" style="border:none">
   <a href="https://osf.io/5vs9b/"><img src="/files/jop.jpeg"></a>
 </td>
@@ -111,7 +298,7 @@ eprint = { https://doi.org/10.1086/736027}
 </td>
 </tr>
 
-<tr>
+<tr data-year="forthcoming" data-journal="Electoral Studies">
 <td class="publication-image-cell" style="border:none">
   <a href="https://osf.io/jnarh/"><img src="/files/jelst.jpg"></a>
 </td>
@@ -133,7 +320,7 @@ eprint = { https://doi.org/10.1086/736027}
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <pre>@article{erfort_valentim_kluver_2024,
   title = {Buying Voter Support for Unpopular Policies: {Evidence} from {German} Nuclear Power Plants},
-  author = { Valentim, António and Klüver, Heike and Erfort, Cornelius},
+  author = {Erfort, Cornelius and Valentim, António and Klüver, Heike},
   journal = {Electoral Studies},
   year = {forthcoming},
   doi = {10.31219/osf.io/jnarh},
@@ -151,88 +338,7 @@ eprint = { https://doi.org/10.1086/736027}
 </td>
 </tr>
 
-<tr>
-<td class="publication-image-cell" style="border:none">
-  <a href="https://doi.org/10.1016/j.electstud.2025.102939"><img src="/files/jelst.jpg"></a>
-</td>
-<td style="border:none">
-    <b>An Election Forecasting Model for Subnational Elections</b> <br>
-    <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <span class="author-name">Cornelius Erfort</span>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
-    <i>Electoral Studies</i>, 2025 <br>
-    <div class="publication-buttons">
-        <button class="pub-button" onclick="toggleContent('abstract9')">Abstract</button>
-        <button class="pub-button" onclick="toggleContent('bibtex9')">BibTeX</button>
-        <button class="pub-button" onclick="toggleContent('article9')">Article</button>
-    </div>
-    
-    <div id="abstract9" class="pub-content">
-        While election forecasts predominantly focus on national contests, many democratic elections take place at the subnational level.  Subnational elections pose unique challenges for traditional fundamentals forecasting models due to less available polling data and idiosyncratic subnational politics. In this article, we present and evaluate the performance of Bayesian forecasting models for German state elections from 1990 to 2024. Our forecasts demonstrate high accuracy at lead times of two days, two weeks, and two months, and offer valuable ex-ante predictions for three state elections held in September 2024. These findings underscore the potential for applying election forecasting models effectively to subnational elections.
-    </div>
-    
-    <div id="bibtex9" class="pub-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2025,
-  title = {An Election Forecasting Model for Subnational Elections},
-  author = {Erfort, Cornelius and Stoetzer, Lukas F. and Rajski, Hannah and Gschwend, Thomas and Munzert, Simon and Koch, Elias},
-  journal = {Electoral Studies},
-  volume = {95},
-  pages = {102939},
-  year = {2025},
-  issn = {0261-3794},
-  doi = {https://doi.org/10.1016/j.electstud.2025.102939}
-}</pre>
-            <button class="pub-button" onclick="downloadBibtex('bibtex9')">Download</button>
-        </div>
-    </div>
-    <div id="article9" class="pub-content">
-        <div class="external-link-content">
-            <a href="https://doi.org/10.1016/j.electstud.2025.102939" target="_blank" rel="noopener">View on Electoral Studies →</a>
-        </div>
-    </div>
-</td>
-</tr>
-
-<tr>
-<td class="publication-image-cell" style="border:none">
-  <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D"><img src="/files/ps.jpg"></a>
-</td>
-<td style="border:none">
-    <b>The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts</b> <br>
-    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://elias-koch.com">Elias Koch</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a> <br>
-    <i>PS: Political Science & Politics</i>, 2025 <br>
-    <div class="publication-buttons">
-        <button class="pub-button" onclick="toggleContent('abstract8')">Abstract</button>
-        <button class="pub-button" onclick="toggleContent('bibtex8')">BibTeX</button>
-        <button class="pub-button" onclick="toggleContent('article8')">Article</button>
-    </div>
-    
-    <div id="abstract8" class="pub-content">
-        In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and "vacant districts" under the recent electoral reforms.
-    </div>
-    
-    <div id="bibtex8" class="pub-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <pre>@article{Erfort_Stoetzer_Gschwend_Koch_Munzert_Rajski_2025, 
-        title={The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts}, DOI={10.1017/S1049096525000150}, 
-        journal={PS: Political Science &#38; Politics}, 
-        author={Erfort, Cornelius and Stoetzer, Lukas F. and Gschwend, Thomas and Koch, Elias and Munzert, Simon and Rajski, Hannah}, 
-        year={2025}, 
-        pages={1–12}}
-}</pre>
-            <button class="pub-button" onclick="downloadBibtex('bibtex8')">Download</button>
-        </div>
-    </div>
-    
-    <div id="article8" class="pub-content">
-        <div class="external-link-content">
-            <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" target="_blank" rel="noopener">View on Cambridge Core →</a>
-        </div>
-    </div>
-</td>
-</tr>
-
-
-<tr>
+<tr data-year="2024" data-journal="Electoral Studies">
 <td class="publication-image-cell" style="border:none">
   <a href="https://doi.org/10.1016/j.electstud.2024.102872"><img src="/files/jelst.jpg"></a>
 </td>
@@ -283,7 +389,87 @@ eprint = { https://doi.org/10.1086/736027}
 </td>
 </tr>
 
-<tr>
+<tr data-year="2025" data-journal="Electoral Studies">
+<td class="publication-image-cell" style="border:none">
+  <a href="https://doi.org/10.1016/j.electstud.2025.102939"><img src="/files/jelst.jpg"></a>
+</td>
+<td style="border:none">
+    <b>An Election Forecasting Model for Subnational Elections</b> <br>
+    <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <span class="author-name">Cornelius Erfort</span>, <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://elias-koch.com">Elias Koch</a> <br>
+    <i>Electoral Studies</i>, 2025 <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('abstract9')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex9')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article9')">Article</button>
+    </div>
+    
+    <div id="abstract9" class="pub-content">
+        While election forecasts predominantly focus on national contests, many democratic elections take place at the subnational level.  Subnational elections pose unique challenges for traditional fundamentals forecasting models due to less available polling data and idiosyncratic subnational politics. In this article, we present and evaluate the performance of Bayesian forecasting models for German state elections from 1990 to 2024. Our forecasts demonstrate high accuracy at lead times of two days, two weeks, and two months, and offer valuable ex-ante predictions for three state elections held in September 2024. These findings underscore the potential for applying election forecasting models effectively to subnational elections.
+    </div>
+    
+    <div id="bibtex9" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2025,
+  title = {An Election Forecasting Model for Subnational Elections},
+  author = {Erfort, Cornelius and Stoetzer, Lukas F. and Rajski, Hannah and Gschwend, Thomas and Munzert, Simon and Koch, Elias},
+  journal = {Electoral Studies},
+  volume = {95},
+  pages = {102939},
+  year = {2025},
+  issn = {0261-3794},
+  doi = {https://doi.org/10.1016/j.electstud.2025.102939}
+}</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex9')">Download</button>
+        </div>
+    </div>
+    <div id="article9" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://doi.org/10.1016/j.electstud.2025.102939" target="_blank" rel="noopener">View on Electoral Studies →</a>
+        </div>
+    </div>
+</td>
+</tr>
+
+<tr data-year="2025" data-journal="PS: Political Science & Politics">
+<td class="publication-image-cell" style="border:none">
+  <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D"><img src="/files/ps.jpg"></a>
+</td>
+<td style="border:none">
+    <b>The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts</b> <br>
+    <span class="author-name">Cornelius Erfort</span>, <a href="https://www.lukas-stoetzer.org">Lukas F. Stoetzer</a>, <a href="https://www.sowi.uni-mannheim.de/gschwend/">Thomas Gschwend</a>, <a href="https://elias-koch.com">Elias Koch</a>, <a href="https://simonmunzert.com">Simon Munzert</a>, and <a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/">Hannah Rajski</a> <br>
+    <i>PS: Political Science & Politics</i>, 2025 <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('abstract8')">Abstract</button>
+        <button class="pub-button" onclick="toggleContent('bibtex8')">BibTeX</button>
+        <button class="pub-button" onclick="toggleContent('article8')">Article</button>
+    </div>
+    
+    <div id="abstract8" class="pub-content">
+        In this article, we provide a forecast for the German Federal Election of 2025. We use our previous forecasting models to provide national-level forecasts for party vote shares and districtlevel outcomes for candidate votes. We show that the combination of both permits us to calculate both forecasts for coalition majorities in parliament, and "vacant districts" under the recent electoral reforms.
+    </div>
+    
+    <div id="bibtex8" class="pub-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <pre>@article{Erfort_Stoetzer_Gschwend_Koch_Munzert_Rajski_2025, 
+        title={The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts}, DOI={10.1017/S1049096525000150}, 
+        journal={PS: Political Science &#38; Politics}, 
+        author={Erfort, Cornelius and Stoetzer, Lukas F. and Gschwend, Thomas and Koch, Elias and Munzert, Simon and Rajski, Hannah}, 
+        year={2025}, 
+        pages={1–12}}
+}</pre>
+            <button class="pub-button" onclick="downloadBibtex('bibtex8')">Download</button>
+        </div>
+    </div>
+    
+    <div id="article8" class="pub-content">
+        <div class="external-link-content">
+            <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" target="_blank" rel="noopener">View on Cambridge Core →</a>
+        </div>
+    </div>
+</td>
+</tr>
+
+<tr data-year="2023" data-journal="Research and Politics">
 <td class="publication-image-cell" style="border:none">
   <a href="https://doi.org/10.1177/20531680231183512"><img src="/files/57369_RAP.jpg"></a>
 </td>
@@ -346,14 +532,19 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
 </td>
 </tr>
-
-
 </table>
+<div class="load-more-container" markdown="0">
+    <button id="loadMoreBtn" class="load-more-btn" onclick="loadMorePublications()" style="display: none;">Load More Publications</button>
+    <button id="resetFiltersBtn" class="reset-filters-btn" onclick="resetFilters()" style="display: none;">Reset Filters</button>
+</div>
 
 ## Working Papers
 
 <table style="border:none">
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <div class="document-icon">📄</div>
+</td>
 <td style="border:none">
     <b>Parties' issue adaption between elections</b> <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="http://lukas-stoetzer.org/">Lukas F. Stoetzer</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
@@ -364,7 +555,7 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
     
     <div id="abstract5" class="pub-content">
-        Are parties responsive to short-term changes in election polls? While party responsiveness to election results has received much attention, we know little about the dynamics of issue attention between elections. In this study, we address this question based on the novel comprehensive PARTYPRESS Database. We rely on supervised machine learning methods to build a dynamic measure of parties' issue attention on the basis of more than 250,000 press releases from 68 parties across nine countries from 2010 until 2020. We find little support that losing in the polls leads parties to change their issue attention. When political parties lose support in the polls, they do not clearly prioritise their owned issue, they do not pay more attention to popular issues, and they do not adapt the issue focus of successful competitors. These findings have important implications for our understanding of party responsiveness and the dynamics of electoral competition.
+        Are parties responsive to short-term changes in election polls? While party responsiveness to election results has received much attention, we know little about the dynamics of issue attention between elections. In this study, we address this question based on the novel comprehensive PARTYPRESS Database. We rely on supervised machine learning methods to build a dynamic measure of parties' issue attention on the basis of more than 250,000 press releases from 68 parties across nine countries from 2010 until 2020. We find little support that losing in the polls leads parties to change their issue attention. When political parties lose support in the polls, they do not clearly prioritize their owned issue, they do not pay more attention to popular issues, and they do not adapt the issue focus of successful competitors. These findings have important implications for our understanding of party responsiveness and the dynamics of electoral competition.
     </div>
     
     <div id="bibtex5" class="pub-content">
@@ -389,6 +580,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <div class="document-icon">📄</div>
+</td>
 <td style="border:none">
     <b>Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data</b> <br>
     <span class="author-name">Cornelius Erfort</span> <br>
@@ -424,8 +618,11 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <div class="document-icon">📄</div>
+</td>
 <td style="border:none">
-    <b>Who Becomes a Lobbyist?</b> <br>
+    <b>Who Becomes a Lobbyist? Evidence from the US and Germany</b> <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="https://www.janstuckatz.com">Jan Stuckatz</a>, <a href="https://hartmannfelix.github.io">Felix Hartmann</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract7')">Abstract</button>
@@ -433,7 +630,7 @@ eprint = { https://doi.org/10.1086/736027}
     </div>
     
     <div id="abstract7" class="pub-content">
-        // Abstract content would go here when available
+        Abstract content would go here when available
     </div>
     
     <div id="bibtex7" class="pub-content">
@@ -454,6 +651,9 @@ eprint = { https://doi.org/10.1086/736027}
 
 <table style="border:none">
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/politico.png" alt="POLITICO logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>POLITICO</b> <br>
     <a href="https://www.politico.eu/article/schwerin-city-expose-germany-deep-migration-divide/" target="_blank" rel="noopener noreferrer">"The city that exposes Germany's deep migration divide"</a> <br>
@@ -462,6 +662,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/tagesspiegel.png" alt="Tagesspiegel logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>Tagesspiegel</b> <br>
     <a href="https://www.tagesspiegel.de/potsdam/brandenburg/erst-und-zweitstimme-taktisch-wahlen-und-co-wie-viel-einfluss-hat-der-brandenburger-wahler-13221547.html" target="_blank" rel="noopener noreferrer">"Mit der Erst- und Zweitstimme taktisch wählen: Wie viel Einfluss hat der Brandenburger Wähler?"</a> <br>
@@ -470,6 +673,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/guardian.png" alt="The Guardian logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>The Guardian</b> <br>
     <a href="https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate" target="_blank" rel="noopener noreferrer">"The far right wants us to play by their rules: Can German Greens survive 'witch-hunt'?"</a> <br>
@@ -478,6 +684,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/zeit.png" alt="ZEIT ONLINE logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>ZEIT ONLINE</b> <br>
     <a href="https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke" target="_blank" rel="noopener noreferrer">"Friedrich Merz: Das wären seine Koalitionen"</a> <br>
@@ -486,6 +695,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/economist.png" alt="The Economist logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>The Economist</b> <br>
     <a href="https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast" target="_blank" rel="noopener noreferrer">"Who is ahead in the race for Germany's next parliament?"</a> <br>
@@ -494,6 +706,9 @@ eprint = { https://doi.org/10.1086/736027}
 </tr>
 
 <tr>
+<td class="publication-image-cell" style="border:none">
+  <img src="/files/logos/abendzeitung.png" alt="Abendzeitung München logo" style="width:100%;height:auto;display:block;" />
+</td>
 <td style="border:none">
     <b>Abendzeitung München</b> <br>
     <a href="https://www.abendzeitung-muenchen.de/muenchen/welche-folgen-hat-das-neue-wahlrecht-fuer-muenchen-art-1033918" target="_blank" rel="noopener noreferrer">"Wahlrechtsreform und CSU: Wer in München um das Direktmandat kämpft"</a> <br>
@@ -503,6 +718,69 @@ eprint = { https://doi.org/10.1086/736027}
 </table>
 
 <style>
+.filter-controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.filter-controls select {
+    padding: 4px 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    min-width: 90px;
+    max-width: 120px;
+}
+.filter-controls select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+.load-more-container {
+    text-align: center;
+    margin-top: 20px;
+}
+.load-more-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+.load-more-btn:hover {
+    background: #545b62;
+}
+.reset-filters-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+.reset-filters-btn:hover {
+    background: #545b62;
+}
+.document-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    font-size: 48px;
+    color: #6c757d;
+}
 .publication-buttons {
     margin-top: 8px;
 }
@@ -555,7 +833,6 @@ eprint = { https://doi.org/10.1086/736027}
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
 .external-link-content {
     margin-top: 10px;
     padding: 15px;
@@ -577,100 +854,95 @@ eprint = { https://doi.org/10.1086/736027}
     background: #e9ecef;
     text-decoration: none;
 }
-
 .author-name {
     border-bottom: 1px dashed #494e52;
     padding-bottom: 1px;
 }
-
 .publication-image-cell {
     width: 120px;
     min-width: 120px;
     vertical-align: top;
     padding-right: 20px;
 }
-
 .publication-image-cell img {
     width: 100%;
     height: auto;
     display: block;
 }
-
-/* Add media query for mobile devices */
 @media screen and (max-width: 768px) {
     .publication-image-cell {
         width: 80px;
         min-width: 80px;
         padding-right: 15px;
     }
+    .filter-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: flex-start;
+    }
+    .filter-controls label {
+        font-size: 12px;
+    }
+    .filter-controls select {
+        font-size: 11px;
+        min-width: 70px;
+        max-width: 100px;
+        padding: 3px 6px;
+    }
+    .document-icon {
+        font-size: 32px;
+    }
 }
-
 table {
     table-layout: fixed;
     width: 100%;
 }
-
 td:not(.publication-image-cell) {
     width: auto;
 }
-
-/* Media Grid Styles */
 .media-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
-
 .media-item {
-  text-decoration: none;
-  color: inherit;
-  background: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .media-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 .media-content {
-  padding: 20px;
+    padding: 20px;
 }
-
 .media-content h3 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 1.2em;
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.2em;
 }
-
 .media-content p {
-  margin: 0 0 10px 0;
-  color: #666;
-  font-size: 0.95em;
-  line-height: 1.4;
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.4;
 }
-
-.media-date {
-  color: #999;
-  font-size: 0.85em;
-}
-
-@media screen and (max-width: 768px) {
-  .media-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Remove the old media grid styles and add new media styles */
 .media-date {
     color: #999;
     font-size: 0.85em;
 }
-
+@media screen and (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+}
 table td {
     padding: 10px 0;
 }
