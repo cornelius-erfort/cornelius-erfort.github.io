@@ -66,7 +66,6 @@ redirect_from:
                 var aVal = yearOrder[aYear] !== undefined ? yearOrder[aYear] : 99;
                 var bVal = yearOrder[bYear] !== undefined ? yearOrder[bYear] : 99;
                 if (aVal !== bVal) return aVal - bVal;
-                // fallback to default order if same year
                 var aIndex = window.defaultSortOrder.indexOf(a);
                 var bIndex = window.defaultSortOrder.indexOf(b);
                 return aIndex - bIndex;
@@ -77,13 +76,11 @@ redirect_from:
                 var bJournal = b.getAttribute('data-journal') || '';
                 if (aJournal < bJournal) return -1;
                 if (aJournal > bJournal) return 1;
-                // fallback to default order if same journal
                 var aIndex = window.defaultSortOrder.indexOf(a);
                 var bIndex = window.defaultSortOrder.indexOf(b);
                 return aIndex - bIndex;
             };
         } else {
-            // default
             return function(a, b) {
                 var aIndex = window.defaultSortOrder.indexOf(a);
                 var bIndex = window.defaultSortOrder.indexOf(b);
@@ -111,12 +108,9 @@ redirect_from:
             }
         });
 
-        // Sorting
         visible.sort(getSortFunction(sortBy));
         
-        // Hide all first
         publications.forEach(function(pub) { pub.style.display = 'none'; });
-        // Show filtered and sorted
         visible.forEach(function(pub, i) {
             if (i < 3) {
                 pub.style.display = '';
