@@ -10,7 +10,6 @@ redirect_from:
 
 <script type="text/javascript">
 (function() {
-    // Global variable to track default sorting order
     window.defaultSortOrder = [];
     
     window.toggleContent = function(id) {
@@ -162,12 +161,9 @@ redirect_from:
             }
         });
 
-        // Sorting
         visible.sort(getSortFunction(sortBy));
         
-        // Hide all first
         publications.forEach(function(pub) { pub.style.display = 'none'; });
-        // Show filtered and sorted
         visible.forEach(function(pub, i) {
             if (i < maxVisible) {
                 pub.style.display = '';
@@ -208,13 +204,11 @@ redirect_from:
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize default sort order based on the current DOM order
         var publications = Array.from(document.querySelectorAll('#publicationsTable tr'));
         window.defaultSortOrder = publications.slice();
         filterPublications();
     });
 
-    // Media Load More functionality
     window.mediaMaxVisible = 3;
     function showMediaRows() {
         var mediaRows = document.querySelectorAll('#mediaTable tr');
