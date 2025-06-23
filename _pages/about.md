@@ -213,6 +213,32 @@ redirect_from:
         window.defaultSortOrder = publications.slice();
         filterPublications();
     });
+
+    // Media Load More functionality
+    window.mediaMaxVisible = 3;
+    function showMediaRows() {
+        var mediaRows = document.querySelectorAll('#mediaTable tr');
+        mediaRows.forEach(function(row, i) {
+            if (i < window.mediaMaxVisible) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        var loadMoreBtn = document.getElementById('loadMoreMediaBtn');
+        if (window.mediaMaxVisible >= mediaRows.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'inline-block';
+        }
+    }
+    window.loadMoreMedia = function() {
+        window.mediaMaxVisible += 5;
+        showMediaRows();
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+        showMediaRows();
+    });
 })();
 </script>
 
@@ -650,6 +676,7 @@ eprint = { https://doi.org/10.1086/736027}
 ## Media
 
 <table style="border:none">
+<tbody id="mediaTable">
 <tr>
 <td class="publication-image-cell" style="border:none">
   <img src="/files/logos/politico.png" alt="POLITICO logo" style="width:100%;height:auto;display:block;" />
@@ -715,7 +742,11 @@ eprint = { https://doi.org/10.1086/736027}
     <span class="media-date">January 27, 2025</span>
 </td>
 </tr>
+</tbody>
 </table>
+<div class="load-more-container" markdown="0">
+    <button id="loadMoreMediaBtn" class="load-more-btn" onclick="loadMoreMedia()" style="display: none;">Load More Media</button>
+</div>
 
 <style>
 .filter-controls {
