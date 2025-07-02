@@ -129,6 +129,29 @@ author_profile: true
     </div>
 </td>
 </tr>
+
+<tr>
+<td style="border:none">
+    <b>Party Press Releases from Parties in 30 Countries until 2025</b> <br>
+    <span class="author-name">Cornelius Erfort</span> and <a href="https://z-dickson.github.io/">Zach Dickson</a> <br>
+    <i>Coming soon</i> <br>
+    <div class="publication-buttons">
+        <button class="pub-button" onclick="toggleContent('description3')">Description</button>
+        <button class="pub-button" onclick="toggleContent('status3')">Status</button>
+    </div>
+    
+    <div id="description3" class="pub-content">
+        A comprehensive dataset of approximately 400,000 press releases from over 150 parties across 30 countries, extending coverage until 2025. This expanded dataset builds upon the original PARTYPRESS database to provide broader comparative coverage of party communication strategies and issue salience across diverse political systems.
+    </div>
+    
+    <div id="status3" class="pub-content">
+        <div class="external-link-content">
+            <p><strong>Status:</strong> Coming soon</p>
+            <p>This project is currently in development and will be available in the near future.</p>
+        </div>
+    </div>
+</td>
+</tr>
 </table>
 
 <style>
