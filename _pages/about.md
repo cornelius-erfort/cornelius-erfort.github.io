@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Dr. Cornelius Erfort"
+title: "Cornelius Erfort"
 excerpt: "About me"
 author_profile: true
 redirect_from: 

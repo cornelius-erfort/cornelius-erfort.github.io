@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Dr. Cornelius Erfort"
+title                    : "Cornelius Erfort"
 title_separator          : "-"
 name                     : &name "Dr. Cornelius Erfort"
 description              : &description "personal description"
