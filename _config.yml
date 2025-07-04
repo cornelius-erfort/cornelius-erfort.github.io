@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Cornelius Erfort"
+title                    : "Dr. Cornelius Erfort"
 title_separator          : "-"
 name                     : &name "Dr. Cornelius Erfort"
 description              : &description "personal description"
@@ -80,7 +80,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Cornelius Erfort"
+  name             : "Dr. Cornelius Erfort"
   avatar           : "profile.jpeg"
   bio              : "Postdoctoral Researcher" # , Humboldt-Universität zu Berlin
   location         : 
