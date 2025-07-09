@@ -560,7 +560,7 @@ eprint = { https://doi.org/10.1086/736027}
   <div class="document-icon">📄</div>
 </td>
 <td style="border:none">
-    <b>Parties' issue adaption between elections</b> <br>
+    <b>Parties' issue adaption between elections</b>, R&R <br>
     <span class="author-name">Cornelius Erfort</span>, <a href="http://lukas-stoetzer.org/">Lukas F. Stoetzer</a>, and <a href="http://heike-kluever.com/">Heike Klüver</a> <br>
     <div class="publication-buttons">
         <button class="pub-button" onclick="toggleContent('abstract5')">Abstract</button>
