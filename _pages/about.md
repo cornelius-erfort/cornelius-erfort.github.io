@@ -230,7 +230,7 @@ redirect_from:
 })();
 </script>
 
-I am a Postdoc at the [Witten/Herdecke University](https://www.uni-wh.de), working on the DFG funded project [Election Forecasts for the German Federal Election 2025 (zweitstimme.org)](https://zweitstimme.org/).
+I am a Postdoc at [Witten/Herdecke University](https://www.uni-wh.de), working on the DFG funded project [Election Forecasts for the German Federal Election 2025 (zweitstimme.org)](https://zweitstimme.org/).
 
 My general interests are in comparative politics and quantitative methods. More specifically, I am working on voter targeting, interest groups, and voting behavior.
 
