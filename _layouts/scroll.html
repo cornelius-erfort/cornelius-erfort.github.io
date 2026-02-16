@@ -1,0 +1,38 @@
+---
+layout: compress
+---
+
+{% include base_path %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ base_path }}/assets/css/scroll.css">
+  </head>
+  <body>
+    {% include browser-upgrade.html %}
+
+    <div class="scroll-page" id="top">
+      {% include masthead_scroll.html %}
+
+      <main id="main" class="scroll-main" role="main">
+        <article class="scroll-content" data-base-path="{{ base_path }}">
+          {{ content }}
+        </article>
+      </main>
+
+      <div class="page__footer">
+        <footer>
+          {% include footer/custom.html %}
+          {% include footer.html %}
+        </footer>
+      </div>
+    </div>
+
+    {% include scripts.html %}
+    <script src="{{ base_path }}/assets/js/scroll-masthead.js"></script>
+    <script src="{{ base_path }}/assets/js/scroll-inlay.js"></script>
+  </body>
+</html>

@@ -1,12 +1,10 @@
-# main links links
+# main links (sidebar nav when on /about/ etc. – points to main page sections)
 main:
-
+  - title: "About"
+    url: /#about
   - title: "Teaching"
-    url: /teaching/    
-
+    url: /#teaching
   - title: "Data"
-    url: /data/    
-    
+    url: /#data
   - title: "CV"
-    url: /cv/
- 
+    url: /#cv

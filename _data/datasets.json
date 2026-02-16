@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Party Press Releases from Parties in 30 Countries until 2025",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://z-dickson.github.io/\">Zach Dickson</a>",
+    "description": "<i>Coming soon</i> — Comprehensive dataset of ~400,000 press releases from 150+ parties across 30 countries.",
+    "icon": "fa-globe"
+  },
+  {
+    "id": "partypress",
+    "title": "The PARTYPRESS Database",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"http://lukas-stoetzer.org/\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com/\">Heike Klüver</a>",
+    "description": "<i>Research and Politics</i>, 2023 — 250,000+ press releases from 67 parties.",
+    "icon": "fa-database",
+    "links": [
+      { "label": "Article", "url": "https://doi.org/10.1177/20531680231183512" },
+      { "label": "Github", "url": "https://github.com/cornelius-erfort/partypress" },
+      { "label": "Dataverse", "url": "https://doi.org/10.7910/DVN/OINX7Q" },
+      { "label": "Hugging Face", "url": "https://huggingface.co/partypress/partypress-multilingual" }
+    ]
+  },
+  {
+    "id": "github-2021",
+    "title": "Election Dataset Germany 1953–2021",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+    "description": "Harmonized county-level results with areal weighted interpolation.",
+    "icon": "fa-map-marked-alt",
+    "links": [
+      { "label": "Github", "url": "https://github.com/cornelius-erfort/germany-53-21-districts" }
+    ]
+  },
+  {
+    "id": "github-2017",
+    "title": "Election Dataset Germany 1953–2017",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+    "description": "Harmonized county-level results with areal weighted interpolation.",
+    "icon": "fa-map-marked-alt",
+    "links": [
+      { "label": "Github", "url": "https://github.com/cornelius-erfort/germany-53-17-districts" }
+    ]
+  }
+]

@@ -1,0 +1,372 @@
+---
+layout: scroll
+permalink: /
+title: "Cornelius Erfort"
+---
+
+{% include base_path %}
+
+<script type="text/javascript">
+(function() {
+    window.defaultSortOrder = [];
+    window.toggleContent = function(id) {
+        var allContent = document.getElementsByClassName('pub-content');
+        var clickedContent = document.getElementById(id);
+        if (!clickedContent) return;
+        for (var i = 0; i < allContent.length; i++) {
+            if (allContent[i].id !== id) {
+                allContent[i].style.height = '0';
+                allContent[i].classList.remove('active');
+            }
+        }
+        if (clickedContent.classList.contains('active')) {
+            clickedContent.style.height = '0';
+            clickedContent.classList.remove('active');
+        } else {
+            clickedContent.classList.add('active');
+            clickedContent.style.height = clickedContent.scrollHeight + 'px';
+            var viewport = clickedContent.closest('.scroll-inlay__viewport');
+            if (viewport) {
+                requestAnimationFrame(function() {
+                    var rect = clickedContent.getBoundingClientRect();
+                    var vpRect = viewport.getBoundingClientRect();
+                    if (rect.bottom > vpRect.bottom) {
+                        viewport.scrollTop += (rect.bottom - vpRect.bottom) + 10;
+                    }
+                });
+            }
+        }
+    };
+    window.downloadBibtex = function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var pre = el.querySelector('pre');
+        var bibtexContent = pre ? pre.textContent : '';
+        var blob = new Blob([bibtexContent], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'citation.bib';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+    window.downloadAllBibtex = function() {
+        var pres = document.querySelectorAll('#publicationsTable [id^="bibtex"] pre, #work-in-progress [id^="bibtex"] pre');
+        var parts = [];
+        pres.forEach(function(pre) { parts.push(pre.textContent.trim()); });
+        var all = parts.join('\n\n');
+        if (!all) return;
+        var blob = new Blob([all], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'erfort_publications.bib';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.renderAllSections) window.renderAllSections();
+        if (window.initScrollInlays) window.initScrollInlays();
+    });
+
+    var coauthorMap = [
+        { pattern: 'antoniovalentim.github.io', img: 'valentim.jpeg' },
+        { pattern: 'heike-kluever.com', img: 'kluever.jpeg' },
+        { pattern: 'lukas-stoetzer.org', img: 'stoetzer.jpeg' },
+        { pattern: 'hannah-rajski', img: 'rajski.jpeg' },
+        { pattern: 'gschwend', img: 'gschwend.jpeg' },
+        { pattern: 'simonmunzert.com', img: 'munzert.jpeg' },
+        { pattern: 'elias-koch.com', img: 'koch.jpeg' },
+        { pattern: 'z-dickson.github.io', img: 'dickson.jpeg' },
+        { pattern: 'janstuckatz.com', img: 'stuckatz.jpeg' },
+        { pattern: 'hartmannfelix.github.io', img: 'hartmann.jpeg' }
+    ];
+    var paperMap = {
+        'jop2025': { cover: 'jop.jpeg', title: 'Gendered targeting: Do parties tailor their campaign ads to women?', url: 'https://www.journals.uchicago.edu/doi/10.1086/736027' },
+        'targeting2024': { cover: 'jelst.jpg', title: 'Targeting voters online: How parties\' campaigns differ', url: 'https://doi.org/10.1016/j.electstud.2024.102872' },
+        'partypress2023': { cover: '57369_RAP.jpg', title: 'The PARTYPRESS Database', url: 'https://doi.org/10.1177/20531680231183512' },
+        'buying2024': { cover: 'jelst.jpg', title: 'Buying Voter Support for Unpopular Policies', url: 'https://osf.io/jnarh/' }
+    };
+    function getCoauthorInfo(href) {
+        if (!href) return null;
+        var lower = href.toLowerCase();
+        for (var i = 0; i < coauthorMap.length; i++) {
+            if (lower.indexOf(coauthorMap[i].pattern) !== -1)
+                return { img: coauthorMap[i].img, href: href };
+        }
+        return null;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var scrollContent = document.querySelector('.scroll-content');
+        var basePath = (scrollContent && scrollContent.getAttribute('data-base-path')) || '';
+        var popover = document.createElement('div');
+        popover.id = 'coauthor-popover';
+        popover.className = 'coauthor-popover';
+        popover.setAttribute('role', 'tooltip');
+        popover.setAttribute('hidden', '');
+        popover.innerHTML = '<div class="coauthor-popover__photo-wrap"><img class="coauthor-popover__photo" alt="" src="" /></div><div class="coauthor-popover__name"></div><a class="coauthor-popover__link pub-button" href="#" target="_blank" rel="noopener">Visit page &rarr;</a>';
+        document.body.appendChild(popover);
+
+        var hideTimer = null;
+        function showPopover(link, info) {
+            clearTimeout(hideTimer);
+            var name = (link.textContent || '').trim();
+            var imgEl = popover.querySelector('.coauthor-popover__photo');
+            var photoWrap = popover.querySelector('.coauthor-popover__photo-wrap');
+            var nameEl = popover.querySelector('.coauthor-popover__name');
+            var linkEl = popover.querySelector('.coauthor-popover__link');
+            nameEl.textContent = name;
+            linkEl.href = info.href;
+            if (info.img) {
+                imgEl.src = basePath + '/images/' + info.img;
+                imgEl.style.display = '';
+                photoWrap.style.display = '';
+                imgEl.alt = name;
+            } else {
+                imgEl.style.display = 'none';
+                photoWrap.style.display = 'none';
+            }
+            var rect = link.getBoundingClientRect();
+            popover.style.left = '-9999px';
+            popover.style.top = '0';
+            popover.removeAttribute('hidden');
+            var popRect = popover.getBoundingClientRect();
+            var left = rect.left;
+            var top = rect.bottom + 8;
+            if (left + popRect.width > window.innerWidth - 12) left = window.innerWidth - popRect.width - 12;
+            if (left < 12) left = 12;
+            if (top + popRect.height > window.innerHeight - 12) top = rect.top - popRect.height - 8;
+            if (top < 12) top = 12;
+            popover.style.left = left + 'px';
+            popover.style.top = top + 'px';
+        }
+        function hidePopover() {
+            hideTimer = setTimeout(function() {
+                popover.setAttribute('hidden', '');
+            }, 150);
+        }
+        function cancelHide() { clearTimeout(hideTimer); }
+
+        popover.addEventListener('mouseenter', cancelHide);
+        popover.addEventListener('mouseleave', function() { hidePopover(); });
+        function findCoauthorLink(el) {
+            var link = el && el.closest ? el.closest('a[href^="http"]') : null;
+            return link && !link.classList.contains('paper-ref') ? link : null;
+        }
+        scrollContent.addEventListener('mouseover', function(e) {
+            var link = findCoauthorLink(e.target);
+            if (!link) return;
+            if (link.contains(e.relatedTarget)) return;
+            var info = getCoauthorInfo(link.href);
+            if (!info) return;
+            link.classList.add('coauthor-link');
+            showPopover(link, info);
+        });
+        scrollContent.addEventListener('mouseout', function(e) {
+            var link = findCoauthorLink(e.target);
+            if (!link) return;
+            var to = e.relatedTarget;
+            if (to && (link.contains(to) || to.id === 'coauthor-popover' || (to.closest && to.closest('#coauthor-popover')))) return;
+            if (getCoauthorInfo(link.href)) hidePopover();
+        });
+    });
+
+    (function paperPopover() {
+        var paperHideTimer = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            var scrollContent = document.querySelector('.scroll-content');
+            var basePath = (scrollContent && scrollContent.getAttribute('data-base-path')) || '';
+            var popover = document.createElement('div');
+            popover.id = 'paper-popover';
+            popover.className = 'paper-popover coauthor-popover';
+            popover.setAttribute('role', 'tooltip');
+            popover.setAttribute('hidden', '');
+            popover.innerHTML = '<div class="coauthor-popover__photo-wrap"><img class="coauthor-popover__photo paper-popover__cover" alt="" src="" /></div><div class="coauthor-popover__name paper-popover__title"></div><a class="coauthor-popover__link pub-button paper-popover__link" href="#" target="_blank" rel="noopener">View article &rarr;</a>';
+            document.body.appendChild(popover);
+            function showPaperPopover(link, paper) {
+                clearTimeout(paperHideTimer);
+                var imgEl = popover.querySelector('.paper-popover__cover');
+                var titleEl = popover.querySelector('.paper-popover__title');
+                var linkEl = popover.querySelector('.paper-popover__link');
+                imgEl.src = basePath + '/files/' + paper.cover;
+                imgEl.alt = paper.title;
+                titleEl.textContent = paper.title;
+                linkEl.href = paper.url;
+                var rect = link.getBoundingClientRect();
+                popover.style.left = '-9999px';
+                popover.style.top = '0';
+                popover.removeAttribute('hidden');
+                var popRect = popover.getBoundingClientRect();
+                var left = rect.left;
+                var top = rect.bottom + 8;
+                if (left + popRect.width > window.innerWidth - 12) left = window.innerWidth - popRect.width - 12;
+                if (left < 12) left = 12;
+                if (top + popRect.height > window.innerHeight - 12) top = rect.top - popRect.height - 8;
+                if (top < 12) top = 12;
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+            }
+            function hidePaperPopover() {
+                paperHideTimer = setTimeout(function() { popover.setAttribute('hidden', ''); }, 150);
+            }
+            document.querySelectorAll('.scroll-content .paper-ref[data-paper]').forEach(function(a) {
+                var id = a.getAttribute('data-paper');
+                var paper = paperMap[id];
+                if (!paper) return;
+                a.classList.add('coauthor-link');
+                a.addEventListener('mouseenter', function() { showPaperPopover(a, paper); });
+                a.addEventListener('mouseleave', function() { hidePaperPopover(); });
+            });
+            popover.addEventListener('mouseenter', function() { clearTimeout(paperHideTimer); });
+            popover.addEventListener('mouseleave', function() { hidePaperPopover(); });
+        });
+    })();
+})();
+</script>
+
+<section id="about" class="scroll-section">
+<div class="about-hero">
+  <div class="about-hero__left-col">
+    <h2 class="scroll-section-title about-section-title">Cornelius Erfort</h2>
+    <div class="about-hero__text">
+    <p><strong>Welcome!</strong> I am a Postdoc at <a href="https://www.uni-wh.de">Witten/Herdecke University</a>, working on the DFG funded project <a href="https://zweitstimme.org/">Election Forecasts for the German Federal Election 2025 (zweitstimme.org)</a>. I'm also affiliated with the <a href="https://hu-govlab.de">Humboldt Governance Lab</a>.</p>
+    <p>My general interests are in comparative politics and quantitative methods. More specifically, I am working on <a href="https://doi.org/10.1016/j.electstud.2024.102872" class="paper-ref" data-paper="targeting2024">voter targeting</a>, interest groups, and voting behavior.</p>
+    <p>In my dissertation, I analyzed how parties use and tailor their <a href="https://www.journals.uchicago.edu/doi/10.1086/736027" class="paper-ref" data-paper="jop2025">digital election ads</a>. I was member of the Research Training Group <a href="https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about">DYNAMICS</a> which is jointly organized by <a href="https://www.hu-berlin.de/en">Humboldt-Universität zu Berlin</a> and the <a href="https://www.hertie-school.org/en/study/graduate-programmes/phd/phd-programmes/dynamics">Hertie School</a>. During my PhD, I visited the <a href="https://www.lse.ac.uk/government">LSE Department of Government</a>. I completed my pre-doctoral studies at the Humboldt-Universität, spent a semester at <a href="https://www.cide.edu">CIDE</a> in Mexico City and have a background in mechanical engineering.</p>
+    </div>
+  </div>
+  <div class="about-hero__photo-wrap">
+    <img src="{{ base_path }}/images/fullprofile.jpg" alt="Cornelius Erfort" onerror="this.src='{{ base_path }}/images/profile.jpeg'">
+    <div class="about-hero__left">
+      <p class="about-hero__name-narrow">{{ site.title }}</p>
+      <div class="contact-box">
+        {% if site.author.email %}<a href="mailto:{{ site.author.email }}"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a>{% endif %}
+        {% if site.author.linkedin %}<a href="https://www.linkedin.com/in/{{ site.author.linkedin }}"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>{% endif %}
+        {% assign _bluesky = site.author.bluesky | default: "cornelius-erfort.bsky.social" %}<a href="https://bsky.app/profile/{{ _bluesky }}" target="_blank" rel="me noopener"><i class="fas fa-at" aria-hidden="true"></i> Bluesky</a>
+        {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>{% endif %}
+        {% if site.author.orcid %}<a href="{{ site.author.orcid }}"><i class="ai ai-orcid-square ai-fw"></i> ORCID</a>{% endif %}
+        {% if site.author.huggingface-url %}<a href="{{ site.author.huggingface-url }}"><i class="fas fa-smile" aria-hidden="true"></i> Hugging Face</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="news" class="scroll-section">
+<div class="section-header">
+  <h2>News</h2>
+</div>
+<script type="application/json" id="news-data">{{ site.data.news | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table class="news-table" style="border:none"><colgroup><col style="width:120px"><col></colgroup>
+    <tbody id="newsTable"></tbody>
+    </table>
+  </div>
+</div>
+<script src="{{ base_path }}/assets/js/news.js"></script>
+</section>
+
+<section id="publications" class="scroll-section">
+<div class="section-header">
+    <h2>Publications</h2>
+    <button type="button" class="pub-button" onclick="downloadAllBibtex()">Download all BibTeX</button>
+</div>
+<script type="application/json" id="data-publications">{{ site.data.publications | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table id="publicationsTable" style="border:none">
+    <tbody></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="work-in-progress" class="scroll-section">
+<h2>Work in progress</h2>
+<script type="application/json" id="data-work-in-progress">{{ site.data.work_in_progress | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table id="workInProgressTable" style="border:none">
+    <tbody></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="media" class="scroll-section">
+<h2>Media</h2>
+<script type="application/json" id="data-media">{{ site.data.media | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table class="media-table" style="border:none"><colgroup><col style="width:120px"><col></colgroup>
+    <tbody id="mediaTable"></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="data" class="scroll-section">
+<h2>Data</h2>
+<script type="application/json" id="data-datasets">{{ site.data.datasets | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table id="dataTable" style="border:none">
+    <tbody></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="teaching" class="scroll-section">
+<h2>Teaching</h2>
+<script type="application/json" id="data-teaching">{{ site.data.teaching | jsonify }}</script>
+<div class="scroll-inlay">
+  <div class="scroll-inlay__arrows">
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="scroll-inlay__viewport">
+    <table id="teachingTable" style="border:none">
+    <tbody></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="cv" class="scroll-section">
+<div class="section-header">
+    <h2>CV</h2>
+    <a href="{{ base_path }}/files/cv_erfort.pdf" class="pub-button" download>Download CV (PDF)</a>
+</div>
+<div class="cv-preview-wrap">
+  <div class="cv-preview-frame-wrap">
+    <iframe id="cv-pdf-iframe" class="cv-pdf-iframe" title="CV (PDF)" src="{{ base_path }}/files/cv_erfort.pdf#toolbar=0&navpanes=0"></iframe>
+  </div>
+</div>
+</section>
+
+<script src="{{ base_path }}/assets/js/render-sections.js"></script>

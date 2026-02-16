@@ -1,0 +1,44 @@
+[
+  {
+    "outlet": "POLITICO",
+    "logo": "files/logos/politico.png",
+    "title": "The city that exposes Germany's deep migration divide",
+    "url": "https://www.politico.eu/article/schwerin-city-expose-germany-deep-migration-divide/",
+    "date": "February 18, 2025"
+  },
+  {
+    "outlet": "Tagesspiegel",
+    "logo": "files/logos/tagesspiegel.png",
+    "title": "Mit der Erst- und Zweitstimme taktisch wählen",
+    "url": "https://www.tagesspiegel.de/potsdam/brandenburg/erst-und-zweitstimme-taktisch-wahlen-und-co-wie-viel-einfluss-hat-der-brandenburger-wahler-13221547.html",
+    "date": "February 21, 2025"
+  },
+  {
+    "outlet": "The Guardian",
+    "logo": "files/logos/guardian.png",
+    "title": "Can German Greens survive 'witch-hunt'?",
+    "url": "https://www.theguardian.com/world/2025/feb/12/why-germany-greens-switching-election-focus-from-climate",
+    "date": "February 12, 2025"
+  },
+  {
+    "outlet": "ZEIT ONLINE",
+    "logo": "files/logos/zeit.png",
+    "title": "Friedrich Merz: Das wären seine Koalitionen",
+    "url": "https://www.zeit.de/politik/deutschland/2025-02/bundestagswahl-prognose-fuenf-prozent-huerde-fdp-bsw-linke",
+    "date": "February 4, 2025"
+  },
+  {
+    "outlet": "The Economist",
+    "logo": "files/logos/economist.png",
+    "title": "Who is ahead in the race for Germany's next parliament?",
+    "url": "https://www.economist.com/interactive/2025-german-election-polls-prediction-forecast",
+    "date": "January 28, 2025"
+  },
+  {
+    "outlet": "Abendzeitung München",
+    "logo": "files/logos/abendzeitung.png",
+    "title": "Wahlrechtsreform und CSU: Wer in München um das Direktmandat kämpft",
+    "url": "https://www.abendzeitung-muenchen.de/muenchen/welche-folgen-hat-das-neue-wahlrecht-fuer-muenchen-art-1033918",
+    "date": "January 27, 2025"
+  }
+]

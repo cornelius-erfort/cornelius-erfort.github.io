@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Do Politicians Respond to Hostility? Evidence from Germany",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://elias-koch.com\">Elias Koch</a>",
+    "abstract": "Abstract to be added.",
+    "bibtex": "@unpublished{erfort_koch_hostility, title = {Do Politicians Respond to Hostility? Evidence from Germany}, author = {Erfort, Cornelius and Koch, Elias}, year = {2025}"
+  },
+  {
+    "title": "When and How do Political Parties respond to Extreme Weather Events?",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://z-dickson.github.io\">Zachary P. Dickson</a>",
+    "abstract": "Abstract to be added.",
+    "bibtex": "@unpublished{erfort_dickson_weather, title = {When and How do Political Parties respond to Extreme Weather Events?}, author = {Erfort, Cornelius and Dickson, Zachary P.}, year = {2025}"
+  },
+  {
+    "title": "Who Becomes a Lobbyist? Evidence from the US and Germany",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.janstuckatz.com\">Jan Stuckatz</a>, <a href=\"https://hartmannfelix.github.io\">Felix Hartmann</a>, and <a href=\"http://heike-kluever.com/\">Heike Klüver</a>",
+    "abstract": "Abstract content would go here when available.",
+    "bibtex": "@unpublished{erfort_stuckatz_hartmann_kluver_2024, title = {Who Becomes a Lobbyist?}, author = {Erfort, Cornelius and Stuckatz, Jan and Hartmann, Felix and Klüver, Heike}, year = {2024}"
+  },
+  {
+    "title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data",
+    "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+    "abstract": "I benchmark a manually and a partly automatically coded dataset from the PolDem project against a large government dataset covering all extreme right demonstrations in Germany from 2005 to 2020. Coverage in newspapers mainly depends on region and size.",
+    "bibtex": "@unpublished{erfort_2024_measuring, title = {Measuring protest through news articles}, author = {Erfort, Cornelius}, year = {2024}, url = {https://osf.io/g9t8y}",
+    "links": [
+      { "label": "Preprint", "url": "https://osf.io/g9t8y/", "text": "View on OSF →" }
+    ]
+  }
+]

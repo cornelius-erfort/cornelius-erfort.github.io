@@ -115,6 +115,11 @@
       {% if author.mastodon %}
         <li><a rel="me" href="{{ author.mastodon-url }}">Mastodon</a></li>
       {% endif %}
+      {% if author.bluesky_url %}
+        <li><a href="{{ author.bluesky_url }}"><i class="fas fa-at" aria-hidden="true"></i> Bluesky</a></li>
+      {% elsif author.bluesky %}
+        <li><a href="https://bsky.app/profile/{{ author.bluesky }}"><i class="fas fa-at" aria-hidden="true"></i> Bluesky</a></li>
+      {% endif %}
       {% if author.huggingface %}
         <li><a rel="me" href="{{ author.huggingface-url }}">Hugging Face</a></li>
       {% endif %}

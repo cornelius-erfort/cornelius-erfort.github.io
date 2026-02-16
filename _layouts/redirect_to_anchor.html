@@ -1,0 +1,16 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <meta http-equiv="refresh" content="0;url={{ page.redirect_base | default: '/' }}#{{ page.redirect_anchor }}">
+  <script>window.location.replace("{{ page.redirect_base | default: '/' }}#{{ page.redirect_anchor }}");</script>
+  <link rel="canonical" href="{{ page.redirect_base | default: '/' }}#{{ page.redirect_anchor }}">
+</head>
+<body>
+  <p>Redirecting to <a href="{{ page.redirect_base | default: '/' }}#{{ page.redirect_anchor }}">main page</a>…</p>
+</body>
+</html>

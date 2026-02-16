@@ -1,0 +1,1283 @@
+/* Scroll page: fixed masthead, no sidebar, full-width sections */
+
+/* Anchor scroll: leave room for fixed masthead so section titles aren't hidden */
+html {
+  scroll-padding-top: 60px;
+}
+
+/* Design tokens: one system for font, links, shading, radius */
+/* Font scale (rem): base 1, sm 0.9375, muted 0.875, lg 1.25, section 1.5 */
+.scroll-content {
+  --scroll-font-size: 1rem;
+  --scroll-font-size-sm: 0.9375rem;
+  --scroll-font-size-muted: 0.875rem;
+  --scroll-font-size-lg: 1.25rem;
+  --scroll-font-size-section: 1.5rem;
+  --scroll-text: #333;
+  --scroll-text-muted: #6c757d;
+  --scroll-link: #0a5eb2;
+  --scroll-link-hover: #084a8f;
+  --scroll-surface: #f8f9fa;
+  --scroll-surface-hover: #e9ecef;
+  --scroll-border: #dee2e6;
+  --scroll-radius: 6px;
+  --scroll-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --scroll-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: var(--scroll-font-size);
+  color: var(--scroll-text);
+  line-height: 1.6;
+}
+
+.scroll-content a:not(.pub-button):not(.contact-box a) {
+  color: var(--scroll-link);
+  text-decoration: none;
+}
+
+.scroll-content a:not(.pub-button):not(.contact-box a):hover {
+  color: var(--scroll-link-hover);
+  text-decoration: underline;
+}
+
+.scroll-content .contact-box a {
+  color: var(--scroll-text);
+}
+
+.scroll-content .contact-box a:hover {
+  color: var(--scroll-link);
+  text-decoration: underline;
+}
+
+.masthead--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.masthead--fixed .masthead__inner-wrap {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2em;
+  padding-right: 2em;
+  box-sizing: border-box;
+}
+
+/* Hide site title in nav when at top (name is in about section); show after scroll.
+   Override theme .greedy-nav .visible-links li { display: table-cell } so title can be toggled. */
+.masthead--fixed .greedy-nav .visible-links li.masthead__menu-item--title {
+  display: none;
+}
+.masthead--fixed.masthead--scrolled .greedy-nav .visible-links li.masthead__menu-item--title {
+  display: table-cell;
+}
+
+.scroll-page {
+  padding-top: 0;
+}
+
+/* Override theme #main max-width so content stays at 1000px */
+#main.scroll-main,
+.scroll-main {
+  padding-top: 60px; /* space for fixed masthead */
+  max-width: 1000px !important;
+  margin: 0 auto;
+  padding-left: 2em;
+  padding-right: 2em;
+  box-sizing: border-box; /* so max-width includes padding, total width = 1000px */
+  width: 100%;
+}
+
+.scroll-content {
+  padding-bottom: 3em;
+}
+
+.scroll-content .scroll-section {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.scroll-content .scroll-section:last-of-type {
+  border-bottom: none;
+}
+
+.scroll-content .scroll-section > .section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75em 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.scroll-content .scroll-section > .section-header h2 {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.scroll-content .scroll-section > h2,
+.scroll-content .scroll-section > .section-header h2 {
+  margin-top: 0;
+  font-size: var(--scroll-font-size-section);
+  font-weight: 600;
+  color: var(--scroll-text);
+}
+
+.scroll-content .scroll-section > h2 { padding-bottom: 0.5em; }
+.scroll-content .scroll-section > .section-header h2 { padding-bottom: 0; }
+
+/* About section: photo right, text left; title top-aligned with image */
+.about-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  align-items: stretch;
+  margin-bottom: 1.5em;
+}
+
+.about-hero__left-col {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-hero__left-col .about-section-title {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0.35em;
+  font-size: 1.75rem;
+}
+
+.about-hero__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin-top: 0;
+}
+
+.about-hero__text p {
+  margin-bottom: 1.25em;
+}
+
+.about-hero__text p:last-child {
+  margin-bottom: 0;
+  margin-top: auto;
+}
+
+.about-hero__photo-wrap {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-hero__photo-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--scroll-radius);
+}
+
+/* Name above contact box: only visible in narrow mode (nav hides site title at top) */
+.about-hero__name-narrow {
+  display: none;
+  margin: 1em 0 0.5em 0;
+  font-size: var(--scroll-font-size-section);
+  font-weight: 600;
+  color: var(--scroll-text);
+}
+
+.contact-box {
+  margin-top: 1em;
+  padding: 1em 1.25em;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-shadow: var(--scroll-shadow);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em 1.5em;
+  align-items: center;
+}
+
+.contact-box a {
+  text-decoration: none;
+  color: var(--scroll-text);
+  font-size: var(--scroll-font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.contact-box a:hover {
+  color: var(--scroll-link);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  html { scroll-padding-top: 52px; }
+  .masthead--fixed .masthead__inner-wrap {
+    padding: 0.5em 1em;
+  }
+
+  .scroll-main {
+    padding-top: 52px;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+  }
+
+  /* Narrow: photo block first, then text */
+  .about-hero {
+    flex-direction: column;
+  }
+
+  .about-hero__left-col {
+    display: block;
+  }
+
+  .about-hero__text {
+    display: block;
+  }
+
+  .about-hero__text p:last-child {
+    margin-top: 0;
+  }
+
+  .about-hero__photo-wrap {
+    order: -1;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 1em 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .about-hero__photo-wrap .about-hero__left {
+    order: -1;
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .about-hero__photo-wrap .about-hero__left .about-hero__name-narrow {
+    margin-top: 0;
+  }
+
+  .about-hero__photo-wrap .about-hero__left .contact-box {
+    margin-top: 0;
+  }
+
+  .about-hero__photo-wrap img {
+    order: 0;
+    flex: 0 0 auto;
+    min-width: 0;
+    max-width: 200px;
+  }
+
+  .scroll-section-title.about-section-title {
+    display: none;
+  }
+
+  /* Hide Abstract / Article / BibTeX etc. buttons on narrow screens */
+  .scroll-content .publication-buttons {
+    display: none;
+  }
+}
+
+/* Very narrow (e.g. iPhone): smaller profile pic; name on top, contact box and pic in one row with tops aligned */
+@media (max-width: 420px) {
+  .about-hero__photo-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: start;
+    gap: 0.5em 1em;
+  }
+  .about-hero__photo-wrap .about-hero__left {
+    display: contents;
+  }
+  .about-hero__photo-wrap .about-hero__name-narrow {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .about-hero__photo-wrap .contact-box {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .about-hero__photo-wrap img {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    max-width: 120px;
+  }
+}
+
+/* Shared components: buttons, panels, tables (same font, links, shading) */
+.scroll-content .publication-buttons { margin-top: 8px; }
+
+.scroll-content .pub-button,
+.scroll-content .btn.btn-sm.z-depth-0,
+.scroll-content button.pub-button,
+.scroll-content .external-link-content a,
+.scroll-content .section-header .pub-button,
+.scroll-content .load-more-container .pub-button {
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  padding: 6px 14px;
+  border-radius: var(--scroll-radius);
+  cursor: pointer;
+  font-size: var(--scroll-font-size-sm);
+  margin-right: 8px;
+  margin-bottom: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: var(--scroll-text-muted) !important;
+  display: inline-block;
+  font-weight: normal !important;
+  box-shadow: var(--scroll-shadow);
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.scroll-content .pub-button:hover,
+.scroll-content .external-link-content a:hover {
+  background: var(--scroll-surface-hover);
+  text-decoration: none;
+  color: var(--scroll-text) !important;
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content a.pub-button { text-decoration: none; }
+.scroll-content a.pub-button:hover { text-decoration: none; }
+.scroll-content .external-link-content a:hover { text-decoration: none; }
+
+.scroll-content .pub-content {
+  display: none;
+  margin: 10px 0;
+  padding: 15px;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  font-size: var(--scroll-font-size-sm);
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  box-shadow: var(--scroll-shadow);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.scroll-content .pub-content.active { display: block; height: auto; }
+
+.scroll-content .pub-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.scroll-content .external-link-content {
+  margin-top: 10px;
+  padding: 15px;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+}
+
+.scroll-content .author-name {
+  border-bottom: 1px dashed var(--scroll-text);
+  padding-bottom: 1px;
+}
+
+
+/* Cell is just a column: no shading. Shading only on the actual “cover” area. */
+/* Shared: space between cover/icon and text (Publications, WIP, Data, Teaching) */
+.scroll-content .publication-image-cell {
+  width: 120px;
+  min-width: 120px;
+  vertical-align: top;
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+}
+
+/* Journal/cover image: shading only on the link (cover) box, not the whole cell */
+.scroll-content .publication-image-cell > a {
+  display: block;
+  width: 120px;
+  height: 160px;
+  border-radius: var(--scroll-radius);
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  box-shadow: var(--scroll-shadow);
+  overflow: hidden;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-content .publication-image-cell > a:hover {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .publication-image-cell > a img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: var(--scroll-surface);
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+
+.scroll-content .publication-image-cell > a:hover img {
+  background: var(--scroll-surface-hover);
+  filter: brightness(0.94);
+}
+
+/* Media table: fixed column width via col; same gap as other sections */
+.scroll-content .media-table {
+  table-layout: fixed;
+}
+.scroll-content .media-table .publication-image-cell {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--scroll-radius);
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  box-shadow: var(--scroll-shadow);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.scroll-content .media-table td:not(.publication-image-cell) {
+  padding-left: 10px;
+}
+
+.scroll-content .media-table .publication-image-cell:hover {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .media-table .publication-image-cell > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.scroll-content .media-table .publication-image-cell > a:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.scroll-content .media-table .publication-image-cell > img,
+.scroll-content .media-table .publication-image-cell > a > img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.scroll-content .media-table .publication-image-cell img { object-fit: contain; }
+
+/* News table: fixed column width via col; same gap as other sections */
+.scroll-content .news-table {
+  table-layout: fixed;
+}
+.scroll-content .news-table .publication-image-cell {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--scroll-radius);
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  box-shadow: var(--scroll-shadow);
+}
+.scroll-content .news-table td:not(.publication-image-cell) {
+  padding-left: 10px;
+}
+.scroll-content .news-table .publication-image-cell img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.scroll-content .news-table .publication-image-cell .data-icon-cell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Icon placeholders (WIP, Data, Teaching): only these get a shaded “cover” box; cell stays neutral */
+.scroll-content .document-icon {
+  width: 120px;
+  height: 160px;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  font-size: 2.5rem;
+  box-sizing: border-box;
+  box-shadow: var(--scroll-shadow);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-content .document-icon:hover {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .data-icon-cell {
+  width: 120px;
+  height: 160px;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-sizing: border-box;
+  box-shadow: var(--scroll-shadow);
+  color: var(--scroll-text-muted);
+  font-size: 2.5rem;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-content .data-icon-cell:hover {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+/* Data section: icon is a link to GitHub (or first link) */
+.scroll-content .publication-image-cell > a.data-icon-cell-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+.scroll-content .publication-image-cell > a.data-icon-cell-link:hover .data-icon-cell {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .load-more-container {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.scroll-content .load-more-container--left { justify-content: flex-start; text-align: left; }
+
+.scroll-inlay {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 0.5em;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-shadow: var(--scroll-shadow);
+  overflow: hidden;
+}
+
+.scroll-inlay__viewport {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Cap row height in inlays so 4th item always peeks (no huge gap after tall 3rd row) */
+.scroll-inlay__viewport table td:not(.publication-image-cell):not(.data-icon-cell) {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.scroll-inlay__viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-inlay__viewport::-webkit-scrollbar-track {
+  background: var(--scroll-surface-hover);
+}
+
+.scroll-inlay__viewport::-webkit-scrollbar-thumb {
+  background: var(--scroll-border);
+  border-radius: 4px;
+}
+
+.scroll-inlay__viewport::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-text-muted);
+}
+
+.scroll-inlay__arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 6px;
+  border-right: 1px solid var(--scroll-border);
+  background: var(--scroll-surface-hover);
+  flex-shrink: 0;
+}
+
+.scroll-inlay__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--scroll-radius);
+  background: transparent;
+  color: var(--scroll-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.scroll-inlay__arrow:hover:not(:disabled) {
+  color: var(--scroll-link);
+  background: var(--scroll-surface);
+}
+
+.scroll-inlay__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.scroll-inlay__arrow .fa-chevron-up,
+.scroll-inlay__arrow .fa-chevron-down {
+  font-size: 0.9rem;
+}
+
+.scroll-content .media-date {
+  color: var(--scroll-text-muted);
+  font-size: var(--scroll-font-size-muted);
+}
+
+.scroll-content table { width: 100%; max-width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0 10px; }
+.scroll-content table td { padding: 22px 0; }
+/* Small gap (under 1cm) between image/icon column and text in all sections */
+.scroll-content table td:not(.publication-image-cell) {
+  padding-left: 10px;
+  padding-top: 6px;
+  vertical-align: top;
+  /* Match cover height so text never sits higher than the cover */
+  min-height: 160px;
+  box-sizing: border-box;
+}
+.scroll-content table td:not(.publication-image-cell):not(.data-icon-cell) { min-width: 0; overflow-wrap: break-word; }
+
+/* Slightly smaller font next to covers so text stays level with/below cover top */
+.scroll-content table td:not(.publication-image-cell) {
+  font-size: var(--scroll-font-size-muted);
+}
+
+/* Wide: news items same size as normal text (news has its own layout) */
+@media (min-width: 769px) {
+  .scroll-content .news-item,
+  .scroll-content .news-item-body,
+  .scroll-content .news-item-title,
+  .scroll-content .news-item-date,
+  .scroll-content .news-item-type {
+    font-size: var(--scroll-font-size);
+  }
+}
+
+/* CV PDF preview: same width as main content */
+.scroll-content .cv-preview-wrap {
+  max-width: 100%;
+  margin-top: 0.5em;
+}
+.scroll-content .cv-preview-frame-wrap {
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  overflow: hidden;
+  margin-bottom: 0.75em;
+}
+.scroll-content .cv-pdf-iframe {
+  display: block;
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  border: none;
+}
+/* News section */
+.scroll-content .news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em 0;
+}
+.scroll-content .news-item {
+  padding: 1em 0;
+  border-bottom: 1px solid var(--scroll-border);
+  font-size: var(--scroll-font-size);
+}
+.scroll-content .news-item:last-child {
+  border-bottom: none;
+}
+.scroll-content .news-item-date {
+  color: var(--scroll-text-muted);
+  font-size: var(--scroll-font-size-sm);
+  margin-right: 0.5em;
+}
+.scroll-content .news-item-type {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  background: var(--scroll-surface-hover);
+  border-radius: var(--scroll-radius);
+  font-size: 0.85em;
+  color: var(--scroll-text-muted);
+  margin-right: 0.5em;
+}
+.scroll-content .news-item-title {
+  margin: 0.35em 0 0.25em 0;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--scroll-text);
+  line-height: 1.35;
+}
+.scroll-content .news-item-body {
+  margin: 0;
+  line-height: 1.55;
+  color: var(--scroll-text);
+}
+.scroll-content .news-load-more {
+  margin-top: 0.5em;
+}
+
+/* CV cards (legacy / kept for any remaining use) */
+.scroll-content .cv-wrap {
+  position: relative;
+  max-width: 520px;
+}
+
+.scroll-content .cv-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scroll-content .cv-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  min-height: 72px;
+  padding: 10px 12px;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-shadow: var(--scroll-shadow);
+  cursor: pointer;
+  font-size: var(--scroll-font-size-sm);
+  font-weight: 500;
+  color: var(--scroll-text);
+  text-align: center;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.scroll-content .cv-tile span {
+  display: block;
+  line-height: 1.25;
+}
+
+.scroll-content .cv-tile:hover {
+  background: var(--scroll-surface-hover);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .cv-tile i {
+  font-size: var(--scroll-font-size-lg);
+  color: var(--scroll-text-muted);
+  flex-shrink: 0;
+}
+
+.scroll-content .cv-tile-wrap {
+  min-height: 0;
+}
+
+/* Expanded content: overlay pane on top of grid (does not move other tiles) */
+.scroll-content .cv-tile-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  text-align: left;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-content .cv-tile-wrap--expanded .cv-tile-content {
+  max-height: 75vh;
+  overflow-y: auto;
+  opacity: 1;
+  padding-top: 2.5em;
+  padding-right: 2.5em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+}
+
+.scroll-content .cv-tile-wrap:not(.cv-tile-wrap--expanded) .cv-tile-content {
+  pointer-events: none;
+}
+
+.scroll-content .cv-tile-close {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  width: 2em;
+  height: 2em;
+  padding: 0;
+  border: none;
+  border-radius: var(--scroll-radius);
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  color: var(--scroll-text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.scroll-content .cv-tile-close:hover {
+  background: var(--scroll-surface-hover);
+  color: var(--scroll-text);
+}
+
+.scroll-content .cv-tile-wrap--expanded .cv-tile-close {
+  display: flex;
+}
+
+.scroll-content .cv-tile-content p {
+  margin: 0 0 0.75em 0;
+  line-height: 1.6;
+  font-size: var(--scroll-font-size);
+}
+
+.scroll-content .cv-tile-content p:last-child { margin-bottom: 0; }
+
+.scroll-content .cv-tile-content a {
+  color: var(--scroll-link);
+  text-decoration: none;
+}
+
+.scroll-content .cv-tile-content a:hover {
+  color: var(--scroll-link-hover);
+  text-decoration: underline;
+}
+
+.scroll-content .cv-tile-content .cv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--scroll-font-size);
+  line-height: 1.5;
+}
+
+.scroll-content .cv-tile-content .cv-table th,
+.scroll-content .cv-tile-content .cv-table td {
+  padding: 0.4em 0.75em 0.4em 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--scroll-border);
+}
+
+.scroll-content .cv-tile-content .cv-table tr:last-child td {
+  border-bottom: none;
+}
+
+.scroll-content .cv-tile-content .cv-table th {
+  font-weight: 600;
+  color: var(--scroll-text);
+  white-space: nowrap;
+}
+
+.scroll-content .cv-tile-content .cv-table td:first-child {
+  max-width: 12em;
+}
+
+.scroll-content .cv-content-blocks {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.scroll-content .cv-content-block p {
+  margin: 0 0 0.75em 0;
+  line-height: 1.6;
+  font-size: var(--scroll-font-size);
+}
+
+.scroll-content .cv-content-block p:last-child { margin-bottom: 0; }
+
+.scroll-content .cv-content-block a {
+  color: var(--scroll-link);
+  text-decoration: none;
+}
+
+.scroll-content .cv-content-block a:hover {
+  color: var(--scroll-link-hover);
+  text-decoration: underline;
+}
+
+/* CV focus overlay */
+.cv-focus {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em;
+  box-sizing: border-box;
+}
+
+.cv-focus[hidden] { display: none !important; }
+
+.cv-focus__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.cv-focus__panel {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: var(--scroll-radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--scroll-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-focus__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1em 1.25em;
+  border-bottom: 1px solid var(--scroll-border);
+  background: var(--scroll-surface);
+  border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
+  flex-shrink: 0;
+}
+
+.cv-focus__title {
+  margin: 0;
+  font-size: var(--scroll-font-size-lg);
+  font-weight: 600;
+  color: var(--scroll-text);
+}
+
+.cv-focus__close {
+  padding: 6px 10px;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  color: var(--scroll-text-muted);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: var(--scroll-font-size-sm);
+}
+
+.cv-focus__close:hover {
+  background: var(--scroll-surface-hover);
+  color: var(--scroll-text);
+}
+
+.cv-focus__body {
+  padding: 1.25em 1.5em;
+  overflow-y: auto;
+  font-size: var(--scroll-font-size);
+  line-height: 1.6;
+  color: var(--scroll-text);
+}
+
+.cv-focus__body p { margin: 0 0 0.75em 0; }
+.cv-focus__body p:last-child { margin-bottom: 0; }
+.cv-focus__body a { color: var(--scroll-link); text-decoration: none; }
+.cv-focus__body a:hover { color: var(--scroll-link-hover); text-decoration: underline; }
+
+/* Co-author hover widget */
+.coauthor-popover {
+  position: fixed;
+  z-index: 9999;
+  min-width: 200px;
+  max-width: 260px;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  box-shadow: var(--scroll-shadow-hover);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.coauthor-popover:not([hidden]) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.coauthor-popover[hidden] {
+  display: block !important;
+  visibility: hidden;
+}
+
+.coauthor-popover__photo-wrap {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
+  background: var(--scroll-surface);
+}
+
+.coauthor-popover__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0; /* align to top so faces are visible */
+  display: block;
+}
+
+.coauthor-popover__name {
+  padding: 12px 14px 6px;
+  font-weight: 600;
+  font-size: var(--scroll-font-size);
+  color: var(--scroll-text);
+  line-height: 1.3;
+}
+
+.coauthor-popover__link {
+  display: inline-block;
+  margin: 0 14px 14px;
+  margin-top: 0;
+  text-decoration: none;
+}
+
+.coauthor-link {
+  border-bottom: 1px dotted var(--scroll-link);
+  cursor: pointer;
+}
+
+/* Paper ref hover: journal cover, title, link (reuses coauthor popover layout) */
+.paper-popover__cover {
+  object-fit: contain;
+  object-position: center;
+  background: var(--scroll-surface);
+}
+.paper-popover__title {
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .about-hero__name-narrow { display: block; }
+
+  /* Coherent spacing: same gap between cover/icon and text in all sections */
+  .scroll-content .publication-image-cell {
+    width: 80px;
+    min-width: 80px;
+    padding: 0 10px 0 0;
+  }
+  .scroll-content .publication-image-cell > a {
+    width: 80px;
+    height: 107px;
+  }
+  .scroll-content .publication-image-cell > a img { height: 107px; }
+  .scroll-content .media-table .publication-image-cell {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    height: 107px;
+    padding: 0 10px 0 0;
+  }
+  .scroll-content .media-table .publication-image-cell > img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+  .scroll-content .news-table .publication-image-cell {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    height: 107px;
+    padding: 0 10px 0 0;
+  }
+  .scroll-content table td:not(.publication-image-cell) {
+    padding-left: 10px;
+  }
+  .scroll-content .document-icon {
+    width: 80px;
+    height: 107px;
+    min-height: 107px;
+    font-size: 2rem;
+  }
+  .scroll-content .data-icon-cell {
+    width: 80px;
+    height: 107px;
+    min-height: 107px;
+    font-size: 2rem;
+  }
+}
+
+/* Very narrow: small covers for Pub/WIP/Data/Teaching (must come after 768px to override); tight spacing for News and Media too */
+@media (max-width: 420px) {
+  /* Tighter row spacing in all inlay tables */
+  .scroll-content table {
+    border-spacing: 0 4px;
+  }
+  .scroll-content table td {
+    padding: 8px 0;
+  }
+
+  /* Publications, WIP, Data, Teaching: very small covers/icons */
+  .scroll-content #publicationsTable .publication-image-cell,
+  .scroll-content #workInProgressTable .publication-image-cell,
+  .scroll-content #dataTable .publication-image-cell,
+  .scroll-content #teachingTable .publication-image-cell {
+    width: 56px;
+    min-width: 56px;
+    padding: 0 4px 0 0;
+  }
+  .scroll-content #publicationsTable .publication-image-cell > a,
+  .scroll-content #workInProgressTable .publication-image-cell > a,
+  .scroll-content #dataTable .publication-image-cell > a,
+  .scroll-content #teachingTable .publication-image-cell > a {
+    width: 56px;
+    height: 72px;
+  }
+  .scroll-content #publicationsTable .publication-image-cell > a img {
+    height: 72px;
+  }
+  .scroll-content #workInProgressTable .document-icon,
+  .scroll-content #dataTable .data-icon-cell,
+  .scroll-content #teachingTable .data-icon-cell {
+    width: 56px;
+    height: 72px;
+    min-height: 72px;
+    font-size: 1.5rem;
+  }
+  .scroll-content #publicationsTable td:not(.publication-image-cell),
+  .scroll-content #workInProgressTable td:not(.publication-image-cell),
+  .scroll-content #dataTable td:not(.publication-image-cell),
+  .scroll-content #teachingTable td:not(.publication-image-cell) {
+    padding-left: 4px;
+    min-height: 72px;
+  }
+
+  /* News and Media: small covers/symbols and tight spacing (same as Pub/WIP/Data/Teaching) */
+  .scroll-content .news-table .publication-image-cell {
+    width: 56px;
+    min-width: 56px;
+    max-width: 56px;
+    height: 72px;
+    padding: 0 4px 0 0;
+  }
+  .scroll-content .news-table .publication-image-cell img,
+  .scroll-content .news-table .publication-image-cell .data-icon-cell {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+  .scroll-content .news-table .publication-image-cell .data-icon-cell {
+    font-size: 1.5rem;
+  }
+  .scroll-content .news-table td:not(.publication-image-cell) {
+    padding-left: 4px;
+  }
+  .scroll-content .media-table .publication-image-cell {
+    width: 56px;
+    min-width: 56px;
+    max-width: 56px;
+    height: 72px;
+    padding: 0 4px 0 0;
+  }
+  .scroll-content .media-table .publication-image-cell > a,
+  .scroll-content .media-table .publication-image-cell > img {
+    width: 100%;
+    height: 100%;
+    max-height: 72px;
+    object-fit: contain;
+  }
+  .scroll-content .media-table td:not(.publication-image-cell) {
+    padding-left: 4px;
+  }
+}

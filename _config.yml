@@ -117,8 +117,10 @@ author:
   wikipedia        :
   mastodon         : 
   mastodon-url     :  
-  huggingface         :  "cornelius"
-  huggingface-url     :  "https://huggingface.co/cornelius"
+  bluesky          : "cornelius-erfort.bsky.social"
+  bluesky_url      : "https://bsky.app/profile/cornelius-erfort.bsky.social"
+  huggingface      :  "cornelius"
+  huggingface-url  :  "https://huggingface.co/cornelius"
   
 # Reading Files
 include:
