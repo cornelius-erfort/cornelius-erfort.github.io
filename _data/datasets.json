@@ -2,7 +2,7 @@
   {
     "title": "Party Press Releases from Parties in 30 Countries until 2025",
     "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://z-dickson.github.io/\">Zach Dickson</a>",
-    "description": "<i>Coming soon</i> — Comprehensive dataset of ~400,000 press releases from 150+ parties across 30 countries.",
+    "description": "<i>Coming soon</i> — 400,000+ press releases from 150+ parties.",
     "icon": "fa-globe"
   },
   {
@@ -12,10 +12,22 @@
     "description": "<i>Research and Politics</i>, 2023 — 250,000+ press releases from 67 parties.",
     "icon": "fa-database",
     "links": [
-      { "label": "Article", "url": "https://doi.org/10.1177/20531680231183512" },
-      { "label": "Github", "url": "https://github.com/cornelius-erfort/partypress" },
-      { "label": "Dataverse", "url": "https://doi.org/10.7910/DVN/OINX7Q" },
-      { "label": "Hugging Face", "url": "https://huggingface.co/partypress/partypress-multilingual" }
+      {
+        "label": "Article",
+        "url": "https://doi.org/10.1177/20531680231183512"
+      },
+      {
+        "label": "Github",
+        "url": "https://github.com/cornelius-erfort/partypress"
+      },
+      {
+        "label": "Dataverse",
+        "url": "https://doi.org/10.7910/DVN/OINX7Q"
+      },
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/partypress/partypress-multilingual"
+      }
     ]
   },
   {
@@ -25,7 +37,10 @@
     "description": "Harmonized county-level results with areal weighted interpolation.",
     "icon": "fa-map-marked-alt",
     "links": [
-      { "label": "Github", "url": "https://github.com/cornelius-erfort/germany-53-21-districts" }
+      {
+        "label": "Github",
+        "url": "https://github.com/cornelius-erfort/germany-53-21-districts"
+      }
     ]
   },
   {
@@ -35,7 +50,10 @@
     "description": "Harmonized county-level results with areal weighted interpolation.",
     "icon": "fa-map-marked-alt",
     "links": [
-      { "label": "Github", "url": "https://github.com/cornelius-erfort/germany-53-17-districts" }
+      {
+        "label": "Github",
+        "url": "https://github.com/cornelius-erfort/germany-53-17-districts"
+      }
     ]
   }
 ]

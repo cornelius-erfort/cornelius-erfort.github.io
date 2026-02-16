@@ -91,11 +91,15 @@
     if (!tbody) return;
     items.forEach(function(m) {
       var tr = document.createElement('tr');
-      var imgCell = m.url
-        ? '<td class="publication-image-cell" style="border:none"><a href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></a></td>'
-        : '<td class="publication-image-cell" style="border:none"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></td>';
-      tr.innerHTML = imgCell +
-        '<td style="border:none"><b>' + esc(m.outlet) + '</b> <br><a href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">' + esc(m.title) + '</a> <br><span class="media-date">' + esc(m.date) + '</span></td>';
+      var cover = m.url
+        ? '<a class="media-cover" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></a>'
+        : '<span class="media-cover"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></span>';
+      var titleHtml = m.url
+        ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">' + esc(m.title) + '</a>'
+        : esc(m.title || '');
+      tr.innerHTML =
+        '<td class="publication-image-cell" style="border:none">' + cover + '</td>' +
+        '<td style="border:none"><b>' + esc(m.outlet) + '</b> <br>' + titleHtml + ' <br><span class="media-date">' + esc(m.date) + '</span></td>';
       tbody.appendChild(tr);
     });
   }
@@ -121,9 +125,11 @@
       });
       var desc = d.description ? ' <br>' + d.description : '';
       var btnsHtml = buttons.length ? ' <br><span class="publication-buttons">' + buttons.join(' ') + '</span>' + contents.join('') : '';
-      var iconHtml = '<div class="data-icon-cell"><i class="fas ' + esc(d.icon || 'fa-database') + '" aria-hidden="true"></i></div>';
+      var iconInner = '<i class="fas ' + esc(d.icon || 'fa-database') + '" aria-hidden="true"></i>';
+      var iconHtml = '<div class="data-icon-cell">' + iconInner + '</div>';
       if (iconLink) {
-        iconHtml = '<a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell-link">' + iconHtml + '</a>';
+        // Make the icon itself the link so all rows share identical sizing
+        iconHtml = '<a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell">' + iconInner + '</a>';
       }
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none">' + iconHtml + '</td>' +
