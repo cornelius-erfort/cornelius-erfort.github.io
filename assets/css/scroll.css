@@ -280,6 +280,8 @@ html {
 
   .about-hero__photo-wrap .about-hero__left .contact-box {
     margin-top: 0;
+    justify-content: flex-start;
+    text-align: left;
   }
 
   .about-hero__photo-wrap img {
@@ -299,14 +301,14 @@ html {
   }
 }
 
-/* Very narrow (e.g. iPhone): smaller profile pic; name on top, contact box and pic in one row with tops aligned */
+/* Very narrow (e.g. iPhone): name on top; contact box and profile pic same width and height */
 @media (max-width: 420px) {
   .about-hero__photo-wrap {
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: start;
-    gap: 0.5em 1em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 240px;
+    align-items: stretch;
+    gap: 0.5em 0.5em;
   }
   .about-hero__photo-wrap .about-hero__left {
     display: contents;
@@ -318,12 +320,22 @@ html {
   .about-hero__photo-wrap .contact-box {
     grid-column: 1;
     grid-row: 2;
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    padding: 0.5em;
+    box-sizing: border-box;
+    text-align: left;
   }
   .about-hero__photo-wrap img {
     grid-column: 2;
     grid-row: 2;
-    align-self: start;
-    max-width: 120px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
   }
 }
 
@@ -1150,11 +1162,16 @@ html {
 @media screen and (max-width: 768px) {
   .about-hero__name-narrow { display: block; }
 
-  /* Coherent spacing: same gap between cover/icon and text in all sections */
+  /* Same gap between cover/icon and text in ALL sections (News, Media, Publications, WIP, Data, Teaching) */
+  /* News/Media use a <colgroup> with inline width:120px; override it here */
+  .scroll-content .news-table colgroup col:first-child,
+  .scroll-content .media-table colgroup col:first-child {
+    width: 80px !important;
+  }
   .scroll-content .publication-image-cell {
     width: 80px;
     min-width: 80px;
-    padding: 0 10px 0 0;
+    padding: 0 4px 0 0;
   }
   .scroll-content .publication-image-cell > a {
     width: 80px;
@@ -1166,7 +1183,7 @@ html {
     min-width: 80px;
     max-width: 80px;
     height: 107px;
-    padding: 0 10px 0 0;
+    padding: 0 4px 0 0;
   }
   .scroll-content .media-table .publication-image-cell > img {
     max-width: 100%;
@@ -1179,10 +1196,10 @@ html {
     min-width: 80px;
     max-width: 80px;
     height: 107px;
-    padding: 0 10px 0 0;
+    padding: 0 4px 0 0;
   }
   .scroll-content table td:not(.publication-image-cell) {
-    padding-left: 10px;
+    padding-left: 4px;
   }
   .scroll-content .document-icon {
     width: 80px;
@@ -1198,14 +1215,26 @@ html {
   }
 }
 
-/* Very narrow: small covers for Pub/WIP/Data/Teaching (must come after 768px to override); tight spacing for News and Media too */
+/* Very narrow: small covers and minimal gap between symbol and text in ALL sections */
 @media (max-width: 420px) {
-  /* Tighter row spacing in all inlay tables */
+  /* Tighter row spacing */
   .scroll-content table {
     border-spacing: 0 4px;
   }
   .scroll-content table td {
     padding: 8px 0;
+  }
+  /* No gap between symbol/cover and text in very narrow */
+  /* News/Media use a <colgroup> with inline width:120px; override it here too */
+  .scroll-content .news-table colgroup col:first-child,
+  .scroll-content .media-table colgroup col:first-child {
+    width: 56px !important;
+  }
+  .scroll-content .publication-image-cell {
+    padding-right: 0;
+  }
+  .scroll-content table td:not(.publication-image-cell) {
+    padding-left: 0;
   }
 
   /* Publications, WIP, Data, Teaching: very small covers/icons */
@@ -1215,7 +1244,6 @@ html {
   .scroll-content #teachingTable .publication-image-cell {
     width: 56px;
     min-width: 56px;
-    padding: 0 4px 0 0;
   }
   .scroll-content #publicationsTable .publication-image-cell > a,
   .scroll-content #workInProgressTable .publication-image-cell > a,
@@ -1239,17 +1267,15 @@ html {
   .scroll-content #workInProgressTable td:not(.publication-image-cell),
   .scroll-content #dataTable td:not(.publication-image-cell),
   .scroll-content #teachingTable td:not(.publication-image-cell) {
-    padding-left: 4px;
     min-height: 72px;
   }
 
-  /* News and Media: small covers/symbols and tight spacing (same as Pub/WIP/Data/Teaching) */
+  /* News and Media: small covers/symbols (gap already 0 from rules above) */
   .scroll-content .news-table .publication-image-cell {
     width: 56px;
     min-width: 56px;
     max-width: 56px;
     height: 72px;
-    padding: 0 4px 0 0;
   }
   .scroll-content .news-table .publication-image-cell img,
   .scroll-content .news-table .publication-image-cell .data-icon-cell {
@@ -1260,15 +1286,11 @@ html {
   .scroll-content .news-table .publication-image-cell .data-icon-cell {
     font-size: 1.5rem;
   }
-  .scroll-content .news-table td:not(.publication-image-cell) {
-    padding-left: 4px;
-  }
   .scroll-content .media-table .publication-image-cell {
     width: 56px;
     min-width: 56px;
     max-width: 56px;
     height: 72px;
-    padding: 0 4px 0 0;
   }
   .scroll-content .media-table .publication-image-cell > a,
   .scroll-content .media-table .publication-image-cell > img {
@@ -1276,8 +1298,5 @@ html {
     height: 100%;
     max-height: 72px;
     object-fit: contain;
-  }
-  .scroll-content .media-table td:not(.publication-image-cell) {
-    padding-left: 4px;
   }
 }
