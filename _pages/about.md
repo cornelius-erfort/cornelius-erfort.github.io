@@ -230,11 +230,11 @@ redirect_from:
 })();
 </script>
 
-I am a Postdoc at the [Witten/Herdecke University](https://www.uni-wh.de), working on the project [Election Forecasts for the German Federal Election 2025 (zweitstimme.org)](https://zweitstimme.org/).
+I am a Postdoc at [Witten/Herdecke University](https://www.uni-wh.de), working on the DFG funded project [Election Forecasts for the German Federal Election 2025 (zweitstimme.org)](https://zweitstimme.org/). I'm also affiliated with the [Humboldt Governance Lab](https://hu-govlab.de).
 
 My general interests are in comparative politics and quantitative methods. More specifically, I am working on voter targeting, interest groups, and voting behavior.
 
-In my dissertation, I analyzed how parties use the target and tailor their digital election ads. I was member of the Research Training Group [DYNAMICS](https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about) which is jointly organized by [Humboldt-Universität zu Berlin](https://www.hu-berlin.de/en) and the [Hertie School](https://www.hertie-school.org/en/study/graduate-programmes/phd/phd-programmes/dynamics). During my PhD, I visited the [LSE Department of Government](https://www.lse.ac.uk/government) for one term (2023). I completed my pre-doctoral studies at the Humboldt-Universität, spent a semester at the [CIDE](https://www.cide.edu) in Mexico City (2017) and have a background in mechanical engineering.
+In my dissertation, I analyzed how parties use the target and tailor their digital election ads. I was member of the Research Training Group [DYNAMICS](https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics/about) which is jointly organized by [Humboldt-Universität zu Berlin](https://www.hu-berlin.de/en) and the [Hertie School](https://www.hertie-school.org/en/study/graduate-programmes/phd/phd-programmes/dynamics). During my PhD, I visited the [LSE Department of Government](https://www.lse.ac.uk/government). I completed my pre-doctoral studies at the Humboldt-Universität, spent a semester at the [CIDE](https://www.cide.edu) in Mexico City and have a background in mechanical engineering.
 
 On this website, you can find more information on my research projects and download a copy of my [CV (PDF)](/cv).
 
