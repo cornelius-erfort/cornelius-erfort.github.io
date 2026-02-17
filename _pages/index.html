@@ -131,9 +131,16 @@ title: "Cornelius Erfort"
         popover.innerHTML = '<div class="coauthor-popover__photo-wrap"><img class="coauthor-popover__photo" alt="" src="" /></div><div class="coauthor-popover__name"></div><a class="coauthor-popover__link pub-button" href="#" target="_blank" rel="noopener">Visit page &rarr;</a>';
         document.body.appendChild(popover);
 
+        var showTimer = null;
         var hideTimer = null;
+        var currentLink = null;
+        var SHOW_DELAY = 250;
+        var HIDE_DELAY = 300;
+
         function showPopover(link, info) {
             clearTimeout(hideTimer);
+            clearTimeout(showTimer);
+            currentLink = link;
             var name = (link.textContent || '').trim();
             var imgEl = popover.querySelector('.coauthor-popover__photo');
             var photoWrap = popover.querySelector('.coauthor-popover__photo-wrap');
@@ -150,11 +157,12 @@ title: "Cornelius Erfort"
                 imgEl.style.display = 'none';
                 photoWrap.style.display = 'none';
             }
-            var rect = link.getBoundingClientRect();
+            link.classList.add('coauthor-link');
             popover.style.left = '-9999px';
             popover.style.top = '0';
             popover.removeAttribute('hidden');
             var popRect = popover.getBoundingClientRect();
+            var rect = link.getBoundingClientRect();
             var left = rect.left;
             var top = rect.bottom + 8;
             if (left + popRect.width > window.innerWidth - 12) left = window.innerWidth - popRect.width - 12;
@@ -165,38 +173,55 @@ title: "Cornelius Erfort"
             popover.style.top = top + 'px';
         }
         function hidePopover() {
+            var linkToClear = currentLink;
+            currentLink = null;
             hideTimer = setTimeout(function() {
+                if (linkToClear) linkToClear.classList.remove('coauthor-link');
                 popover.setAttribute('hidden', '');
-            }, 150);
+            }, HIDE_DELAY);
         }
         function cancelHide() { clearTimeout(hideTimer); }
+        function cancelShow() { clearTimeout(showTimer); showTimer = null; }
 
-        popover.addEventListener('mouseenter', cancelHide);
+        popover.addEventListener('mouseenter', function() { cancelHide(); });
         popover.addEventListener('mouseleave', function() { hidePopover(); });
+
         function findCoauthorLink(el) {
             var link = el && el.closest ? el.closest('a[href^="http"]') : null;
             return link && !link.classList.contains('paper-ref') ? link : null;
         }
+        function isInPopover(el) {
+            return el && (el.id === 'coauthor-popover' || (el.closest && el.closest('#coauthor-popover')));
+        }
+
         scrollContent.addEventListener('mouseover', function(e) {
             var link = findCoauthorLink(e.target);
-            if (!link) return;
+            if (!link) { cancelShow(); return; }
             if (link.contains(e.relatedTarget)) return;
             var info = getCoauthorInfo(link.href);
             if (!info) return;
-            link.classList.add('coauthor-link');
-            showPopover(link, info);
+            cancelShow();
+            showTimer = setTimeout(function() {
+                showTimer = null;
+                showPopover(link, info);
+            }, SHOW_DELAY);
         });
         scrollContent.addEventListener('mouseout', function(e) {
             var link = findCoauthorLink(e.target);
             if (!link) return;
+            cancelShow();
             var to = e.relatedTarget;
-            if (to && (link.contains(to) || to.id === 'coauthor-popover' || (to.closest && to.closest('#coauthor-popover')))) return;
+            if (to && (link.contains(to) || isInPopover(to))) return;
             if (getCoauthorInfo(link.href)) hidePopover();
         });
     });
 
     (function paperPopover() {
+        var PAPER_SHOW_DELAY = 250;
+        var PAPER_HIDE_DELAY = 300;
+        var paperShowTimer = null;
         var paperHideTimer = null;
+        var currentPaperLink = null;
         document.addEventListener('DOMContentLoaded', function() {
             var scrollContent = document.querySelector('.scroll-content');
             var basePath = (scrollContent && scrollContent.getAttribute('data-base-path')) || '';
@@ -209,6 +234,9 @@ title: "Cornelius Erfort"
             document.body.appendChild(popover);
             function showPaperPopover(link, paper) {
                 clearTimeout(paperHideTimer);
+                clearTimeout(paperShowTimer);
+                currentPaperLink = link;
+                link.classList.add('coauthor-link');
                 var imgEl = popover.querySelector('.paper-popover__cover');
                 var titleEl = popover.querySelector('.paper-popover__title');
                 var linkEl = popover.querySelector('.paper-popover__link');
@@ -216,11 +244,11 @@ title: "Cornelius Erfort"
                 imgEl.alt = paper.title;
                 titleEl.textContent = paper.title;
                 linkEl.href = paper.url;
-                var rect = link.getBoundingClientRect();
                 popover.style.left = '-9999px';
                 popover.style.top = '0';
                 popover.removeAttribute('hidden');
                 var popRect = popover.getBoundingClientRect();
+                var rect = link.getBoundingClientRect();
                 var left = rect.left;
                 var top = rect.bottom + 8;
                 if (left + popRect.width > window.innerWidth - 12) left = window.innerWidth - popRect.width - 12;
@@ -231,18 +259,34 @@ title: "Cornelius Erfort"
                 popover.style.top = top + 'px';
             }
             function hidePaperPopover() {
-                paperHideTimer = setTimeout(function() { popover.setAttribute('hidden', ''); }, 150);
+                var linkToClear = currentPaperLink;
+                currentPaperLink = null;
+                clearTimeout(paperShowTimer);
+                paperHideTimer = setTimeout(function() {
+                    if (linkToClear) linkToClear.classList.remove('coauthor-link');
+                    popover.setAttribute('hidden', '');
+                }, PAPER_HIDE_DELAY);
             }
+            popover.addEventListener('mouseenter', function() { clearTimeout(paperHideTimer); });
+            popover.addEventListener('mouseleave', function() { hidePaperPopover(); });
             document.querySelectorAll('.scroll-content .paper-ref[data-paper]').forEach(function(a) {
                 var id = a.getAttribute('data-paper');
                 var paper = paperMap[id];
                 if (!paper) return;
-                a.classList.add('coauthor-link');
-                a.addEventListener('mouseenter', function() { showPaperPopover(a, paper); });
-                a.addEventListener('mouseleave', function() { hidePaperPopover(); });
+                a.addEventListener('mouseenter', function() {
+                    clearTimeout(paperHideTimer);
+                    clearTimeout(paperShowTimer);
+                    paperShowTimer = setTimeout(function() {
+                        paperShowTimer = null;
+                        showPaperPopover(a, paper);
+                    }, PAPER_SHOW_DELAY);
+                });
+                a.addEventListener('mouseleave', function(e) {
+                    clearTimeout(paperShowTimer);
+                    if (e.relatedTarget && (a.contains(e.relatedTarget) || e.relatedTarget.id === 'paper-popover' || (e.relatedTarget.closest && e.relatedTarget.closest('#paper-popover')))) return;
+                    hidePaperPopover();
+                });
             });
-            popover.addEventListener('mouseenter', function() { clearTimeout(paperHideTimer); });
-            popover.addEventListener('mouseleave', function() { hidePaperPopover(); });
         });
     })();
 })();
@@ -391,11 +435,13 @@ title: "Cornelius Erfort"
 <div class="cv-preview-wrap">
   <div class="cv-preview-frame-wrap">
     <iframe id="cv-pdf-iframe" class="cv-pdf-iframe" title="CV (PDF)" src="{{ base_path }}/files/cv_erfort.pdf#toolbar=0&navpanes=0"></iframe>
+    <div class="cv-scroll-past-strip" id="cv-scroll-past-strip" aria-hidden="true" title="Scroll here to reach the footer"></div>
   </div>
 </div>
 <div class="cv-pager" aria-label="CV pages">
   <div class="cv-pager__frame-wrap">
     <iframe id="cv-page-frame" class="cv-pager__iframe" title="CV (PDF page)" src="{{ base_path }}/files/cv_erfort.pdf#page=1&toolbar=0&navpanes=0"></iframe>
+    <div class="cv-scroll-past-strip" aria-hidden="true" title="Scroll here to reach the footer"></div>
   </div>
   <div class="cv-pager__controls scroll-inlay__pager" aria-label="CV pagination">
     <button type="button" class="cv-pager__btn cv-pager__btn--prev scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous CV page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>

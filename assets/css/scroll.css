@@ -5,6 +5,11 @@ html {
   scroll-padding-top: 60px;
 }
 
+/* Disable scroll anchoring on scroll layout so the page doesn't jump back when reaching the footer */
+body.scroll-layout {
+  overflow-anchor: none;
+}
+
 /* Design tokens: one system for font, links, shading, radius */
 /* Font scale (rem): base 1, sm 0.9375, muted 0.875, lg 1.25, section 1.5 */
 .scroll-content {
@@ -184,6 +189,16 @@ html {
 
 .scroll-page {
   padding-top: 0;
+  /* Prevent scroll anchoring so the page doesn't jump back when reaching the footer */
+  overflow-anchor: none;
+}
+
+/* Footer in normal flow so it appears when you scroll to the bottom (theme uses position: absolute) */
+.scroll-page .page__footer {
+  position: static;
+  margin-top: 2em;
+  padding-top: 1em;
+  overflow-anchor: none;
 }
 
 /* Override theme #main max-width so content stays at 1000px */
@@ -433,24 +448,29 @@ html {
   }
 }
 
-/* Below 555px: reduce inlay window height (less slot height and row gap) */
+/* Below 555px: slightly shorter inlay than 768px but tall enough so content isn’t cut off */
 @media (max-width: 555px) {
   .scroll-inlay__viewport {
     --inlay-pad: 6px;
     --inlay-pad-bottom: 8px;
-    --inlay-slot-height: 80px;
-    --inlay-row-gap: 4px;
+    --inlay-slot-height: 92px;
+    --inlay-row-gap: 6px;
   }
 }
 
-/* Under 530px: even shorter inlay windows */
+/* Under 530px: keep 92px slots so content fits */
 @media (max-width: 530px) {
   .scroll-inlay__viewport {
     --inlay-pad: 6px;
     --inlay-pad-bottom: 6px;
-    --inlay-slot-height: 76px;
-    --inlay-row-gap: 4px;
+    --inlay-slot-height: 92px;
+    --inlay-row-gap: 6px;
   }
+}
+
+/* Narrow: 2 rows per page so the window fits above the nav overlay (JS adds .scroll-inlay--narrow) */
+.scroll-inlay--narrow .scroll-inlay__viewport {
+  height: calc(var(--inlay-pad) + var(--inlay-pad-bottom) + 2 * var(--inlay-slot-height) + 1 * var(--inlay-row-gap) + var(--inlay-pad-bottom));
 }
 
 /* Very narrow (e.g. iPhone): name on top; contact box and profile pic same width and height */
@@ -880,7 +900,7 @@ html {
   --inlay-row-gap: 8px;
   flex: 0 0 auto;
   min-width: 0;
-  /* Height includes table content + table padding-bottom + viewport bottom padding */
+  /* Height: 3 rows + gaps + padding (2-row height set by .scroll-inlay--narrow below) */
   height: calc(var(--inlay-pad) + var(--inlay-pad-bottom) + 3 * var(--inlay-slot-height) + 2 * var(--inlay-row-gap) + var(--inlay-pad-bottom));
   overflow: hidden;
   overscroll-behavior: none;
@@ -1101,11 +1121,10 @@ html {
 }
 
 /* CV PDF preview: same width as main content */
-/* Disable scroll anchoring so the page doesn't snap back when scrolling past the PDF;
-   extra padding so there is room to scroll the footer into view */
+/* Disable scroll anchoring so the page doesn't snap back when scrolling past the PDF. */
 .scroll-content #cv.scroll-section {
   overflow-anchor: none;
-  padding-bottom: 4em;
+  padding-bottom: 15vh; /* enough to scroll past the PDF, not a huge gap to the footer */
 }
 .scroll-content .cv-preview-wrap {
   max-width: 100%;
@@ -1124,6 +1143,17 @@ html {
   border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
   border-bottom: none;
   overflow: hidden;
+  position: relative;
+}
+/* Strip at bottom of PDF viewer: scrolling here moves the page so you can reach the footer */
+.scroll-content .cv-scroll-past-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  z-index: 5;
+  cursor: default;
 }
 .scroll-content .cv-pager__iframe {
   display: block;
@@ -1139,6 +1169,7 @@ html {
   border-radius: 0 0 var(--scroll-radius) var(--scroll-radius);
 }
 .scroll-content .cv-preview-frame-wrap {
+  position: relative;
   background: var(--scroll-surface);
   border: 1px solid var(--scroll-border);
   border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
@@ -1494,7 +1525,7 @@ html {
 .cv-focus__body a { color: var(--scroll-link); text-decoration: none; }
 .cv-focus__body a:hover { color: var(--scroll-link-hover); text-decoration: underline; }
 
-/* Co-author hover widget */
+/* Co-author / paper hover widget – no transition to avoid Safari link shake */
 .coauthor-popover {
   position: fixed;
   z-index: 9999;
@@ -1505,21 +1536,13 @@ html {
   border: 1px solid var(--scroll-border);
   border-radius: var(--scroll-radius);
   box-shadow: var(--scroll-shadow-hover);
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
-}
-
-.coauthor-popover:not([hidden]) {
-  opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
 .coauthor-popover[hidden] {
   display: block !important;
   visibility: hidden;
+  pointer-events: none;
 }
 
 .coauthor-popover__photo-wrap {
@@ -1553,8 +1576,10 @@ html {
   text-decoration: none;
 }
 
+/* Outline only (no layout change) so Safari doesn’t get spurious hover leave */
 .coauthor-link {
-  border-bottom: 1px dotted var(--scroll-link);
+  outline: 1px dotted var(--scroll-link);
+  outline-offset: 2px;
   cursor: pointer;
 }
 
@@ -1626,13 +1651,13 @@ html {
   }
 }
 
-/* Very narrow: small covers and minimal gap between symbol and text in ALL sections */
+/* Very narrow: same slot height so items don’t get cut off */
 @media (max-width: 420px) {
   .scroll-inlay__viewport {
     --inlay-pad: 6px;
     --inlay-pad-bottom: 8px;
-    --inlay-slot-height: 82px;
-    --inlay-row-gap: 5px;
+    --inlay-slot-height: 92px;
+    --inlay-row-gap: 6px;
   }
 
   /* Very narrow: slightly smaller typography everywhere */

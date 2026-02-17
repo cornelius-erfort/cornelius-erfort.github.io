@@ -26,6 +26,8 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="{{ base_path }}/assets/css/academicons.css"/>
 
+{% comment %}MathJax 2.7.4 uses navigator.appVersion.match() which can be null in modern browsers; skip on scroll/home to avoid console errors. Load on other layouts that need math. {% endcomment %}
+{% unless page.layout == 'scroll' %}
 <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -36,7 +38,6 @@
   });
 </script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
-
-
+{% endunless %}
 
 <!-- end custom head snippets -->

@@ -1,7 +1,7 @@
 (function() {
-  // 3 slots per page; window height stays constant across pages.
-  // Slot height is measured per inlay (depends on width/line breaks) so rows aren't cut off.
-  var ROWS_PER_PAGE = 3;
+  // 3 slots per page (2 on narrow so the window fits above the nav overlay).
+  var NARROW_BREAKPOINT = 530;
+  function getRowsPerPage() { return window.innerWidth <= NARROW_BREAKPOINT ? 2 : 3; }
 
   function clamp(n, lo, hi) {
     return Math.max(lo, Math.min(hi, n));
@@ -75,8 +75,9 @@
     setActiveDot(st);
   }
 
-  function paginateTable(st) {
+  function paginateTable(st, rowsPerPage) {
     if (!st || !st.table) return;
+    rowsPerPage = rowsPerPage || getRowsPerPage();
     var table = st.table;
     var rows = getAllRows(table);
 
@@ -86,18 +87,17 @@
       table.removeChild(existingBodies[i]);
     }
 
-    var pageCount = Math.max(1, Math.ceil(rows.length / ROWS_PER_PAGE));
+    var pageCount = Math.max(1, Math.ceil(rows.length / rowsPerPage));
     for (var p = 0; p < pageCount; p++) {
       var tbody = document.createElement('tbody');
       tbody.className = 'scroll-inlay__page-body';
       tbody.setAttribute('data-page', String(p));
-      var start = p * ROWS_PER_PAGE;
-      var end = Math.min(rows.length, start + ROWS_PER_PAGE);
+      var start = p * rowsPerPage;
+      var end = Math.min(rows.length, start + rowsPerPage);
       for (var r = start; r < end; r++) tbody.appendChild(rows[r]);
 
-      // Always keep exactly 3 rows per page so we can distribute vertical spacing
-      // evenly and keep window height stable even if there are <3 items.
-      var missing = ROWS_PER_PAGE - (end - start);
+      // Placeholder rows so every page has the same row count and height is stable.
+      var missing = rowsPerPage - (end - start);
       for (var m = 0; m < missing; m++) {
         var ph = document.createElement('tr');
         ph.className = 'scroll-inlay__placeholder-row';
@@ -123,6 +123,8 @@
 
     // Temporarily allow rows/cells to expand so we can measure needed heights.
     view.classList.add('is-measuring');
+    // Force reflow so the browser applies is-measuring (height: auto, overflow: visible) before we read heights.
+    void view.offsetHeight;
 
     var prevPage = (typeof st.currentPage === 'number' ? st.currentPage : 0);
     var maxRowH = 0;
@@ -130,12 +132,17 @@
     for (var p = 0; p < bodies.length; p++) {
       st.currentPage = p;
       applyPageVisibility(st);
+      void view.offsetHeight; // reflow after showing this page so row heights are correct
 
       var pageBody = table.querySelector('tbody:not([hidden])') || bodies[p];
       if (!pageBody) continue;
       var realRows = pageBody.querySelectorAll('tr:not(.scroll-inlay__placeholder-row)');
       for (var i = 0; i < realRows.length; i++) {
-        var h = Math.ceil(realRows[i].getBoundingClientRect().height || 0);
+        var row = realRows[i];
+        var rectH = Math.ceil((row.getBoundingClientRect && row.getBoundingClientRect().height) || 0);
+        // scrollHeight can be larger when content would overflow (ensures we don't cut off)
+        var scrollH = (row.scrollHeight && row.scrollHeight) || rectH;
+        var h = Math.max(rectH, scrollH);
         if (h > maxRowH) maxRowH = h;
       }
     }
@@ -148,13 +155,12 @@
 
     if (!maxRowH || maxRowH < 1) return;
 
-    // Small buffer for rounding and for the cell top padding.
-    var desired = maxRowH + 2;
+    // Buffer for padding, borders, rounding and so the full content is visible.
+    var desired = maxRowH + 10;
 
     // Clamp so a single unusually tall entry doesn't blow up the whole layout.
     desired = clamp(desired, 76, 220);
-    // Under 530px width, cap slot height so inlay windows don't get too tall.
-    if (window.innerWidth <= 530) desired = Math.min(desired, 88);
+    // Narrow uses 2 rows per page so no need to cap slot height.
 
     view.style.setProperty('--inlay-slot-height', desired + 'px');
   }
@@ -167,6 +173,17 @@
     updatePager(st);
   }
 
+  function setViewportHeightForRowCount(view, rowCount) {
+    if (!view || rowCount < 1) return;
+    var cs = window.getComputedStyle(view);
+    var pad = parseFloat(cs.getPropertyValue('--inlay-pad')) || 10;
+    var padBottom = parseFloat(cs.getPropertyValue('--inlay-pad-bottom')) || 10;
+    var slotH = parseFloat(cs.getPropertyValue('--inlay-slot-height')) || 100;
+    var rowGap = parseFloat(cs.getPropertyValue('--inlay-row-gap')) || 8;
+    var total = pad + padBottom + rowCount * slotH + (rowCount - 1) * rowGap + padBottom;
+    view.style.height = total + 'px';
+  }
+
   function recalcInlay(inlay) {
     if (!inlay) return;
     var st = inlay.__scrollInlayState;
@@ -174,9 +191,19 @@
     if (!st.table) st.table = st.view.querySelector('table');
     if (!st.table) return;
 
+    var rowsPerPage = getRowsPerPage();
+    inlay.classList.toggle('scroll-inlay--narrow', rowsPerPage === 2);
+
     st._suppressObserver = true;
-    paginateTable(st);
+    paginateTable(st, rowsPerPage);
     measureAndSetSlotHeight(st);
+
+    var realRowCount = getAllRows(st.table).length;
+    if (realRowCount > 0 && realRowCount < rowsPerPage) {
+      setViewportHeightForRowCount(st.view, realRowCount);
+    } else {
+      st.view.style.height = '';
+    }
 
     var needRebuildDots = st._dotsBuiltFor !== st.pageCount;
     if (needRebuildDots) {

@@ -119,10 +119,48 @@
     schedule();
   }
 
+  /**
+   * Allow scrolling past the PDF viewer to reach the footer:
+   * 1) A strip at the bottom of the PDF (cv-scroll-past-strip) captures wheel and scrolls the page.
+   * 2) If the user scrolls over the iframe itself and the page didn't move, we scroll the page in rAF.
+   */
+  function initCvScrollPassThrough() {
+    var cvSection = document.getElementById('cv');
+    if (!cvSection) return;
+
+    var strips = cvSection.querySelectorAll('.cv-scroll-past-strip');
+    for (var i = 0; i < strips.length; i++) {
+      strips[i].addEventListener('wheel', function(e) {
+        if (e.deltaY <= 0) return;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var now = window.pageYOffset;
+        if (now >= maxScroll - 2) return;
+        e.preventDefault();
+        var step = Math.min(80, e.deltaY, maxScroll - now);
+        if (step > 0) window.scrollTo(window.pageXOffset, now + step);
+      }, { passive: false });
+    }
+
+    document.addEventListener('wheel', function(e) {
+      if (e.deltaY <= 0) return;
+      if (e.target.tagName !== 'IFRAME' || !cvSection.contains(e.target)) return;
+      var before = window.pageYOffset;
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (before >= maxScroll - 2) return;
+      requestAnimationFrame(function() {
+        if (window.pageYOffset === before) {
+          var step = Math.min(80, e.deltaY, maxScroll - before);
+          if (step > 0) window.scrollTo(window.pageXOffset, before + step);
+        }
+      });
+    }, { passive: true, capture: false });
+  }
+
   function init() {
     openExternalInNewTab();
     initInPageNav();
     initGreedyMenu();
+    initCvScrollPassThrough();
 
     // If page loads with a hash, apply offset (after layout settles).
     if (window.location.hash) {

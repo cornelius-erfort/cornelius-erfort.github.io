@@ -191,11 +191,20 @@
     });
   }
 
+  function sortMediaByDateDesc(items) {
+    if (!items || !items.length) return items;
+    return items.slice().sort(function(a, b) {
+      var t1 = new Date(a.date || 0).getTime();
+      var t2 = new Date(b.date || 0).getTime();
+      return t2 - t1;
+    });
+  }
+
   window.renderAllSections = function() {
     var basePath = (getBasePath() || '').replace(/\/$/, '');
     renderPublications(sortPublications(parseData('data-publications')), basePath);
     renderWIP(parseData('data-work-in-progress'), basePath);
-    renderMedia(parseData('data-media'), basePath);
+    renderMedia(sortMediaByDateDesc(parseData('data-media')), basePath);
     renderDatasets(parseData('data-datasets'), basePath);
     renderTeaching(parseData('data-teaching'), basePath);
   };
