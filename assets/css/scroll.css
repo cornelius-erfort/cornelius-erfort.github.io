@@ -433,13 +433,23 @@ html {
   }
 }
 
-/* Under 530px: shorter inlay windows so they don't feel too tall */
+/* Below 555px: reduce inlay window height (less slot height and row gap) */
+@media (max-width: 555px) {
+  .scroll-inlay__viewport {
+    --inlay-pad: 6px;
+    --inlay-pad-bottom: 8px;
+    --inlay-slot-height: 80px;
+    --inlay-row-gap: 4px;
+  }
+}
+
+/* Under 530px: even shorter inlay windows */
 @media (max-width: 530px) {
   .scroll-inlay__viewport {
-    --inlay-pad: 7px;
-    --inlay-pad-bottom: 8px;
-    --inlay-slot-height: 84px;
-    --inlay-row-gap: 5px;
+    --inlay-pad: 6px;
+    --inlay-pad-bottom: 6px;
+    --inlay-slot-height: 76px;
+    --inlay-row-gap: 4px;
   }
 }
 
@@ -1091,14 +1101,22 @@ html {
 }
 
 /* CV PDF preview: same width as main content */
+/* Disable scroll anchoring so the page doesn't snap back when scrolling past the PDF;
+   extra padding so there is room to scroll the footer into view */
+.scroll-content #cv.scroll-section {
+  overflow-anchor: none;
+  padding-bottom: 4em;
+}
 .scroll-content .cv-preview-wrap {
   max-width: 100%;
   margin-top: 0.5em;
+  overflow-anchor: none;
 }
 .scroll-content .cv-pager {
   display: block; /* controls visible in all modes */
   max-width: 100%;
   margin-top: 0.5em;
+  overflow-anchor: none;
 }
 .scroll-content .cv-pager__frame-wrap {
   background: var(--scroll-surface);
@@ -1127,6 +1145,7 @@ html {
   border-bottom: none;
   overflow: hidden;
   margin-bottom: 0;
+  overflow-anchor: none;
 }
 .scroll-content .cv-pdf-iframe {
   display: block;
