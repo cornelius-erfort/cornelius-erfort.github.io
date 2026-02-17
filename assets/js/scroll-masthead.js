@@ -180,7 +180,7 @@
     }, { passive: false });
   }
 
-  /** On narrow viewports, set main padding-top to actual masthead height so there's no extra gap (e.g. on iPhone). */
+  /** On narrow viewports, set main padding-top to just clear the masthead (slightly tight so no big gap). */
   function applyMastheadTopSpacing() {
     var main = document.querySelector('#main.scroll-main');
     var mh = document.getElementById('masthead-scroll');
@@ -191,8 +191,9 @@
       return;
     }
     var h = Math.round(mh.getBoundingClientRect().height);
-    main.style.paddingTop = h + 'px';
-    document.documentElement.style.scrollPaddingTop = h + 'px';
+    var pad = Math.max(44, h - 6); /* 6px less than masthead so gap above content is minimal */
+    main.style.paddingTop = pad + 'px';
+    document.documentElement.style.scrollPaddingTop = pad + 'px';
   }
 
   function init() {
