@@ -1,4 +1,7 @@
+{% comment %}Scroll layout uses its own nav; main.min.js (greedy nav) causes "too much recursion" there. {% endcomment %}
+{% unless page.layout == 'scroll' %}
 <script src="{{ base_path }}/assets/js/main.min.js"></script>
+{% endunless %}
 
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
