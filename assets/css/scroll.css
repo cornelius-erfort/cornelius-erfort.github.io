@@ -1295,14 +1295,10 @@ body.scroll-layout {
   border: none;
 }
 
-/* CV: on narrower screens use the simple 3-page pager instead of the big preview */
+/* CV: on narrow layouts hide the PDF viewer; only section header + Download button show */
 @media (max-width: 768px) {
   .scroll-content .cv-preview-wrap { display: none; }
-  .scroll-content .cv-pager__frame-wrap { display: block; }
-  .scroll-content .cv-pager__iframe {
-    height: 52vh;
-    min-height: 280px;
-  }
+  .scroll-content .cv-pager { display: none; }
 }
 
 /* Wide: keep big preview, show pager controls only */
