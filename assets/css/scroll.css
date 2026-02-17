@@ -396,18 +396,13 @@ body.scroll-layout {
 */
 
 @media (max-width: 768px) {
-  /* Use safe-area so masthead and main share one top offset; avoids double gap on iPhone (notch/Dynamic Island) */
-  html {
-    --scroll-masthead-top: calc(52px + env(safe-area-inset-top, 0px));
-    scroll-padding-top: var(--scroll-masthead-top);
-  }
   .masthead--fixed .masthead__inner-wrap {
     padding: 0.5em 1em;
-    padding-top: calc(0.5em + env(safe-area-inset-top, 0px));
   }
 
+  /* Main padding-top set by JS to match actual masthead height (fixes iPhone gap); 52px fallback before JS */
   .scroll-main {
-    padding-top: var(--scroll-masthead-top);
+    padding-top: 52px;
     padding-left: 1.25em;
     padding-right: 1.25em;
   }
@@ -513,7 +508,7 @@ body.scroll-layout {
   }
   /* Less space above first section (picture/contact) so gap to menu isn’t too large */
   .scroll-content .scroll-section:first-of-type {
-    padding-top: 0.5em;
+    padding-top: 0;
   }
 
   .scroll-inlay__viewport {
