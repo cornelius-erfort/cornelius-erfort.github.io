@@ -1,0 +1,15 @@
+{
+  "year": "2025",
+  "journal": "Electoral Studies",
+  "image": "files/jelst.jpg",
+  "image_link": "https://doi.org/10.1016/j.electstud.2025.102939",
+  "title": "An Election Forecasting Model for Subnational Elections",
+  "authors": "<a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>, <span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/\">Hannah Rajski</a>, <a href=\"https://www.sowi.uni-mannheim.de/gschwend/\">Thomas Gschwend</a>, <a href=\"https://simonmunzert.com\">Simon Munzert</a>, and <a href=\"https://elias-koch.com\">Elias Koch</a>",
+  "venue": "Electoral Studies, 2025",
+  "abstract": "We present and evaluate Bayesian forecasting models for German state elections from 1990 to 2024. Our forecasts demonstrate high accuracy at lead times of two days, two weeks, and two months.",
+  "bibtex": "@article{erfort_stoetzer_rajski_gschwend_munzert_koch_2025, title = {An Election Forecasting Model for Subnational Elections}, author = {Erfort, Cornelius and Stoetzer, Lukas F. and Rajski, Hannah and Gschwend, Thomas and Munzert, Simon and Koch, Elias}, journal = {Electoral Studies}, volume = {95}, year = {2025}, doi = {https://doi.org/10.1016/j.electstud.2025.102939}}",
+  "links": [
+    { "label": "Article", "url": "https://doi.org/10.1016/j.electstud.2025.102939", "text": "View on Electoral Studies \u2192" }
+  ]
+}
+

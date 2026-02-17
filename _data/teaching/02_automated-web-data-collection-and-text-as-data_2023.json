@@ -1,0 +1,10 @@
+{
+  "id": "text",
+  "title": "Automated Web Data Collection and Text as Data",
+  "description": "Undergraduate course, Humboldt-Universit\u00e4t zu Berlin, Summer 2023. Lecturer.",
+  "icon": "fa-code",
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/cornelius-erfort/web-data-and-text-r" }
+  ]
+}
+

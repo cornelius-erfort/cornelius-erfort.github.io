@@ -1,0 +1,15 @@
+{
+  "year": "2025",
+  "journal": "Electoral Studies",
+  "image": "files/jelst.jpg",
+  "image_link": "https://www.sciencedirect.com/science/article/pii/S0261379425000654",
+  "title": "Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants",
+  "authors": "<a href=\"https://antoniovalentim.github.io\">Ant\u00f3nio Valentim</a>, <a href=\"http://heike-kluever.com/\">Heike Kl\u00fcver</a> and <span class=\"author-name\">Cornelius Erfort</span>",
+  "venue": "Electoral Studies, 2025",
+  "abstract": "How can governments ensure voters' support for unpopular policies? We argue that perceived economic benefits increase support for otherwise unpopular policies. We test our argument by studying the consequences of nuclear power plants on support for the Green Party in Germany.",
+  "bibtex": "@article{erfort_valentim_kluver_2025, title = {Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants}, author = {Erfort, Cornelius and Valentim, Ant\u00f3nio and Kl\u00fcver, Heike}, journal = {Electoral Studies}, year = {2025}, url = {https://www.sciencedirect.com/science/article/pii/S0261379425000654}",
+  "links": [
+    { "label": "Article", "url": "https://www.sciencedirect.com/science/article/pii/S0261379425000654", "text": "View on Electoral Studies \u2192" }
+  ]
+}
+

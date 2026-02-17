@@ -1,10 +1,7 @@
 (function() {
-  // True paging (left/right) instead of vertical scroll snapping:
-  // - Each page shows up to 3 items.
-  // - Arrows/dots switch pages.
+  // 3 slots per page; window height stays constant across pages.
+  // Slot height is measured per inlay (depends on width/line breaks) so rows aren't cut off.
   var ROWS_PER_PAGE = 3;
-  var ROWS_VISIBLE = 3; // keep viewport height stable (3 rows)
-  var VIEWPORT_PADDING_VERTICAL = 24;
 
   function clamp(n, lo, hi) {
     return Math.max(lo, Math.min(hi, n));
@@ -20,96 +17,11 @@
     };
   }
 
-  function getFirstVisibleRow(view) {
-    return (
-      view.querySelector('tbody:not([hidden]) tr') ||
-      view.querySelector('tbody tr') ||
-      null
-    );
-  }
-
-  function getRowHeight(view) {
-    var table = view.querySelector('table');
-    if (!table) return null;
-    var first = getFirstVisibleRow(view);
-    if (!first) return null;
-    var second = first.nextElementSibling;
-    var r1 = first.getBoundingClientRect();
-    var h;
-    if (second && second.tagName === 'TR') {
-      var r2 = second.getBoundingClientRect();
-      h = Math.round(r2.top - r1.top);
-    } else {
-      h = Math.round(r1.height) + 10;
-    }
-    return h > 0 ? h : null;
-  }
-
-  function setViewportHeight(view, rowHeight) {
-    if (!view) return;
-    if (rowHeight && rowHeight > 0) {
-      view.style.height = Math.round(ROWS_VISIBLE * rowHeight + VIEWPORT_PADDING_VERTICAL) + 'px';
-    }
-  }
-
-  function syncViewportOverflowY(view) {
-    // Prevent tiny "wiggle" scroll caused by 1–few px overflow (rounding/padding).
-    // Do NOT change height here (window height must stay fixed).
-    if (!view) return;
-    // Paging-only UX: never allow vertical scrolling inside inlays.
-    view.style.overflowY = 'hidden';
-    view.scrollTop = 0;
-  }
-
-  function computeFixedViewportHeight(st) {
-    if (!st || !st.view || !st.table) return;
-    if (!st.pageCount) st.pageCount = 1;
-    var prevPage = st.currentPage || 0;
-    var maxRowH = 0;
-    var maxRowsBlockH = 0;
-
-    // Measure each page's natural table height and take the maximum.
-    for (var p = 0; p < st.pageCount; p++) {
-      st.currentPage = p;
-      applyPageVisibility(st);
-
-      // Measure the vertical span of up to 3 rows (includes row gaps/border-spacing)
-      var rows = st.table.querySelectorAll('tbody:not([hidden]) tr');
-      if (rows && rows.length) {
-        var count = Math.min(rows.length, ROWS_PER_PAGE);
-        var first = rows[0];
-        var last = rows[count - 1];
-        var r1 = first.getBoundingClientRect();
-        var rN = last.getBoundingClientRect();
-        var span = Math.round((rN.bottom || 0) - (r1.top || 0));
-        if (span > maxRowsBlockH) maxRowsBlockH = span;
-        for (var i = 0; i < count; i++) {
-          var rh = Math.round(rows[i].getBoundingClientRect().height || 0);
-          if (rh > maxRowH) maxRowH = rh;
-        }
-      } else {
-        var rh2 = getRowHeight(st.view);
-        if (rh2 && rh2 > maxRowH) maxRowH = rh2;
-      }
-    }
-
-    // Restore the original page
-    st.currentPage = clamp(prevPage, 0, st.pageCount - 1);
-    applyPageVisibility(st);
-
-    // Ensure a stable minimum height even if there are <3 items total.
-    var baseRowH = maxRowH || st.rowHeight || 120;
-    var minTableH = Math.round(ROWS_PER_PAGE * baseRowH);
-
-    // Add a tiny buffer to avoid rounding overflow "wiggle".
-    var targetRowsH = Math.max(maxRowsBlockH, minTableH);
-    st.fixedViewportHeight = Math.round(targetRowsH + VIEWPORT_PADDING_VERTICAL + 2);
-    st.view.style.height = st.fixedViewportHeight + 'px';
-  }
-
   function getAllRows(table) {
     // Preserve current DOM order across (possibly multiple) tbodies.
-    return Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
+    // IMPORTANT: exclude our own placeholder rows, otherwise repeated pagination
+    // keeps re-paginating placeholders and grows forever.
+    return Array.prototype.slice.call(table.querySelectorAll('tbody tr:not(.scroll-inlay__placeholder-row)'));
   }
 
   function setActiveDot(st) {
@@ -201,37 +113,56 @@
     applyPageVisibility(st);
   }
 
-  function layoutCurrentPage(st) {
+  function measureAndSetSlotHeight(st) {
     if (!st || !st.view || !st.table) return;
+
     var view = st.view;
     var table = st.table;
+    var bodies = table.querySelectorAll('tbody');
+    if (!bodies || !bodies.length) return;
 
-    // Available height inside the viewport (padding is 12px top + 12px bottom).
-    var inner = Math.max(0, (view.clientHeight || 0) - VIEWPORT_PADDING_VERTICAL);
+    // Temporarily allow rows/cells to expand so we can measure needed heights.
+    view.classList.add('is-measuring');
 
-    var tbody = table.querySelector('tbody:not([hidden])') || table.querySelector('tbody');
-    if (!tbody) return;
-    var pageRows = tbody.querySelectorAll('tr');
-    if (!pageRows || !pageRows.length) return;
+    var prevPage = (typeof st.currentPage === 'number' ? st.currentPage : 0);
+    var maxRowH = 0;
 
-    var sum = 0;
-    for (var i = 0; i < Math.min(pageRows.length, ROWS_PER_PAGE); i++) {
-      sum += Math.round(pageRows[i].getBoundingClientRect().height || 0);
+    for (var p = 0; p < bodies.length; p++) {
+      st.currentPage = p;
+      applyPageVisibility(st);
+
+      var pageBody = table.querySelector('tbody:not([hidden])') || bodies[p];
+      if (!pageBody) continue;
+      var realRows = pageBody.querySelectorAll('tr:not(.scroll-inlay__placeholder-row)');
+      for (var i = 0; i < realRows.length; i++) {
+        var h = Math.ceil(realRows[i].getBoundingClientRect().height || 0);
+        if (h > maxRowH) maxRowH = h;
+      }
     }
 
-    // Distribute leftover space into the 2 gaps between 3 rows via border-spacing.
-    var leftover = inner - sum;
-    var gaps = ROWS_PER_PAGE - 1;
-    var gap = gaps > 0 ? Math.max(0, Math.floor(leftover / gaps)) : 0;
-    table.style.borderSpacing = '0 ' + gap + 'px';
+    // Restore current page.
+    st.currentPage = clamp(prevPage, 0, bodies.length - 1);
+    applyPageVisibility(st);
+
+    view.classList.remove('is-measuring');
+
+    if (!maxRowH || maxRowH < 1) return;
+
+    // Small buffer for rounding and for the cell top padding.
+    var desired = maxRowH + 2;
+
+    // Clamp so a single unusually tall entry doesn't blow up the whole layout.
+    // (Still large enough that normal multi-line titles won't be cut off.)
+    desired = clamp(desired, 76, 220);
+
+    view.style.setProperty('--inlay-slot-height', desired + 'px');
   }
 
   function goToPage(st, pageIdx) {
     if (!st) return;
     st.currentPage = clamp(pageIdx, 0, st.pageCount - 1);
     applyPageVisibility(st);
-    layoutCurrentPage(st);
-    syncViewportOverflowY(st.view);
+    if (st.view) st.view.scrollTop = 0;
     updatePager(st);
   }
 
@@ -242,15 +173,9 @@
     if (!st.table) st.table = st.view.querySelector('table');
     if (!st.table) return;
 
-    // Rebuild pages (max 3 items) first so we can reliably show/hide.
+    st._suppressObserver = true;
     paginateTable(st);
-
-    var rh = getRowHeight(st.view);
-    if (rh && rh > 0) st.rowHeight = rh;
-    // Fix height to the tallest page (3 items). Never resize per-page.
-    computeFixedViewportHeight(st);
-    layoutCurrentPage(st);
-    syncViewportOverflowY(st.view);
+    measureAndSetSlotHeight(st);
 
     var needRebuildDots = st._dotsBuiltFor !== st.pageCount;
     if (needRebuildDots) {
@@ -258,6 +183,7 @@
       rebuildDots(st);
     }
     updatePager(st);
+    st._suppressObserver = false;
   }
 
   function initInlay(inlay) {
@@ -273,7 +199,6 @@
       prevBtn: pagerEls.prevBtn,
       nextBtn: pagerEls.nextBtn,
       dotsWrap: pagerEls.dotsWrap,
-      rowHeight: 120,
       pageCount: 1,
       currentPage: 0,
       _dotsBuiltFor: 0,
@@ -295,6 +220,7 @@
     if (window.MutationObserver && st.table) {
       var moTimer = null;
       var obs = new MutationObserver(function() {
+        if (st._suppressObserver) return;
         clearTimeout(moTimer);
         moTimer = setTimeout(function() { recalcInlay(inlay); }, 80);
       });

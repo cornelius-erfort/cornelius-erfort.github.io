@@ -4,7 +4,13 @@
     var tbody = document.getElementById('newsTable');
     if (!dataEl || !tbody) return;
     var items = [];
-    try { items = JSON.parse(dataEl.textContent || '[]'); } catch (e) {}
+    try {
+      var raw = JSON.parse(dataEl.textContent || '[]');
+      if (Array.isArray(raw)) items = raw;
+      else if (raw && typeof raw === 'object') {
+        items = Object.keys(raw).sort().map(function(k) { return raw[k]; });
+      }
+    } catch (e) {}
     items.sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
     var typeLabels = { publication: 'Publication', grant: 'Grant', presentation: 'Presentation', award: 'Award', other: 'News' };
     var typeIcons = { publication: 'fa-book', grant: 'fa-coins', presentation: 'fa-microphone', award: 'fa-award', other: 'fa-newspaper' };

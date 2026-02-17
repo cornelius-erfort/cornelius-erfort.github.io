@@ -1,0 +1,11 @@
+{
+  "id": "github-2021",
+  "title": "Election Dataset Germany 1953–2021",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+  "description": "Harmonized county-level results with areal weighted interpolation.",
+  "icon": "fa-map-marked-alt",
+  "links": [
+    { "label": "Github", "url": "https://github.com/cornelius-erfort/germany-53-21-districts" }
+  ]
+}
+

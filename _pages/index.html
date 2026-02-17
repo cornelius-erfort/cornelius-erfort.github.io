@@ -13,18 +13,27 @@ title: "Cornelius Erfort"
         var allContent = document.getElementsByClassName('pub-content');
         var clickedContent = document.getElementById(id);
         if (!clickedContent) return;
+        var inlayViewport = clickedContent.closest && clickedContent.closest('.scroll-inlay__viewport');
         for (var i = 0; i < allContent.length; i++) {
             if (allContent[i].id !== id) {
-                allContent[i].style.height = '0';
                 allContent[i].classList.remove('active');
+                allContent[i].style.maxHeight = '';
+                if (!inlayViewport) allContent[i].style.height = '0';
             }
         }
         if (clickedContent.classList.contains('active')) {
-            clickedContent.style.height = '0';
             clickedContent.classList.remove('active');
+            clickedContent.style.maxHeight = '';
+            if (!inlayViewport) clickedContent.style.height = '0';
         } else {
             clickedContent.classList.add('active');
-            clickedContent.style.height = clickedContent.scrollHeight + 'px';
+            if (inlayViewport) {
+                // Overlay mode in inlays: don't change layout/row height.
+                var maxH = Math.max(140, (inlayViewport.clientHeight || 0) - 60);
+                clickedContent.style.maxHeight = maxH + 'px';
+            } else {
+                clickedContent.style.height = clickedContent.scrollHeight + 'px';
+            }
         }
     };
     window.downloadBibtex = function(id) {
@@ -358,19 +367,19 @@ title: "Cornelius Erfort"
     <h2>CV</h2>
     <a href="{{ base_path }}/files/cv_erfort.pdf" class="pub-button" download>Download CV (PDF)</a>
 </div>
+<div class="cv-preview-wrap">
+  <div class="cv-preview-frame-wrap">
+    <iframe id="cv-pdf-iframe" class="cv-pdf-iframe" title="CV (PDF)" src="{{ base_path }}/files/cv_erfort.pdf#toolbar=0&navpanes=0"></iframe>
+  </div>
+</div>
 <div class="cv-pager" aria-label="CV pages">
   <div class="cv-pager__frame-wrap">
     <iframe id="cv-page-frame" class="cv-pager__iframe" title="CV (PDF page)" src="{{ base_path }}/files/cv_erfort.pdf#page=1&toolbar=0&navpanes=0"></iframe>
   </div>
-  <div class="cv-pager__controls" aria-label="CV pagination">
-    <button type="button" class="cv-pager__btn cv-pager__btn--prev" aria-label="Previous CV page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
-    <div class="cv-pager__dots" aria-label="CV pages"></div>
-    <button type="button" class="cv-pager__btn cv-pager__btn--next" aria-label="Next CV page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
-  </div>
-</div>
-<div class="cv-preview-wrap">
-  <div class="cv-preview-frame-wrap">
-    <iframe id="cv-pdf-iframe" class="cv-pdf-iframe" title="CV (PDF)" src="{{ base_path }}/files/cv_erfort.pdf#toolbar=0&navpanes=0"></iframe>
+  <div class="cv-pager__controls scroll-inlay__pager" aria-label="CV pagination">
+    <button type="button" class="cv-pager__btn cv-pager__btn--prev scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous CV page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="cv-pager__dots scroll-inlay__dots" aria-label="CV pages"></div>
+    <button type="button" class="cv-pager__btn cv-pager__btn--next scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next CV page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>

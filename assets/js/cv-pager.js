@@ -3,6 +3,10 @@
 
   function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
 
+  function isVisible(el) {
+    return !!(el && (el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+  }
+
   function buildSrc(baseSrc, page) {
     // Preserve the PDF file path before '#'
     var parts = String(baseSrc || '').split('#');
@@ -11,15 +15,20 @@
   }
 
   function init() {
-    var frame = document.getElementById('cv-page-frame');
+    // Narrow: use lightweight single-page iframe.
+    // Wide: keep the big iframe, but still show the cool pager controls.
+    var frameNarrow = document.getElementById('cv-page-frame');
+    var frameWide = document.getElementById('cv-pdf-iframe');
     var pager = document.querySelector('.cv-pager');
-    if (!frame || !pager) return;
+    if (!pager) return;
 
     var prev = pager.querySelector('.cv-pager__btn--prev');
     var next = pager.querySelector('.cv-pager__btn--next');
     var dotsWrap = pager.querySelector('.cv-pager__dots');
     if (!prev || !next || !dotsWrap) return;
 
+    var frame = isVisible(frameWide) ? frameWide : frameNarrow;
+    if (!frame) return;
     var baseSrc = frame.getAttribute('src') || '';
     var current = 1;
 
@@ -29,7 +38,7 @@
         (function(page) {
           var b = document.createElement('button');
           b.type = 'button';
-          b.className = 'cv-pager__dot';
+          b.className = 'cv-pager__dot scroll-inlay__dot';
           b.setAttribute('aria-label', 'CV page ' + page + ' of ' + TOTAL_PAGES);
           b.addEventListener('click', function() { setPage(page); });
           dotsWrap.appendChild(b);

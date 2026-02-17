@@ -1,0 +1,15 @@
+{
+  "year": "forthcoming",
+  "journal": "West European Politics",
+  "image": "files/fwep.jpg",
+  "image_link": "https://doi.org/10.31219/osf.io/6n3z4",
+  "title": "Parties' issue responsiveness between elections",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"http://lukas-stoetzer.org/\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com/\">Heike Kl\u00fcver</a>",
+  "venue": "West European Politics, forthcoming",
+  "abstract": "Are parties responsive to short-term changes in election polls? We address this using the PARTYPRESS Database and supervised ML to measure parties' issue attention. We find little support that losing in the polls leads parties to change their issue attention.",
+  "bibtex": "@article{erfort_stoetzer_kluver_forthcoming, title = {Parties' issue responsiveness between elections}, author = {Erfort, Cornelius and Stoetzer, Lukas F. and Kl\u00fcver, Heike}, journal = {West European Politics}, year = {forthcoming}, url = {https://doi.org/10.31219/osf.io/6n3z4}",
+  "links": [
+    { "label": "Preprint", "url": "https://doi.org/10.31219/osf.io/6n3z4", "text": "View on OSF \u2192" }
+  ]
+}
+

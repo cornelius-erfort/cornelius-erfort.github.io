@@ -3,10 +3,28 @@
   function el(id) { return document.getElementById(id); }
   function q(qs, root) { return (root || document).querySelector(qs); }
   function qAll(qs, root) { return (root || document).querySelectorAll(qs); }
+  function normalizeData(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw;
+    if (typeof raw === 'object') {
+      // Jekyll folder data: `_data/foo/*.json` becomes an object keyed by filename.
+      // Use key order for stable ordering.
+      return Object.keys(raw).sort().map(function(k) {
+        var v = raw[k];
+        if (v && typeof v === 'object' && !Array.isArray(v)) {
+          if (v.id == null) v.id = k;
+          v.__key = k;
+          return v;
+        }
+        return { id: k, value: v, __key: k };
+      });
+    }
+    return [];
+  }
   function parseData(id) {
     var el = document.getElementById(id);
     if (!el || !el.textContent) return [];
-    try { return JSON.parse(el.textContent.trim()); } catch (e) { return []; }
+    try { return normalizeData(JSON.parse(el.textContent.trim())); } catch (e) { return []; }
   }
   function esc(s) {
     if (s == null) return '';
@@ -43,10 +61,11 @@
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
-      var td = '<td style="border:none"><b>' + esc(pub.title) + '</b> <br>' +
-        pub.authors + ' <br><i>' + esc(pub.venue) + '</i> <br>' +
+      var td = '<td class="pub-cell" style="border:none">' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
-        contents.join('\n    ') + '</td>';
+        contents.join('\n    ') +
+        '<b>' + esc(pub.title) + '</b> <br>' +
+        pub.authors + ' <br><i>' + esc(pub.venue) + '</i></td>';
       var tr = document.createElement('tr');
       tr.setAttribute('data-year', pub.year || '');
       tr.setAttribute('data-journal', pub.journal || '');
@@ -78,8 +97,10 @@
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
-      var td = '<td style="border:none"><b>' + esc(wip.title) + '</b> <br>' + wip.authors + ' <br>' +
-        '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' + contents.join('\n    ') + '</td>';
+      var td = '<td class="pub-cell" style="border:none">' +
+        '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
+        contents.join('\n    ') +
+        '<b>' + esc(wip.title) + '</b> <br>' + wip.authors + '</td>';
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div></td>' + td;
       tbody.appendChild(tr);
@@ -124,7 +145,7 @@
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">View on ' + esc(link.label) + ' →</a></div></div>');
       });
       var desc = d.description ? ' <br>' + d.description : '';
-      var btnsHtml = buttons.length ? ' <br><span class="publication-buttons">' + buttons.join(' ') + '</span>' + contents.join('') : '';
+      var btnsHtml = buttons.length ? '<div class="publication-buttons">' + buttons.join(' ') + '</div>' + contents.join('') : '';
       var iconInner = '<i class="fas ' + esc(d.icon || 'fa-database') + '" aria-hidden="true"></i>';
       var iconHtml = '<div class="data-icon-cell">' + iconInner + '</div>';
       if (iconLink) {
@@ -133,7 +154,7 @@
       }
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none">' + iconHtml + '</td>' +
-        '<td style="border:none"><b>' + esc(d.title) + '</b> <br>' + d.authors + desc + btnsHtml + '</td>';
+        '<td class="pub-cell" style="border:none">' + btnsHtml + '<b>' + esc(d.title) + '</b> <br>' + d.authors + desc + '</td>';
       tbody.appendChild(tr);
     });
   }
@@ -151,10 +172,10 @@
         buttons.push('<button class="pub-button" onclick="toggleContent(\'' + id + '\')">' + esc(link.label) + '</button>');
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">View on ' + esc(link.label) + ' →</a></div></div>');
       });
-      var btnsHtml = buttons.length ? ' <br><span class="publication-buttons">' + buttons.join(' ') + '</span>' + contents.join('') : '';
+      var btnsHtml = buttons.length ? '<div class="publication-buttons">' + buttons.join(' ') + '</div>' + contents.join('') : '';
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="data-icon-cell"><i class="fas ' + esc(t.icon || 'fa-graduation-cap') + '" aria-hidden="true"></i></div></td>' +
-        '<td style="border:none"><b>' + esc(t.title) + '</b> <br>' + esc(t.description) + btnsHtml + '</td>';
+        '<td class="pub-cell" style="border:none">' + btnsHtml + '<b>' + esc(t.title) + '</b> <br>' + esc(t.description) + '</td>';
       tbody.appendChild(tr);
     });
   }

@@ -1,0 +1,16 @@
+{
+  "year": "2024",
+  "journal": "Electoral Studies",
+  "image": "files/jelst.jpg",
+  "image_link": "https://doi.org/10.1016/j.electstud.2024.102872",
+  "title": "Targeting Voters Online: How Parties' Campaigns Differ",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+  "venue": "Electoral Studies, 2024",
+  "abstract": "How do parties target campaign ads online? This paper analyzes how parties target and how they differ using a new dataset matching Facebook Ad Library data with EES survey responses (over 100,000 ads from 148 parties, 2019 EP elections).",
+  "bibtex": "@article{erfort_2024, title = {Targeting voters online: How parties' campaigns differ}, journal = {Electoral Studies}, volume = {92}, pages = {102872}, year = {2024}, doi = {https://doi.org/10.1016/j.electstud.2024.102872}, author = {Cornelius Erfort}}",
+  "links": [
+    { "label": "Article", "url": "https://doi.org/10.1016/j.electstud.2024.102872", "text": "View on Electoral Studies \u2192" },
+    { "label": "Github", "url": "https://github.com/cornelius-erfort/targeting-voters-online", "text": "View Code Repository \u2192" }
+  ]
+}
+

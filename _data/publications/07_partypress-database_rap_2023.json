@@ -1,0 +1,18 @@
+{
+  "year": "2023",
+  "journal": "Research and Politics",
+  "image": "files/57369_RAP.jpg",
+  "image_link": "https://doi.org/10.1177/20531680231183512",
+  "title": "The PARTYPRESS Database",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com\">Heike Kl\u00fcver</a>",
+  "venue": "Research and Politics, 2023",
+  "abstract": "We present the PARTYPRESS Database: more than 250,000 press releases from 68 parties in 9 European countries, with supervised ML classification into 21 issue categories (2010 onward).",
+  "bibtex": "@article{erfort_2023, title = {The PARTYPRESS Database}, author = {Erfort, Cornelius and Stoetzer, Lukas F and Kl\u00fcver, Heike}, journal = {Research & Politics}, volume = {10}, number = {3}, year = {2023}, doi = {10.1177/20531680231183512}}",
+  "links": [
+    { "label": "Article", "url": "https://doi.org/10.1177/20531680231183512", "text": "View on Research & Politics \u2192" },
+    { "label": "Github", "url": "https://github.com/cornelius-erfort/partypress", "text": "View Code Repository \u2192" },
+    { "label": "Data", "url": "https://doi.org/10.7910/DVN/OINX7Q", "text": "View on Dataverse \u2192" },
+    { "label": "Model", "url": "https://huggingface.co/partypress/partypress-multilingual", "text": "View on Hugging Face \u2192" }
+  ]
+}
+

@@ -1,0 +1,16 @@
+{
+  "year": "forthcoming",
+  "journal": "The Journal of Politics",
+  "image": "files/jop.jpeg",
+  "image_link": "https://osf.io/5vs9b/",
+  "title": "Gendered targeting: Do parties tailor their campaign ads to women?",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
+  "venue": "The Journal of Politics, forthcoming",
+  "abstract": "Are parties communicating differently to women? I analyze whether parties tailor their communication in ads targeting women using over 60,000 Facebook and Instagram ads from 151 parties in the 2019 European Parliament election.",
+  "bibtex": "@article{erfort_2025, author = {Erfort, Cornelius}, title = {Gendered targeting: Do parties tailor their campaign ads to women?}, journal = {The Journal of Politics}, year = {forthcoming}, doi = {10.1086/736027}, URL = {https://doi.org/10.1086/736027}}",
+  "links": [
+    { "label": "Article", "url": "https://www.journals.uchicago.edu/doi/10.1086/736027", "text": "View on Chicago Press \u2192" },
+    { "label": "Data", "url": "https://doi.org/10.7910/DVN/WLKM8J", "text": "View on Dataverse \u2192" }
+  ]
+}
+

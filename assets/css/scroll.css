@@ -15,10 +15,11 @@ html {
   --scroll-font-size-section: 1.5rem;
   --scroll-text: #333;
   --scroll-text-muted: #6c757d;
-  --scroll-link: #0a5eb2;
-  --scroll-link-hover: #084a8f;
+  /* Softer, less aggressive link blue */
+  --scroll-link: #2b6cb0;
+  --scroll-link-hover: #1f4f85;
   --scroll-surface: #f8f9fa;
-  --scroll-surface-hover: #e9ecef;
+  --scroll-surface-hover: #f1f3f5;
   --scroll-border: #dee2e6;
   --scroll-radius: 6px;
   --scroll-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -105,6 +106,7 @@ html {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  margin-left: auto; /* keep hamburger on far right */
 }
 
 .masthead--fixed .site-nav-static .nav-links {
@@ -117,6 +119,7 @@ html {
 .masthead--fixed .site-nav-static .nav-links--visible {
   display: flex;
   flex: 1 1 auto;
+  min-width: 0; /* allow shrink so overflow is detectable and items move to dropdown */
   justify-content: flex-end;
   flex-wrap: nowrap;
   align-items: center;
@@ -171,13 +174,12 @@ html {
   display: inline-flex;
 }
 
-/* Narrow: collapse menu into a dropdown (single-row header) */
+/* Narrow: tighter inline link spacing, but still greedy (no wrapping) */
 @media (max-width: 768px) {
-  .masthead--fixed .site-nav-static .nav-links--visible { display: none; }
-  .masthead--fixed .site-nav-static__toggle-btn { display: inline-flex; }
-
-  /* Dropdown already styled above; just ensure it can show */
-  .masthead--fixed .site-nav-static__toggle:checked ~ .nav-links--dropdown { display: flex; }
+  .masthead--fixed .site-nav-static .nav-links a {
+    margin: 0 0.6rem;
+    padding: 0.45rem 0;
+  }
 }
 
 .scroll-page {
@@ -369,12 +371,13 @@ html {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 1em;
   }
 
   .about-hero__photo-wrap .about-hero__left {
     order: -1;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -404,6 +407,7 @@ html {
     flex: 0 0 auto;
     min-width: 0;
     max-width: 200px;
+    margin-left: auto;
   }
 
   .scroll-section-title.about-section-title {
@@ -413,6 +417,18 @@ html {
   /* Hide Abstract / Article / BibTeX etc. buttons on narrow screens */
   .scroll-content .publication-buttons {
     display: none;
+  }
+
+  /* Tighter spacing between section "windows" on narrow */
+  .scroll-content .scroll-section {
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
+  }
+
+  .scroll-inlay__viewport {
+    --inlay-pad: 8px;
+    --inlay-slot-height: 92px;
+    --inlay-row-gap: 6px;
   }
 }
 
@@ -477,7 +493,8 @@ html {
   font-size: var(--scroll-font-size-sm);
   margin-right: 8px;
   margin-bottom: 0;
-  transition: all 0.2s ease;
+  /* Avoid layout-affecting transitions that can cause hover flicker */
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
   color: var(--scroll-text-muted) !important;
   display: inline-block;
@@ -494,6 +511,38 @@ html {
   text-decoration: none;
   color: var(--scroll-text) !important;
   box-shadow: var(--scroll-shadow-hover);
+}
+
+/* Inlay windows: disable hover animations to prevent flicker */
+.scroll-inlay__viewport .pub-button,
+.scroll-inlay__viewport .external-link-content a {
+  transition: none !important;
+}
+
+.scroll-inlay__viewport .pub-button:hover,
+.scroll-inlay__viewport .external-link-content a:hover {
+  /* keep colors, but avoid shadow animation changes */
+  box-shadow: var(--scroll-shadow) !important;
+}
+
+/* Inlay windows: also stabilize cover/icon hover (no flicker) */
+.scroll-inlay__viewport .publication-image-cell > a,
+.scroll-inlay__viewport .media-cover,
+.scroll-inlay__viewport .document-icon,
+.scroll-inlay__viewport .data-icon-cell,
+.scroll-inlay__viewport .news-table .publication-image-cell {
+  transition: none !important;
+}
+
+.scroll-inlay__viewport .publication-image-cell > a:hover,
+.scroll-inlay__viewport .media-cover:hover,
+.scroll-inlay__viewport .document-icon:hover,
+.scroll-inlay__viewport .data-icon-cell:hover {
+  box-shadow: var(--scroll-shadow) !important;
+}
+
+.scroll-inlay__viewport .publication-image-cell > a img {
+  transition: none !important;
 }
 
 .scroll-content a.pub-button { text-decoration: none; }
@@ -519,12 +568,51 @@ html {
 
 .scroll-content .pub-content.active { display: block; height: auto; }
 
+/* In inlay windows: show pub-content as an overlay (no layout growth) */
+.scroll-inlay__viewport td.pub-cell {
+  position: relative;
+}
+
+.scroll-inlay__viewport td.pub-cell .publication-buttons {
+  position: relative;
+  z-index: 3;
+  margin-top: 0;
+  margin-bottom: 6px;
+  pointer-events: auto;
+  /* Promote to own layer so Safari hit-testing consistently targets buttons */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.scroll-inlay__viewport td.pub-cell .pub-content {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 34px; /* below button row */
+  margin: 0;
+  height: auto !important;
+  max-height: 320px; /* overridden dynamically by JS on open */
+  overflow: auto;
+  transition: none;
+  display: none;
+  font-size: 0.9em; /* smaller for Abstract/Link panels */
+  /* Inactive overlay must not capture clicks (Safari fix for cursor flicker / missed clicks) */
+  pointer-events: none;
+}
+
+.scroll-inlay__viewport td.pub-cell .pub-content.active {
+  display: block;
+  pointer-events: auto;
+}
+
 .scroll-content .pub-content pre {
   max-width: 100%;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-word;
   margin: 0;
+  font-size: 0.85em; /* even smaller for BibTeX blocks */
 }
 
 .scroll-content .external-link-content {
@@ -748,28 +836,97 @@ html {
   overflow: hidden;
 }
 
+/* Fixed inlay layout: 3 slots per page, same window size every page, items at top */
 .scroll-inlay__viewport {
-  /* Height is controlled by JS; don't flex-grow to content */
+  --inlay-pad: 10px;
+  --inlay-slot-height: 100px;
+  --inlay-row-gap: 8px;
   flex: 0 0 auto;
   min-width: 0;
-  min-height: 0;
-  overflow-y: hidden; /* paging only: no vertical scrolling */
-  overflow-x: hidden;
+  height: calc(2 * var(--inlay-pad) + 3 * var(--inlay-slot-height) + 2 * var(--inlay-row-gap));
+  overflow: hidden;
   overscroll-behavior: none;
-  scroll-behavior: smooth;
-  padding: 12px;
+  padding: var(--inlay-pad);
   box-sizing: border-box;
 }
 
-/* Inlay paging uses multiple <tbody> "pages" */
+.scroll-inlay__viewport table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0 var(--inlay-row-gap);
+  margin: 0;
+}
+
 .scroll-inlay__viewport tbody[hidden] {
   display: none;
 }
 
-/* Invisible filler rows so pages always have 3 slots */
+/* Each row is one fixed-height slot; content top-aligned so 1 or 2 items sit at top */
+.scroll-inlay__viewport tr {
+  height: var(--inlay-slot-height);
+  vertical-align: top;
+}
+
+.scroll-inlay__viewport td {
+  padding: 8px 0 0;
+  vertical-align: top;
+}
+
+.scroll-inlay__viewport td:not(.publication-image-cell):not(.data-icon-cell) {
+  min-height: 0;
+  max-height: var(--inlay-slot-height);
+  overflow: hidden;
+  padding-left: 8px;
+}
+
+/* Placeholder rows: same slot height, invisible, no content */
+.scroll-inlay__viewport .scroll-inlay__placeholder-row td {
+  padding: 0;
+  border: none;
+  line-height: 0;
+  overflow: hidden;
+}
+
 .scroll-inlay__viewport .scroll-inlay__placeholder-row {
   visibility: hidden;
   pointer-events: none;
+}
+
+/* Keep image/icon within slot height so row doesn't grow */
+.scroll-inlay__viewport .publication-image-cell > a,
+.scroll-inlay__viewport .publication-image-cell .document-icon,
+.scroll-inlay__viewport .publication-image-cell .data-icon-cell,
+.scroll-inlay__viewport .media-cover {
+  max-height: var(--inlay-slot-height);
+  box-sizing: border-box;
+}
+.scroll-inlay__viewport .publication-image-cell > a img {
+  max-height: var(--inlay-slot-height);
+  object-fit: contain;
+  vertical-align: top;
+}
+
+/* Measurement mode (JS): temporarily let rows expand so we can pick a slot height
+   that fits the tallest item at the current viewport width. */
+.scroll-inlay__viewport.is-measuring {
+  height: auto !important;
+  overflow: visible !important;
+}
+.scroll-inlay__viewport.is-measuring tr {
+  height: auto !important;
+}
+.scroll-inlay__viewport.is-measuring td:not(.publication-image-cell):not(.data-icon-cell) {
+  max-height: none !important;
+  overflow: visible !important;
+}
+.scroll-inlay__viewport.is-measuring .publication-image-cell > a,
+.scroll-inlay__viewport.is-measuring .publication-image-cell .document-icon,
+.scroll-inlay__viewport.is-measuring .publication-image-cell .data-icon-cell,
+.scroll-inlay__viewport.is-measuring .media-cover,
+.scroll-inlay__viewport.is-measuring .publication-image-cell > a img {
+  max-height: none !important;
 }
 
 /* Bottom pager: prev/next + dots */
@@ -825,7 +982,7 @@ html {
   border-radius: 999px;
   border: 0;
   padding: 0;
-  background: var(--scroll-border);
+  background: #c6ccd3;
   cursor: pointer;
 }
 
@@ -840,11 +997,6 @@ html {
   outline-offset: 2px;
 }
 
-/* Cap row height in inlays so 4th item always peeks (no huge gap after tall 3rd row) */
-.scroll-inlay__viewport table td:not(.publication-image-cell):not(.data-icon-cell) {
-  max-height: 200px;
-  overflow: hidden;
-}
 
 .scroll-inlay__viewport::-webkit-scrollbar {
   width: 8px;
@@ -883,6 +1035,15 @@ html {
 }
 .scroll-content table td:not(.publication-image-cell):not(.data-icon-cell) { min-width: 0; overflow-wrap: break-word; }
 
+/* Inlay viewport: fixed slots, no global min-height */
+.scroll-inlay__viewport table td {
+  min-height: 0;
+  padding: 8px 0 0;
+}
+.scroll-inlay__viewport table td:first-child {
+  padding-right: 8px;
+}
+
 /* Slightly smaller font next to covers so text stays level with/below cover top */
 .scroll-content table td:not(.publication-image-cell) {
   font-size: var(--scroll-font-size-muted);
@@ -905,14 +1066,15 @@ html {
   margin-top: 0.5em;
 }
 .scroll-content .cv-pager {
-  display: none; /* enabled on narrow */
+  display: block; /* controls visible in all modes */
   max-width: 100%;
   margin-top: 0.5em;
 }
 .scroll-content .cv-pager__frame-wrap {
   background: var(--scroll-surface);
   border: 1px solid var(--scroll-border);
-  border-radius: var(--scroll-radius);
+  border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
+  border-bottom: none;
   overflow: hidden;
 }
 .scroll-content .cv-pager__iframe {
@@ -923,61 +1085,18 @@ html {
   border: none;
 }
 .scroll-content .cv-pager__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 6px;
-}
-.scroll-content .cv-pager__btn {
-  background: transparent;
+  /* Uses `.scroll-inlay__pager` styling; add the missing outer borders/radius */
   border: 1px solid var(--scroll-border);
-  border-radius: 999px;
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--scroll-text-muted);
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-.scroll-content .cv-pager__btn:hover:not(:disabled) {
-  background: var(--scroll-surface-2);
-  color: var(--scroll-text);
-}
-.scroll-content .cv-pager__btn:disabled {
-  opacity: 1;
-  cursor: default;
-  color: var(--scroll-border);
-  background: transparent;
-  border-color: var(--scroll-border);
-  box-shadow: none;
-  pointer-events: none;
-}
-.scroll-content .cv-pager__dots {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.scroll-content .cv-pager__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: none;
-  background: var(--scroll-border);
-  padding: 0;
-  cursor: pointer;
-}
-.scroll-content .cv-pager__dot.is-active {
-  background: var(--scroll-text-muted);
+  border-top: 1px solid var(--scroll-border);
+  border-radius: 0 0 var(--scroll-radius) var(--scroll-radius);
 }
 .scroll-content .cv-preview-frame-wrap {
   background: var(--scroll-surface);
   border: 1px solid var(--scroll-border);
-  border-radius: var(--scroll-radius);
+  border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
+  border-bottom: none;
   overflow: hidden;
-  margin-bottom: 0.75em;
+  margin-bottom: 0;
 }
 .scroll-content .cv-pdf-iframe {
   display: block;
@@ -990,10 +1109,19 @@ html {
 /* CV: on narrower screens use the simple 3-page pager instead of the big preview */
 @media (max-width: 768px) {
   .scroll-content .cv-preview-wrap { display: none; }
-  .scroll-content .cv-pager { display: block; }
+  .scroll-content .cv-pager__frame-wrap { display: block; }
   .scroll-content .cv-pager__iframe {
-    height: 48vh;
+    height: 52vh;
     min-height: 280px;
+  }
+}
+
+/* Wide: keep big preview, show pager controls only */
+@media (min-width: 769px) {
+  .scroll-content .cv-pager__frame-wrap { display: none; }
+  .scroll-content .cv-pager__controls { margin-top: 0; }
+  .scroll-content .cv-preview-frame-wrap {
+    border-radius: var(--scroll-radius) var(--scroll-radius) 0 0;
   }
 }
 /* News section */
@@ -1451,6 +1579,12 @@ html {
 
 /* Very narrow: small covers and minimal gap between symbol and text in ALL sections */
 @media (max-width: 420px) {
+  .scroll-inlay__viewport {
+    --inlay-pad: 6px;
+    --inlay-slot-height: 82px;
+    --inlay-row-gap: 5px;
+  }
+
   /* Very narrow: slightly smaller typography everywhere */
   .scroll-content {
     --scroll-font-size: 0.9375rem;
