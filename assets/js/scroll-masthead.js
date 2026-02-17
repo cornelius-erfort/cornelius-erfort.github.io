@@ -55,13 +55,32 @@
     }
 
     /* touchstart: handle first so Firefox mobile doesn’t treat as cross-document */
+    /* pointerdown: reliable on mobile Safari (fires before default action) */
+    masthead.addEventListener('pointerdown', function(e) {
+      var a = findLink(e.target);
+      if (!a) return;
+      var href = (a.getAttribute('href') || '').trim();
+      if (href.charAt(0) !== '#' || href.length <= 1) return;
+      e.preventDefault();
+      e.stopPropagation();
+      requestAnimationFrame(function() {
+        var t = document.getElementById('nav-toggle-scroll');
+        if (t && t.checked) t.checked = false;
+        scrollToHashWithOffset(href);
+      });
+    }, { passive: false, capture: true });
+
     masthead.addEventListener('touchstart', function(e) {
       var a = findLink(e.target);
       if (!a || !a.getAttribute('href')) return;
-      var href = a.getAttribute('href') || '';
-      if (href.indexOf('#') === -1) return;
+      var href = (a.getAttribute('href') || '').trim();
+      if (href.charAt(0) !== '#') return;
       e.preventDefault();
-      handleHashLink(a);
+      requestAnimationFrame(function() {
+        var t = document.getElementById('nav-toggle-scroll');
+        if (t && t.checked) t.checked = false;
+        scrollToHashWithOffset(href);
+      });
     }, { passive: false, capture: true });
 
     /* Capture phase so we run before browser default */
