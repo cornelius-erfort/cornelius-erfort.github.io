@@ -506,6 +506,10 @@ body.scroll-layout {
     padding-top: 1.25em;
     padding-bottom: 1.25em;
   }
+  /* Less space above first section (picture/contact) so gap to menu isn’t too large */
+  .scroll-content .scroll-section:first-of-type {
+    padding-top: 0.5em;
+  }
 
   .scroll-inlay__viewport {
     --inlay-pad: 8px;
