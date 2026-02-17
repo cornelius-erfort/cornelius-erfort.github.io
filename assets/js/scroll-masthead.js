@@ -202,7 +202,8 @@
     applyMastheadTopSpacing();
     window.addEventListener('resize', applyMastheadTopSpacing, { passive: true });
     window.addEventListener('orientationchange', function() {
-      setTimeout(applyMastheadTopSpacing, 100);
+      setTimeout(applyMastheadTopSpacing, 150);
+      if (window.recalcAllScrollInlays) setTimeout(window.recalcAllScrollInlays, 180);
     }, { passive: true });
     window.addEventListener('load', applyMastheadTopSpacing);
     setTimeout(applyMastheadTopSpacing, 300); /* iOS: re-measure after layout/safe-area settle */

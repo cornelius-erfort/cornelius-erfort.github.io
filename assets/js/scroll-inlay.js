@@ -259,27 +259,38 @@
     updatePager(st);
   }
 
+  function recalcAllInlays() {
+    var inlays = document.querySelectorAll('.scroll-inlay');
+    for (var i = 0; i < inlays.length; i++) recalcInlay(inlays[i]);
+  }
+
   function init() {
     var inlays = document.querySelectorAll('.scroll-inlay');
     for (var i = 0; i < inlays.length; i++) initInlay(inlays[i]);
   }
 
-  // TEMP: disabled for stability testing (resize-driven recalc can cause hit-test churn).
-  // var resizeTimer = null;
-  // var lastResizeW = 0;
-  // var lastResizeH = 0;
-  // window.addEventListener('resize', function() {
-  //   clearTimeout(resizeTimer);
-  //   resizeTimer = setTimeout(function() {
-  //     var w = window.innerWidth;
-  //     var h = window.innerHeight;
-  //     if (w === lastResizeW && h === lastResizeH) return;
-  //     lastResizeW = w;
-  //     lastResizeH = h;
-  //     var inlays = document.querySelectorAll('.scroll-inlay');
-  //     for (var i = 0; i < inlays.length; i++) recalcInlay(inlays[i]);
-  //   }, 120);
-  // }, { passive: true });
+  var resizeTimer = null;
+  var lastResizeW = 0;
+  var lastResizeH = 0;
+  function onResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      if (w === lastResizeW && h === lastResizeH) return;
+      lastResizeW = w;
+      lastResizeH = h;
+      recalcAllInlays();
+    }, 120);
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('orientationchange', function() {
+    lastResizeW = 0;
+    lastResizeH = 0;
+    setTimeout(function() { recalcAllInlays(); }, 150);
+  }, { passive: true });
+
+  window.recalcAllScrollInlays = recalcAllInlays;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 0); });
