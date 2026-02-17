@@ -70,8 +70,9 @@ html {
 .masthead--fixed .site-nav-static {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: relative;
+  gap: 0.75rem;
 }
 
 .masthead--fixed .site-nav-static__brand {
@@ -80,6 +81,7 @@ html {
   color: inherit;
   font-weight: 700;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .masthead--fixed .site-nav-static__toggle {
@@ -92,7 +94,7 @@ html {
 }
 
 .masthead--fixed .site-nav-static__toggle-btn {
-  display: none; /* shown on narrow */
+  display: none; /* shown on narrow or when overflow */
   width: 36px;
   height: 36px;
   border: 1px solid var(--scroll-border);
@@ -106,13 +108,21 @@ html {
 }
 
 .masthead--fixed .site-nav-static .nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Visible links (single row) */
+.masthead--fixed .site-nav-static .nav-links--visible {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .masthead--fixed .site-nav-static .nav-links li {
@@ -131,35 +141,43 @@ html {
   margin-right: 0;
 }
 
+/* Dropdown links (hidden until toggle is checked) */
+.masthead--fixed .site-nav-static .nav-links--dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  align-items: stretch;
+  background: #fff;
+  border-top: 1px solid var(--scroll-border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  padding: 0.35rem 0;
+  z-index: 200;
+}
+
+.masthead--fixed .site-nav-static .nav-links--dropdown a {
+  margin: 0;
+  padding: 0.65rem 2em;
+}
+
+.masthead--fixed .site-nav-static__toggle:checked ~ .nav-links--dropdown {
+  display: flex;
+}
+
+/* Show the hamburger button only when needed */
+.masthead--fixed .site-nav-static.has-overflow .site-nav-static__toggle-btn {
+  display: inline-flex;
+}
+
 /* Narrow: collapse menu into a dropdown (single-row header) */
 @media (max-width: 768px) {
-  .masthead--fixed .site-nav-static .nav-links {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    background: #fff;
-    border-top: 1px solid var(--scroll-border);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-    padding: 0.35rem 0;
-    z-index: 200;
-  }
+  .masthead--fixed .site-nav-static .nav-links--visible { display: none; }
+  .masthead--fixed .site-nav-static__toggle-btn { display: inline-flex; }
 
-  .masthead--fixed .site-nav-static .nav-links a {
-    margin: 0;
-    padding: 0.65rem 2em;
-  }
-
-  .masthead--fixed .site-nav-static__toggle-btn {
-    display: inline-flex;
-  }
-
-  .masthead--fixed .site-nav-static__toggle:checked ~ .nav-links {
-    display: flex;
-  }
+  /* Dropdown already styled above; just ensure it can show */
+  .masthead--fixed .site-nav-static__toggle:checked ~ .nav-links--dropdown { display: flex; }
 }
 
 .scroll-page {
@@ -735,7 +753,7 @@ html {
   flex: 0 0 auto;
   min-width: 0;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: hidden; /* paging only: no vertical scrolling */
   overflow-x: hidden;
   overscroll-behavior: none;
   scroll-behavior: smooth;
@@ -746,6 +764,12 @@ html {
 /* Inlay paging uses multiple <tbody> "pages" */
 .scroll-inlay__viewport tbody[hidden] {
   display: none;
+}
+
+/* Invisible filler rows so pages always have 3 slots */
+.scroll-inlay__viewport .scroll-inlay__placeholder-row {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* Bottom pager: prev/next + dots */

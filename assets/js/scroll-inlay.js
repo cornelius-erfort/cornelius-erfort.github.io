@@ -54,25 +54,57 @@
 
   function syncViewportOverflowY(view) {
     // Prevent tiny "wiggle" scroll caused by 1–few px overflow (rounding/padding).
-    // Still allow vertical scrolling if expanded content truly overflows.
+    // Do NOT change height here (window height must stay fixed).
     if (!view) return;
-    var client = Math.max(0, view.clientHeight || 0);
-    var scrollH = Math.max(0, view.scrollHeight || 0);
-    var overflow = scrollH - client;
+    // Paging-only UX: never allow vertical scrolling inside inlays.
+    view.style.overflowY = 'hidden';
+    view.scrollTop = 0;
+  }
 
-    // If overflow is just a few pixels, grow the viewport a bit to fit exactly.
-    // This avoids the "scrollable by a few millimeters" feel.
-    if (overflow > 0 && overflow <= 10) {
-      var h = parseInt(view.style.height || '', 10);
-      if (h && isFinite(h)) view.style.height = (h + overflow) + 'px';
-      // Recompute after adjustment
-      client = Math.max(0, view.clientHeight || 0);
-      scrollH = Math.max(0, view.scrollHeight || 0);
-      overflow = scrollH - client;
+  function computeFixedViewportHeight(st) {
+    if (!st || !st.view || !st.table) return;
+    if (!st.pageCount) st.pageCount = 1;
+    var prevPage = st.currentPage || 0;
+    var maxRowH = 0;
+    var maxRowsBlockH = 0;
+
+    // Measure each page's natural table height and take the maximum.
+    for (var p = 0; p < st.pageCount; p++) {
+      st.currentPage = p;
+      applyPageVisibility(st);
+
+      // Measure the vertical span of up to 3 rows (includes row gaps/border-spacing)
+      var rows = st.table.querySelectorAll('tbody:not([hidden]) tr');
+      if (rows && rows.length) {
+        var count = Math.min(rows.length, ROWS_PER_PAGE);
+        var first = rows[0];
+        var last = rows[count - 1];
+        var r1 = first.getBoundingClientRect();
+        var rN = last.getBoundingClientRect();
+        var span = Math.round((rN.bottom || 0) - (r1.top || 0));
+        if (span > maxRowsBlockH) maxRowsBlockH = span;
+        for (var i = 0; i < count; i++) {
+          var rh = Math.round(rows[i].getBoundingClientRect().height || 0);
+          if (rh > maxRowH) maxRowH = rh;
+        }
+      } else {
+        var rh2 = getRowHeight(st.view);
+        if (rh2 && rh2 > maxRowH) maxRowH = rh2;
+      }
     }
 
-    view.style.overflowY = (overflow > 1) ? 'auto' : 'hidden';
-    if (view.style.overflowY === 'hidden') view.scrollTop = 0;
+    // Restore the original page
+    st.currentPage = clamp(prevPage, 0, st.pageCount - 1);
+    applyPageVisibility(st);
+
+    // Ensure a stable minimum height even if there are <3 items total.
+    var baseRowH = maxRowH || st.rowHeight || 120;
+    var minTableH = Math.round(ROWS_PER_PAGE * baseRowH);
+
+    // Add a tiny buffer to avoid rounding overflow "wiggle".
+    var targetRowsH = Math.max(maxRowsBlockH, minTableH);
+    st.fixedViewportHeight = Math.round(targetRowsH + VIEWPORT_PADDING_VERTICAL + 2);
+    st.view.style.height = st.fixedViewportHeight + 'px';
   }
 
   function getAllRows(table) {
@@ -150,6 +182,17 @@
       var start = p * ROWS_PER_PAGE;
       var end = Math.min(rows.length, start + ROWS_PER_PAGE);
       for (var r = start; r < end; r++) tbody.appendChild(rows[r]);
+
+      // Always keep exactly 3 rows per page so we can distribute vertical spacing
+      // evenly and keep window height stable even if there are <3 items.
+      var missing = ROWS_PER_PAGE - (end - start);
+      for (var m = 0; m < missing; m++) {
+        var ph = document.createElement('tr');
+        ph.className = 'scroll-inlay__placeholder-row';
+        ph.setAttribute('aria-hidden', 'true');
+        ph.innerHTML = '<td class="publication-image-cell" style="border:none"></td><td style="border:none"></td>';
+        tbody.appendChild(ph);
+      }
       table.appendChild(tbody);
     }
 
@@ -158,10 +201,36 @@
     applyPageVisibility(st);
   }
 
+  function layoutCurrentPage(st) {
+    if (!st || !st.view || !st.table) return;
+    var view = st.view;
+    var table = st.table;
+
+    // Available height inside the viewport (padding is 12px top + 12px bottom).
+    var inner = Math.max(0, (view.clientHeight || 0) - VIEWPORT_PADDING_VERTICAL);
+
+    var tbody = table.querySelector('tbody:not([hidden])') || table.querySelector('tbody');
+    if (!tbody) return;
+    var pageRows = tbody.querySelectorAll('tr');
+    if (!pageRows || !pageRows.length) return;
+
+    var sum = 0;
+    for (var i = 0; i < Math.min(pageRows.length, ROWS_PER_PAGE); i++) {
+      sum += Math.round(pageRows[i].getBoundingClientRect().height || 0);
+    }
+
+    // Distribute leftover space into the 2 gaps between 3 rows via border-spacing.
+    var leftover = inner - sum;
+    var gaps = ROWS_PER_PAGE - 1;
+    var gap = gaps > 0 ? Math.max(0, Math.floor(leftover / gaps)) : 0;
+    table.style.borderSpacing = '0 ' + gap + 'px';
+  }
+
   function goToPage(st, pageIdx) {
     if (!st) return;
     st.currentPage = clamp(pageIdx, 0, st.pageCount - 1);
     applyPageVisibility(st);
+    layoutCurrentPage(st);
     syncViewportOverflowY(st.view);
     updatePager(st);
   }
@@ -178,7 +247,9 @@
 
     var rh = getRowHeight(st.view);
     if (rh && rh > 0) st.rowHeight = rh;
-    setViewportHeight(st.view, st.rowHeight);
+    // Fix height to the tallest page (3 items). Never resize per-page.
+    computeFixedViewportHeight(st);
+    layoutCurrentPage(st);
     syncViewportOverflowY(st.view);
 
     var needRebuildDots = st._dotsBuiltFor !== st.pageCount;

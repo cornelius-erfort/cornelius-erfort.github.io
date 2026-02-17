@@ -25,16 +25,6 @@ title: "Cornelius Erfort"
         } else {
             clickedContent.classList.add('active');
             clickedContent.style.height = clickedContent.scrollHeight + 'px';
-            var viewport = clickedContent.closest('.scroll-inlay__viewport');
-            if (viewport) {
-                requestAnimationFrame(function() {
-                    var rect = clickedContent.getBoundingClientRect();
-                    var vpRect = viewport.getBoundingClientRect();
-                    if (rect.bottom > vpRect.bottom) {
-                        viewport.scrollTop += (rect.bottom - vpRect.bottom) + 10;
-                    }
-                });
-            }
         }
     };
     window.downloadBibtex = function(id) {
