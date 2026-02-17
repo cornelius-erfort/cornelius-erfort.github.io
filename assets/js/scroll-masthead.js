@@ -165,11 +165,25 @@
     }, { passive: true, capture: false });
   }
 
+  function initBackToTop() {
+    var link = document.getElementById('back-to-top-link');
+    if (!link) return;
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      scrollToHashWithOffset('#top');
+    });
+    link.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      scrollToHashWithOffset('#top');
+    }, { passive: false });
+  }
+
   function init() {
     openExternalInNewTab();
     initInPageNav();
     initGreedyMenu();
     initCvScrollPassThrough();
+    initBackToTop();
 
     // If page loads with a hash, apply offset (after layout settles).
     if (window.location.hash) {
