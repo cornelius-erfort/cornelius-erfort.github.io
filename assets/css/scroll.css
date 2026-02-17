@@ -396,13 +396,16 @@ body.scroll-layout {
 */
 
 @media (max-width: 768px) {
-  html { scroll-padding-top: 52px; }
+  /* Use safe-area so masthead and main share one top offset; avoids double gap on iPhone (notch/Dynamic Island) */
+  --scroll-masthead-top: calc(52px + env(safe-area-inset-top, 0px));
+  html { scroll-padding-top: var(--scroll-masthead-top); }
   .masthead--fixed .masthead__inner-wrap {
     padding: 0.5em 1em;
+    padding-top: calc(0.5em + env(safe-area-inset-top, 0px));
   }
 
   .scroll-main {
-    padding-top: 52px;
+    padding-top: var(--scroll-masthead-top);
     padding-left: 1.25em;
     padding-right: 1.25em;
   }

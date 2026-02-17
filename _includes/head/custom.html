@@ -1,5 +1,8 @@
 {% include base_path %}
 
+<!-- viewport-fit=cover so we can use env(safe-area-inset-*) and avoid double top gap on iPhone -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <!-- start custom head snippets -->
 
 <link rel="icon" type="image/jpeg" href="{{ base_path }}/images/profile.jpeg">
