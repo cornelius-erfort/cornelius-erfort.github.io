@@ -1234,17 +1234,13 @@ body.scroll-layout {
   border-radius: 0 0 var(--scroll-radius) var(--scroll-radius);
 }
 
-/* iPhone/touch: larger hit area so prev/next and dots register taps (44px min) */
+/* iPhone/touch: larger hit area so prev/next register taps (44px min); dots stay same size as inlay */
 @media (max-width: 768px) {
   .scroll-content .cv-pager__btn.scroll-inlay__page-btn {
     min-width: 44px;
     min-height: 44px;
     width: 44px;
     height: 44px;
-  }
-  .scroll-content .cv-pager__dots .scroll-inlay__dot {
-    padding: 18px;
-    box-sizing: content-box;
   }
 }
 .scroll-content .cv-preview-frame-wrap {
