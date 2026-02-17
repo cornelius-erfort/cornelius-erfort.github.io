@@ -39,21 +39,12 @@
     var masthead = document.getElementById('masthead-scroll');
     if (!masthead) return;
 
-    /* Make hash links explicitly same-document so Firefox mobile treats them as same-page */
-    var base = window.location.pathname + (window.location.search || '');
-    masthead.querySelectorAll('a[href^="#"]').forEach(function(a) {
-      var hash = (a.getAttribute('href') || '').trim();
-      if (hash && hash.charAt(0) === '#') a.setAttribute('href', base + hash);
-    });
-
     function handleHashLink(a) {
       if (!a) return false;
-      var href = a.getAttribute('href') || '';
-      var hashIdx = href.indexOf('#');
-      if (hashIdx === -1) return false;
-      var hash = href.slice(hashIdx);
-      if (!hash || hash === '#') return false;
-      scrollToHashWithOffset(hash);
+      var href = (a.getAttribute('href') || '').trim();
+      if (href.charAt(0) !== '#') return false;
+      if (href === '#') return false;
+      scrollToHashWithOffset(href);
       var toggle = document.getElementById('nav-toggle-scroll');
       if (toggle && toggle.checked) toggle.checked = false;
       return true;
