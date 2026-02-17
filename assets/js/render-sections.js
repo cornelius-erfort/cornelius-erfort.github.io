@@ -198,6 +198,13 @@
   function sortPublications(items) {
     if (!items || !items.length) return items;
     return items.slice().sort(function(a, b) {
+      var o1 = a.order != null ? Number(a.order) : NaN;
+      var o2 = b.order != null ? Number(b.order) : NaN;
+      if (!isNaN(o1) || !isNaN(o2)) {
+        if (isNaN(o1)) return 1;
+        if (isNaN(o2)) return -1;
+        return o1 - o2;
+      }
       var y1 = a.year, y2 = b.year;
       if (y1 === 'forthcoming' && y2 !== 'forthcoming') return -1;
       if (y1 !== 'forthcoming' && y2 === 'forthcoming') return 1;

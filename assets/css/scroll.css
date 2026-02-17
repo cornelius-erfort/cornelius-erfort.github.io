@@ -550,24 +550,26 @@ body.scroll-layout {
   height: calc(var(--inlay-pad) + var(--inlay-pad-bottom) + 2 * var(--inlay-slot-height) + 1 * var(--inlay-row-gap) + var(--inlay-pad-bottom));
 }
 
-/* Very narrow (e.g. under 420px): name on top; contact box and profile pic same width and height; minimal spacing */
+/* Very narrow (under 420px): same layout idea as 421–768px (content-sized rows, tight spacing), just 2 equal columns */
 @media (max-width: 420px) {
+  /* Match 768px first-section spacing so no extra gap */
   .scroll-content .scroll-section:first-of-type,
   .scroll-content #about.scroll-section {
-    padding-bottom: 0.5em;
-    margin-top: -16px;
+    padding-top: 0;
+    padding-bottom: 0.75em;
+    margin-top: -12px;
   }
   .about-hero {
-    gap: 0.5em;
-    margin-bottom: 0.5em;
+    gap: 0.75em;
+    margin-bottom: 0.75em;
   }
   .about-hero__photo-wrap {
-    margin: 0 0 0.35em 0;
+    margin: 0 0 0.5em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 240px;
+    grid-template-rows: auto auto;
     align-items: stretch;
-    gap: 0.35em 0.35em;
+    gap: 0.5em 0.5em;
   }
   .about-hero__photo-wrap .about-hero__left {
     display: contents;
