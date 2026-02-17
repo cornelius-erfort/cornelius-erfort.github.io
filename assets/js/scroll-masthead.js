@@ -39,27 +39,51 @@
     var masthead = document.getElementById('masthead-scroll');
     if (!masthead) return;
 
+    /* Make hash links explicitly same-document so Firefox mobile treats them as same-page */
+    var base = window.location.pathname + (window.location.search || '');
+    masthead.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      var hash = (a.getAttribute('href') || '').trim();
+      if (hash && hash.charAt(0) === '#') a.setAttribute('href', base + hash);
+    });
+
     function handleHashLink(a) {
       if (!a) return false;
       var href = a.getAttribute('href') || '';
-      if (href.charAt(0) !== '#') return false;
-      scrollToHashWithOffset(href);
+      var hashIdx = href.indexOf('#');
+      if (hashIdx === -1) return false;
+      var hash = href.slice(hashIdx);
+      if (!hash || hash === '#') return false;
+      scrollToHashWithOffset(hash);
       var toggle = document.getElementById('nav-toggle-scroll');
       if (toggle && toggle.checked) toggle.checked = false;
       return true;
     }
 
-    /* Capture phase so we run before browser default (fixes mobile Firefox where click was going to top) */
+    function findLink(target) {
+      return target && target.closest ? target.closest('a') : null;
+    }
+
+    /* touchstart: handle first so Firefox mobile doesn’t treat as cross-document */
+    masthead.addEventListener('touchstart', function(e) {
+      var a = findLink(e.target);
+      if (!a || !a.getAttribute('href')) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('#') === -1) return;
+      e.preventDefault();
+      handleHashLink(a);
+    }, { passive: false, capture: true });
+
+    /* Capture phase so we run before browser default */
     masthead.addEventListener('click', function(e) {
-      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
+      var a = findLink(e.target);
       if (!handleHashLink(a)) return;
       e.preventDefault();
       e.stopPropagation();
     }, true);
 
-    /* Safari/iOS: touchend often fires without a following click; handle tap here */
+    /* Safari/iOS: touchend often fires without a following click */
     masthead.addEventListener('touchend', function(e) {
-      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
+      var a = findLink(e.target);
       if (!handleHashLink(a)) return;
       e.preventDefault();
     }, { passive: false, capture: true });
