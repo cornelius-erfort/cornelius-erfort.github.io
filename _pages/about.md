@@ -556,7 +556,7 @@ eprint = { https://doi.org/10.1086/736027}
 <table style="border:none">
 <tr>
 <td class="publication-image-cell" style="border:none">
-  <div class="document-icon">📄</div>
+  <div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
 </td>
 <td style="border:none">
     <b>Parties' issue adaption between elections</b>, R&R <br>
@@ -594,7 +594,7 @@ eprint = { https://doi.org/10.1086/736027}
 
 <tr>
 <td class="publication-image-cell" style="border:none">
-  <div class="document-icon">📄</div>
+  <div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
 </td>
 <td style="border:none">
     <b>Who Becomes a Lobbyist? Evidence from the US and Germany</b> <br>
@@ -623,7 +623,7 @@ eprint = { https://doi.org/10.1086/736027}
 
 <tr>
 <td class="publication-image-cell" style="border:none">
-  <div class="document-icon">📄</div>
+  <div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
 </td>
 <td style="border:none">
     <b>Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data</b> <br>

@@ -3,19 +3,24 @@
 <div class="masthead masthead--fixed" id="masthead-scroll">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        <button><div class="navicon"></div></button>
-        <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-item--title"><a href="{{ base_path }}/#about">{{ site.title }}</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#news">News</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#publications">Publications</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#work-in-progress">Work in progress</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#media">Media</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#data">Data</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#teaching">Teaching</a></li>
-          <li class="masthead__menu-item"><a href="{{ base_path }}/#cv">CV</a></li>
+      <nav class="site-nav-static" aria-label="Primary navigation">
+        <a class="site-nav-static__brand" href="#about">{{ site.title }}</a>
+
+        <input type="checkbox" id="nav-toggle-scroll" class="site-nav-static__toggle" />
+        <label for="nav-toggle-scroll" class="site-nav-static__toggle-btn" aria-label="Menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+          <span class="screen-reader-text">Menu</span>
+        </label>
+
+        <ul class="nav-links" id="nav-links-scroll">
+          <li class="masthead__menu-item"><a href="#news">News</a></li>
+          <li class="masthead__menu-item"><a href="#publications">Publications</a></li>
+          <li class="masthead__menu-item"><a href="#work-in-progress">Work in progress</a></li>
+          <li class="masthead__menu-item"><a href="#media">Media</a></li>
+          <li class="masthead__menu-item"><a href="#data">Data</a></li>
+          <li class="masthead__menu-item"><a href="#teaching">Teaching</a></li>
+          <li class="masthead__menu-item"><a href="#cv">CV</a></li>
         </ul>
-        <ul class="hidden-links hidden"></ul>
       </nav>
     </div>
   </div>

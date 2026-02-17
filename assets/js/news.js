@@ -42,9 +42,15 @@
     }
     for (var i = 0; i < items.length; i++) tbody.appendChild(renderRow(items[i]));
   }
+  // IMPORTANT:
+  // This script tag sits directly below the News table markup in `index.html`,
+  // so we can render immediately during parsing. This ensures the inlay pager
+  // (initialized on DOMContentLoaded) doesn't remove/replace the initial tbody
+  // before we fill it.
+  init();
+
+  // Fallback: if something prevented immediate init, retry on DOMContentLoaded.
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
   }
 })();

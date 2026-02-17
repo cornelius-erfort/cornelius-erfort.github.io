@@ -81,7 +81,7 @@
       var td = '<td style="border:none"><b>' + esc(wip.title) + '</b> <br>' + wip.authors + ' <br>' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' + contents.join('\n    ') + '</td>';
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="document-icon">📄</div></td>' + td;
+      tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div></td>' + td;
       tbody.appendChild(tr);
     });
   }

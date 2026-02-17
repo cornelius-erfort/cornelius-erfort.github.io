@@ -66,13 +66,100 @@ html {
   box-sizing: border-box;
 }
 
-/* Hide site title in nav when at top (name is in about section); show after scroll.
-   Override theme .greedy-nav .visible-links li { display: table-cell } so title can be toggled. */
-.masthead--fixed .greedy-nav .visible-links li.masthead__menu-item--title {
-  display: none;
+/* Static navigation (no dynamic/greedy menu) */
+.masthead--fixed .site-nav-static {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
-.masthead--fixed.masthead--scrolled .greedy-nav .visible-links li.masthead__menu-item--title {
-  display: table-cell;
+
+.masthead--fixed .site-nav-static__brand {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.masthead--fixed .site-nav-static__toggle {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px !important;
+  width: 1px !important;
+  border: 0 !important;
+  overflow: hidden;
+}
+
+.masthead--fixed .site-nav-static__toggle-btn {
+  display: none; /* shown on narrow */
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 999px;
+  background: var(--scroll-surface);
+  color: var(--scroll-text-muted);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.masthead--fixed .site-nav-static .nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.masthead--fixed .site-nav-static .nav-links li {
+  display: block;
+}
+
+.masthead--fixed .site-nav-static .nav-links a {
+  display: block;
+  padding: 0.5rem 0;
+  margin: 0 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.masthead--fixed .site-nav-static .nav-links li:last-child a {
+  margin-right: 0;
+}
+
+/* Narrow: collapse menu into a dropdown (single-row header) */
+@media (max-width: 768px) {
+  .masthead--fixed .site-nav-static .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: #fff;
+    border-top: 1px solid var(--scroll-border);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    padding: 0.35rem 0;
+    z-index: 200;
+  }
+
+  .masthead--fixed .site-nav-static .nav-links a {
+    margin: 0;
+    padding: 0.65rem 2em;
+  }
+
+  .masthead--fixed .site-nav-static__toggle-btn {
+    display: inline-flex;
+  }
+
+  .masthead--fixed .site-nav-static__toggle:checked ~ .nav-links {
+    display: flex;
+  }
 }
 
 .scroll-page {
@@ -104,6 +191,8 @@ html {
   margin-right: 0;
   max-width: 100%;
   border-bottom: 1px solid var(--scroll-border);
+  /* When navigating to #anchors, keep section title visible under fixed masthead */
+  scroll-margin-top: 80px;
 }
 
 .scroll-content .scroll-section:last-of-type {
@@ -175,7 +264,7 @@ html {
 }
 
 .about-hero__photo-wrap {
-  flex: 0 0 280px;
+  flex: 0 0 360px;
   display: flex;
   flex-direction: column;
 }
@@ -282,6 +371,14 @@ html {
     margin-top: 0;
     justify-content: flex-start;
     text-align: left;
+    /* Narrow: force single-column contact links */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  .about-hero__photo-wrap .about-hero__left .contact-box a {
+    width: 100%;
   }
 
   .about-hero__photo-wrap img {
@@ -322,12 +419,18 @@ html {
     grid-row: 2;
     min-height: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     align-content: flex-start;
     justify-content: flex-start;
+    align-items: flex-start;
     padding: 0.5em;
     box-sizing: border-box;
     text-align: left;
+  }
+
+  .about-hero__photo-wrap .contact-box a {
+    width: 100%;
   }
   .about-hero__photo-wrap img {
     grid-column: 2;
@@ -564,6 +667,7 @@ html {
   font-size: 2.5rem;
   box-sizing: border-box;
   box-shadow: var(--scroll-shadow);
+  color: var(--scroll-text-muted);
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -615,6 +719,7 @@ html {
 
 .scroll-inlay {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   gap: 0;
   margin-top: 0.5em;
@@ -626,14 +731,89 @@ html {
 }
 
 .scroll-inlay__viewport {
-  flex: 1;
+  /* Height is controlled by JS; don't flex-grow to content */
+  flex: 0 0 auto;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: none;
   scroll-behavior: smooth;
   padding: 12px;
   box-sizing: border-box;
+}
+
+/* Inlay paging uses multiple <tbody> "pages" */
+.scroll-inlay__viewport tbody[hidden] {
+  display: none;
+}
+
+/* Bottom pager: prev/next + dots */
+.scroll-inlay__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--scroll-border);
+  background: var(--scroll-surface-hover);
+}
+
+.scroll-inlay__page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--scroll-border);
+  border-radius: 999px;
+  background: var(--scroll-surface);
+  color: var(--scroll-text-muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-inlay__page-btn:hover:not(:disabled) {
+  background: #fff;
+  color: var(--scroll-link);
+  box-shadow: var(--scroll-shadow-hover);
+}
+
+.scroll-inlay__page-btn:disabled {
+  opacity: 1;
+  cursor: default;
+  color: var(--scroll-border);
+  background: var(--scroll-surface);
+  border-color: var(--scroll-border);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.scroll-inlay__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scroll-inlay__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: var(--scroll-border);
+  cursor: pointer;
+}
+
+.scroll-inlay__dot.is-active,
+.scroll-inlay__dot[aria-current="true"] {
+  background: var(--scroll-text-muted);
+}
+
+.scroll-inlay__dot:focus-visible,
+.scroll-inlay__page-btn:focus-visible {
+  outline: 2px solid var(--scroll-link);
+  outline-offset: 2px;
 }
 
 /* Cap row height in inlays so 4th item always peeks (no huge gap after tall 3rd row) */
@@ -659,46 +839,7 @@ html {
   background: var(--scroll-text-muted);
 }
 
-.scroll-inlay__arrows {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  padding: 8px 6px;
-  border-right: 1px solid var(--scroll-border);
-  background: var(--scroll-surface-hover);
-  flex-shrink: 0;
-}
-
-.scroll-inlay__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 44px;
-  padding: 0;
-  border: none;
-  border-radius: var(--scroll-radius);
-  background: transparent;
-  color: var(--scroll-text-muted);
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease;
-}
-
-.scroll-inlay__arrow:hover:not(:disabled) {
-  color: var(--scroll-link);
-  background: var(--scroll-surface);
-}
-
-.scroll-inlay__arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.scroll-inlay__arrow .fa-chevron-up,
-.scroll-inlay__arrow .fa-chevron-down {
-  font-size: 0.9rem;
-}
+/* Left-side arrow UI removed (kept blank intentionally) */
 
 .scroll-content .media-date {
   color: var(--scroll-text-muted);
@@ -739,6 +880,74 @@ html {
   max-width: 100%;
   margin-top: 0.5em;
 }
+.scroll-content .cv-pager {
+  display: none; /* enabled on narrow */
+  max-width: 100%;
+  margin-top: 0.5em;
+}
+.scroll-content .cv-pager__frame-wrap {
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  overflow: hidden;
+}
+.scroll-content .cv-pager__iframe {
+  display: block;
+  width: 100%;
+  height: 52vh;
+  min-height: 320px;
+  border: none;
+}
+.scroll-content .cv-pager__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.scroll-content .cv-pager__btn {
+  background: transparent;
+  border: 1px solid var(--scroll-border);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--scroll-text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.scroll-content .cv-pager__btn:hover:not(:disabled) {
+  background: var(--scroll-surface-2);
+  color: var(--scroll-text);
+}
+.scroll-content .cv-pager__btn:disabled {
+  opacity: 1;
+  cursor: default;
+  color: var(--scroll-border);
+  background: transparent;
+  border-color: var(--scroll-border);
+  box-shadow: none;
+  pointer-events: none;
+}
+.scroll-content .cv-pager__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-content .cv-pager__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: var(--scroll-border);
+  padding: 0;
+  cursor: pointer;
+}
+.scroll-content .cv-pager__dot.is-active {
+  background: var(--scroll-text-muted);
+}
 .scroll-content .cv-preview-frame-wrap {
   background: var(--scroll-surface);
   border: 1px solid var(--scroll-border);
@@ -752,6 +961,16 @@ html {
   height: 70vh;
   min-height: 420px;
   border: none;
+}
+
+/* CV: on narrower screens use the simple 3-page pager instead of the big preview */
+@media (max-width: 768px) {
+  .scroll-content .cv-preview-wrap { display: none; }
+  .scroll-content .cv-pager { display: block; }
+  .scroll-content .cv-pager__iframe {
+    height: 48vh;
+    min-height: 280px;
+  }
 }
 /* News section */
 .scroll-content .news-list {
@@ -1150,7 +1369,8 @@ html {
 }
 
 @media screen and (max-width: 768px) {
-  .about-hero__name-narrow { display: block; }
+  /* Narrow: name already in masthead, don't repeat */
+  .about-hero__name-narrow { display: none; }
 
   /* Same gap between cover/icon and text in ALL sections (News, Media, Publications, WIP, Data, Teaching) */
   /* News/Media use a <colgroup> with inline width:120px; override it here */

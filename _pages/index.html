@@ -261,14 +261,15 @@ title: "Cornelius Erfort"
 </div>
 <script type="application/json" id="news-data">{{ site.data.news | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table class="news-table" style="border:none"><colgroup><col style="width:120px"><col></colgroup>
     <tbody id="newsTable"></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 <script src="{{ base_path }}/assets/js/news.js"></script>
@@ -281,14 +282,15 @@ title: "Cornelius Erfort"
 </div>
 <script type="application/json" id="data-publications">{{ site.data.publications | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table id="publicationsTable" style="border:none">
     <tbody></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>
@@ -297,14 +299,15 @@ title: "Cornelius Erfort"
 <h2>Work in progress</h2>
 <script type="application/json" id="data-work-in-progress">{{ site.data.work_in_progress | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table id="workInProgressTable" style="border:none">
     <tbody></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>
@@ -313,14 +316,15 @@ title: "Cornelius Erfort"
 <h2>Media</h2>
 <script type="application/json" id="data-media">{{ site.data.media | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table class="media-table" style="border:none"><colgroup><col style="width:120px"><col></colgroup>
     <tbody id="mediaTable"></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>
@@ -329,14 +333,15 @@ title: "Cornelius Erfort"
 <h2>Data</h2>
 <script type="application/json" id="data-datasets">{{ site.data.datasets | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table id="dataTable" style="border:none">
     <tbody></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>
@@ -345,14 +350,15 @@ title: "Cornelius Erfort"
 <h2>Teaching</h2>
 <script type="application/json" id="data-teaching">{{ site.data.teaching | jsonify }}</script>
 <div class="scroll-inlay">
-  <div class="scroll-inlay__arrows">
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--up" aria-label="Scroll up"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
-    <button type="button" class="scroll-inlay__arrow scroll-inlay__arrow--down" aria-label="Scroll down"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
-  </div>
   <div class="scroll-inlay__viewport">
     <table id="teachingTable" style="border:none">
     <tbody></tbody>
     </table>
+  </div>
+  <div class="scroll-inlay__pager" aria-label="Pagination">
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="scroll-inlay__dots" aria-label="Pages"></div>
+    <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
   </div>
 </div>
 </section>
@@ -362,6 +368,16 @@ title: "Cornelius Erfort"
     <h2>CV</h2>
     <a href="{{ base_path }}/files/cv_erfort.pdf" class="pub-button" download>Download CV (PDF)</a>
 </div>
+<div class="cv-pager" aria-label="CV pages">
+  <div class="cv-pager__frame-wrap">
+    <iframe id="cv-page-frame" class="cv-pager__iframe" title="CV (PDF page)" src="{{ base_path }}/files/cv_erfort.pdf#page=1&toolbar=0&navpanes=0"></iframe>
+  </div>
+  <div class="cv-pager__controls" aria-label="CV pagination">
+    <button type="button" class="cv-pager__btn cv-pager__btn--prev" aria-label="Previous CV page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="cv-pager__dots" aria-label="CV pages"></div>
+    <button type="button" class="cv-pager__btn cv-pager__btn--next" aria-label="Next CV page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+  </div>
+</div>
 <div class="cv-preview-wrap">
   <div class="cv-preview-frame-wrap">
     <iframe id="cv-pdf-iframe" class="cv-pdf-iframe" title="CV (PDF)" src="{{ base_path }}/files/cv_erfort.pdf#toolbar=0&navpanes=0"></iframe>
@@ -370,3 +386,4 @@ title: "Cornelius Erfort"
 </section>
 
 <script src="{{ base_path }}/assets/js/render-sections.js"></script>
+<script src="{{ base_path }}/assets/js/cv-pager.js"></script>

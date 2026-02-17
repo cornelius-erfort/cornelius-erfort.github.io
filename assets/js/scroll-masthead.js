@@ -11,20 +11,57 @@
       } catch (e) {}
     }
   }
-  function updateMastheadScroll() {
+
+  function getMastheadOffsetPx() {
+    var mh = document.getElementById('masthead-scroll');
+    var h = mh ? mh.getBoundingClientRect().height : 0;
+    // Add a little breathing room so section titles are visible below the masthead.
+    return Math.round(h + 10);
+  }
+
+  function scrollToHashWithOffset(hash) {
+    if (!hash || hash === '#') return;
+    var id = hash.charAt(0) === '#' ? hash.slice(1) : hash;
+    var el = document.getElementById(id);
+    if (!el) return;
+
+    var offset = getMastheadOffsetPx();
+    var top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: 'smooth' });
+
+    // Update URL without reloading
+    try {
+      window.history.pushState(null, '', '#' + id);
+    } catch (e) {}
+  }
+
+  function initInPageNav() {
     var masthead = document.getElementById('masthead-scroll');
     if (!masthead) return;
-    var y = window.scrollY || document.documentElement.scrollTop;
-    if (y > 80) {
-      masthead.classList.add('masthead--scrolled');
-      requestAnimationFrame(function() { window.dispatchEvent(new Event('resize')); });
-    }
-    /* Once the title is shown, keep it visible (never remove masthead--scrolled) */
+
+    masthead.addEventListener('click', function(e) {
+      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (href.charAt(0) !== '#') return;
+
+      e.preventDefault();
+      scrollToHashWithOffset(href);
+
+      // Close hamburger dropdown after clicking a link
+      var toggle = document.getElementById('nav-toggle-scroll');
+      if (toggle && toggle.checked) toggle.checked = false;
+    });
   }
+
   function init() {
     openExternalInNewTab();
-    updateMastheadScroll();
-    window.addEventListener('scroll', updateMastheadScroll, { passive: true });
+    initInPageNav();
+
+    // If page loads with a hash, apply offset (after layout settles).
+    if (window.location.hash) {
+      setTimeout(function() { scrollToHashWithOffset(window.location.hash); }, 0);
+    }
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
