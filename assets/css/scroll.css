@@ -6,6 +6,9 @@ html {
 }
 
 /* Disable scroll anchoring on scroll layout so the page doesn't jump back when reaching the footer */
+html.scroll-html {
+  overflow-anchor: none;
+}
 body.scroll-layout {
   overflow-anchor: none;
 }
@@ -39,19 +42,23 @@ body.scroll-layout {
   text-decoration: none;
 }
 
+/* Hover disabled to reduce cursor shakiness in Safari/Chrome – uncomment to re-enable
 .scroll-content a:not(.pub-button):not(.contact-box a):not(.data-icon-cell):hover {
   color: var(--scroll-link-hover);
   text-decoration: underline;
 }
+*/
 
 .scroll-content .contact-box a {
   color: var(--scroll-text);
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-content .contact-box a:hover {
   color: var(--scroll-link);
   text-decoration: underline;
 }
+*/
 
 .masthead--fixed {
   position: fixed;
@@ -190,6 +197,15 @@ body.scroll-layout {
 .scroll-page {
   padding-top: 0;
   /* Prevent scroll anchoring so the page doesn't jump back when reaching the footer */
+  overflow-anchor: none;
+}
+
+/* Prevent any main content from being a scroll anchor so the page doesn't jump back near the footer */
+#main.scroll-main,
+.scroll-content,
+.scroll-content .scroll-section,
+.scroll-inlay,
+.scroll-inlay__viewport {
   overflow-anchor: none;
 }
 
@@ -342,10 +358,12 @@ body.scroll-layout {
   gap: 0.35em;
 }
 
+/* Hover disabled – uncomment to re-enable
 .contact-box a:hover {
   color: var(--scroll-link);
   text-decoration: underline;
 }
+*/
 
 @media (max-width: 768px) {
   html { scroll-padding-top: 52px; }
@@ -376,53 +394,55 @@ body.scroll-layout {
     margin-top: 0;
   }
 
+  /* Grid so contact-box and profile pic share one row and get equal height */
   .about-hero__photo-wrap {
     order: -1;
-    flex: 0 0 auto;
     width: 100%;
     max-width: 100%;
     margin: 0 0 1em 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: stretch;
     gap: 1em;
   }
 
   .about-hero__photo-wrap .about-hero__left {
-    order: -1;
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
+    display: contents;
   }
 
-  .about-hero__photo-wrap .about-hero__left .about-hero__name-narrow {
+  .about-hero__photo-wrap .about-hero__name-narrow {
+    grid-column: 1 / -1;
+    grid-row: 1;
     margin-top: 0;
   }
 
-  .about-hero__photo-wrap .about-hero__left .contact-box {
+  .about-hero__photo-wrap .contact-box {
+    grid-column: 1;
+    grid-row: 2;
     margin-top: 0;
     justify-content: flex-start;
     text-align: left;
-    /* Narrow: force single-column contact links */
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: flex-start;
+    min-height: 0;
   }
 
-  .about-hero__photo-wrap .about-hero__left .contact-box a {
+  .about-hero__photo-wrap .contact-box a {
     width: 100%;
   }
 
   .about-hero__photo-wrap img {
-    order: 0;
-    flex: 0 0 auto;
-    min-width: 0;
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
     max-width: 200px;
-    margin-left: auto;
+    min-width: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    justify-self: end;
   }
 
   .scroll-section-title.about-section-title {
@@ -433,6 +453,23 @@ body.scroll-layout {
   .scroll-content .publication-buttons {
     display: none;
   }
+
+  /* On narrow: show title as link to article (buttons are hidden) */
+  .scroll-content .pub-title--wide {
+    display: none;
+  }
+  .scroll-content .pub-title--narrow {
+    display: inline;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Hover disabled – uncomment to re-enable
+  .scroll-content .pub-title--narrow:hover {
+    color: var(--scroll-link);
+    text-decoration: underline;
+  }
+  */
 
   /* Tighter spacing between section "windows" on narrow */
   .scroll-content .scroll-section {
@@ -520,6 +557,13 @@ body.scroll-layout {
 /* Shared components: buttons, panels, tables (same font, links, shading) */
 .scroll-content .publication-buttons { margin-top: 8px; }
 
+/* Title as link: hide on wide so plain title (.pub-title--wide) shows; on narrow the @media max-width: 768px shows .pub-title--narrow */
+@media (min-width: 769px) {
+  .scroll-content .pub-title--narrow {
+    display: none;
+  }
+}
+
 .scroll-content .pub-button,
 .scroll-content .btn.btn-sm.z-depth-0,
 .scroll-content button.pub-button,
@@ -535,7 +579,7 @@ body.scroll-layout {
   margin-right: 8px;
   margin-bottom: 0;
   /* Avoid layout-affecting transitions that can cause hover flicker */
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: none;
   text-decoration: none;
   color: var(--scroll-text-muted) !important;
   display: inline-block;
@@ -544,6 +588,11 @@ body.scroll-layout {
   font-family: inherit;
   -webkit-appearance: none;
   appearance: none;
+  min-height: 40px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 3;
 }
 
 .scroll-content .pub-button:hover,
@@ -629,9 +678,6 @@ body.scroll-layout {
   margin-top: 0;
   margin-bottom: 6px;
   pointer-events: auto;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  isolation: isolate;
 }
 
 .scroll-inlay__viewport td.pub-cell .pub-content {
@@ -1012,6 +1058,8 @@ body.scroll-layout {
   color: var(--scroll-text-muted);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .scroll-inlay__page-btn:hover:not(:disabled) {
@@ -1044,6 +1092,8 @@ body.scroll-layout {
   padding: 0;
   background: #c6ccd3;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .scroll-inlay__dot.is-active,
@@ -1071,15 +1121,30 @@ body.scroll-layout {
   border-radius: 4px;
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-inlay__viewport::-webkit-scrollbar-thumb:hover {
   background: var(--scroll-text-muted);
 }
+*/
 
 /* Left-side arrow UI removed (kept blank intentionally) */
 
 .scroll-content .media-date {
   color: var(--scroll-text-muted);
-  font-size: var(--scroll-font-size-muted);
+  font-size: var(--scroll-font-size-sm);
+  margin-right: 0.5em;
+}
+.scroll-content .media-outlet {
+  display: block;
+  margin: 0.2em 0 0.05em 0;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--scroll-text);
+  line-height: 1.35;
+}
+.scroll-content .media-title-link {
+  display: block;
+  margin-top: 0;
 }
 
 .scroll-content table { width: 100%; max-width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0 10px; }
@@ -1167,6 +1232,20 @@ body.scroll-layout {
   border: 1px solid var(--scroll-border);
   border-top: 1px solid var(--scroll-border);
   border-radius: 0 0 var(--scroll-radius) var(--scroll-radius);
+}
+
+/* iPhone/touch: larger hit area so prev/next and dots register taps (44px min) */
+@media (max-width: 768px) {
+  .scroll-content .cv-pager__btn.scroll-inlay__page-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+  }
+  .scroll-content .cv-pager__dots .scroll-inlay__dot {
+    padding: 18px;
+    box-sizing: content-box;
+  }
 }
 .scroll-content .cv-preview-frame-wrap {
   position: relative;
@@ -1291,10 +1370,12 @@ body.scroll-layout {
   line-height: 1.25;
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-content .cv-tile:hover {
   background: var(--scroll-surface-hover);
   box-shadow: var(--scroll-shadow-hover);
 }
+*/
 
 .scroll-content .cv-tile i {
   font-size: var(--scroll-font-size-lg);
@@ -1362,10 +1443,12 @@ body.scroll-layout {
   appearance: none;
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-content .cv-tile-close:hover {
   background: var(--scroll-surface-hover);
   color: var(--scroll-text);
 }
+*/
 
 .scroll-content .cv-tile-wrap--expanded .cv-tile-close {
   display: flex;
@@ -1384,10 +1467,12 @@ body.scroll-layout {
   text-decoration: none;
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-content .cv-tile-content a:hover {
   color: var(--scroll-link-hover);
   text-decoration: underline;
 }
+*/
 
 .scroll-content .cv-tile-content .cv-table {
   width: 100%;
@@ -1439,10 +1524,12 @@ body.scroll-layout {
   text-decoration: none;
 }
 
+/* Hover disabled – uncomment to re-enable
 .scroll-content .cv-content-block a:hover {
   color: var(--scroll-link-hover);
   text-decoration: underline;
 }
+*/
 
 /* CV focus overlay */
 .cv-focus {
@@ -1507,10 +1594,12 @@ body.scroll-layout {
   font-size: var(--scroll-font-size-sm);
 }
 
+/* Hover disabled – uncomment to re-enable
 .cv-focus__close:hover {
   background: var(--scroll-surface-hover);
   color: var(--scroll-text);
 }
+*/
 
 .cv-focus__body {
   padding: 1.25em 1.5em;
@@ -1523,7 +1612,9 @@ body.scroll-layout {
 .cv-focus__body p { margin: 0 0 0.75em 0; }
 .cv-focus__body p:last-child { margin-bottom: 0; }
 .cv-focus__body a { color: var(--scroll-link); text-decoration: none; }
+/* Hover disabled – uncomment to re-enable
 .cv-focus__body a:hover { color: var(--scroll-link-hover); text-decoration: underline; }
+*/
 
 /* Co-author / paper hover widget – no transition to avoid Safari link shake */
 .coauthor-popover {
@@ -1537,12 +1628,24 @@ body.scroll-layout {
   border-radius: var(--scroll-radius);
   box-shadow: var(--scroll-shadow-hover);
   pointer-events: auto;
+  /* Isolate repaints so WebKit/Blink don’t trigger cursor updates across the page */
+  contain: layout paint;
 }
 
+/* Collapse and hide so Chrome/Safari never treat it as under the cursor (avoids cursor flicker) */
 .coauthor-popover[hidden] {
   display: block !important;
   visibility: hidden;
   pointer-events: none;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  clip-path: inset(100%);
+  contain: strict;
 }
 
 .coauthor-popover__photo-wrap {
@@ -1580,7 +1683,6 @@ body.scroll-layout {
 .coauthor-link {
   outline: 1px dotted var(--scroll-link);
   outline-offset: 2px;
-  cursor: pointer;
 }
 
 /* Paper ref hover: journal cover, title, link (reuses coauthor popover layout) */
@@ -1754,4 +1856,12 @@ body.scroll-layout {
     width: 100%;
     height: 100%;
   }
+}
+
+/* Temporary stability mode: reduce repaint churn in WebKit/Blink. */
+body.scroll-layout *,
+body.scroll-layout *::before,
+body.scroll-layout *::after {
+  transition: none !important;
+  animation: none !important;
 }

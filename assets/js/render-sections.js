@@ -30,6 +30,11 @@
     if (s == null) return '';
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+  function formatDate(s) {
+    if (s == null) return '';
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? String(s) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
   function getBasePath() {
     var el = document.querySelector('.scroll-content[data-base-path]');
     return (el && el.getAttribute('data-base-path')) || '';
@@ -54,17 +59,22 @@
         buttons.push('<button type="button" class="pub-button" data-toggle-content="bibtex' + idx + '">BibTeX</button>');
         contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(pub.bibtex) + '</pre><button type="button" class="pub-button" data-download-bibtex="bibtex' + idx + '">Download</button></div></div>');
       }
+      var articleUrl = null;
       (pub.links || []).forEach(function(link, j) {
         var lid = (link.label || 'link').toLowerCase().replace(/\s+/g, '');
         var id = lid + idx;
+        if (!articleUrl && link.url) articleUrl = link.url;
         buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
+      var titleHtml = articleUrl
+        ? '<span class="pub-title-wrap"><span class="pub-title pub-title--wide"><b>' + esc(pub.title) + '</b></span><a href="' + esc(articleUrl) + '" class="pub-title pub-title--narrow" target="_blank" rel="noopener">' + esc(pub.title) + '</a></span>'
+        : '<b>' + esc(pub.title) + '</b>';
       var td = '<td class="pub-cell" style="border:none">' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
         contents.join('\n    ') +
-        '<b>' + esc(pub.title) + '</b> <br>' +
+        titleHtml + ' ' +
         pub.authors + ' <br><i>' + esc(pub.venue) + '</i></td>';
       var tr = document.createElement('tr');
       tr.setAttribute('data-year', pub.year || '');
@@ -90,17 +100,22 @@
         buttons.push('<button type="button" class="pub-button" data-toggle-content="bibtex' + idx + '">BibTeX</button>');
         contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(wip.bibtex) + '</pre><button type="button" class="pub-button" data-download-bibtex="bibtex' + idx + '">Download</button></div></div>');
       }
+      var articleUrl = null;
       (wip.links || []).forEach(function(link) {
         var lid = (link.label || 'link').toLowerCase().replace(/\s+/g, '');
         var id = lid + idx;
+        if (!articleUrl && link.url) articleUrl = link.url;
         buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
+      var titleHtml = articleUrl
+        ? '<span class="pub-title-wrap"><span class="pub-title pub-title--wide"><b>' + esc(wip.title) + '</b></span><a href="' + esc(articleUrl) + '" class="pub-title pub-title--narrow" target="_blank" rel="noopener">' + esc(wip.title) + '</a></span>'
+        : '<b>' + esc(wip.title) + '</b>';
       var td = '<td class="pub-cell" style="border:none">' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
         contents.join('\n    ') +
-        '<b>' + esc(wip.title) + '</b> <br>' + wip.authors + '</td>';
+        titleHtml + ' ' + wip.authors + '</td>';
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div></td>' + td;
       tbody.appendChild(tr);
@@ -116,11 +131,11 @@
         ? '<a class="media-cover" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></a>'
         : '<span class="media-cover"><img src="' + basePath + '/' + esc(m.logo) + '" alt="' + esc(m.outlet) + '"></span>';
       var titleHtml = m.url
-        ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">' + esc(m.title) + '</a>'
-        : esc(m.title || '');
+        ? '<a class="media-title-link" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">' + esc(m.title) + '</a>'
+        : '<span class="media-title-link">' + esc(m.title || '') + '</span>';
       tr.innerHTML =
         '<td class="publication-image-cell" style="border:none">' + cover + '</td>' +
-        '<td style="border:none"><b>' + esc(m.outlet) + '</b> <br>' + titleHtml + ' <br><span class="media-date">' + esc(m.date) + '</span></td>';
+        '<td style="border:none"><span class="media-date">' + esc(formatDate(m.date)) + '</span><br><span class="media-outlet">' + esc(m.outlet) + '</span><br>' + titleHtml + '</td>';
       tbody.appendChild(tr);
     });
   }

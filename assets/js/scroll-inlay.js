@@ -1,7 +1,6 @@
 (function() {
-  // 3 slots per page (2 on narrow so the window fits above the nav overlay).
-  var NARROW_BREAKPOINT = 530;
-  function getRowsPerPage() { return window.innerWidth <= NARROW_BREAKPOINT ? 2 : 3; }
+  // Always 3 slots per page (same on all viewport sizes).
+  function getRowsPerPage() { return 3; }
 
   function clamp(n, lo, hi) {
     return Math.max(lo, Math.min(hi, n));
@@ -245,16 +244,17 @@
     if (st.nextBtn) st.nextBtn.addEventListener('click', function() { goToPage(st, st.currentPage + 1); });
 
     // Keep pager in sync when content is injected/changed.
-    if (window.MutationObserver && st.table) {
-      var moTimer = null;
-      var obs = new MutationObserver(function() {
-        if (st._suppressObserver) return;
-        clearTimeout(moTimer);
-        moTimer = setTimeout(function() { recalcInlay(inlay); }, 80);
-      });
-      obs.observe(st.table, { childList: true, subtree: true });
-      st._observer = obs;
-    }
+    // TEMP: disabled for stability testing (can trigger frequent relayouts in WebKit/Blink).
+    // if (window.MutationObserver && st.table) {
+    //   var moTimer = null;
+    //   var obs = new MutationObserver(function() {
+    //     if (st._suppressObserver) return;
+    //     clearTimeout(moTimer);
+    //     moTimer = setTimeout(function() { recalcInlay(inlay); }, 80);
+    //   });
+    //   obs.observe(st.table, { childList: true, subtree: true });
+    //   st._observer = obs;
+    // }
 
     updatePager(st);
   }
@@ -264,14 +264,22 @@
     for (var i = 0; i < inlays.length; i++) initInlay(inlays[i]);
   }
 
-  var resizeTimer = null;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      var inlays = document.querySelectorAll('.scroll-inlay');
-      for (var i = 0; i < inlays.length; i++) recalcInlay(inlays[i]);
-    }, 120);
-  }, { passive: true });
+  // TEMP: disabled for stability testing (resize-driven recalc can cause hit-test churn).
+  // var resizeTimer = null;
+  // var lastResizeW = 0;
+  // var lastResizeH = 0;
+  // window.addEventListener('resize', function() {
+  //   clearTimeout(resizeTimer);
+  //   resizeTimer = setTimeout(function() {
+  //     var w = window.innerWidth;
+  //     var h = window.innerHeight;
+  //     if (w === lastResizeW && h === lastResizeH) return;
+  //     lastResizeW = w;
+  //     lastResizeH = h;
+  //     var inlays = document.querySelectorAll('.scroll-inlay');
+  //     for (var i = 0; i < inlays.length; i++) recalcInlay(inlays[i]);
+  //   }, 120);
+  // }, { passive: true });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 0); });

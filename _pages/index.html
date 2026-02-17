@@ -120,7 +120,11 @@ title: "Cornelius Erfort"
         }
         return null;
     }
+    /* Set to false to disable coauthor/paper hover popovers (e.g. to reduce cursor shakiness) */
+    window.HOVER_POPOVERS_ENABLED = true;
+
     document.addEventListener('DOMContentLoaded', function() {
+        if (!window.HOVER_POPOVERS_ENABLED) return;
         var scrollContent = document.querySelector('.scroll-content');
         var basePath = (scrollContent && scrollContent.getAttribute('data-base-path')) || '';
         var popover = document.createElement('div');
@@ -217,6 +221,7 @@ title: "Cornelius Erfort"
     });
 
     (function paperPopover() {
+        if (!window.HOVER_POPOVERS_ENABLED) return;
         var PAPER_SHOW_DELAY = 250;
         var PAPER_HIDE_DELAY = 300;
         var paperShowTimer = null;

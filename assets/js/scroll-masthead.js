@@ -39,19 +39,28 @@
     var masthead = document.getElementById('masthead-scroll');
     if (!masthead) return;
 
-    masthead.addEventListener('click', function(e) {
-      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
-      if (!a) return;
+    function handleHashLink(a) {
+      if (!a) return false;
       var href = a.getAttribute('href') || '';
-      if (href.charAt(0) !== '#') return;
-
-      e.preventDefault();
+      if (href.charAt(0) !== '#') return false;
       scrollToHashWithOffset(href);
-
-      // Close hamburger dropdown after clicking a link
       var toggle = document.getElementById('nav-toggle-scroll');
       if (toggle && toggle.checked) toggle.checked = false;
+      return true;
+    }
+
+    masthead.addEventListener('click', function(e) {
+      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
+      if (!handleHashLink(a)) return;
+      e.preventDefault();
     });
+
+    /* Firefox on iOS often doesn't fire click for tap; touchend makes nav links work */
+    masthead.addEventListener('touchend', function(e) {
+      var a = e.target && (e.target.closest ? e.target.closest('a') : null);
+      if (!handleHashLink(a)) return;
+      e.preventDefault();
+    }, { passive: false });
   }
 
   function initGreedyMenu() {

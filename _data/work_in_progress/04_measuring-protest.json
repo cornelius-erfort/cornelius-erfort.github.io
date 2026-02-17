@@ -1,5 +1,5 @@
 {
-  "title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data",
+  "title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods",
   "authors": "<span class=\"author-name\">Cornelius Erfort</span>",
   "abstract": "I benchmark a manually and a partly automatically coded dataset from the PolDem project against a large government dataset covering all extreme right demonstrations in Germany from 2005 to 2020. Coverage in newspapers mainly depends on region and size.",
   "bibtex": "@unpublished{erfort_2024_measuring, title = {Measuring protest through news articles}, author = {Erfort, Cornelius}, year = {2024}, url = {https://osf.io/g9t8y}",

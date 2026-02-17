@@ -4,7 +4,9 @@
   function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
 
   function isVisible(el) {
-    return !!(el && (el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+    if (!el) return false;
+    var rects = el.getClientRects && el.getClientRects();
+    return !!(rects && rects.length > 0 && (rects[0].width > 0 || rects[0].height > 0));
   }
 
   function buildSrc(baseSrc, page) {
@@ -27,9 +29,12 @@
     var dotsWrap = pager.querySelector('.cv-pager__dots');
     if (!prev || !next || !dotsWrap) return;
 
-    var frame = isVisible(frameWide) ? frameWide : frameNarrow;
+    /* On narrow (e.g. iPhone) only cv-pager__frame-wrap is shown; use its iframe. */
+    var frameWrapNarrow = pager.querySelector('.cv-pager__frame-wrap');
+    var useNarrowFrame = frameNarrow && frameWrapNarrow && isVisible(frameWrapNarrow);
+    var frame = useNarrowFrame ? frameNarrow : (isVisible(frameWide) ? frameWide : frameNarrow);
     if (!frame) return;
-    var baseSrc = frame.getAttribute('src') || '';
+    var baseSrc = (frame.getAttribute('src') || '').replace(/#.*$/, '');
     var current = 1;
 
     function renderDots() {
@@ -64,11 +69,36 @@
       updateUI();
     }
 
-    prev.addEventListener('click', function() { setPage(current - 1); });
-    next.addEventListener('click', function() { setPage(current + 1); });
+    function goPrev() { setPage(current - 1); }
+    function goNext() { setPage(current + 1); }
+
+    prev.addEventListener('click', goPrev);
+    next.addEventListener('click', goNext);
+    /* iOS: touchend fires reliably; click can be delayed or lost. Handle both, prevent double fire. */
+    prev.addEventListener('touchend', function(e) {
+      if (prev.disabled) return;
+      e.preventDefault();
+      goPrev();
+    }, { passive: false });
+    next.addEventListener('touchend', function(e) {
+      if (next.disabled) return;
+      e.preventDefault();
+      goNext();
+    }, { passive: false });
 
     renderDots();
     setPage(1);
+
+    /* Dots: touchend on the dot buttons (added in renderDots) */
+    dotsWrap.addEventListener('touchend', function(e) {
+      var dot = e.target && e.target.closest && e.target.closest('.cv-pager__dot');
+      if (!dot) return;
+      var idx = Array.prototype.indexOf.call(dotsWrap.querySelectorAll('.cv-pager__dot'), dot);
+      if (idx >= 0 && idx < TOTAL_PAGES) {
+        e.preventDefault();
+        setPage(idx + 1);
+      }
+    }, { passive: false });
   }
 
   if (document.readyState === 'loading') {
