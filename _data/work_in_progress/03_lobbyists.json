@@ -1,7 +1,7 @@
 {
   "title": "Who Becomes a Lobbyist? Evidence from the US and Germany",
   "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.janstuckatz.com\">Jan Stuckatz</a>, <a href=\"https://hartmannfelix.github.io\">Felix Hartmann</a>, and <a href=\"http://heike-kluever.com/\">Heike Kl\u00fcver</a>",
-  "abstract": "Abstract content would go here when available.",
+  "abstract": "We study who becomes a lobbyist in the US and Germany. Merging 52,496 federal lobbyists with 200M+ LinkedIn users, we describe connections and expertise, use ML to predict selection, and DiD to estimate effects of political connections. Skills and connections both predict selection; skills matter more than connections.",
   "bibtex": "@unpublished{erfort_stuckatz_hartmann_kluver_2024, title = {Who Becomes a Lobbyist?}, author = {Erfort, Cornelius and Stuckatz, Jan and Hartmann, Felix and Kl\u00fcver, Heike}, year = {2024}"
 }
 

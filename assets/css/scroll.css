@@ -427,6 +427,7 @@ html {
 
   .scroll-inlay__viewport {
     --inlay-pad: 8px;
+    --inlay-pad-bottom: 10px;
     --inlay-slot-height: 92px;
     --inlay-row-gap: 6px;
   }
@@ -513,15 +514,24 @@ html {
   box-shadow: var(--scroll-shadow-hover);
 }
 
-/* Inlay windows: disable hover animations to prevent flicker */
+/* Inlay windows: reliable buttons – hover shade, always clickable (Safari-friendly) */
 .scroll-inlay__viewport .pub-button,
 .scroll-inlay__viewport .external-link-content a {
   transition: none !important;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  min-height: 36px;
+  box-sizing: border-box;
 }
 
 .scroll-inlay__viewport .pub-button:hover,
 .scroll-inlay__viewport .external-link-content a:hover {
-  /* keep colors, but avoid shadow animation changes */
+  background: var(--scroll-surface-hover) !important;
+  color: var(--scroll-text) !important;
   box-shadow: var(--scroll-shadow) !important;
 }
 
@@ -575,18 +585,18 @@ html {
 
 .scroll-inlay__viewport td.pub-cell .publication-buttons {
   position: relative;
-  z-index: 3;
+  z-index: 10;
   margin-top: 0;
   margin-bottom: 6px;
   pointer-events: auto;
-  /* Promote to own layer so Safari hit-testing consistently targets buttons */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  isolation: isolate;
 }
 
 .scroll-inlay__viewport td.pub-cell .pub-content {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   left: 0;
   right: 0;
   top: 34px; /* below button row */
@@ -597,13 +607,15 @@ html {
   transition: none;
   display: none;
   font-size: 0.9em; /* smaller for Abstract/Link panels */
-  /* Inactive overlay must not capture clicks (Safari fix for cursor flicker / missed clicks) */
   pointer-events: none;
+  /* Safari: fully exclude from hit-test and cursor when inactive */
+  visibility: hidden;
 }
 
 .scroll-inlay__viewport td.pub-cell .pub-content.active {
   display: block;
   pointer-events: auto;
+  visibility: visible;
 }
 
 .scroll-content .pub-content pre {
@@ -839,14 +851,16 @@ html {
 /* Fixed inlay layout: 3 slots per page, same window size every page, items at top */
 .scroll-inlay__viewport {
   --inlay-pad: 10px;
+  --inlay-pad-bottom: 10px; /* gap below last row: viewport padding + table padding-bottom */
   --inlay-slot-height: 100px;
   --inlay-row-gap: 8px;
   flex: 0 0 auto;
   min-width: 0;
-  height: calc(2 * var(--inlay-pad) + 3 * var(--inlay-slot-height) + 2 * var(--inlay-row-gap));
+  /* Height includes table content + table padding-bottom + viewport bottom padding */
+  height: calc(var(--inlay-pad) + var(--inlay-pad-bottom) + 3 * var(--inlay-slot-height) + 2 * var(--inlay-row-gap) + var(--inlay-pad-bottom));
   overflow: hidden;
   overscroll-behavior: none;
-  padding: var(--inlay-pad);
+  padding: var(--inlay-pad) var(--inlay-pad) var(--inlay-pad-bottom) var(--inlay-pad);
   box-sizing: border-box;
 }
 
@@ -857,6 +871,8 @@ html {
   border-collapse: separate;
   border-spacing: 0 var(--inlay-row-gap);
   margin: 0;
+  padding-bottom: var(--inlay-pad-bottom); /* space between last row and pager */
+  box-sizing: border-box;
 }
 
 .scroll-inlay__viewport tbody[hidden] {
@@ -1581,6 +1597,7 @@ html {
 @media (max-width: 420px) {
   .scroll-inlay__viewport {
     --inlay-pad: 6px;
+    --inlay-pad-bottom: 8px;
     --inlay-slot-height: 82px;
     --inlay-row-gap: 5px;
   }
