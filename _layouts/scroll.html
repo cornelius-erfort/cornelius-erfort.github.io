@@ -1,5 +1,6 @@
 ---
-layout: compress
+# No compress layout: large inline JSON in index can be corrupted by HTML compression
+# and theme main.min.js is skipped (see scripts_scroll.html) to avoid updateNav stack overflow.
 ---
 
 {% include base_path %}
@@ -31,7 +32,7 @@ layout: compress
       </div>
     </div>
 
-    {% include scripts.html %}
+    {% include scripts_scroll.html %}
     <script src="{{ base_path }}/assets/js/scroll-masthead.js"></script>
     <script src="{{ base_path }}/assets/js/scroll-inlay.js"></script>
   </body>

@@ -152,8 +152,9 @@
     var desired = maxRowH + 2;
 
     // Clamp so a single unusually tall entry doesn't blow up the whole layout.
-    // (Still large enough that normal multi-line titles won't be cut off.)
     desired = clamp(desired, 76, 220);
+    // Under 530px width, cap slot height so inlay windows don't get too tall.
+    if (window.innerWidth <= 530) desired = Math.min(desired, 88);
 
     view.style.setProperty('--inlay-slot-height', desired + 'px');
   }

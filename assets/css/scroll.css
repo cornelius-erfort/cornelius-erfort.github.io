@@ -433,6 +433,16 @@ html {
   }
 }
 
+/* Under 530px: shorter inlay windows so they don't feel too tall */
+@media (max-width: 530px) {
+  .scroll-inlay__viewport {
+    --inlay-pad: 7px;
+    --inlay-pad-bottom: 8px;
+    --inlay-slot-height: 84px;
+    --inlay-row-gap: 5px;
+  }
+}
+
 /* Very narrow (e.g. iPhone): name on top; contact box and profile pic same width and height */
 @media (max-width: 420px) {
   .about-hero__photo-wrap {
@@ -599,23 +609,27 @@ html {
   z-index: 1;
   left: 0;
   right: 0;
-  top: 34px; /* below button row */
+  top: 34px;
   margin: 0;
   height: auto !important;
-  max-height: 320px; /* overridden dynamically by JS on open */
+  max-height: 320px;
   overflow: auto;
   transition: none;
   display: none;
-  font-size: 0.9em; /* smaller for Abstract/Link panels */
+  font-size: 0.9em;
   pointer-events: none;
-  /* Safari: fully exclude from hit-test and cursor when inactive */
   visibility: hidden;
+  /* Safari: remove from hit-test entirely when inactive */
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(100%);
 }
 
 .scroll-inlay__viewport td.pub-cell .pub-content.active {
   display: block;
   pointer-events: auto;
   visibility: visible;
+  clip: auto;
+  clip-path: none;
 }
 
 .scroll-content .pub-content pre {

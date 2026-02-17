@@ -67,6 +67,27 @@ title: "Cornelius Erfort"
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     };
+    /* Delegated click for inlay buttons so Safari (and all browsers) get reliable clicks */
+    document.addEventListener('click', function(e) {
+        var viewport = e.target.closest && e.target.closest('.scroll-inlay__viewport');
+        if (!viewport) return;
+        var btn = e.target.closest && e.target.closest('.pub-button');
+        if (!btn) return;
+        var id = btn.getAttribute('data-toggle-content');
+        if (id && typeof window.toggleContent === 'function') {
+            e.preventDefault();
+            e.stopPropagation();
+            window.toggleContent(id);
+            return;
+        }
+        id = btn.getAttribute('data-download-bibtex');
+        if (id && typeof window.downloadBibtex === 'function') {
+            e.preventDefault();
+            e.stopPropagation();
+            window.downloadBibtex(id);
+        }
+    }, true);
+
     document.addEventListener('DOMContentLoaded', function() {
         if (window.renderAllSections) window.renderAllSections();
         if (window.initScrollInlays) window.initScrollInlays();

@@ -47,17 +47,17 @@
       var buttons = [];
       var contents = [];
       if (pub.abstract) {
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'abstract' + idx + '\')">Abstract</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="abstract' + idx + '">Abstract</button>');
         contents.push('<div id="abstract' + idx + '" class="pub-content">' + esc(pub.abstract) + '</div>');
       }
       if (pub.bibtex) {
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'bibtex' + idx + '\')">BibTeX</button>');
-        contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(pub.bibtex) + '</pre><button class="pub-button" onclick="downloadBibtex(\'bibtex' + idx + '\')">Download</button></div></div>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="bibtex' + idx + '">BibTeX</button>');
+        contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(pub.bibtex) + '</pre><button type="button" class="pub-button" data-download-bibtex="bibtex' + idx + '">Download</button></div></div>');
       }
       (pub.links || []).forEach(function(link, j) {
         var lid = (link.label || 'link').toLowerCase().replace(/\s+/g, '');
         var id = lid + idx;
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'' + id + '\')">' + esc(link.label) + '</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
@@ -83,17 +83,17 @@
       var buttons = [];
       var contents = [];
       if (wip.abstract) {
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'abstract' + idx + '\')">Abstract</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="abstract' + idx + '">Abstract</button>');
         contents.push('<div id="abstract' + idx + '" class="pub-content">' + esc(wip.abstract) + '</div>');
       }
       if (wip.bibtex) {
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'bibtex' + idx + '\')">BibTeX</button>');
-        contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(wip.bibtex) + '</pre><button class="pub-button" onclick="downloadBibtex(\'bibtex' + idx + '\')">Download</button></div></div>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="bibtex' + idx + '">BibTeX</button>');
+        contents.push('<div id="bibtex' + idx + '" class="pub-content"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><pre>' + esc(wip.bibtex) + '</pre><button type="button" class="pub-button" data-download-bibtex="bibtex' + idx + '">Download</button></div></div>');
       }
       (wip.links || []).forEach(function(link) {
         var lid = (link.label || 'link').toLowerCase().replace(/\s+/g, '');
         var id = lid + idx;
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'' + id + '\')">' + esc(link.label) + '</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         var text = link.text || 'View →';
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">' + esc(text) + '</a></div></div>');
       });
@@ -141,7 +141,7 @@
       links.forEach(function(link) {
         var slug = (link.label || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
         var id = 'data-' + idBase + '-' + slug;
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'' + id + '\')">' + esc(link.label) + '</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">View on ' + esc(link.label) + ' →</a></div></div>');
       });
       var desc = d.description ? ' <br>' + d.description : '';
@@ -169,7 +169,7 @@
       (t.links || []).forEach(function(link) {
         var slug = (link.label || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
         var id = 'teaching-' + idBase + '-' + slug;
-        buttons.push('<button class="pub-button" onclick="toggleContent(\'' + id + '\')">' + esc(link.label) + '</button>');
+        buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
         contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">View on ' + esc(link.label) + ' →</a></div></div>');
       });
       var btnsHtml = buttons.length ? '<div class="publication-buttons">' + buttons.join(' ') + '</div>' + contents.join('') : '';
