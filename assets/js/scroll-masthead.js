@@ -49,18 +49,20 @@
       return true;
     }
 
+    /* Capture phase so we run before browser default (fixes mobile Firefox where click was going to top) */
     masthead.addEventListener('click', function(e) {
       var a = e.target && (e.target.closest ? e.target.closest('a') : null);
       if (!handleHashLink(a)) return;
       e.preventDefault();
-    });
+      e.stopPropagation();
+    }, true);
 
-    /* Firefox on iOS often doesn't fire click for tap; touchend makes nav links work */
+    /* Safari/iOS: touchend often fires without a following click; handle tap here */
     masthead.addEventListener('touchend', function(e) {
       var a = e.target && (e.target.closest ? e.target.closest('a') : null);
       if (!handleHashLink(a)) return;
       e.preventDefault();
-    }, { passive: false });
+    }, { passive: false, capture: true });
   }
 
   function initGreedyMenu() {

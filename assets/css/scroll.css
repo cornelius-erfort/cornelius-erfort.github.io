@@ -407,9 +407,10 @@ body.scroll-layout {
     padding-right: 1.25em;
   }
 
-  /* Narrow: photo block first, then text */
+  /* Narrow: photo block first, then text; tighter vertical spacing */
   .about-hero {
     flex-direction: column;
+    margin-bottom: 0.75em;
   }
 
   .about-hero__left-col {
@@ -429,7 +430,7 @@ body.scroll-layout {
     order: -1;
     width: 100%;
     max-width: 100%;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
@@ -509,6 +510,7 @@ body.scroll-layout {
   /* Less space above first section (picture/contact) so gap to menu isn’t too large */
   .scroll-content .scroll-section:first-of-type {
     padding-top: 0;
+    padding-bottom: 0.75em;
   }
 
   .scroll-inlay__viewport {
@@ -544,14 +546,22 @@ body.scroll-layout {
   height: calc(var(--inlay-pad) + var(--inlay-pad-bottom) + 2 * var(--inlay-slot-height) + 1 * var(--inlay-row-gap) + var(--inlay-pad-bottom));
 }
 
-/* Very narrow (e.g. iPhone): name on top; contact box and profile pic same width and height */
+/* Very narrow (e.g. under 420px): name on top; contact box and profile pic same width and height; minimal spacing */
 @media (max-width: 420px) {
+  .scroll-content .scroll-section:first-of-type {
+    padding-bottom: 0.5em;
+    margin-top: -0.25em; /* pull content up a bit under the masthead */
+  }
+  .about-hero {
+    margin-bottom: 0.5em;
+  }
   .about-hero__photo-wrap {
+    margin: 0 0 0.35em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 240px;
     align-items: stretch;
-    gap: 0.5em 0.5em;
+    gap: 0.35em 0.35em;
   }
   .about-hero__photo-wrap .about-hero__left {
     display: contents;
