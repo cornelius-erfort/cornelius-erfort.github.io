@@ -178,12 +178,34 @@
     }, { passive: false });
   }
 
+  /** On narrow viewports, set main padding-top to actual masthead height so there's no extra gap (e.g. on iPhone). */
+  function applyMastheadTopSpacing() {
+    var main = document.querySelector('#main.scroll-main');
+    var mh = document.getElementById('masthead-scroll');
+    if (!main || !mh) return;
+    if (!window.matchMedia('(max-width: 768px)').matches) {
+      main.style.paddingTop = '';
+      document.documentElement.style.scrollPaddingTop = '';
+      return;
+    }
+    var h = Math.round(mh.getBoundingClientRect().height);
+    main.style.paddingTop = h + 'px';
+    document.documentElement.style.scrollPaddingTop = h + 'px';
+  }
+
   function init() {
     openExternalInNewTab();
     initInPageNav();
     initGreedyMenu();
     initCvScrollPassThrough();
     initBackToTop();
+    applyMastheadTopSpacing();
+    window.addEventListener('resize', applyMastheadTopSpacing, { passive: true });
+    window.addEventListener('orientationchange', function() {
+      setTimeout(applyMastheadTopSpacing, 100);
+    }, { passive: true });
+    window.addEventListener('load', applyMastheadTopSpacing);
+    setTimeout(applyMastheadTopSpacing, 300); /* iOS: re-measure after layout/safe-area settle */
 
     // If page loads with a hash, apply offset (after layout settles).
     if (window.location.hash) {
