@@ -1,14 +1,29 @@
 {
   "id": "partypress",
   "title": "The PARTYPRESS Database",
-  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"http://lukas-stoetzer.org/\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com/\">Heike Kl\u00fcver</a>",
-  "description": "<i>Research and Politics</i>, 2023 \u2014 250,000+ press releases from 67 parties.",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"http://lukas-stoetzer.org/\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com/\">Heike Klüver</a>",
+  "description": "<i>Research and Politics</i>, 2023 — 250,000+ press releases from 67 parties.",
   "icon": "fa-database",
   "links": [
-    { "label": "Article", "url": "https://doi.org/10.1177/20531680231183512" },
-    { "label": "Github", "url": "https://github.com/cornelius-erfort/partypress" },
-    { "label": "Dataverse", "url": "https://doi.org/10.7910/DVN/OINX7Q" },
-    { "label": "Hugging Face", "url": "https://huggingface.co/partypress/partypress-multilingual" }
+    {
+      "label": "Website",
+      "url": "https://partypress.org"
+    },
+    {
+      "label": "Article",
+      "url": "https://doi.org/10.1177/20531680231183512"
+    },
+    {
+      "label": "Github",
+      "url": "https://github.com/cornelius-erfort/partypress"
+    },
+    {
+      "label": "Dataverse",
+      "url": "https://doi.org/10.7910/DVN/OINX7Q"
+    },
+    {
+      "label": "Hugging Face",
+      "url": "https://huggingface.co/partypress/partypress-multilingual"
+    }
   ]
 }
-
