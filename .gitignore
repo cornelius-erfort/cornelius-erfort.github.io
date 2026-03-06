@@ -1,5 +1,6 @@
 _site/
-
+vendor/
+.bundle/
 
 # System/personal junk
 .DS_Store
