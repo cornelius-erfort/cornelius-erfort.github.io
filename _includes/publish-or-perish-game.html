@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publish or Perish – The Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="game-header">
+      <div class="header-row">
+        <h1 id="stage-title">Political Science Academy</h1>
+        <span id="player-name-display" class="player-name-display hidden"></span>
+        <button id="cv-btn" class="btn-cv hidden" type="button" title="View CV">CV</button>
+        <button id="pause-btn" class="btn-pause hidden" type="button" title="Pause">II</button>
+      </div>
+      <div id="stat-bars" class="stat-bars hidden">
+        <div class="stat" data-stat="intelligence">
+          <span class="stat-label">Intelligence</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-intelligence"></div></div>
+          <span class="stat-value" id="stat-value-intelligence"></span>
+        </div>
+        <div class="stat" data-stat="network" title="LinkedIn connections, Bluesky followers">
+          <span class="stat-label">Network</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-network"></div></div>
+          <span class="stat-value" id="stat-value-network"></span>
+        </div>
+        <div class="stat" data-stat="mentalHealth">
+          <span class="stat-label">Wellbeing</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-mentalHealth"></div></div>
+          <span class="stat-value" id="stat-value-mentalHealth"></span>
+        </div>
+        <div class="stat" data-stat="luck">
+          <span class="stat-label">Luck</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-luck"></div></div>
+          <span class="stat-value" id="stat-value-luck"></span>
+        </div>
+        <div class="stat" data-stat="money">
+          <span class="stat-label">Money</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-money"></div></div>
+          <span class="stat-value" id="stat-value-money"></span>
+        </div>
+        <div class="stat" data-stat="hIndex">
+          <span class="stat-label">H-index</span>
+          <div class="stat-track"><div class="stat-fill" id="stat-hIndex"></div></div>
+          <span class="stat-value" id="stat-value-hIndex"></span>
+        </div>
+      </div>
+    </header>
+
+    <div id="game-stage" class="game-stage hidden">
+      <div id="game-stage-bg" class="game-stage-bg">
+        <svg id="scene-campus" class="scene-svg" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="64" fill="#2a3a5e"/>
+          <rect x="0" y="64" width="256" height="64" fill="#1a3a2a"/>
+          <rect x="0" y="80" width="256" height="48" fill="#2a4a3a"/>
+          <rect x="24" y="24" width="80" height="104" fill="#4a4a5a"/>
+          <rect x="32" y="32" width="16" height="20" fill="#7aa2f7"/>
+          <rect x="56" y="32" width="16" height="20" fill="#7aa2f7"/>
+          <rect x="80" y="32" width="16" height="20" fill="#7aa2f7"/>
+          <rect x="32" y="60" width="16" height="20" fill="#7aa2f7"/>
+          <rect x="56" y="60" width="16" height="20" fill="#7aa2f7"/>
+          <rect x="152" y="32" width="80" height="96" fill="#3a3a4a"/>
+          <rect x="168" y="44" width="16" height="18" fill="#7dcfff"/>
+          <rect x="192" y="44" width="16" height="18" fill="#7dcfff"/>
+          <rect x="168" y="72" width="16" height="18" fill="#7dcfff"/>
+          <rect x="0" y="108" width="256" height="20" fill="#2a3528"/>
+        </svg>
+        <svg id="scene-conference" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#2a1a3e"/>
+          <rect x="0" y="88" width="256" height="40" fill="#3a2a4e"/>
+          <rect x="64" y="56" width="128" height="48" fill="#4a3a5a"/>
+          <rect x="80" y="64" width="96" height="32" fill="#1a0f2a"/>
+          <rect x="88" y="72" width="80" height="16" fill="#7aa2f7"/>
+          <rect x="96" y="100" width="64" height="8" fill="#5a4a6a"/>
+        </svg>
+        <svg id="scene-office" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#1a2a2e"/>
+          <rect x="0" y="96" width="256" height="32" fill="#2a3a3e"/>
+          <rect x="48" y="64" width="160" height="40" fill="#3a4a4e"/>
+          <rect x="112" y="32" width="32" height="40" fill="#2a3a3e"/>
+          <rect x="116" y="36" width="24" height="28" fill="#0f1a1a"/>
+          <rect x="120" y="40" width="16" height="12" fill="#7dcfff"/>
+        </svg>
+        <svg id="scene-sabbatical" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#1a2e1a"/>
+          <rect x="0" y="80" width="256" height="48" fill="#2a4a2a"/>
+          <rect x="24" y="64" width="120" height="48" fill="#4a3a2a"/>
+          <rect x="32" y="72" width="104" height="32" fill="#5a4a3a"/>
+          <rect x="168" y="24" width="64" height="48" fill="#2a3a4a"/>
+          <rect x="176" y="32" width="48" height="32" fill="#7aa2f7"/>
+        </svg>
+        <svg id="scene-library" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#1a2528"/>
+          <rect x="0" y="88" width="256" height="40" fill="#2a3530"/>
+          <rect x="8" y="16" width="32" height="72" fill="#3d3222"/>
+          <rect x="12" y="20" width="24" height="8" fill="#4a3a28"/>
+          <rect x="12" y="32" width="24" height="8" fill="#4a3a28"/>
+          <rect x="12" y="44" width="24" height="8" fill="#4a3a28"/>
+          <rect x="12" y="56" width="24" height="8" fill="#4a3a28"/>
+          <rect x="216" y="16" width="32" height="72" fill="#3d3222"/>
+          <rect x="220" y="20" width="24" height="8" fill="#4a3a28"/>
+          <rect x="220" y="32" width="24" height="8" fill="#4a3a28"/>
+          <rect x="220" y="44" width="24" height="8" fill="#4a3a28"/>
+          <rect x="220" y="56" width="24" height="8" fill="#4a3a28"/>
+          <rect x="88" y="72" width="80" height="24" fill="#3d3222"/>
+          <rect x="92" y="76" width="72" height="16" fill="#4a3a28"/>
+          <rect x="168" y="32" width="12" height="40" fill="#3d3222"/>
+          <rect x="170" y="36" width="8" height="8" fill="#e8d4a0"/>
+        </svg>
+        <svg id="scene-party" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#1a1520"/>
+          <rect x="0" y="96" width="256" height="32" fill="#2a2230"/>
+          <rect x="16" y="72" width="80" height="32" fill="#3a2a35"/>
+          <rect x="24" y="80" width="64" height="16" fill="#4a3a45"/>
+          <rect x="32" y="88" width="8" height="8" fill="#e8b824"/>
+          <rect x="48" y="88" width="8" height="8" fill="#7aa2f7"/>
+          <rect x="64" y="88" width="8" height="8" fill="#c47a5a"/>
+          <rect x="112" y="24" width="32" height="32" fill="#3a3540"/>
+          <rect x="116" y="28" width="24" height="24" fill="#4a4550"/>
+          <rect x="120" y="32" width="4" height="4" fill="#e8d4a0"/>
+          <rect x="128" y="36" width="4" height="4" fill="#e8d4a0"/>
+          <rect x="136" y="32" width="4" height="4" fill="#e8d4a0"/>
+          <rect x="32" y="88" width="12" height="14" fill="#4a4a5a"/>
+          <rect x="52" y="84" width="12" height="18" fill="#5a4a6a"/>
+          <rect x="72" y="88" width="12" height="14" fill="#4a4a5a"/>
+          <rect x="184" y="88" width="12" height="14" fill="#4a4a5a"/>
+          <rect x="204" y="84" width="12" height="18" fill="#5a4a6a"/>
+          <rect x="224" y="88" width="12" height="14" fill="#4a4a5a"/>
+        </svg>
+        <svg id="scene-lecture-formal" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#2a2e3a"/>
+          <rect x="0" y="96" width="256" height="32" fill="#3a3e4a"/>
+          <rect x="16" y="24" width="224" height="56" fill="#1a1e28"/>
+          <rect x="24" y="32" width="208" height="40" fill="#2a3240"/>
+          <rect x="108" y="72" width="40" height="28" fill="#2a2a2a"/>
+          <rect x="112" y="76" width="12" height="8" fill="#e0c4a0"/>
+          <rect x="108" y="84" width="16" height="14" fill="#1a1a2a"/>
+          <rect x="124" y="84" width="16" height="14" fill="#1a1a2a"/>
+          <rect x="116" y="76" width="20" height="12" fill="#3a3a4a"/>
+          <rect x="32" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="56" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="208" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="184" y="88" width="16" height="12" fill="#4a4a5a"/>
+        </svg>
+        <svg id="scene-lecture-seminar" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#2a3038"/>
+          <rect x="0" y="96" width="256" height="32" fill="#3a4048"/>
+          <rect x="16" y="24" width="224" height="56" fill="#1a2028"/>
+          <rect x="24" y="32" width="208" height="40" fill="#2a3440"/>
+          <rect x="108" y="72" width="40" height="28" fill="#3a3a4a"/>
+          <rect x="112" y="76" width="12" height="8" fill="#e0c4a0"/>
+          <rect x="108" y="84" width="16" height="14" fill="#5a5a6a"/>
+          <rect x="124" y="84" width="16" height="14" fill="#5a5a6a"/>
+          <rect x="116" y="76" width="20" height="12" fill="#7aa2f7"/>
+          <rect x="32" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="52" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="72" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="168" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="188" y="88" width="16" height="12" fill="#4a4a5a"/>
+          <rect x="208" y="88" width="16" height="12" fill="#4a4a5a"/>
+        </svg>
+        <svg id="scene-lecture-casual" class="scene-svg hidden" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="256" height="128" fill="#2e2a32"/>
+          <rect x="0" y="96" width="256" height="32" fill="#3a3640"/>
+          <rect x="16" y="24" width="224" height="56" fill="#1e1a22"/>
+          <rect x="24" y="32" width="208" height="40" fill="#2a2630"/>
+          <rect x="108" y="72" width="40" height="28" fill="#4a4652"/>
+          <rect x="112" y="76" width="12" height="8" fill="#e0c4a0"/>
+          <rect x="108" y="84" width="16" height="14" fill="#6a5a5a"/>
+          <rect x="124" y="84" width="16" height="14" fill="#6a5a5a"/>
+          <rect x="116" y="76" width="20" height="12" fill="#c47a5a"/>
+          <rect x="24" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="40" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="56" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="72" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="88" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="156" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="172" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="188" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="204" y="88" width="12" height="10" fill="#4a4a5a"/>
+          <rect x="220" y="88" width="12" height="10" fill="#4a4a5a"/>
+        </svg>
+      </div>
+      <div id="game-stage-character" class="game-stage-character">
+        <svg class="character-sprite" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="0" width="8" height="8" class="char-head"/>
+          <rect x="4" y="8" width="16" height="10" class="char-body"/>
+          <rect x="4" y="18" width="6" height="14" class="char-leg"/>
+          <rect x="14" y="18" width="6" height="14" class="char-leg"/>
+          <rect x="20" y="10" width="4" height="6" class="char-book"/>
+        </svg>
+      </div>
+    </div>
+
+    <main id="main">
+      <section id="screen-difficulty" class="screen">
+        <div id="start-block">
+          <h2>Publish or Perish</h2>
+          <p class="subtitle">Enter your name, then press Play to start a new game.</p>
+          <label class="player-name-label" for="player-name-input">Your name</label>
+          <input type="text" id="player-name-input" class="player-name-input" placeholder="Academic" maxlength="32" autocomplete="off">
+          <button id="play-btn" class="btn btn-primary" type="button" style="margin-top: 1rem;" disabled>Play</button>
+          <button id="load-game-start-btn" class="btn" type="button" style="margin-top: 0.5rem;">Load game</button>
+        </div>
+        <div id="difficulty-block" class="hidden">
+          <h2>Choose difficulty</h2>
+          <p class="subtitle">Affects how much you see (e.g. stat effects, random-event chances) and how tough the run is.</p>
+          <div id="difficulty-list" class="choice-list"></div>
+        </div>
+      </section>
+
+      <section id="screen-character" class="screen hidden">
+        <h2>Choose your academic avatar</h2>
+        <p class="subtitle">Each has different strengths. No numbers — you'll find out as you go.</p>
+        <div id="character-list" class="choice-list"></div>
+      </section>
+
+      <section id="screen-choice" class="screen hidden">
+        <p id="choice-prompt" class="prompt"></p>
+        <p id="choice-feedback" class="choice-feedback hidden" aria-live="polite"></p>
+        <div id="choice-list" class="choice-list"></div>
+      </section>
+
+      <section id="screen-outcome" class="screen hidden">
+        <p id="outcome-text" class="outcome-text"></p>
+        <p id="outcome-transparency" class="outcome-transparency hidden"></p>
+        <button id="outcome-continue" class="btn btn-primary">Continue</button>
+      </section>
+
+      <section id="screen-report-card" class="screen hidden">
+        <h2 id="report-card-title" class="report-card-heading"></h2>
+        <p id="report-card-intro" class="report-card-intro"></p>
+        <div id="report-card-box" class="report-card-box" aria-hidden="true">
+          <div id="report-card-inner" class="report-card-inner"></div>
+        </div>
+        <button id="report-card-continue" class="btn btn-primary">Continue</button>
+      </section>
+
+      <section id="screen-bureaucracy" class="screen hidden">
+        <h2>Fight the bureaucracy</h2>
+        <div id="bureaucracy-game">
+          <p id="bureaucracy-instruction" class="subtitle">Sign only the BLUE form when it appears. Don't click red, green, or yellow. Speed depends on difficulty. (There's always one.)</p>
+          <div id="bureaucracy-start-wrap">
+            <button type="button" id="bureaucracy-start-game-btn" class="btn btn-primary">Start</button>
+          </div>
+          <p id="bureaucracy-feedback" class="bureaucracy-feedback"></p>
+          <p id="bureaucracy-score" class="bureaucracy-score"></p>
+          <div id="bureaucracy-form-area" class="bureaucracy-form-area"></div>
+        </div>
+        <div id="bureaucracy-done" class="hidden">
+          <p id="bureaucracy-done-text" class="outcome-text"></p>
+          <button id="bureaucracy-continue-btn" class="btn btn-primary">Continue</button>
+        </div>
+      </section>
+
+      <section id="screen-sabbatical" class="screen hidden">
+        <div id="sabbatical-intro">
+          <h2>Sabbatical</h2>
+          <p id="sabbatical-intro-text" class="prompt"></p>
+          <button id="sabbatical-start-btn" class="btn btn-primary">Begin sabbatical</button>
+        </div>
+        <div id="sabbatical-game" class="hidden">
+          <div id="sabbatical-start-wrap">
+            <button type="button" id="sabbatical-start-game-btn" class="btn btn-primary">Start</button>
+          </div>
+          <p class="subtitle">The landscape scrolls right-to-left. <strong>Jump</strong> (Space or tap) to clear water gaps. On long platforms, jump <em>up</em> to grab coins (gold) — but don't jump up if you see a drink (brown), or you'll lose MH. 3 splashes in the water and the run ends.</p>
+          <div id="sabbatical-hud" class="sabbatical-hud">
+            <span id="sabbatical-coins">Coins: 0</span>
+            <span id="sabbatical-mh">MH: 0 lost</span>
+          </div>
+          <div class="sabbatical-canvas-wrap">
+            <canvas id="sabbatical-canvas" width="480" height="240"></canvas>
+          </div>
+          <div class="sabbatical-controls">
+            <button type="button" id="sabbatical-jump-btn" class="btn">Jump</button>
+            <button type="button" id="sabbatical-coin-btn" class="btn sabbatical-coin-btn" style="display:none;">Grab coin</button>
+          </div>
+        </div>
+        <div id="sabbatical-done" class="hidden">
+          <p id="sabbatical-done-text" class="outcome-text"></p>
+          <button id="sabbatical-continue-btn" class="btn btn-primary">Continue</button>
+        </div>
+      </section>
+
+      <section id="screen-bike-courier" class="screen hidden">
+        <div id="bike-courier-intro">
+          <h2>Bike courier shift</h2>
+          <p class="prompt">Deliver packages. Avoid obstacles (cars, potholes). Press <strong>Space</strong> or tap <strong>Jump</strong> to jump. Earn € per delivery. Crash 3 times and the shift ends.</p>
+          <button id="bike-courier-start-btn" class="btn btn-primary">Start shift</button>
+        </div>
+        <div id="bike-courier-game" class="hidden">
+          <div id="bike-courier-start-wrap">
+            <button type="button" id="bike-courier-start-game-btn" class="btn btn-primary">Start</button>
+          </div>
+          <div id="bike-courier-hud" class="sabbatical-hud">
+            <span id="bike-courier-earned">Earned: €0</span>
+            <span id="bike-courier-crashes">Crashes: 0 / 3</span>
+          </div>
+          <div class="sabbatical-canvas-wrap">
+            <canvas id="bike-courier-canvas" width="480" height="240"></canvas>
+          </div>
+          <div class="sabbatical-controls">
+            <button type="button" id="bike-courier-jump-btn" class="btn">Jump</button>
+          </div>
+        </div>
+        <div id="bike-courier-done" class="hidden">
+          <p id="bike-courier-done-text" class="outcome-text"></p>
+          <button id="bike-courier-continue-btn" class="btn btn-primary">Continue</button>
+        </div>
+      </section>
+
+      <section id="screen-heaven" class="screen hidden">
+        <div id="confetti-container"></div>
+        <div class="heaven-content">
+          <h2>🎉 You left academia.</h2>
+          <p class="heaven-tagline">It was heaven all along.</p>
+          <p id="heaven-text" class="heaven-text"></p>
+          <button id="heaven-restart" class="btn btn-primary">Play again</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="pause-overlay" class="pause-overlay hidden">
+      <div class="pause-panel">
+        <h2>Paused</h2>
+        <button id="pause-resume-btn" class="btn btn-primary">Resume</button>
+        <button id="pause-save-btn" class="btn btn-primary">Save game (download)</button>
+        <label class="btn btn-primary load-label">
+          Load game
+          <input type="file" id="load-file-input" accept=".json" class="hidden-input">
+        </label>
+        <button id="cv-btn-pause" class="btn btn-primary">View CV</button>
+        <button id="pause-quit-btn" class="btn">Quit to menu</button>
+      </div>
+    </div>
+    <div id="cv-overlay" class="cv-overlay hidden">
+      <div class="cv-panel">
+        <h2 class="cv-panel-title">Curriculum Vitae</h2>
+        <div id="cv-content" class="cv-content"></div>
+        <div class="cv-panel-actions">
+          <button id="cv-export-pdf-btn" class="btn btn-primary" type="button">Export as PDF</button>
+          <button id="cv-close-btn" class="btn btn-primary">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="flying-points-container" class="flying-points-container" aria-hidden="true"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
