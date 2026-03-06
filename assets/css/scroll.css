@@ -313,6 +313,32 @@ body.scroll-layout {
   margin-bottom: 1.5em;
 }
 
+/* Wider: grid so tailoring sits under contact box (same width) */
+@media (min-width: 769px) {
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    grid-template-rows: auto auto;
+    gap: 2em;
+    align-items: start;
+  }
+  .about-hero__left-col {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+  .about-hero__photo-wrap {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .tailoring-notice--about {
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0;
+  }
+}
+
 .about-hero__left-col {
   flex: 1;
   min-width: 280px;
@@ -340,6 +366,102 @@ body.scroll-layout {
 }
 
 .about-hero__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Tailoring notice: compact when collapsed */
+.tailoring-notice {
+  margin-top: 1em;
+  padding: 0.5em 0.75em;
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  font-size: var(--scroll-font-size-sm);
+  color: var(--scroll-text-muted, var(--scroll-text));
+}
+
+.tailoring-notice__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.tailoring-notice__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+.tailoring-notice__toggle {
+  margin-bottom: 0;
+}
+
+/* Highlight for tailored content (greeting + suffix) */
+.tailored-content--highlighted {
+  background: rgba(255, 235, 59, 0.35);
+  border-radius: 3px;
+  padding: 0.1em 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+/* Don't show highlight on empty spans (when tailored content is not shown) */
+.tailored-content--highlighted:empty {
+  display: none;
+}
+
+.tailoring-notice__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tailoring-notice__label input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.tailoring-notice__summary {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.tailoring-notice__expand {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: var(--scroll-link);
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.tailoring-notice__expand:hover {
+  text-decoration: none;
+}
+
+.tailoring-notice__disclaimer {
+  margin-top: 0.75em;
+  padding-top: 0.75em;
+  border-top: 1px solid var(--scroll-border);
+}
+
+.tailoring-notice__criteria {
+  margin: 0 0 0.5em 0;
+  font-size: 0.9em;
+  font-style: italic;
+  color: var(--scroll-text-muted);
+}
+
+.tailoring-notice__disclaimer p {
+  margin: 0 0 0.75em 0;
+  line-height: 1.5;
+}
+
+.tailoring-notice__disclaimer p:last-child {
   margin-bottom: 0;
 }
 
