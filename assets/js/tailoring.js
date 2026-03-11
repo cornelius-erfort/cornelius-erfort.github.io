@@ -36,7 +36,10 @@
       return /Mobile/i.test(ua) ? 'Android phone' : 'Android tablet';
     }
     if (/Macintosh|Mac OS X/i.test(ua) && !/iPhone|iPad|iPod/i.test(ua)) {
-      if (navigator.maxTouchPoints > 1) return 'iPad';
+      if (navigator.maxTouchPoints > 1) {
+        var minSide = Math.min(screen.width, screen.height);
+        return minSide < 600 ? 'iPhone' : 'iPad';
+      }
       return 'MacBook';
     }
     if (/Windows/i.test(ua)) return 'Windows PC';
