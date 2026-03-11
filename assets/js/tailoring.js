@@ -7,7 +7,6 @@
   'use strict';
 
   var STORAGE_KEY = 'tailoring-disabled';
-  var HIGHLIGHT_KEY = 'tailoring-highlight';
   var DEFAULT_GREETING = 'Welcome!';
 
   function getTailoringDisabled() {
@@ -25,21 +24,6 @@
       } else {
         localStorage.removeItem(STORAGE_KEY);
       }
-    } catch (e) {}
-  }
-
-  function getHighlightEnabled() {
-    try {
-      var stored = localStorage.getItem(HIGHLIGHT_KEY);
-      return stored !== '0';
-    } catch (e) {
-      return true;
-    }
-  }
-
-  function setHighlightEnabled(enabled) {
-    try {
-      localStorage.setItem(HIGHLIGHT_KEY, enabled ? '1' : '0');
     } catch (e) {}
   }
 
@@ -323,9 +307,7 @@
   }
 
   function updateHighlight() {
-    var checkbox = document.getElementById('tailoring-highlight-checkbox');
-    if (!checkbox) return;
-    var on = checkbox.checked;
+    var on = !getTailoringDisabled();
     document.querySelectorAll('.tailored-content').forEach(function (el) {
       el.classList.toggle('tailored-content--highlighted', on);
     });
@@ -345,19 +327,6 @@
     });
   }
 
-  function initHighlightToggle() {
-    var checkbox = document.getElementById('tailoring-highlight-checkbox');
-    if (!checkbox) return;
-
-    checkbox.checked = getHighlightEnabled();
-    updateHighlight();
-
-    checkbox.addEventListener('change', function () {
-      setHighlightEnabled(checkbox.checked);
-      updateHighlight();
-    });
-  }
-
   function initDisclaimerExpand() {
     var btn = document.getElementById('tailoring-disclaimer-toggle');
     var content = document.getElementById('tailoring-disclaimer-content');
@@ -374,12 +343,30 @@
     });
   }
 
+  function initFootnoteLink() {
+    var link = document.getElementById('tailoring-footnote-ref');
+    var target = document.getElementById('tailoring-explainer');
+    var btn = document.getElementById('tailoring-disclaimer-toggle');
+    var content = document.getElementById('tailoring-disclaimer-content');
+    if (!link || !target) return;
+
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (content && content.hidden && btn) {
+        content.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        btn.textContent = 'Show less';
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     getBrowserData(function (data) {
       applyTailoring(data);
     });
     initToggle();
-    initHighlightToggle();
     initDisclaimerExpand();
+    initFootnoteLink();
   });
 })();

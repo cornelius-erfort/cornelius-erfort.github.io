@@ -396,6 +396,17 @@ body.scroll-layout {
   margin-bottom: 0;
 }
 
+/* Footnote from tailored content to explainer */
+.tailoring-footnote {
+  color: var(--scroll-text-muted, currentColor);
+  text-decoration: none;
+  font-weight: 600;
+}
+.tailoring-footnote:hover {
+  text-decoration: underline;
+  color: var(--scroll-link);
+}
+
 /* Highlight for tailored content (greeting + suffix) */
 .tailored-content--highlighted {
   background: rgba(255, 235, 59, 0.35);
