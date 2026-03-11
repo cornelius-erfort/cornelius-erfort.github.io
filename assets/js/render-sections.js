@@ -135,7 +135,7 @@
         : '<span class="media-title-link">' + esc(m.title || '') + '</span>';
       tr.innerHTML =
         '<td class="publication-image-cell" style="border:none">' + cover + '</td>' +
-        '<td style="border:none"><span class="media-date">' + esc(formatDate(m.date)) + '</span><br><span class="media-outlet">' + esc(m.outlet) + '</span><br>' + titleHtml + '</td>';
+        '<td style="border:none"><span class="media-date">' + esc(formatDate(m.date)) + '</span><br><span class="media-outlet">' + esc(m.outlet) + '</span>' + titleHtml + '</td>';
       tbody.appendChild(tr);
     });
   }

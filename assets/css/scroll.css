@@ -1352,7 +1352,7 @@ body.scroll-layout {
 }
 .scroll-content .media-title-link {
   display: block;
-  margin-top: 0;
+  margin-top: 0.2em;
 }
 
 .scroll-content table { width: 100%; max-width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0 10px; }
