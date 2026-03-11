@@ -6,7 +6,7 @@
   "image_link": "https://doi.org/10.1080/01402382.2026.2617088",
   "title": "Parties' issue responsiveness between elections",
   "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"http://lukas-stoetzer.org/\">Lukas F. Stoetzer</a>, and <a href=\"http://heike-kluever.com/\">Heike Kl\u00fcver</a>",
-  "venue": "West European Politics (2026)",
+  "venue": "West European Politics, 2026",
   "abstract": "Are parties responsive to short-term changes in election polls? We address this using the PARTYPRESS Database and supervised ML to measure parties' issue attention. We find little support that losing in the polls leads parties to change their issue attention.",
   "bibtex": "@article{erfort_stoetzer_kluver_2026, title = {Parties' issue responsiveness between elections}, author = {Erfort, Cornelius and Stoetzer, Lukas F. and Kl\u00fcver, Heike}, journal = {West European Politics}, year = {2026}, doi = {10.1080/01402382.2026.2617088}, url = {https://doi.org/10.1080/01402382.2026.2617088}}",
   "links": [
