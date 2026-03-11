@@ -79,8 +79,10 @@
   const PHD_APP_MH_PER = -12;
   const PHD_APP_MAX = 5;
   const PHD_APP_MIN_MH_AFTER = 18;
+  const PHD_APP_REST_MH = 22; // wellbeing from "Take a break" when stuck
 
   const BIKE_COURIER_EUROS_PER_DELIVERY = 8;
+  const BIKE_COURIER_MH_BONUS = 8; // wellbeing from exercise and fresh air
   const BIKE_COURIER_MAX_CRASHES = 3;
   const BIKE_COURIER_OBSTACLE_SPEED = 4;
   const BIKE_COURIER_JUMP_VY = -9;
@@ -2342,11 +2344,15 @@
           "You can't afford any applications right now (need €" + PHD_APP_MONEY_PER + " and enough mental health), or no programmes are unlocked.",
           [
             { id: 'leave', title: 'Leave academia', desc: 'Enough. Heaven awaits.', effects: {} },
-            { id: 'bike', title: 'Work as a bike courier', desc: 'Earn money delivering packages. Avoid obstacles on the road.', effects: {} },
+            { id: 'rest', title: 'Take a break', desc: 'Step back and recover. +' + PHD_APP_REST_MH + ' mental health.', effects: { mentalHealth: PHD_APP_REST_MH } },
+            { id: 'bike', title: 'Work as a bike courier', desc: 'Earn money and get some fresh air. +€ per delivery, +' + BIKE_COURIER_MH_BONUS + ' mental health.', effects: {} },
           ],
           choice => {
             if (choice.id === 'leave') {
               triggerHeaven();
+            } else if (choice.id === 'rest') {
+              applyEffects({ mentalHealth: PHD_APP_REST_MH });
+              showOutcome('You took a break and feel a bit better. Back to the application pile.', () => showPhDApplicationChoice([]), { mentalHealth: PHD_APP_REST_MH }, 'phd_application');
             } else {
               runBikeCourierGame(() => showPhDApplicationChoice([]));
             }
@@ -3486,8 +3492,8 @@ function runIslandHoppingGame(nextStep) {
         gameDiv.classList.add('hidden');
         doneDiv.classList.remove('hidden');
         const earned = deliveries * BIKE_COURIER_EUROS_PER_DELIVERY;
-        doneTextEl.textContent = 'Shift over. You earned €' + earned + '. Back to the application pile.';
-        applyEffects({ money: earned });
+        doneTextEl.textContent = 'Shift over. You earned €' + earned + ' and feel a bit better from the exercise (+' + BIKE_COURIER_MH_BONUS + ' mental health). Back to the application pile.';
+        applyEffects({ money: earned, mentalHealth: BIKE_COURIER_MH_BONUS });
         updateStatBars();
         document.getElementById('bike-courier-continue-btn').onclick = () => onDone();
       }
