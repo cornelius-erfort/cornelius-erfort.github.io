@@ -1741,7 +1741,7 @@
         const list = four.filter(c => selected.has(c.id));
         if (list.length === 0) {
           applyEffects(skipEffects);
-          showOutcome('You skipped the conference season. Back to the grind.', () => goToPhDRound(), { effects: skipEffects }, resumeToken);
+          showOutcome('You skipped the conference season. Back to the grind.', () => { advancePhdYear(); goToPhDRound(); }, { effects: skipEffects }, resumeToken);
           return;
         }
         const cost = totalCost();
@@ -1782,7 +1782,7 @@
     function next() {
       if (index >= conferences.length) {
         applyEffects(allEffects);
-        showOutcome('Conferences over. Back to papers and reviews.', () => goToPhDRound(), { effects: allEffects }, 'goToPhDRound');
+        showOutcome('Conferences over. Back to papers and reviews.', () => { advancePhdYear(); goToPhDRound(); }, { effects: allEffects }, 'goToPhDRound');
         return;
       }
       const conf = conferences[index];
@@ -1811,7 +1811,7 @@
           updateStatBars();
           index++;
           if (index >= conferences.length) {
-            showOutcome('All done. Back to the grind.', () => goToPhDRound(), { effects: allEffects }, 'goToPhDRound');
+            showOutcome('All done. Back to the grind.', () => { advancePhdYear(); goToPhDRound(); }, { effects: allEffects }, 'goToPhDRound');
           } else {
             showOutcome(choice.id === 'present' ? 'Paper presented.' : choice.id === 'attend' ? 'Networked.' : 'Session done.', () => next(), { effects: outcomeEffects }, 'goToPhDRound');
           }
@@ -2594,6 +2594,22 @@
     );
   }
 
+  function advancePhdYear() {
+    const activePapers = (state.phd.papers || []).filter(p => p.status === 'active');
+    const killed = [];
+    activePapers.forEach(p => {
+      if (Math.random() < PHD_PAPER_KILL_CHANCE) {
+        p.status = 'killed';
+        killed.push(p.id);
+        applyEffects({ mentalHealth: PHD_PAPER_KILL_MH });
+      } else {
+        p.progress = Math.min(100, p.progress + PHD_PROGRESS_PER_ROUND);
+      }
+    });
+    state.phd.round++;
+    return killed;
+  }
+
   function goToPhDRound() {
     state.resumeStep = 'phd_round';
     state.currentScene = 'campus';
@@ -2667,6 +2683,29 @@
     options.push({ id: 'conference', title: 'Go to a conference', desc: 'Present, attend, or skip. Costs money.', effects: {} });
     options.push({ id: 'continue', title: 'Spend the year on teaching, admin & drafts', desc: 'Teaching, committees, and writing. Papers inch forward — or get scooped.', effects: {} });
 
+    function endPhdYearAndShowNext(prefixMsg, effects) {
+      const killed = advancePhdYear();
+      let msg = (prefixMsg ? prefixMsg + ' ' : '') + 'Year over. ';
+      if (killed.length > 0) {
+        msg += 'One of your papers was scooped — someone had the same idea or it got stolen. It happens. ';
+      }
+      if (state.phd.round > PHD_MAX_ROUNDS) {
+        const accepted = state.phd.papersAccepted || 0;
+        if (accepted >= PHD_PAPERS_REQUIRED) {
+          msg += 'End of Year 6. You have ' + accepted + ' paper(s) accepted. Time to submit the thesis and defend.';
+          showOutcome(msg, () => goToSubmitThesis(), effects || {}, 'phd_submit');
+          document.getElementById('outcome-continue').textContent = 'Continue';
+        } else {
+          msg += 'End of Year 6. You needed ' + PHD_PAPERS_REQUIRED + ' papers accepted; you have ' + accepted + '. The department suggests you leave. You get a job in industry anyway.';
+          showOutcome(msg, () => triggerHeaven('phd_thrown_out'), effects || {}, 'phd_thrown_out');
+          document.getElementById('outcome-continue').textContent = 'Continue';
+        }
+      } else {
+        msg += 'Next year. You need ' + PHD_PAPERS_REQUIRED + ' papers accepted by end of Year ' + PHD_MAX_ROUNDS + '. So far: ' + (state.phd.papersAccepted || 0) + '.';
+        showOutcome(msg, () => goToPhDRound(), effects || {}, 'goToPhDRound');
+      }
+    }
+
     showChoice(prompt, options, choice => {
       if (choice.id === 'papers') {
         showPapersMenu();
@@ -2674,12 +2713,7 @@
       }
       if (choice.activity) {
         applyEffects(choice.activity.effects);
-        showOutcome(
-          choice.activity.title + '. ' + (choice.activity.desc || ''),
-          () => goToPhDRound(),
-          { effects: choice.activity.effects },
-          'goToPhDRound'
-        );
+        endPhdYearAndShowNext(choice.activity.title + '. ' + (choice.activity.desc || ''), { effects: choice.activity.effects });
         return;
       }
       if (choice.id === 'conference') {
@@ -2687,36 +2721,7 @@
         return;
       }
       if (choice.id === 'continue') {
-        const killed = [];
-        activePapers.forEach(p => {
-          if (Math.random() < PHD_PAPER_KILL_CHANCE) {
-            p.status = 'killed';
-            killed.push(p.id);
-            applyEffects({ mentalHealth: PHD_PAPER_KILL_MH });
-          } else {
-            p.progress = Math.min(100, p.progress + PHD_PROGRESS_PER_ROUND);
-          }
-        });
-        state.phd.round++;
-        let msg = 'Year over. ';
-        if (killed.length > 0) {
-          msg += 'One of your papers was scooped — someone had the same idea or it got stolen. It happens. ';
-        }
-        if (state.phd.round > PHD_MAX_ROUNDS) {
-          const accepted = state.phd.papersAccepted || 0;
-          if (accepted >= PHD_PAPERS_REQUIRED) {
-            msg += 'End of Year 6. You have ' + accepted + ' paper(s) accepted. Time to submit the thesis and defend.';
-            showOutcome(msg, () => goToSubmitThesis(), {}, 'phd_submit');
-            document.getElementById('outcome-continue').textContent = 'Continue';
-          } else {
-            msg += 'End of Year 6. You needed ' + PHD_PAPERS_REQUIRED + ' papers accepted; you have ' + accepted + '. The department suggests you leave. You get a job in industry anyway.';
-            showOutcome(msg, () => triggerHeaven('phd_thrown_out'), {}, 'phd_thrown_out');
-            document.getElementById('outcome-continue').textContent = 'Continue';
-          }
-        } else {
-          msg += 'Next year. You need ' + PHD_PAPERS_REQUIRED + ' papers accepted by end of Year ' + PHD_MAX_ROUNDS + '. So far: ' + (state.phd.papersAccepted || 0) + '.';
-          showOutcome(msg, () => goToPhDRound(), {}, 'goToPhDRound');
-        }
+        endPhdYearAndShowNext('', {});
       }
     }, 'campus', 'phd_round');
   }
