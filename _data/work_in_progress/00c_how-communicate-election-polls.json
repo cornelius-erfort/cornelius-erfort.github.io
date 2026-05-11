@@ -1,0 +1,7 @@
+{
+  "order": 6,
+  "title": "How should we communicate election polls?",
+  "authors": "<a href=\"https://elias-koch.com\">Elias Koch</a>, Linus Hagemann, <a href=\"https://simonmunzert.com\">Simon Munzert</a>, <a href=\"https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/\">Hannah Rajski</a>, <a href=\"https://www.sowi.uni-mannheim.de/gschwend/\">Thomas Gschwend</a>, <span class=\"author-name\">Cornelius Erfort</span>, and <a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>.",
+  "abstract": "Visual conjoint at the 2025 German federal election (N = 23,695): 160 randomised presentations of the same poll to voters, journalists, and candidates. Charts (bars, dots, lines) beat plain text on attractiveness and trust; technical details have mixed effects. Implications for evidence-based poll reporting.",
+  "bibtex": "@unpublished{koch_hagemann_munzert_rajski_gschwend_erfort_stoetzer_poll_communication_2026, title = {How should we communicate election polls?}, author = {Koch, Elias and Hagemann, Linus and Munzert, Simon and Rajski, Hannah and Gschwend, Thomas and Erfort, Cornelius and Stoetzer, Lukas F.}, year = {2026}}"
+}

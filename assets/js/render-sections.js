@@ -143,6 +143,7 @@
   function renderDatasets(items, basePath) {
     var tbody = q('#dataTable tbody');
     if (!tbody) return;
+    var bp = (basePath || '').replace(/\/$/, '');
     items.forEach(function(d) {
       var idBase = d.id || 'data-' + (d.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
       var buttons = [];
@@ -150,8 +151,11 @@
       var links = d.links || [];
       var iconLink = null;
       if (links.length) {
-        var github = links.filter(function(l) { return (l.label || '').toLowerCase().indexOf('github') !== -1; })[0];
-        iconLink = (github || links[0]).url;
+        var gh = links.filter(function(l) {
+          var u = (l.url || '').toLowerCase();
+          return u.indexOf('github.com') !== -1;
+        })[0];
+        iconLink = (gh || links[0]).url;
       }
       links.forEach(function(link) {
         var slug = (link.label || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -161,36 +165,128 @@
       });
       var desc = d.description ? ' <br>' + d.description : '';
       var btnsHtml = buttons.length ? '<div class="publication-buttons">' + buttons.join(' ') + '</div>' + contents.join('') : '';
-      var iconInner = '<i class="fas ' + esc(d.icon || 'fa-database') + '" aria-hidden="true"></i>';
-      var iconHtml = '<div class="data-icon-cell">' + iconInner + '</div>';
-      if (iconLink) {
-        // Make the icon itself the link so all rows share identical sizing
-        iconHtml = '<a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell">' + iconInner + '</a>';
+      var logoPath = (d.image || d.logo || '').trim();
+      var imgSrc = logoPath ? (bp ? bp + '/' + logoPath : '/' + logoPath.replace(/^\//, '')) : '';
+      var leftCell;
+      if (logoPath) {
+        var imgTag = '<img src="' + esc(imgSrc) + '" alt="" loading="lazy">';
+        if (iconLink) {
+          leftCell = '<td class="publication-image-cell" style="border:none"><a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell data-icon-cell--logo">' + imgTag + '</a></td>';
+        } else {
+          leftCell = '<td class="publication-image-cell" style="border:none"><div class="data-icon-cell data-icon-cell--logo">' + imgTag + '</div></td>';
+        }
+      } else {
+        var iconInner = '<i class="fas ' + esc(d.icon || 'fa-database') + '" aria-hidden="true"></i>';
+        var iconHtml = '<div class="data-icon-cell">' + iconInner + '</div>';
+        if (iconLink) {
+          iconHtml = '<a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell">' + iconInner + '</a>';
+        }
+        leftCell = '<td class="publication-image-cell" style="border:none">' + iconHtml + '</td>';
       }
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td class="publication-image-cell" style="border:none">' + iconHtml + '</td>' +
+      tr.innerHTML = leftCell +
         '<td class="pub-cell" style="border:none">' + btnsHtml + '<b>' + esc(d.title) + '</b> <br>' + d.authors + desc + '</td>';
       tbody.appendChild(tr);
+    });
+  }
+
+  /** Teaching folder data: optional numeric `order` (lower first); else stable sort by file key. */
+  function sortTeaching(items) {
+    if (!items || !items.length) return items;
+    return items.slice().sort(function(a, b) {
+      var o1 = a.order != null ? Number(a.order) : NaN;
+      var o2 = b.order != null ? Number(b.order) : NaN;
+      if (!isNaN(o1) || !isNaN(o2)) {
+        if (isNaN(o1)) return 1;
+        if (isNaN(o2)) return -1;
+        if (o1 !== o2) return o1 - o2;
+      }
+      var k1 = a.__key || '';
+      var k2 = b.__key || '';
+      return k1.localeCompare(k2);
+    });
+  }
+
+  function teachingDateLine(t) {
+    if (t.date_display) {
+      return '<span class="media-date">' + esc(t.date_display) + '</span><br>';
+    }
+    if (Array.isArray(t.dates) && t.dates.length) {
+      var parts = t.dates.map(function(d) { return esc(formatDate(d)); }).filter(Boolean);
+      if (!parts.length) return '';
+      return '<span class="media-date">' + parts.join(' \u00b7 ') + '</span><br>';
+    }
+    if (t.date) {
+      var one = formatDate(t.date);
+      if (!one) return '';
+      return '<span class="media-date">' + esc(one) + '</span><br>';
+    }
+    return '';
+  }
+
+  /** Work in progress: optional numeric `order` (lower first); else stable sort by file key. */
+  function sortWorkInProgress(items) {
+    if (!items || !items.length) return items;
+    return items.slice().sort(function(a, b) {
+      var o1 = a.order != null ? Number(a.order) : NaN;
+      var o2 = b.order != null ? Number(b.order) : NaN;
+      if (!isNaN(o1) || !isNaN(o2)) {
+        if (isNaN(o1)) return 1;
+        if (isNaN(o2)) return -1;
+        if (o1 !== o2) return o1 - o2;
+      }
+      var k1 = a.__key || '';
+      var k2 = b.__key || '';
+      return k1.localeCompare(k2);
     });
   }
 
   function renderTeaching(items, basePath) {
     var tbody = q('#teachingTable tbody');
     if (!tbody) return;
+    var bp = (basePath || '').replace(/\/$/, '');
     items.forEach(function(t) {
       var idBase = t.id || 'teaching-' + (t.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
       var buttons = [];
       var contents = [];
-      (t.links || []).forEach(function(link) {
+      var links = t.links || [];
+      var iconLink = null;
+      if (links.length) {
+        var gh = links.filter(function(l) {
+          var u = (l.url || '').toLowerCase();
+          return u.indexOf('github.com') !== -1;
+        })[0];
+        iconLink = (gh || links[0]).url;
+      }
+      links.forEach(function(link) {
         var slug = (link.label || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
         var id = 'teaching-' + idBase + '-' + slug;
         buttons.push('<button type="button" class="pub-button" data-toggle-content="' + id + '">' + esc(link.label) + '</button>');
-        contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">View on ' + esc(link.label) + ' →</a></div></div>');
+        contents.push('<div id="' + id + '" class="pub-content"><div class="external-link-content"><a href="' + esc(link.url) + '" target="_blank" rel="noopener">Open link →</a></div></div>');
       });
       var btnsHtml = buttons.length ? '<div class="publication-buttons">' + buttons.join(' ') + '</div>' + contents.join('') : '';
+      var logoPath = (t.logo || t.image || '').trim();
+      var imgSrc = logoPath ? (bp ? bp + '/' + logoPath : '/' + logoPath.replace(/^\//, '')) : '';
+      var leftCell;
+      if (logoPath) {
+        var imgTag = '<img src="' + esc(imgSrc) + '" alt="" loading="lazy">';
+        if (iconLink) {
+          leftCell = '<td class="publication-image-cell" style="border:none"><a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell data-icon-cell--logo">' + imgTag + '</a></td>';
+        } else {
+          leftCell = '<td class="publication-image-cell" style="border:none"><div class="data-icon-cell data-icon-cell--logo">' + imgTag + '</div></td>';
+        }
+      } else {
+        var faIcon = '<i class="fas ' + esc(t.icon || 'fa-graduation-cap') + '" aria-hidden="true"></i>';
+        if (iconLink) {
+          leftCell = '<td class="publication-image-cell" style="border:none"><a href="' + esc(iconLink) + '" target="_blank" rel="noopener" class="data-icon-cell">' + faIcon + '</a></td>';
+        } else {
+          leftCell = '<td class="publication-image-cell" style="border:none"><div class="data-icon-cell">' + faIcon + '</div></td>';
+        }
+      }
+      var dateLine = teachingDateLine(t);
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="data-icon-cell"><i class="fas ' + esc(t.icon || 'fa-graduation-cap') + '" aria-hidden="true"></i></div></td>' +
-        '<td class="pub-cell" style="border:none">' + btnsHtml + '<b>' + esc(t.title) + '</b> <br>' + esc(t.description) + '</td>';
+      tr.innerHTML = leftCell +
+        '<td class="pub-cell" style="border:none">' + btnsHtml + dateLine + '<b>' + esc(t.title) + '</b> <br>' + esc(t.description) + '</td>';
       tbody.appendChild(tr);
     });
   }
@@ -225,9 +321,9 @@
   window.renderAllSections = function() {
     var basePath = (getBasePath() || '').replace(/\/$/, '');
     renderPublications(sortPublications(parseData('data-publications')), basePath);
-    renderWIP(parseData('data-work-in-progress'), basePath);
+    renderWIP(sortWorkInProgress(parseData('data-work-in-progress')), basePath);
     renderMedia(sortMediaByDateDesc(parseData('data-media')), basePath);
     renderDatasets(parseData('data-datasets'), basePath);
-    renderTeaching(parseData('data-teaching'), basePath);
+    renderTeaching(sortTeaching(parseData('data-teaching')), basePath);
   };
 })();

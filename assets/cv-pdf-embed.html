@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV (PDF)</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #3a3a3a; }
+    #wrap {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    #c { display: block; width: 100%; height: auto; vertical-align: top; }
+    #overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+    #overlay a {
+      position: absolute;
+      pointer-events: auto;
+      background: transparent;
+    }
+    #err {
+      color: #eee;
+      font: 14px/1.4 system-ui, sans-serif;
+      padding: 1rem;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="wrap">
+    <canvas id="c"></canvas>
+    <div id="overlay" aria-hidden="true"></div>
+  </div>
+  <div id="err" style="display:none"></div>
+  <script>
+(function () {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  function qs(name) {
+    var p = new URLSearchParams(window.location.search);
+    return p.get(name);
+  }
+
+  function resolvePdfUrl(raw) {
+    if (!raw) return '';
+    try {
+      return new URL(raw, window.location.href).href;
+    } catch (e) {
+      return raw;
+    }
+  }
+
+  function showError(msg) {
+    var err = document.getElementById('err');
+    err.textContent = msg;
+    err.style.display = 'block';
+    document.getElementById('wrap').style.display = 'none';
+  }
+
+  function render() {
+    var rawU = qs('u');
+    var pageNum = parseInt(qs('page') || '1', 10) || 1;
+    var pdfUrl = resolvePdfUrl(rawU);
+    if (!pdfUrl) {
+      showError('Missing PDF URL (?u=… query parameter).');
+      return;
+    }
+
+    var canvas = document.getElementById('c');
+    var overlay = document.getElementById('overlay');
+    var ctx = canvas.getContext('2d');
+    var wrap = document.getElementById('wrap');
+
+    window.cvPdfPageCount = undefined;
+
+    pdfjsLib.getDocument({ url: pdfUrl, withCredentials: false }).promise
+      .then(function (pdf) {
+        window.cvPdfPageCount = pdf.numPages;
+        var n = Math.min(Math.max(1, pageNum), pdf.numPages);
+        return pdf.getPage(n);
+      })
+      .then(function (page) {
+        var baseScale = 1.35;
+        var dpr = window.devicePixelRatio || 1;
+        var viewport = page.getViewport({ scale: baseScale * dpr });
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.style.width = (viewport.width / dpr) + 'px';
+        canvas.style.height = (viewport.height / dpr) + 'px';
+
+        overlay.innerHTML = '';
+        overlay.style.width = canvas.style.width;
+        overlay.style.height = canvas.style.height;
+
+        var renderViewport = page.getViewport({ scale: baseScale * dpr });
+        return page.render({ canvasContext: ctx, viewport: renderViewport }).promise
+          .then(function () {
+            return page.getAnnotations({ intent: 'display' });
+          })
+          .then(function (annotations) {
+            var cssW = viewport.width / dpr;
+            var cssH = viewport.height / dpr;
+            function normalizeRect(r) {
+              if (pdfjsLib.Util && typeof pdfjsLib.Util.normalizeRect === 'function') {
+                return pdfjsLib.Util.normalizeRect(r);
+              }
+              var x = r[0], y = r[1], X = r[2], Y = r[3];
+              return [Math.min(x, X), Math.min(y, Y), Math.max(x, X), Math.max(y, Y)];
+            }
+
+            annotations.forEach(function (a) {
+              if (!a || a.subtype !== 'Link' || !a.rect) return;
+              var href = a.url || a.unsafeUrl;
+              if (!href || href.indexOf('#') === 0) return;
+              if (href.toLowerCase().indexOf('javascript:') === 0) return;
+
+              var r = normalizeRect(a.rect);
+              var x1 = r[0], y1 = r[1], x2 = r[2], y2 = r[3];
+              var topLeft = renderViewport.convertToViewportPoint(x1, y2);
+              var botRight = renderViewport.convertToViewportPoint(x2, y1);
+              var left = Math.min(topLeft[0], botRight[0]) / dpr;
+              var top = Math.min(topLeft[1], botRight[1]) / dpr;
+              var w = Math.abs(botRight[0] - topLeft[0]) / dpr;
+              var h = Math.abs(botRight[1] - topLeft[1]) / dpr;
+              if (w < 2 || h < 2) return;
+
+              var link = document.createElement('a');
+              link.href = href;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.style.left = left + 'px';
+              link.style.top = top + 'px';
+              link.style.width = w + 'px';
+              link.style.height = h + 'px';
+              overlay.appendChild(link);
+            });
+          });
+      })
+      .catch(function (e) {
+        showError('Could not load PDF: ' + (e && e.message ? e.message : String(e)));
+      });
+  }
+
+  window.addEventListener('load', render);
+})();
+  </script>
+</body>
+</html>

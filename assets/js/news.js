@@ -12,8 +12,8 @@
       }
     } catch (e) {}
     items.sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
-    var typeLabels = { publication: 'Publication', grant: 'Grant', presentation: 'Presentation', award: 'Award', other: 'News' };
-    var typeIcons = { publication: 'fa-book', grant: 'fa-coins', presentation: 'fa-microphone', award: 'fa-award', other: 'fa-newspaper' };
+    var typeLabels = { publication: 'Publication', grant: 'Grant', presentation: 'Presentation', award: 'Award', teaching: 'Teaching', other: 'News' };
+    var typeIcons = { publication: 'fa-book', grant: 'fa-coins', presentation: 'fa-microphone', award: 'fa-award', teaching: 'fa-chalkboard-teacher', other: 'fa-newspaper' };
     var basePath = '';
     var contentEl = document.querySelector('.scroll-content');
     if (contentEl && contentEl.getAttribute('data-base-path')) basePath = contentEl.getAttribute('data-base-path') || '';

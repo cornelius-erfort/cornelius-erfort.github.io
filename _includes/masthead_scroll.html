@@ -4,7 +4,11 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav class="site-nav-static" aria-label="Primary navigation">
-        <a class="site-nav-static__brand" href="#about">{{ site.title }}</a>
+        <span class="site-nav-static__brand-wrap">
+          <a class="site-nav-static__brand" href="#about">{{ site.title }}</a>
+          <span class="site-nav-static__brand-sep" aria-hidden="true">·</span>
+          <a class="site-nav-static__minimal-link" href="{{ base_path }}/minimal/">Minimal</a>
+        </span>
 
         <ul class="nav-links nav-links--visible" id="nav-links-visible" aria-label="Primary links">
           <li class="masthead__menu-item"><a href="#news">News</a></li>

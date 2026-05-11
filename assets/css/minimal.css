@@ -1,0 +1,309 @@
+/* Minimal layout: compact, full-width, multi-column.
+   Light theme only; overrides Minimal Mistakes base styles loaded via main.css. */
+
+:root {
+  --min-text:        #1a1a1a;
+  --min-text-muted:  #6b6b6b;
+  --min-text-soft:   #3a3a3a;
+  --min-link:        #2b6cb0;
+  --min-link-hover:  #1f4f85;
+  --min-rule:        #e5e5e5;
+  --min-accent:      #2b6cb0;
+  --min-bg:          #fdfdfc;
+}
+
+/* Force light scheme even when the user's OS prefers dark. */
+html.minimal-html,
+body.minimal-layout {
+  background: var(--min-bg);
+  color: var(--min-text);
+  color-scheme: light;
+}
+
+body.minimal-layout {
+  font-family: "Charter", "Iowan Old Style", "Palatino Linotype",
+               Palatino, "Hoefler Text", Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide any Minimal Mistakes theme chrome inherited from main.css */
+.minimal-layout .page__footer,
+.minimal-layout .sidebar,
+.minimal-layout .masthead,
+.minimal-layout #main {
+  display: none !important;
+}
+
+.minimal-page {
+  max-width: none;
+  margin: 0;
+  padding: 1.75rem 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Links --------------------------------------------------------------- */
+.minimal-content a,
+.minimal-footer a {
+  color: var(--min-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.minimal-content a:hover,
+.minimal-content a:focus,
+.minimal-footer a:hover,
+.minimal-footer a:focus {
+  color: var(--min-link-hover);
+  border-bottom-color: currentColor;
+}
+
+/* Headings ------------------------------------------------------------- */
+.minimal-content h1,
+.minimal-content h2,
+.minimal-content h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  color: var(--min-text);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* Header (top banner) -------------------------------------------------- */
+.minimal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--min-rule);
+}
+
+.minimal-header__main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.minimal-header__photo {
+  flex: 0 0 auto;
+}
+
+.minimal-header__photo img {
+  display: block;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: grayscale(0.1);
+}
+
+.minimal-name {
+  font-size: 1.65rem;
+  margin: 0 0 0.2rem;
+  line-height: 1.1;
+}
+
+.minimal-tagline {
+  margin: 0 0 0.45rem;
+  color: var(--min-text-muted);
+  font-style: italic;
+  font-size: 0.98rem;
+}
+
+.minimal-contact {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--min-text-muted);
+  line-height: 1.6;
+}
+.minimal-contact a {
+  color: var(--min-text);
+}
+.minimal-contact a:hover,
+.minimal-contact a:focus {
+  color: var(--min-link);
+}
+
+.minimal-sep {
+  color: var(--min-text-muted);
+  margin: 0 0.3rem;
+  user-select: none;
+}
+
+/* Multi-column body ---------------------------------------------------- */
+.minimal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1.15fr);
+  gap: 0 2rem;
+  align-items: start;
+}
+
+.minimal-col {
+  min-width: 0;
+}
+
+/* Sections ------------------------------------------------------------- */
+.minimal-section {
+  margin: 0 0 1.4rem;
+  break-inside: avoid;
+}
+
+.minimal-section h2 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--min-text-muted);
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--min-rule);
+  font-weight: 600;
+}
+
+.minimal-section p {
+  margin: 0 0 0.55rem;
+  color: var(--min-text-soft);
+}
+.minimal-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lists ---------------------------------------------------------------- */
+.minimal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.minimal-list li {
+  position: relative;
+  padding-left: 0.9rem;
+  margin: 0 0 0.5rem;
+  color: var(--min-text-soft);
+}
+.minimal-list li:last-child { margin-bottom: 0; }
+
+.minimal-list li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--min-accent);
+  font-weight: 600;
+}
+
+.minimal-list li strong,
+.minimal-list li em {
+  color: var(--min-text);
+}
+
+/* Publications --------------------------------------------------------- */
+.minimal-pubs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: pub;
+}
+
+.minimal-pubs li {
+  margin: 0 0 0.75rem;
+  padding-left: 0;
+}
+.minimal-pubs li:last-child { margin-bottom: 0; }
+
+.minimal-pub__title {
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 0.1rem;
+  color: var(--min-text);
+}
+
+.minimal-pub__title a {
+  color: var(--min-text);
+}
+.minimal-pub__title a:hover,
+.minimal-pub__title a:focus {
+  color: var(--min-link);
+}
+
+.minimal-pub__meta {
+  font-size: 0.82rem;
+  color: var(--min-text-muted);
+  line-height: 1.4;
+}
+
+.minimal-pub__meta .author-name {
+  color: var(--min-text);
+  font-weight: 500;
+}
+
+.minimal-pub__meta a {
+  color: var(--min-text-muted);
+}
+.minimal-pub__meta a:hover,
+.minimal-pub__meta a:focus {
+  color: var(--min-link);
+}
+
+.minimal-pub__year {
+  color: var(--min-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.minimal-pub__venue {
+  font-style: italic;
+}
+
+.minimal-aside {
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--min-text-muted);
+}
+
+/* Footer --------------------------------------------------------------- */
+.minimal-footer {
+  margin-top: 1.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--min-rule);
+  font-size: 0.85rem;
+  color: var(--min-text-muted);
+  text-align: center;
+}
+
+.minimal-footer p { margin: 0 0 0.25rem; }
+.minimal-footer__copy { font-size: 0.78rem; opacity: 0.7; }
+
+/* Responsive ----------------------------------------------------------- */
+@media (max-width: 800px) {
+  .minimal-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 1.5rem;
+  }
+  .minimal-col:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .minimal-page {
+    padding: 1.25rem 1.1rem;
+  }
+  .minimal-header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .minimal-header__photo img {
+    width: 64px;
+    height: 64px;
+  }
+  .minimal-name { font-size: 1.4rem; }
+  .minimal-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .minimal-col:nth-child(3) { grid-column: 1; }
+}

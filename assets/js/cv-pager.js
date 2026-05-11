@@ -1,5 +1,6 @@
 (function() {
-  var TOTAL_PAGES = 3;
+  /* Initial guess until the embed iframe reports pdf.numPages via window.cvPdfPageCount */
+  var totalPages = 5;
 
   function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
 
@@ -10,8 +11,26 @@
   }
 
   function buildSrc(baseSrc, page) {
-    // Preserve the PDF file path before '#'
-    var parts = String(baseSrc || '').split('#');
+    var s = String(baseSrc || '');
+    if (s.indexOf('cv-pdf-embed.html') !== -1) {
+      var u = '';
+      var path = s.split('?')[0] || '';
+      try {
+        var url = new URL(s, window.location.href);
+        u = url.searchParams.get('u') || '';
+      } catch (e) {
+        var m = s.match(/[?&]u=([^&]*)/);
+        if (m) {
+          try {
+            u = decodeURIComponent(m[1].replace(/\+/g, '%20'));
+          } catch (e2) {
+            u = m[1];
+          }
+        }
+      }
+      return path + '?u=' + encodeURIComponent(u) + '&page=' + String(page);
+    }
+    var parts = s.split('#');
     var file = parts[0] || '';
     return file + '#page=' + page + '&toolbar=0&navpanes=0';
   }
@@ -37,14 +56,28 @@
     var baseSrc = (frame.getAttribute('src') || '').replace(/#.*$/, '');
     var current = 1;
 
+    function syncPageCountFromFrame() {
+      try {
+        var w = frame.contentWindow;
+        if (w && typeof w.cvPdfPageCount === 'number' && w.cvPdfPageCount > 0) {
+          totalPages = w.cvPdfPageCount;
+          current = clamp(current, 1, totalPages);
+          renderDots();
+          updateUI();
+        }
+      } catch (e) { /* cross-origin or not ready */ }
+    }
+
+    frame.addEventListener('load', syncPageCountFromFrame);
+
     function renderDots() {
       dotsWrap.innerHTML = '';
-      for (var i = 1; i <= TOTAL_PAGES; i++) {
+      for (var i = 1; i <= totalPages; i++) {
         (function(page) {
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'cv-pager__dot scroll-inlay__dot';
-          b.setAttribute('aria-label', 'CV page ' + page + ' of ' + TOTAL_PAGES);
+          b.setAttribute('aria-label', 'CV page ' + page + ' of ' + totalPages);
           b.addEventListener('click', function() { setPage(page); });
           dotsWrap.appendChild(b);
         })(i);
@@ -53,7 +86,7 @@
 
     function updateUI() {
       prev.disabled = current <= 1;
-      next.disabled = current >= TOTAL_PAGES;
+      next.disabled = current >= totalPages;
       var dots = dotsWrap.querySelectorAll('.cv-pager__dot');
       for (var i = 0; i < dots.length; i++) {
         var on = (i + 1) === current;
@@ -64,7 +97,7 @@
     }
 
     function setPage(page) {
-      current = clamp(page, 1, TOTAL_PAGES);
+      current = clamp(page, 1, totalPages);
       frame.setAttribute('src', buildSrc(baseSrc, current));
       updateUI();
     }
@@ -94,7 +127,7 @@
       var dot = e.target && e.target.closest && e.target.closest('.cv-pager__dot');
       if (!dot) return;
       var idx = Array.prototype.indexOf.call(dotsWrap.querySelectorAll('.cv-pager__dot'), dot);
-      if (idx >= 0 && idx < TOTAL_PAGES) {
+      if (idx >= 0 && idx < totalPages) {
         e.preventDefault();
         setPage(idx + 1);
       }
@@ -107,4 +140,3 @@
     init();
   }
 })();
-

@@ -1,0 +1,9 @@
+{
+  "id": "guest-issue-agendas-transformers",
+  "order": 2,
+  "title": "Issue Agendas, Text Classification, and Transformer Models",
+  "dates": ["2023-01-25", "2025-02-05", "2026-02-04"],
+  "description": "Guest lectures (M.A.), Department of Social Sciences, Humboldt-Universit\u00e4t zu Berlin. Focus on measuring issue agendas from text and on when smaller transformer models remain useful alongside large language models.",
+  "logo": "images/huberlin.png",
+  "links": []
+}

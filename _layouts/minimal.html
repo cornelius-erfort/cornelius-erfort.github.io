@@ -1,0 +1,35 @@
+---
+# Minimal layout: a stripped-down, content-first version of the site.
+# Skips the fixed masthead, sidebar, scripts, and tailoring used on the main page.
+---
+
+{% include base_path %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js minimal-html">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ base_path }}/assets/css/minimal.css">
+  </head>
+  <body class="minimal-layout">
+    {% include browser-upgrade.html %}
+
+    <main class="minimal-page" id="top">
+      <article class="minimal-content" data-base-path="{{ base_path }}">
+        {{ content }}
+      </article>
+
+      <footer class="minimal-footer">
+        <p>
+          <a href="{{ base_path }}/">Full version</a>
+          <span class="minimal-sep" aria-hidden="true">·</span>
+          <a href="{{ base_path }}/files/cv_erfort.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+          <span class="minimal-sep" aria-hidden="true">·</span>
+          <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+        </p>
+        <p class="minimal-footer__copy">&copy; {{ site.time | date: "%Y" }} {{ site.name | default: site.title }}.</p>
+      </footer>
+    </main>
+  </body>
+</html>

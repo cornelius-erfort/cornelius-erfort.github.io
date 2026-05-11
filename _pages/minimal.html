@@ -1,0 +1,170 @@
+---
+title: "Cornelius Erfort"
+layout: minimal
+permalink: /minimal/
+description: "Minimalist version of Cornelius Erfort's personal website."
+---
+
+{% include base_path %}
+
+<header class="minimal-header">
+  <div class="minimal-header__main">
+    <h1 class="minimal-name">Cornelius Erfort</h1>
+    <p class="minimal-tagline">Postdoctoral researcher in political science. Voter targeting, interest groups, and voting behavior.</p>
+    <p class="minimal-contact">
+      <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">Google Scholar</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="{{ site.author.orcid }}" target="_blank" rel="noopener">ORCID</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="https://bsky.app/profile/{{ site.author.bluesky }}" target="_blank" rel="me noopener">Bluesky</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <span class="minimal-sep" aria-hidden="true">·</span>
+      <a href="{{ base_path }}/files/cv_erfort.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+    </p>
+  </div>
+  <div class="minimal-header__photo">
+    <img src="{{ base_path }}/images/fullprofile.jpg" alt="Cornelius Erfort" onerror="this.src='{{ base_path }}/images/profile.jpeg'">
+  </div>
+</header>
+
+<div class="minimal-grid">
+  <div class="minimal-col">
+
+    <section class="minimal-section" id="about">
+      <h2>About</h2>
+      <p>I'm a Postdoc at <a href="https://www.uni-wh.de">Witten/Herdecke University</a>, working on the DFG-funded project <a href="https://zweitstimme.org/">zweitstimme.org</a>. I'm also affiliated with the <a href="https://hu-govlab.de">Humboldt Governance Lab</a>.</p>
+      <p>My research sits at the intersection of comparative politics and quantitative methods. I study <a href="https://doi.org/10.1016/j.electstud.2024.102872">voter targeting</a>, interest groups, and voting behavior, with a broader interest in how democratic representation works in practice.</p>
+    </section>
+
+    <section class="minimal-section" id="research">
+      <h2>Current research</h2>
+      <ul class="minimal-list">
+        <li><strong>Voter targeting</strong> &mdash; how parties tailor digital ads across platforms, audiences, and issues.</li>
+        <li><strong>Issue agendas</strong> &mdash; using the <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a> database to study how parties respond to public opinion and competitors.</li>
+        <li><strong>Election forecasting</strong> &mdash; Bayesian forecasting of German and subnational elections with <a href="https://zweitstimme.org/">zweitstimme.org</a>.</li>
+        <li><strong>Climate &amp; politics</strong> &mdash; public and political engagement as part of the <a href="https://www.lancetcountdown.org/" target="_blank" rel="noopener">Lancet Countdown</a> on health and climate change.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="minimal-col">
+    <section class="minimal-section" id="publications">
+      <h2>Publications</h2>
+      <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
+      <ol class="minimal-pubs" id="minimal-pubs"></ol>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/#publications">full version</a> for abstracts, BibTeX, and replication data.</p>
+    </section>
+
+    <section class="minimal-section" id="teaching">
+      <h2>Teaching</h2>
+      <ul class="minimal-list">
+        <li><em>Automated Web Data Collection</em> &mdash; PhD workshop, <a href="https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics">DYNAMICS</a>, HU Berlin (2025, 2026). <a href="https://cornelius-erfort.github.io/automated-web-data-collection-2026/index.html">Syllabus 2026</a>.</li>
+        <li><em>Automated Web Data Collection &amp; Text as Data</em> &mdash; MA seminar, HU Berlin (2023).</li>
+        <li><em>Comparative Politics and International Relations</em> &mdash; BA seminar, HU Berlin (2022).</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="minimal-col">
+    <section class="minimal-section" id="working-papers">
+      <h2>Working papers</h2>
+      <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
+      <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
+    </section>
+
+    <section class="minimal-section" id="data">
+      <h2>Data &amp; software</h2>
+      <ul class="minimal-list">
+        <li><a href="https://partypress.org" target="_blank" rel="noopener"><strong>PARTYPRESS</strong></a> &mdash; multilingual database of party press releases with supervised issue classifications. Code on <a href="https://github.com/cornelius-erfort/partypress" target="_blank" rel="noopener">GitHub</a>, models on <a href="https://huggingface.co/partypress/partypress-multilingual" target="_blank" rel="noopener">Hugging Face</a>.</li>
+        <li><a href="https://zweitstimme.org/" target="_blank" rel="noopener"><strong>zweitstimme.org</strong></a> &mdash; Bayesian forecasting model for German federal elections.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+(function() {
+  function esc(s) {
+    if (s == null) return '';
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function normalize(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw;
+    return Object.keys(raw).sort().map(function(k) { return raw[k]; });
+  }
+  function parse(id) {
+    var el = document.getElementById(id);
+    if (!el || !el.textContent) return [];
+    try { return normalize(JSON.parse(el.textContent.trim())); } catch (e) { return []; }
+  }
+  /* Year sort: "forthcoming" first, then descending by year. */
+  function yearKey(y) {
+    if (y == null) return -1;
+    var s = String(y).toLowerCase();
+    if (s === 'forthcoming') return 9999;
+    var n = parseInt(s, 10);
+    return isNaN(n) ? -1 : n;
+  }
+  function articleUrl(pub) {
+    if (pub.image_link) return pub.image_link;
+    if (Array.isArray(pub.links)) {
+      for (var i = 0; i < pub.links.length; i++) {
+        var l = pub.links[i];
+        if (l && (l.label === 'Article' || l.label === 'Preprint') && l.url) return l.url;
+      }
+      if (pub.links[0] && pub.links[0].url) return pub.links[0].url;
+    }
+    return null;
+  }
+
+  var pubs = parse('data-publications-minimal').slice().sort(function(a, b) {
+    var ya = yearKey(a.year), yb = yearKey(b.year);
+    if (ya !== yb) return yb - ya;
+    return (a.order || 0) - (b.order || 0);
+  });
+  var pubList = document.getElementById('minimal-pubs');
+  if (pubList) {
+    pubs.forEach(function(pub) {
+      var url = articleUrl(pub);
+      var titleHtml = url
+        ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(pub.title) + '</a>'
+        : esc(pub.title);
+      var year = pub.year ? '<span class="minimal-pub__year">' + esc(pub.year) + '</span>' : '';
+      var venue = pub.journal ? '<em class="minimal-pub__venue">' + esc(pub.journal) + '</em>' : '';
+      var authors = pub.authors || '';
+      var li = document.createElement('li');
+      li.className = 'minimal-pub';
+      li.innerHTML =
+        '<div class="minimal-pub__title">' + titleHtml + '</div>' +
+        '<div class="minimal-pub__meta">' + authors + (venue ? ' &middot; ' + venue : '') + (year ? ' &middot; ' + year : '') + '</div>';
+      pubList.appendChild(li);
+    });
+  }
+
+  var wips = parse('data-wip-minimal').slice().sort(function(a, b) {
+    return (a.order || 0) - (b.order || 0);
+  });
+  var wipList = document.getElementById('minimal-wip');
+  if (wipList) {
+    wips.forEach(function(item) {
+      var url = articleUrl(item);
+      var titleHtml = url
+        ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>'
+        : esc(item.title);
+      var li = document.createElement('li');
+      li.className = 'minimal-pub';
+      li.innerHTML =
+        '<div class="minimal-pub__title">' + titleHtml + '</div>' +
+        '<div class="minimal-pub__meta">' + (item.authors || '') + '</div>';
+      wipList.appendChild(li);
+    });
+  }
+})();
+</script>

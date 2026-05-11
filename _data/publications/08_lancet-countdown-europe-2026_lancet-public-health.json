@@ -1,0 +1,16 @@
+{
+  "order": 1.5,
+  "year": "2026",
+  "journal": "The Lancet Public Health",
+  "image": "files/lancet.jpg",
+  "image_link": "https://doi.org/10.1016/S2468-2667(26)00025-3",
+  "title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://z-dickson.github.io/\">Zachary P. Dickson</a>, and others",
+  "venue": "The Lancet Public Health, 2026",
+  "abstract": "Third Europe Lancet Countdown report (data through 2025): indicators on health, climate adaptation and mitigation, economics, finance, and societal engagement, with seven new indicators, methodological updates, and extended time series.",
+  "bibtex": "@article{kriit_2026_lancet_countdown_europe, title = {The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action}, author = {Kriit, Hedi K. and Chen-Xu, Jos{\\'e} and Semenza, Jan C. and Heiliger, Hannah and Markandya, Anil and Dasandi, Niheer and Jankin, Slava and {van Daalen}, Kim R. and Achebak, Hicham and Alari, Anna and Alcayna, Tilly and Ball, Emily and Ballester, Joan and Bechara, Hannah and Callaghan, Max W. and {van Cauwenberghe}, Monique and Charnley, Gina E. C. and Courtenay, Orin and Cirach, Marta and Garcia-Corral, Paulina and Cross, Troy J. and Dasgupta, Shouro and Dickson, Zachary P. and Eckelman, Matthew J. and Erfort, Cornelius and Fransson, Peter and Farooq, Zia and Gasparyan, Olga and Hamilton, Ian and Hesselman, Marlies and {H\\\"anninen}, Risto and Hsu, Shih-Che and Jano{\\v s}, Tom{\\'a}{\\v s} and Jatkar, Harshavardhan and Jay, Ollie and Kennard, Harry and Khanna, Kajal and Kiesewetter, Gregor and Lowe, Rachel and L\\\"uhrsen, Daniela and Maia, Carla and Martinez-Urtaza, Jaime and Minx, Jan C. and Nieuwenhuijsen, Mark and Palamarchuk, Julia and {San Jos\\'e Plana}, Adria and Repke, Tim and Roa-Contreras, Jorge A. and Robinson, Elizabeth J. Z. and Scamman, Daniel and Shartova, Natalia and Sherman, Jodi D. and Sirotkina, Elena and Singh, Pratik and Sofiev, Mikhail and Springmann, Marco and Stucki, Lara and Tartarini, Federico and Tri{\\~n}anes, Joaquin and Walawender, Maria and Romanello, Marina and Ant{\\'o}, Josep M. and Nilsson, Maria and Tonne, Cathryn and Rockl\\\"ov, Joacim}, journal = {The Lancet Public Health}, year = {2026}, doi = {10.1016/S2468-2667(26)00025-3}, url = {https://doi.org/10.1016/S2468-2667(26)00025-3}}",
+  "links": [
+    { "label": "Article", "url": "https://doi.org/10.1016/S2468-2667(26)00025-3", "text": "View on The Lancet Public Health \u2192" },
+    { "label": "Scholar", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC", "text": "View on Google Scholar \u2192" }
+  ]
+}

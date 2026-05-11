@@ -88,13 +88,38 @@ body.scroll-layout {
   gap: 0.75rem;
 }
 
+.masthead--fixed .site-nav-static__brand-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 .masthead--fixed .site-nav-static__brand {
-  display: block;
+  display: inline;
   text-decoration: none;
   color: inherit;
   font-weight: 700;
-  white-space: nowrap;
-  flex: 0 0 auto;
+}
+
+.masthead--fixed .site-nav-static__brand-sep {
+  color: var(--scroll-text-muted, #6c757d);
+  font-weight: 400;
+  user-select: none;
+}
+
+.masthead--fixed .site-nav-static__minimal-link {
+  font-size: var(--scroll-font-size-sm, 0.9375rem);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--scroll-link, #2b6cb0);
+}
+
+.masthead--fixed .site-nav-static__minimal-link:hover,
+.masthead--fixed .site-nav-static__minimal-link:focus {
+  text-decoration: underline;
+  color: var(--scroll-link-hover, #1f4f85);
 }
 
 .masthead--fixed .site-nav-static__toggle {
@@ -1123,6 +1148,19 @@ body.scroll-layout {
   justify-content: center;
 }
 
+.scroll-content .data-icon-cell--logo {
+  overflow: hidden;
+  padding: 0;
+}
+.scroll-content .data-icon-cell--logo img,
+.scroll-content a.data-icon-cell--logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 .scroll-content .load-more-container {
   margin-top: 12px;
   display: flex;
@@ -1216,7 +1254,8 @@ body.scroll-layout {
   max-height: var(--inlay-slot-height);
   box-sizing: border-box;
 }
-.scroll-inlay__viewport .publication-image-cell > a img {
+.scroll-inlay__viewport .publication-image-cell > a img,
+.scroll-inlay__viewport .publication-image-cell .data-icon-cell img {
   max-height: var(--inlay-slot-height);
   object-fit: contain;
   vertical-align: top;
@@ -1239,7 +1278,8 @@ body.scroll-layout {
 .scroll-inlay__viewport.is-measuring .publication-image-cell .document-icon,
 .scroll-inlay__viewport.is-measuring .publication-image-cell .data-icon-cell,
 .scroll-inlay__viewport.is-measuring .media-cover,
-.scroll-inlay__viewport.is-measuring .publication-image-cell > a img {
+.scroll-inlay__viewport.is-measuring .publication-image-cell > a img,
+.scroll-inlay__viewport.is-measuring .publication-image-cell .data-icon-cell img {
   max-height: none !important;
 }
 
@@ -2055,6 +2095,82 @@ body.scroll-layout {
   .scroll-content .media-table .media-cover {
     width: 100%;
     height: 100%;
+  }
+}
+
+/* Wide desktop: slightly smaller covers/icons and tighter vertical rhythm (less scrolling). */
+@media (min-width: 769px) {
+  .scroll-content .scroll-section {
+    padding-top: 1.4em;
+    padding-bottom: 1.4em;
+  }
+  .scroll-content .scroll-section:last-of-type {
+    padding-bottom: 0.85em;
+  }
+  .scroll-inlay {
+    margin-top: 0.35em;
+  }
+  .scroll-inlay__viewport {
+    --inlay-pad: 8px;
+    --inlay-pad-bottom: 8px;
+    --inlay-row-gap: 5px;
+  }
+  .scroll-inlay__viewport td {
+    padding: 5px 0 0;
+  }
+  .scroll-inlay__pager {
+    padding: 6px 10px;
+  }
+  .scroll-inlay__viewport .pub-button,
+  .scroll-inlay__viewport .external-link-content a {
+    min-height: 32px;
+  }
+
+  /* Covers: ~13% shorter than 120×160; JS slot height follows measured rows */
+  .scroll-content .publication-image-cell {
+    width: 104px;
+    min-width: 104px;
+    padding: 0 8px 0 0;
+  }
+  .scroll-content .publication-image-cell > a {
+    width: 104px;
+    height: 138px;
+  }
+  .scroll-content .media-table .publication-image-cell {
+    width: 104px;
+    min-width: 104px;
+    max-width: 104px;
+    height: 138px;
+  }
+  .scroll-content .news-table .publication-image-cell {
+    width: 104px;
+    min-width: 104px;
+    max-width: 104px;
+    height: 138px;
+  }
+  .scroll-content .news-table colgroup col:first-child,
+  .scroll-content .media-table colgroup col:first-child {
+    width: 104px !important;
+  }
+  .scroll-content .document-icon,
+  .scroll-content .data-icon-cell {
+    width: 104px;
+    height: 138px;
+    min-height: 138px;
+    font-size: 2.15rem;
+  }
+  .scroll-content table {
+    border-spacing: 0 6px;
+  }
+  .scroll-content table td {
+    padding: 14px 0;
+  }
+  .scroll-content table td:not(.publication-image-cell) {
+    min-height: 138px;
+    padding-top: 4px;
+  }
+  .scroll-content table td.publication-image-cell {
+    padding: 4px 8px 4px 0;
   }
 }
 
