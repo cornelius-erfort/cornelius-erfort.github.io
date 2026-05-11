@@ -13,3 +13,14 @@ vendor/
 /.RData
 Rplots.pdf
 *.Rproj
+
+# LaTeX intermediates (CV is built from files/cv_erfort.tex; PDF is committed,
+# but auxiliary files are not).
+files/*.aux
+files/*.log
+files/*.out
+files/*.toc
+files/*.synctex.gz
+files/*.fls
+files/*.fdb_latexmk
+files/preview-*.png

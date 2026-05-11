@@ -65,8 +65,8 @@ body::after {
 
 /* Header & stats – chunky arcade HUD */
 .game-header {
-  margin-bottom: 1.25rem;
-  padding: 0.75rem;
+  margin-bottom: 0.85rem;
+  padding: 0.55rem 0.65rem;
   background: var(--bg-panel);
   border: 3px solid var(--border);
 }
@@ -76,7 +76,7 @@ body::after {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
 }
 
 .game-header h1 {
@@ -261,41 +261,54 @@ body::after {
 }
 
 .stat-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.28rem 0.35rem;
 }
 
 .stat-bars.hidden {
   display: none;
 }
 
+@media (max-width: 360px) {
+  .stat-bars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .stat {
   display: grid;
-  grid-template-columns: 120px 1fr auto;
+  grid-template-columns: minmax(1.4rem, auto) minmax(0, 1fr) minmax(2.5rem, max-content);
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.15rem 0.25rem;
+  min-width: 0;
 }
 
 .stat-label {
   font-family: var(--font-arcade);
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .stat-value {
   font-family: var(--font-crt);
-  font-size: 0.85rem;
+  font-size: 0.62rem;
   color: var(--text);
-  min-width: 5ch;
+  min-width: 0;
   text-align: right;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .stat-track {
-  height: 14px;
+  height: 6px;
   background: #0a0a12;
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   overflow: hidden;
+  min-width: 0;
 }
 
 .stat-fill {
@@ -308,6 +321,7 @@ body::after {
 .stat[data-stat="mentalHealth"] .stat-fill { background: var(--good); }
 .stat[data-stat="luck"] .stat-fill { background: var(--warn); }
 .stat[data-stat="money"] .stat-fill { background: #9ece6a; }
+.stat[data-stat="hIndex"] .stat-fill { background: #bb9af7; }
 
 /* Flying points – into/out of stat bars during outcome */
 .flying-points-container {
@@ -468,6 +482,17 @@ body::after {
   40% { transform: translateX(-50%) translateY(-18px) scale(1.1); }
   70% { transform: translateX(-50%) translateY(-6px) scale(1.05); }
   100% { transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+@keyframes char-dance {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-4deg); }
+  25% { transform: translateX(calc(-50% + 6px)) translateY(-8px) rotate(4deg); }
+  50% { transform: translateX(-50%) translateY(-4px) rotate(-3deg); }
+  75% { transform: translateX(calc(-50% - 6px)) translateY(-8px) rotate(3deg); }
+}
+
+.game-stage-character.anim-dance {
+  animation: char-dance 0.45s ease-in-out infinite;
 }
 
 /* Screens */
@@ -661,6 +686,128 @@ body::after {
   background: rgba(122, 162, 247, 0.15);
 }
 
+/* Crossroads: highlight continue path vs leave (ends game) */
+.choice-btn--primary-path {
+  border-color: #5fb878;
+  border-width: 3px;
+  background: linear-gradient(165deg, rgba(40, 70, 55, 0.95) 0%, rgba(25, 40, 35, 0.98) 100%);
+  box-shadow: 0 0 0 1px rgba(95, 184, 120, 0.35), 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.choice-btn--primary-path:hover {
+  border-color: #7dd87a;
+  background: linear-gradient(165deg, rgba(50, 85, 65, 0.98) 0%, rgba(30, 48, 40, 1) 100%);
+}
+
+.choice-btn--primary-path .choice-title {
+  color: #9ece6a;
+}
+
+.choice-btn--secondary-path {
+  border-color: var(--accent-soft);
+  background: rgba(35, 40, 62, 0.95);
+}
+
+.choice-btn--secondary-path .choice-title {
+  color: var(--accent-soft);
+}
+
+.choice-btn--leave-path {
+  border-style: dashed;
+  border-color: rgba(180, 120, 120, 0.55);
+  background: rgba(28, 22, 26, 0.92);
+  padding: 0.75rem 1rem;
+  opacity: 0.92;
+}
+
+.choice-btn--leave-path .choice-title {
+  color: #c4a4a4;
+}
+
+.choice-btn--leave-path:hover {
+  border-color: rgba(230, 140, 140, 0.75);
+  border-style: solid;
+}
+
+.choice-btn--leave-confirm {
+  border-color: #c53030;
+  background: linear-gradient(165deg, rgba(80, 28, 28, 0.95) 0%, rgba(35, 18, 20, 0.98) 100%);
+  box-shadow: 0 0 0 1px rgba(197, 48, 48, 0.4), 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.choice-btn--leave-confirm:hover {
+  border-color: #fc8181;
+}
+
+.choice-btn--leave-confirm .choice-title {
+  color: #feb2b2;
+}
+
+/* PhD year menu: papers = main beat; other choices = how you spend the round */
+.choice-btn--phd-papers-main {
+  border-color: #7aa2f7;
+  border-width: 4px;
+  background: linear-gradient(165deg, rgba(48, 58, 95, 0.98) 0%, rgba(26, 32, 52, 1) 100%);
+  box-shadow:
+    0 0 0 1px rgba(122, 162, 247, 0.45),
+    0 0 22px rgba(122, 162, 247, 0.18),
+    4px 4px 0 rgba(0, 0, 0, 0.35);
+  margin-bottom: 0.65rem;
+  padding-bottom: 1.1rem;
+}
+
+.choice-btn--phd-papers-main:hover {
+  border-color: #9bb8ff;
+  background: linear-gradient(165deg, rgba(55, 68, 108, 1) 0%, rgba(30, 38, 60, 1) 100%);
+}
+
+.choice-btn--phd-papers-main .choice-title {
+  color: #b8d4ff;
+  font-size: 0.58rem;
+}
+
+.choice-btn--phd-papers-main .choice-desc {
+  color: #c8d8f0;
+}
+
+.choice-btn--phd-round-secondary {
+  opacity: 0.9;
+  border-color: rgba(82, 86, 108, 0.9);
+  border-width: 2px;
+  background: rgba(20, 22, 34, 0.94);
+  padding: 0.8rem 0.95rem;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.28);
+}
+
+.choice-btn--phd-round-secondary:hover {
+  opacity: 1;
+  border-color: rgba(122, 162, 247, 0.55);
+  background: rgba(28, 30, 48, 0.98);
+}
+
+.choice-btn--phd-round-secondary .choice-title {
+  color: #9898b0;
+}
+
+.choice-btn--phd-round-secondary .choice-desc {
+  color: #7a7a90;
+}
+
+.choice-btn--phd-paper-option {
+  border-color: rgba(122, 162, 247, 0.55);
+  background: rgba(32, 38, 58, 0.96);
+  box-shadow: 0 0 0 1px rgba(122, 162, 247, 0.2), 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.choice-btn--phd-paper-option:hover {
+  border-color: rgba(122, 162, 247, 0.85);
+  background: rgba(38, 46, 72, 0.98);
+}
+
+.choice-btn--phd-paper-option .choice-title {
+  color: #a8c4f5;
+}
+
 .choice-btn .choice-title {
   font-family: var(--font-arcade);
   font-size: 0.5rem;
@@ -846,15 +993,61 @@ body::after {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
+  align-items: center;
+}
+
+.sabbatical-controls .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .sabbatical-coin-btn {
   opacity: 0.9;
 }
 
+.bike-courier-hud {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.bike-courier-controls {
+  margin-bottom: 0.5rem;
+}
+
+.bike-courier-start-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.35rem;
+}
+
 /* Bureaucracy mini-game */
 #screen-bureaucracy .hidden {
   display: none !important;
+}
+
+.bureaucracy-game {
+  display: flex;
+  flex-direction: column;
+  min-height: min(52vh, 420px);
+}
+
+.bureaucracy-instruction strong.bureaucracy-target-highlight {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.bureaucracy-start-wrap {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .bureaucracy-score {
@@ -878,14 +1071,16 @@ body::after {
 }
 
 .bureaucracy-form-area {
-  min-height: 160px;
+  flex: 1;
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .bureaucracy-form-box {
+  position: relative;
   width: 180px;
   height: 140px;
   display: flex;
@@ -900,11 +1095,57 @@ body::after {
   transition: transform 0.1s, box-shadow 0.15s;
   padding: 0.5rem;
   line-height: 1.4;
+  overflow: visible;
+  user-select: none;
 }
 
 .bureaucracy-form-box:hover {
   transform: scale(1.02);
   box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.bureaucracy-signature-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bureaucracy-stamp-hit {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: bureaucracy-stamp-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.bureaucracy-stamp-face {
+  padding: 0.35rem 0.65rem;
+  border: 0.2rem double rgba(139, 0, 0, 0.95);
+  color: rgba(100, 0, 0, 0.95);
+  background: rgba(255, 245, 230, 0.88);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: center;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bureaucracy-stamp-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.95;
+  }
 }
 
 .bureaucracy-form-blue {
@@ -929,4 +1170,81 @@ body::after {
   width: 10px;
   height: 10px;
   pointer-events: none;
+}
+
+.course-pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 52vh;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.course-pick-btn.course-pick-selected {
+  outline: 3px solid var(--good, #9ece6a);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35);
+}
+
+#course-pick-confirm {
+  margin-top: 0.5rem;
+}
+
+.freetime-alloc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0.5rem 0 1rem;
+  max-height: 48vh;
+  overflow-y: auto;
+}
+
+.freetime-alloc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  background: var(--bg-panel, #1e1e2e);
+  border: 2px solid var(--border, #3b3b4f);
+  border-radius: 6px;
+}
+
+.freetime-alloc-label {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.freetime-alloc-title {
+  display: block;
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.freetime-alloc-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+}
+
+.freetime-alloc-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.freetime-pct {
+  min-width: 3.25rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+}
+
+.freetime-plus,
+.freetime-minus {
+  min-width: 2.5rem;
+  padding: 0.35rem 0.5rem;
 }

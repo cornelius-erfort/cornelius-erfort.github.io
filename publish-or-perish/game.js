@@ -11,15 +11,19 @@
   const SAVE_VERSION = 2;
   const CONFERENCE_MA_COST = 35; // colloquium/workshop cost (MA)
   const RANDOM_VARIANCE = 6; // ± for each effect
-  const SOCIAL_FREE_TIME_IDS = ['party', 'drinks', 'mixer', 'study-group']; // choices that count as "socializing" for random kids event
   const KIDS_THRESHOLD = 2; // how many social free-time picks before roll
   const KIDS_EFFECTS = { intelligence: -6, network: 4, mentalHealth: -14, luck: 0 }; // time and stress
-  const SABBATICAL_MENTAL_HEALTH_THRESHOLD = 18; // below this: forced sabbatical
+  const SABBATICAL_MENTAL_HEALTH_THRESHOLD = 18; // below this: forced sabbatical (BA/MA/post-PhD)
+  /** During PhD only: higher bar so burnout does not route you to the island mini-game as often; see also `phd.sabbaticalUsedThisYear`. */
+  const SABBATICAL_PHD_MENTAL_HEALTH_THRESHOLD = 10;
   const SABBATICAL_RECOVERY = 36; // mental health restored after completing the mini-game
   const SABBATICAL_STRESS_PER_CLICK = 15; // stress (100→0) drained per "Rest" click
-  const BUREAUCRACY_BLUE_SIGNS_NEEDED = 5;
+  const BUREAUCRACY_SIGNS_NEEDED = 5;
   const BUREAUCRACY_STRIKES_MAX = 3;
   const BUREAUCRACY_FORM_COLORS = ['red', 'green', 'yellow', 'blue'];
+  const BUREAUCRACY_COLOR_LABEL = { red: 'RED', green: 'GREEN', yellow: 'YELLOW', blue: 'BLUE' };
+  const BUREAUCRACY_COLOR_HEX = { red: '#fca5a5', green: '#86efac', yellow: '#fde047', blue: '#93c5fd' };
+  const BUREAUCRACY_STAMP_WORDS = ['FAIL', 'DENIED', 'REJECTED', 'VOID', 'NO'];
   const BUREAUCRACY_FORM_NAMES = [
     'Form 7B – Sign here', 'Annex C (Declaration)', 'Request for extension – Section 2',
     'Module registration – Page 3', 'Data consent form (GDPR)', 'Room booking – Block A',
@@ -36,6 +40,8 @@
   const COURSE_FULL_BASE_CHANCE = 0.28;
   const COURSE_FULL_LUCK_FACTOR = 0.25;
   const MAX_COURSES_DISPLAY = 4;
+  const PROGRAM_PICK_COUNT = 4;
+  const PROGRAM_POOL_SIZE = 10;
   // Each entry: label on the window, hint given when you're at a *wrong* window pointing to this one
   const BUREAUCRACY_WINDOWS = [
     { label: 'Room 101 – General enquiries', hint: 'the one that sends everyone else away with a leaflet' },
@@ -50,29 +56,39 @@
   ];
 
   const SABBATICAL_DAY_MESSAGES = [
-    'Day 1: You stare at the wall. It’s fine.',
-    'Day 2: You take a nap. No emails.',
-    'Day 3: You go for a walk. You forget what an inbox is.',
-    'Day 4: You read a book. Not a manuscript. A book.',
-    'Day 5: You do nothing. It’s recommended.',
-    'Day 6: You sleep in. The department survives without you.',
-    'Day 7: You feel almost human. Sabbatical complete.',
+    'Day 1: You stare at the horizon. IR: Island Relaxation.',
+    'Day 2: No inbox. The chair thanks you for your service — from 4,000 km away.',
+    'Day 3: You walk the beach. Method: participant observation (sandcastle).',
+    'Day 4: You read a book. Not a manuscript. The department pretends not to notice.',
+    'Day 5: You do nothing. HR calls it “protected time.”',
+    'Day 6: You sleep in. Somewhere, a committee meeting proceeds without you. Bliss.',
+    'Day 7: You feel almost human. Ready to cite this experience as “fieldwork.”',
+  ];
+  const SABBATICAL_BEACH_SIGNS = [
+    'R&R: Relax & Recline',
+    'Beach method (N=1)',
+    'Lit review closed',
+    'Panel A: tide pool',
+    'Ideally yours, Speaker',
+    'No ethics form at sea',
+    'Grant: SPF 50',
+    'Committee: out of office',
   ];
   const SABBATICAL_COIN_VALUE = 5;
   const SABBATICAL_DRINK_MH_PENALTY = -8;
-  const SABBATICAL_GRAVITY = 0.38;
-  const SABBATICAL_SCROLL_SPEED = 2.8;
-  const SABBATICAL_JUMP_GAP_VY = -10;
-  const SABBATICAL_JUMP_HOP_VY = -5.5;
+  const SABBATICAL_GRAVITY = 0.34;
+  const SABBATICAL_SCROLL_SPEED = 1.85;
+  const SABBATICAL_JUMP_GAP_VY = -12.5;
+  const SABBATICAL_JUMP_HOP_VY = -7.2;
   const SABBATICAL_CHAR_SCREEN_X = 100;
   const SABBATICAL_GROUND_Y_RATIO = 0.78;
-  const SABBATICAL_SEGMENT_COUNT = 28;
-  const SABBATICAL_GAP_WIDTH_MIN = 42;
-  const SABBATICAL_GAP_WIDTH_MAX = 72;
-  const SABBATICAL_PLATFORM_SHORT_MIN = 50;
-  const SABBATICAL_PLATFORM_SHORT_MAX = 85;
-  const SABBATICAL_PLATFORM_LONG_MIN = 95;
-  const SABBATICAL_PLATFORM_LONG_MAX = 140;
+  const SABBATICAL_SEGMENT_COUNT = 26;
+  const SABBATICAL_GAP_WIDTH_MIN = 32;
+  const SABBATICAL_GAP_WIDTH_MAX = 54;
+  const SABBATICAL_PLATFORM_SHORT_MIN = 118;
+  const SABBATICAL_PLATFORM_SHORT_MAX = 185;
+  const SABBATICAL_PLATFORM_LONG_MIN = 210;
+  const SABBATICAL_PLATFORM_LONG_MAX = 320;
   const SABBATICAL_SPLASHES_MAX = 3;
 
   const PHD_APP_MONEY_PER = 22;
@@ -81,15 +97,34 @@
   const PHD_APP_MIN_MH_AFTER = 18;
   const PHD_APP_REST_MH = 22; // wellbeing from "Take a break" when stuck
 
-  const BIKE_COURIER_EUROS_PER_DELIVERY = 8;
-  const BIKE_COURIER_MH_BONUS = 8; // wellbeing from exercise and fresh air
+  const BIKE_COURIER_MH_BONUS = 8;
   const BIKE_COURIER_MAX_CRASHES = 3;
-  const BIKE_COURIER_OBSTACLE_SPEED = 4;
-  const BIKE_COURIER_JUMP_VY = -9;
-  const BIKE_COURIER_GRAVITY = 0.4;
-  const BIKE_COURIER_GROUND_Y_RATIO = 0.82;
-  const BIKE_COURIER_SPAWN_INTERVAL_MIN = 70;
-  const BIKE_COURIER_SPAWN_INTERVAL_MAX = 140;
+  const BIKE_LANE_COUNT = 3;
+  const BIKE_SCROLL_MIN = 2.1;
+  const BIKE_SCROLL_MAX = 7.8;
+  const BIKE_SCROLL_STEP = 0.45;
+  const BIKE_INITIAL_SCROLL = 3.6;
+  const BIKE_SPAWN_FRAMES_MIN = 38;
+  const BIKE_SPAWN_FRAMES_MAX = 95;
+  const BIKE_DECOR_SPAWN_MIN = 55;
+  const BIKE_DECOR_SPAWN_MAX = 160;
+  const BIKE_EARN_PER_SCROLL_UNIT = 0.11;
+  const BIKE_CAR_COLORS = ['#c94c4c', '#3d6ab8', '#d4a54a', '#6a4c9e', '#2d8a6e', '#b85cb8'];
+  const BIKE_TRUCK_COLORS = ['#5c4033', '#3d5a5a', '#6b3a14', '#4a4a4a'];
+  const BIKE_ROAD_SNIPPETS = [
+    'VOTE / PIVOT',
+    'HONK IF N≈1',
+    'REFORM (PLEASE CLAP)',
+    'NO JUSTICE NO p<.05',
+    'GERRYMANDER TOUR 2026',
+    'PROTEST: BRING YOUR OWN N',
+    'POSTER: I READ THE SYLLABUS',
+    'COALITION OF THE WILLING (N=2)',
+    'SLOW TRAFFIC = DELIBERATIVE DEMOCRACY',
+    'ELECT MORE BAR CHARTS',
+    'YIELD TO RUNNING REGRESSIONS',
+    'BIKE LANE PAID FOR BY YOUR TUITION',
+  ];
 
   const PHD_PROGRAMS = [
     { id: 'safe', name: 'Solid regional programme', desc: 'High acceptance rate. No special requirements.', baseAccept: 0.58, minNetwork: 0, minLuck: 0 },
@@ -100,22 +135,11 @@
     { id: 'dream_luck', name: 'Dream programme (long shot)', desc: 'Sometimes the stars align. Requires luck to even consider applying.', baseAccept: 0.12, minNetwork: 0, minLuck: 55 },
   ];
 
+  /** Single profile: former “medium” (no difficulty picker). */
   const DIFFICULTIES = {
-    easy: {
-      name: 'Easy',
-      description: 'See stat effects and random-event chances. Lower bars to pass. Less variance, fewer surprises.',
-      variance: 3,
-      gainScale: 1.0,
-      kidsChance: 0.12,
-      maInt: 38,
-      maMentalHealth: 20,
-      showTransparency: true,
-      formDisplayMs: 1400,
-      formPauseMs: 500,
-    },
     medium: {
       name: 'Medium',
-      description: 'Default. No effect hints. Standard thresholds and randomness. Gains are reduced so stats rarely max out.',
+      description: 'No effect hints. Standard thresholds and randomness. Gains are reduced so stats rarely max out.',
       variance: 6,
       gainScale: 0.78,
       kidsChance: 0.28,
@@ -124,18 +148,6 @@
       showTransparency: false,
       formDisplayMs: 1000,
       formPauseMs: 350,
-    },
-    hard: {
-      name: 'Hard',
-      description: 'No hints. Higher bars to pass. More variance, more random events (e.g. kids). Gains reduced further.',
-      variance: 9,
-      gainScale: 0.6,
-      kidsChance: 0.45,
-      maInt: 52,
-      maMentalHealth: 32,
-      showTransparency: false,
-      formDisplayMs: 700,
-      formPauseMs: 220,
     },
   };
 
@@ -183,135 +195,43 @@
     },
   ];
 
-  // ----- Content: BA choices -----
-  const BA_COURSES_Y1 = [
-    {
-      id: 'methods-strict',
-      title: 'Quantitative Methods I',
-      desc: 'Prof. Strict — “R is your friend.” Rigorous, notorious grader.',
-      effects: { intelligence: 14, network: -2, mentalHealth: -8, luck: 0 },
-      lectureType: 'formal',
-    },
-    {
-      id: 'theory-weber',
-      title: 'Classical Political Theory',
-      desc: 'Prof. Weber — Great lectures, heavy reading. You’ll know your Hobbes.',
-      effects: { intelligence: 10, network: 4, mentalHealth: -4, luck: 0 },
-      lectureType: 'seminar',
-    },
-    {
-      id: 'ir-global',
-      title: 'Introduction to IR',
-      desc: 'Prof. Global — Big name, big seminar. Networking goldmine.',
-      effects: { intelligence: 6, network: 16, mentalHealth: -6, luck: 0 },
-      lectureType: 'seminar',
-    },
-    {
-      id: 'comparative-easy',
-      title: 'Comparative Politics Survey',
-      desc: 'Prof. Easy — Lighter load, friendly. Your GPA will thank you.',
-      effects: { intelligence: 4, network: 6, mentalHealth: 6, luck: 2 },
-      lectureType: 'casual',
-    },
-    {
-      id: 'qual-y1',
-      title: 'Introduction to Qualitative Methods',
-      desc: 'Prof. Field — Interviews, case studies, “thick description”. You learn to say “it’s more nuanced” with a straight face.',
-      effects: { intelligence: 10, network: 6, mentalHealth: -2, luck: 0 },
-      lectureType: 'casual',
-    },
-    {
-      id: 'programming-y1',
-      title: 'Programming for Social Science',
-      desc: 'Prof. Script — R and Python basics. Half the class still can’t install the toolchain. You might become the other half.',
-      effects: { intelligence: 12, network: 2, mentalHealth: -6, luck: 4 },
-      lectureType: 'formal',
-    },
-    {
-      id: 'casual-y1',
-      title: 'Politics & Society: The Basics',
-      desc: 'Prof. Chill — “Read the news. We’ll discuss.” Actually not a joke. Very popular. You might even enjoy it.',
-      effects: { intelligence: 5, network: 10, mentalHealth: 8, luck: 2 },
-      lectureType: 'casual',
-    },
+  // ----- Content: BA / MA course pools (pick 4 of 10 per degree) -----
+  const BA_COURSES_POOL = [
+    { id: 'methods-strict', title: 'Quantitative Methods I', desc: 'Prof. Strict — “R is your friend.” Rigorous, notorious grader.', effects: { intelligence: 14, network: -2, mentalHealth: -8, luck: 0 }, lectureType: 'formal' },
+    { id: 'theory-weber', title: 'Classical Political Theory', desc: 'Prof. Weber — Great lectures, heavy reading. You’ll know your Hobbes.', effects: { intelligence: 10, network: 4, mentalHealth: -4, luck: 0 }, lectureType: 'seminar' },
+    { id: 'ir-global', title: 'Introduction to IR', desc: 'Prof. Global — Big name, big seminar. Networking goldmine.', effects: { intelligence: 6, network: 16, mentalHealth: -6, luck: 0 }, lectureType: 'seminar' },
+    { id: 'comparative-easy', title: 'Comparative Politics Survey', desc: 'Prof. Easy — Lighter load, friendly. Your GPA will thank you.', effects: { intelligence: 4, network: 6, mentalHealth: 6, luck: 2 }, lectureType: 'casual' },
+    { id: 'programming-y1', title: 'Programming for Social Science', desc: 'Prof. Script — R and Python basics. Half the class still can’t install the toolchain.', effects: { intelligence: 12, network: 2, mentalHealth: -6, luck: 4 }, lectureType: 'formal' },
+    { id: 'casual-y1', title: 'Politics & Society: The Basics', desc: 'Prof. Chill — “Read the news. We’ll discuss.” Very popular.', effects: { intelligence: 5, network: 10, mentalHealth: 8, luck: 2 }, lectureType: 'casual' },
+    { id: 'methods-ii', title: 'Quantitative Methods II', desc: 'Prof. Strict again. Regression, causal inference.', effects: { intelligence: 18, network: 0, mentalHealth: -12, luck: 0 }, lectureType: 'formal' },
+    { id: 'normative', title: 'Normative Political Theory', desc: 'Prof. Kant — Rawls, Nozick, justice. Tough but rewarding.', effects: { intelligence: 12, network: 2, mentalHealth: -6, luck: 0 }, lectureType: 'seminar' },
+    { id: 'eu-policy', title: 'EU Politics & Policy', desc: 'Prof. Brussels — Policy-focused, lots of guest speakers.', effects: { intelligence: 6, network: 14, mentalHealth: -2, luck: 0 }, lectureType: 'seminar' },
+    { id: 'elective-fun', title: 'Elective: Politics of Pop Culture', desc: 'Prof. Fun — Lighter, interesting. A breath of fresh air.', effects: { intelligence: 4, network: 8, mentalHealth: 10, luck: 4 }, lectureType: 'casual' },
   ];
 
-  const BA_COURSES_Y2 = [
-    {
-      id: 'methods-ii',
-      title: 'Quantitative Methods II',
-      desc: 'Prof. Strict again. Regression, causal inference. Your future self will thank you.',
-      effects: { intelligence: 18, network: 0, mentalHealth: -12, luck: 0 },
-      lectureType: 'formal',
-    },
-    {
-      id: 'normative',
-      title: 'Normative Political Theory',
-      desc: 'Prof. Kant — Rawls, Nozick, justice. Tough but rewarding.',
-      effects: { intelligence: 12, network: 2, mentalHealth: -6, luck: 0 },
-      lectureType: 'seminar',
-    },
-    {
-      id: 'eu-policy',
-      title: 'EU Politics & Policy',
-      desc: 'Prof. Brussels — Policy-focused, lots of guest speakers. Good for connections.',
-      effects: { intelligence: 6, network: 14, mentalHealth: -2, luck: 0 },
-      lectureType: 'seminar',
-    },
-    {
-      id: 'elective-fun',
-      title: 'Elective: Politics of Pop Culture',
-      desc: 'Prof. Fun — Lighter, interesting. A breath of fresh air.',
-      effects: { intelligence: 4, network: 8, mentalHealth: 10, luck: 4 },
-      lectureType: 'casual',
-    },
-    {
-      id: 'qual-y2',
-      title: 'Case Studies & Process Tracing',
-      desc: 'Prof. Narrative — “How do we know what we know?” Lots of debate. Very qualitative. Someone will mention mechanism.',
-      effects: { intelligence: 11, network: 4, mentalHealth: -4, luck: 0 },
-      lectureType: 'casual',
-    },
-    {
-      id: 'programming-y2',
-      title: 'Data Wrangling & Reproducibility',
-      desc: 'Prof. Script — Git, tidy data, “your code should run in 2030”. Half the room still on Stack Overflow. You fit right in.',
-      effects: { intelligence: 14, network: 4, mentalHealth: -8, luck: 2 },
-      lectureType: 'formal',
-    },
-    {
-      id: 'casual-y2',
-      title: 'Elective: Why Your Uncle Is Wrong at Thanksgiving',
-      desc: 'Prof. Jokes — Evidence, rhetoric, and family dinners. Surprisingly useful. The readings are actually good.',
-      effects: { intelligence: 6, network: 8, mentalHealth: 12, luck: 6 },
-      lectureType: 'casual',
-    },
+  const MA_COURSES_POOL = [
+    { id: 'ma-adv-methods', title: 'Advanced Quantitative Methods', desc: 'Prof. Strict, again. Now with causal inference.', effects: { intelligence: 20, network: -2, mentalHealth: -12, luck: 0 }, lectureType: 'formal' },
+    { id: 'ma-theory-seminar', title: 'Graduate Political Theory Seminar', desc: 'Prof. Kant. Rawls, Habermas, and one paper per week.', effects: { intelligence: 16, network: 6, mentalHealth: -10, luck: 0 }, lectureType: 'seminar' },
+    { id: 'ma-ir-theory', title: 'Theories of International Relations', desc: 'Prof. Global. Realism, liberalism, constructivism.', effects: { intelligence: 12, network: 14, mentalHealth: -8, luck: 0 }, lectureType: 'seminar' },
+    { id: 'ma-research-design', title: 'Research Design in Political Science', desc: 'Prof. Rigor. Your thesis proposal starts here.', effects: { intelligence: 18, network: 4, mentalHealth: -10, luck: 2 }, lectureType: 'formal' },
+    { id: 'ma-qual-adv', title: 'Advanced Qualitative Methods', desc: 'Prof. Narrative. Process tracing, interviews.', effects: { intelligence: 14, network: 8, mentalHealth: -6, luck: 0 }, lectureType: 'casual' },
+    { id: 'ma-elective', title: 'Elective: Policy Analysis', desc: 'Prof. Brussels. Good for connections.', effects: { intelligence: 8, network: 12, mentalHealth: -2, luck: 2 }, lectureType: 'casual' },
+    { id: 'ma-thesis-seminar', title: 'Thesis Seminar', desc: 'You present your draft. Everyone has opinions.', effects: { intelligence: 10, network: 16, mentalHealth: -14, luck: 4 }, lectureType: 'seminar' },
+    { id: 'ma-specialization', title: 'Specialization: Your Subfield', desc: 'Deep dive. You’re almost a real expert now.', effects: { intelligence: 16, network: 6, mentalHealth: -8, luck: 0 }, lectureType: 'seminar' },
+    { id: 'ma-teaching-intro', title: 'Teaching Practicum', desc: 'You TA for the first time. The undergrads survive.', effects: { intelligence: 4, network: 14, mentalHealth: -10, luck: 2 }, lectureType: 'casual' },
+    { id: 'ma-writing', title: 'Academic Writing Workshop', desc: 'Prof. Edit. “Revise and resubmit” becomes your mantra.', effects: { intelligence: 12, network: 4, mentalHealth: -6, luck: 0 }, lectureType: 'formal' },
   ];
+
+  function getCourseById(courseId) {
+    return BA_COURSES_POOL.find(x => x.id === courseId)
+      || MA_COURSES_POOL.find(x => x.id === courseId);
+  }
 
   function getLectureSceneForCourse(courseId) {
-    const c = BA_COURSES_Y1.find(x => x.id === courseId) || BA_COURSES_Y2.find(x => x.id === courseId) ||
-      MA_COURSES_Y1.find(x => x.id === courseId) || MA_COURSES_Y2.find(x => x.id === courseId);
+    const c = getCourseById(courseId);
     const t = c && c.lectureType ? c.lectureType : 'seminar';
     return 'lecture-' + t;
   }
-
-  // ----- Content: MA courses (harder than BA) -----
-  const MA_COURSES_Y1 = [
-    { id: 'ma-adv-methods', title: 'Advanced Quantitative Methods', desc: 'Prof. Strict, again. Now with causal inference. Your brain will hurt.', effects: { intelligence: 20, network: -2, mentalHealth: -12, luck: 0 }, lectureType: 'formal' },
-    { id: 'ma-theory-seminar', title: 'Graduate Political Theory Seminar', desc: 'Prof. Kant. Rawls, Habermas, and one paper per week.', effects: { intelligence: 16, network: 6, mentalHealth: -10, luck: 0 }, lectureType: 'seminar' },
-    { id: 'ma-ir-theory', title: 'Theories of International Relations', desc: 'Prof. Global. Realism, liberalism, constructivism. You can finally tell them apart.', effects: { intelligence: 12, network: 14, mentalHealth: -8, luck: 0 }, lectureType: 'seminar' },
-    { id: 'ma-research-design', title: 'Research Design in Political Science', desc: 'Prof. Rigor. Your thesis proposal starts here.', effects: { intelligence: 18, network: 4, mentalHealth: -10, luck: 2 }, lectureType: 'formal' },
-    { id: 'ma-qual-adv', title: 'Advanced Qualitative Methods', desc: 'Prof. Narrative. Process tracing, interviews, “so what’s your mechanism?”', effects: { intelligence: 14, network: 8, mentalHealth: -6, luck: 0 }, lectureType: 'casual' },
-    { id: 'ma-elective', title: 'Elective: Policy Analysis', desc: 'Prof. Brussels. Good for connections and a slightly lighter load.', effects: { intelligence: 8, network: 12, mentalHealth: -2, luck: 2 }, lectureType: 'casual' },
-  ];
-
-  const MA_COURSES_Y2 = [
-    { id: 'ma-thesis-seminar', title: 'Thesis Seminar', desc: 'You present your draft. Everyone has opinions.', effects: { intelligence: 10, network: 16, mentalHealth: -14, luck: 4 }, lectureType: 'seminar' },
-    { id: 'ma-specialization', title: 'Specialization: Your Subfield', desc: 'Deep dive. You’re almost a real expert now.', effects: { intelligence: 16, network: 6, mentalHealth: -8, luck: 0 }, lectureType: 'seminar' },
-    { id: 'ma-teaching-intro', title: 'Teaching Practicum', desc: 'You TA for the first time. The undergrads survive. So do you.', effects: { intelligence: 4, network: 14, mentalHealth: -10, luck: 2 }, lectureType: 'casual' },
-    { id: 'ma-writing', title: 'Academic Writing Workshop', desc: 'Prof. Edit. “Revise and resubmit” becomes your mantra.', effects: { intelligence: 12, network: 4, mentalHealth: -6, luck: 0 }, lectureType: 'formal' },
-    { id: 'ma-elective-2', title: 'Elective: Data & Democracy', desc: 'Current debates. Good for the job market narrative.', effects: { intelligence: 8, network: 10, mentalHealth: -2, luck: 4 }, lectureType: 'casual' },
-  ];
 
   const MA_THESIS_TOPICS = [
     { id: 'ma-voting', title: 'Voting and representation (MA thesis)', desc: 'Survey data, comparative design. Strong for quantitative PhD programs.', effects: { intelligence: 18, network: 6, mentalHealth: -12, luck: 0 } },
@@ -349,26 +269,27 @@
   const PHD_MAX_ROUNDS = 6;
   const PHD_PAPERS_REQUIRED = 2;
   const PHD_MAX_PAPERS = 3;
-  const PHD_PAPER_KILL_CHANCE = 0.14;
+  /** Per active draft, chance a year-end “scoop / loss” retires that project (capped at one loss per year; luck lowers odds). */
+  const PHD_PAPER_KILL_CHANCE = 0.055;
   const PHD_PAPER_KILL_MH = -14;
   const PHD_PROGRESS_PER_ROUND = 12;
   const PHD_STOP_THRESHOLD = 25;
   const PHD_SUBMIT_MIN_PROGRESS = 40;
-  const PHD_PAPER_MH_PER_TURN = -3;
+  const PHD_PAPER_MH_PER_TURN = -2;
   const PHD_PAPER_NETWORK_PER_TURN = -3;
   const PHD_REJECT_MH = -6;
   const PHD_ACCEPT_EFFECTS = { intelligence: 6, network: 12, mentalHealth: 8 };
   const PHD_CONFERENCES_POOL = [
-    { id: 'epfs', name: 'EPFS', fullName: 'European Political Science Federation (annual meeting)', cost: 55, desc: 'Big European crowd. Strong network payoff.' },
-    { id: 'epjr', name: 'EPJR', fullName: 'European Journal of Political Research section meeting', cost: 48, desc: 'Smaller, method-focused. Good for visibility.' },
-    { id: 'apsb', name: 'APSB', fullName: 'American Political Science Association annual meeting', cost: 85, desc: 'The big one. Expensive, huge network gains.' },
-    { id: 'mpsb', name: 'MPSB', fullName: 'Midwest Political Science Association conference', cost: 65, desc: 'US job market central. Solid payoff.' },
-    { id: 'ipsb', name: 'IPSB', fullName: 'International Political Science Association world congress', cost: 75, desc: 'Global. Every few years; high prestige.' },
-    { id: 'ecpl', name: 'ECPL', fullName: 'European Consortium for Political Research general conference', cost: 52, desc: 'ECPR flagship. Strong European network.' },
-    { id: 'wpsa', name: 'WPSA', fullName: 'Western Political Science Association annual meeting', cost: 45, desc: 'West coast. Cheaper, decent network.' },
-    { id: 'spsa', name: 'SPSA', fullName: 'Southern Political Science Association conference', cost: 42, desc: 'Regional. Lower cost, smaller crowd.' },
-    { id: 'epsn', name: 'EPSN', fullName: 'European Political Science Network workshop', cost: 38, desc: 'Small workshop. Budget option.' },
-    { id: 'isa', name: 'ISA', fullName: 'International Studies Association annual convention', cost: 70, desc: 'IR and comparative. Big and costly.' },
+    { id: 'epfs', name: 'EPFS', fullName: 'European Polity Studies Forum (annual meeting)', cost: 55, desc: 'Big European crowd. Strong network payoff.' },
+    { id: 'epjr', name: 'EPJR', fullName: 'EuroPol Methods Workshop (section track)', cost: 48, desc: 'Smaller, method-focused. Good for visibility.' },
+    { id: 'apsb', name: 'APSB', fullName: 'AmeriPol Society mega-meeting (annual)', cost: 85, desc: 'The big one. Expensive, huge network gains.' },
+    { id: 'mpsb', name: 'MPSB', fullName: 'Midwest Polity Scholars Bash', cost: 65, desc: 'US job market central. Solid payoff.' },
+    { id: 'ipsb', name: 'IPSB', fullName: 'International Polity Scholars Congress', cost: 75, desc: 'Global. Every few years; high prestige.' },
+    { id: 'ecpl', name: 'ECPL', fullName: 'Euro Consortium on Polity Research general conference', cost: 52, desc: 'Flagship Euro network meet-up. Strong connections.' },
+    { id: 'wpsa', name: 'WPSA', fullName: 'Western Polity Scholars annual meeting', cost: 45, desc: 'West coast. Cheaper, decent network.' },
+    { id: 'spsa', name: 'SPSA', fullName: 'Southern Polity Scholars conference', cost: 42, desc: 'Regional. Lower cost, smaller crowd.' },
+    { id: 'epsn', name: 'EPSN', fullName: 'European Polity Studies Network workshop', cost: 38, desc: 'Small workshop. Budget option.' },
+    { id: 'isa', name: 'ISF', fullName: 'International Studies Forum (IR-heavy convention)', cost: 70, desc: 'IR and comparative. Big and costly.' },
   ];
 
   const PHD_CONFERENCE_ROLES = [
@@ -377,6 +298,8 @@
     { id: 'discussant', title: 'Be a discussant', desc: 'Service. If you wing it, they notice.', effects: { intelligence: 0, network: 0, mentalHealth: -5, luck: 0 }, serviceNoBenefit: true },
     { id: 'chair', title: 'Chair a session', desc: 'You run it. No credit. Unprepared = reputation hit.', effects: { intelligence: 0, network: 0, mentalHealth: -6, luck: 0 }, serviceNoBenefit: true },
   ];
+  const PHD_CONFERENCE_SKIP_EFFECTS = { intelligence: 6, network: -10, mentalHealth: 8, luck: 0 };
+  const PHD_CONFERENCE_OUTCOME_RESUME = 'goToPhDRound';
 
   const PHD_PAPER_TEMPLATES = [
     { title: 'Why Nobody Reads Your Literature Review: A Meta-Study', abstract: 'We systematically review 400 papers that cite themselves in the first paragraph. Findings: nobody else does either.' },
@@ -401,27 +324,103 @@
     { title: 'Why We Keep Saying "Further Research Is Needed": A Reflexive Account', abstract: 'We needed a conclusion. Further research is needed on why we needed a conclusion. Send help.' },
   ];
 
-  // Real-style journals: prestige 1=top, 4=lower; hIndex flavor; desk/R&R/direct probs (decisions next round)
+  // Fictional journal venues (parody names; not affiliated with any real outlet). prestige 1=top, 4=lower; hIndex flavor; desk/R&R/direct probs (decisions next round)
   const PHD_JOURNALS = [
-    { id: 'apsr', name: 'American Political Science Review', prestige: 1, hIndex: 12, deskReject: 0.58, rr: 0.39, directAccept: 0.03 },
-    { id: 'ajps', name: 'American Journal of Political Science', prestige: 1, hIndex: 10, deskReject: 0.55, rr: 0.42, directAccept: 0.03 },
-    { id: 'jop', name: 'Journal of Politics', prestige: 1, hIndex: 9, deskReject: 0.52, rr: 0.45, directAccept: 0.03 },
-    { id: 'wp', name: 'World Politics', prestige: 2, hIndex: 8, deskReject: 0.42, rr: 0.53, directAccept: 0.05 },
-    { id: 'io', name: 'International Organization', prestige: 2, hIndex: 8, deskReject: 0.45, rr: 0.50, directAccept: 0.05 },
-    { id: 'cps', name: 'Comparative Political Studies', prestige: 2, hIndex: 7, deskReject: 0.38, rr: 0.57, directAccept: 0.05 },
-    { id: 'bjps', name: 'British Journal of Political Science', prestige: 2, hIndex: 6, deskReject: 0.40, rr: 0.55, directAccept: 0.05 },
-    { id: 'ejpr', name: 'European Journal of Political Research', prestige: 3, hIndex: 5, deskReject: 0.28, rr: 0.65, directAccept: 0.07 },
-    { id: 'jepp', name: 'Journal of European Public Policy', prestige: 3, hIndex: 5, deskReject: 0.30, rr: 0.63, directAccept: 0.07 },
-    { id: 'gov', name: 'Governance', prestige: 3, hIndex: 5, deskReject: 0.25, rr: 0.68, directAccept: 0.07 },
-    { id: 'polbeh', name: 'Political Behavior', prestige: 3, hIndex: 4, deskReject: 0.22, rr: 0.70, directAccept: 0.08 },
-    { id: 'poq', name: 'Public Opinion Quarterly', prestige: 4, hIndex: 4, deskReject: 0.15, rr: 0.75, directAccept: 0.10 },
-    { id: 'epsr', name: 'European Political Science Review', prestige: 4, hIndex: 3, deskReject: 0.12, rr: 0.78, directAccept: 0.10 },
-    { id: 'polstud', name: 'Political Studies', prestige: 4, hIndex: 3, deskReject: 0.10, rr: 0.80, directAccept: 0.10 },
+    { id: 'apsr', name: 'AmeriPol Review', prestige: 1, hIndex: 12, deskReject: 0.58, rr: 0.39, directAccept: 0.03 },
+    { id: 'ajps', name: 'American Journal of Polity', prestige: 1, hIndex: 10, deskReject: 0.55, rr: 0.42, directAccept: 0.03 },
+    { id: 'jop', name: 'Journal of Polity', prestige: 1, hIndex: 9, deskReject: 0.52, rr: 0.45, directAccept: 0.03 },
+    { id: 'wp', name: 'World Polity Review', prestige: 2, hIndex: 8, deskReject: 0.42, rr: 0.53, directAccept: 0.05 },
+    { id: 'io', name: 'Global Organisation & Politics', prestige: 2, hIndex: 8, deskReject: 0.45, rr: 0.50, directAccept: 0.05 },
+    { id: 'cps', name: 'Comparative Polity Studies', prestige: 2, hIndex: 7, deskReject: 0.38, rr: 0.57, directAccept: 0.05 },
+    { id: 'bjps', name: 'British Polity Science Journal', prestige: 2, hIndex: 6, deskReject: 0.40, rr: 0.55, directAccept: 0.05 },
+    { id: 'ejpr', name: 'European Journal of Polity Research', prestige: 3, hIndex: 5, deskReject: 0.28, rr: 0.65, directAccept: 0.07 },
+    { id: 'jepp', name: 'Journal of European Policy & Politics', prestige: 3, hIndex: 5, deskReject: 0.30, rr: 0.63, directAccept: 0.07 },
+    { id: 'gov', name: 'Governing: Theory & Practice', prestige: 3, hIndex: 5, deskReject: 0.25, rr: 0.68, directAccept: 0.07 },
+    { id: 'polbeh', name: 'Electoral Behaviour & Polity', prestige: 3, hIndex: 4, deskReject: 0.22, rr: 0.70, directAccept: 0.08 },
+    { id: 'poq', name: 'Quarterly of Public Opinion Research', prestige: 4, hIndex: 4, deskReject: 0.15, rr: 0.75, directAccept: 0.10 },
+    { id: 'epsr', name: 'European Polity Science Review', prestige: 4, hIndex: 3, deskReject: 0.12, rr: 0.78, directAccept: 0.10 },
+    { id: 'polstud', name: 'Polity Studies Quarterly', prestige: 4, hIndex: 3, deskReject: 0.10, rr: 0.80, directAccept: 0.10 },
   ];
   const PHD_RR_MH = 2; // small boost for R&R (not a full reject)
+  const PHD_RR_RESUBMIT_ACCEPT_BASE = 0.5;
+  const PHD_RR_RESUBMIT_ACCEPT_PER_SIT_YEAR = 0.058;
+  const PHD_RR_RESUBMIT_REJECT_BASE = 0.12;
+  const PHD_RR_RESUBMIT_RR_AGAIN = 0.055;
+  const PHD_RR_REVISION_PROGRESS_PER_YEAR = 6;
+  const PHD_RR_FINAL_REJECT_STORIES = [
+    'The editor explained that the original three reviewers had all rotated off; the replacement panel read it like a new submission. Reviewer B loved it; Reviewer C did not.',
+    'After six rounds of review and a mis-tagged PDF, the file was closed. Reviewer 4 — on a brutal deadline — wrote only: "Still not persuasive."',
+    'A special issue changed curators mid-stream. The new editor said the fit was "no longer optimal." Your lit review had outlived the debate.',
+    'The desk cited "scope drift." Apparently the third robustness check looked too much like a new paper. You are free to try elsewhere.',
+    'An ethics check resurfaced a co-author affiliation from 2019. The journal paused, then declined. Bureaucracy beat theory.',
+    'The EiC retired. The interim desk ran a "fresh eyes" policy and re-opened competing submissions. Yours lost the horse race.',
+  ];
 
   function getPhdJournal(id) {
     return PHD_JOURNALS.find(j => j.id === id) || null;
+  }
+
+  function getPhdExtensionYears() {
+    if (!state.phd || state.phd.extensionYears == null) return 0;
+    return Math.max(0, state.phd.extensionYears);
+  }
+
+  /** Calendar cap for the PhD programme (base years + granted extensions). */
+  function getPhdMaxRound() {
+    return PHD_MAX_ROUNDS + getPhdExtensionYears();
+  }
+
+  /** When papers are short at deadline: extension (always) or leave — never auto-expel. */
+  function showPhdPaperShortfallMenu() {
+    state.resumeStep = 'phd_extension_choice';
+    state.currentScene = 'campus';
+    showGameStage('campus');
+    setStageTitle('PhD – Programme deadline');
+    const acc = state.phd.papersAccepted || 0;
+    const maxR = getPhdMaxRound();
+    showChoice(
+      'The clock on the current letter has run out, but you are not kicked out automatically.\n\nYou have ' +
+        acc +
+        ' accepted paper(s) on file; this storyline expects ' +
+        PHD_PAPERS_REQUIRED +
+        ' for the thesis portfolio. The graduate office sighs; your supervisor avoids eye contact.\n\nYou can always request an extension (it is granted here), or leave academia — with a confirmation step so misclicks do not end the run.',
+      [
+        {
+          id: 'extend',
+          title: 'Request a programme extension',
+          desc: 'Granted automatically: +1 year on the formal clock, one more round of the PhD menu, and a fresh chance at the pipeline.',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'leave',
+          title: 'Leave academia (ends game)',
+          desc: 'You will be asked to confirm. Seriously.',
+          effects: {},
+          btnVariant: 'leave-path',
+        },
+      ],
+      choice => {
+        if (choice.id === 'extend') {
+          state.phd.extensionYears = getPhdExtensionYears() + 1;
+          const newMax = getPhdMaxRound();
+          showOutcome(
+            'Extension granted. The paperwork was a PDF with one checkbox. You now have until the end of PhD Year ' +
+              newMax +
+              ' under the amended timeline — same rules, more runway.',
+            () => goToPhDRound(),
+            {},
+            'goToPhDRound'
+          );
+          return;
+        }
+        if (choice.id === 'leave') {
+          confirmLeaveAcademia({ kind: 'phd_shortfall_leave' });
+        }
+      },
+      'campus',
+      'phd_extension_choice'
+    );
   }
 
   function rollJournalDecision(journal, paper) {
@@ -438,11 +437,101 @@
     return 'accept';
   }
 
+  /** After at least one R&R and a resubmit: accept vs rare final reject vs occasional second R&R. Uses `rrPatienceBank` (full years revising before resubmit). */
+  function rollRrResubmitDecision(journal, paper) {
+    const bank = Math.min(5, paper.rrPatienceBank != null ? paper.rrPatienceBank : 0);
+    const progress = (paper.progress || 0) / 100;
+    const luck = (state.stats && state.stats.luck != null ? state.stats.luck : 50) / 100;
+    let pAccept = PHD_RR_RESUBMIT_ACCEPT_BASE + bank * PHD_RR_RESUBMIT_ACCEPT_PER_SIT_YEAR + progress * 0.1 + luck * 0.06;
+    let pReject = Math.max(
+      0.05,
+      PHD_RR_RESUBMIT_REJECT_BASE - bank * 0.007 - progress * 0.035 - luck * 0.018
+    );
+    let pRrAgain = PHD_RR_RESUBMIT_RR_AGAIN;
+    const sum = pAccept + pReject + pRrAgain;
+    pAccept /= sum;
+    pReject /= sum;
+    pRrAgain /= sum;
+    const r = Math.random();
+    if (r < pAccept) return 'accept';
+    if (r < pAccept + pReject) return 'reject_after_rr';
+    return 'rr';
+  }
+
   const PHD_ROUND_ACTIVITIES = [
     { id: 'workshop', title: 'Go to a workshop', desc: 'Half-day event. Someone presents a draft. You give feedback. Your draft is still at 30%.', effects: { intelligence: 6, network: 14, mentalHealth: -5, luck: 2 } },
     { id: 'seminar', title: 'Spend time on the internal seminar', desc: 'Present a work in progress or just attend. The usual crowd. Coffee and doubt.', effects: { intelligence: 4, network: 10, mentalHealth: -2, luck: 0 } },
+    { id: 'website', title: 'Perfect the personal website', desc: 'Notion → static site → back to Notion. ORCID badge aligned; headshot still from 2017. At least the contrast ratio is heroic.', effects: { intelligence: 3, network: 12, mentalHealth: -6, luck: 5 } },
     { id: 'procrastinate', title: 'Procrastinate (strategically)', desc: 'You tell yourself it\'s "reading" and "thinking." The guilt is real. So is the nap.', effects: { intelligence: -2, network: -4, mentalHealth: 6, luck: 0 } },
     { id: 'drink', title: 'Have a drink with colleagues', desc: 'Pub or department kitchen. Gossip, solidarity, and the occasional useful tip.', effects: { intelligence: 0, network: 16, mentalHealth: 4, luck: 4 } },
+  ];
+
+  /** One-shot PhD year spend: pick a co-author stereotype; advances the year like other side activities. */
+  const PHD_COAUTHOR_OPTIONS = [
+    {
+      id: 'etal',
+      title: 'The legendary "et al."',
+      desc: 'Nobody has met them. They appear on the PDF like a Greek chorus of competence.',
+      effects: { intelligence: 3, network: 8, mentalHealth: -5, luck: 1 },
+      outcome:
+        'You added "et al." and hoped the journal would assume a bustling lab. The managing editor replied asking for full names and ORCIDs. You invented three plausible humans and one who is definitely a postdoc from another building. Nobody checks. You sleep worse.',
+    },
+    {
+      id: 'supervisor_friend',
+      title: 'Your supervisor\'s friend from a 2009 workshop',
+      desc: 'They "had the original idea" after skimming your abstract on a train.',
+      effects: { intelligence: 1, network: 14, mentalHealth: -10, luck: -3 },
+      outcome:
+        'They join as middle author with a contribution described as "conceptual framing." Their framing is two emails and a wine emoji. Your supervisor says harmony matters. You say "yes" through your teeth. Citations, if any, will alphabetise you under them.',
+    },
+    {
+      id: 'llm',
+      title: 'ChatGPT as "methods consultant"',
+      desc: 'You list it nowhere, but it helped you sound confident about robustness checks.',
+      effects: { intelligence: 5, network: -6, mentalHealth: -8, luck: -6 },
+      outcome:
+        'You did not put it on the author line — you are not a monster. You did let it suggest a paragraph that now reads like a TED talk in a tuxedo. You spend a week de-TED-ing it. The guilt is educational. Your methods section is suspiciously polished and slightly soulless.',
+    },
+    {
+      id: 'vanished_postdoc',
+      title: 'A postdoc who ghosted after week one',
+      desc: 'Still on the Slack; last seen "will circle back Tuesday" in 2022.',
+      effects: { intelligence: 2, network: 4, mentalHealth: -12, luck: 2 },
+      outcome:
+        'You keep their name off the submission out of mercy and law. They resurface the day you defend with a LinkedIn congratulations and a request to "catch up about authorship norms." You mute the thread and age five years.',
+    },
+    {
+      id: 'histogram_ra',
+      title: 'The RA who made exactly one histogram',
+      desc: 'Fair: it was a very good histogram. Unfair: they now think they co-own the theory.',
+      effects: { intelligence: 4, network: 6, mentalHealth: -4, luck: 3 },
+      outcome:
+        'You negotiate authorship like a UN peace summit. Final deal: acknowledgements plus pizza. The histogram stays. The RA posts "first publication incoming" on Instagram. The histogram is cropped. You decide this is fine.',
+    },
+    {
+      id: 'alphabet',
+      title: 'Someone whose surname starts with "A"',
+      desc: 'Pure strategy for alphabetical author order. You are not proud. You are not not proud.',
+      effects: { intelligence: 0, network: 10, mentalHealth: -3, luck: 5 },
+      outcome:
+        'You are now second author on purpose. Reviewer 2 praises the "clear lead author vision" and you perform a tiny internal scream. On the plus side, your name is near the front on Google Scholar thumbnails. Capitalism and citation counts reward the petty. You lean in.',
+    },
+    {
+      id: 'yourself_past',
+      title: 'Past-you from the folder "FINAL_v7_really_FINAL"',
+      desc: 'Co-first author with present-you. Committee work counts as self-care.',
+      effects: { intelligence: 6, network: -2, mentalHealth: -6, luck: 0 },
+      outcome:
+        'You merge two incompatible voice tones into one manuscript that sounds like a committee wrote it alone at night. Past-you left comments like "TODO: fix later." Present-you writes "done lol" and means it ironically. The paper grows a third personality. It is stronger. You are tired.',
+    },
+    {
+      id: 'housecat',
+      title: 'The department cat (honorary)',
+      desc: 'Authorship is unethical; moral support in the acknowledgements is not.',
+      effects: { intelligence: -1, network: 12, mentalHealth: 8, luck: 6 },
+      outcome:
+        'You thank "Whiskers" for "editorial oversight" and immediately receive an email from compliance asking if animals were involved in human subjects research. You clarify. They clarify back. The cat naps through the entire correspondence. You feel judged and healed.',
+    },
   ];
 
   const PHD_SUBMIT_OPTIONS = [
@@ -468,6 +557,8 @@
   const POSTDOC_APP_MONEY_PER = 15;
   const POSTDOC_APP_MH_PER = -8;
   const POSTDOC_APP_MAX = 4;
+  /** Minimum projected mental health after hypothetically paying for the next app (was 15, i.e. needed MH ≥ 23 to apply once). */
+  const POSTDOC_APPLY_MIN_PROJECTED_MH = 0;
 
   // BA Year 1: Department Research Day (posters, short talks)
   const CONFERENCE_Y1 = [
@@ -687,80 +778,17 @@
     },
   ];
 
-  const FREE_TIME_OPTIONS = [
-    {
-      id: 'party',
-      title: 'Party',
-      desc: 'Go out. Meet people. Forget the reading for a night.',
-      effects: { intelligence: -4, network: 12, mentalHealth: 8, luck: 2, money: -10 },
-    },
-    {
-      id: 'drinks',
-      title: 'Drinks with coursemates',
-      desc: 'Pub or flat. You talk about the programme, then about everything else.',
-      effects: { intelligence: -2, network: 10, mentalHealth: 6, luck: 2, money: -8 },
-    },
-    {
-      id: 'mixer',
-      title: 'Department mixer',
-      desc: 'Wine and name tags. You show up, you mingle, you leave before the speeches.',
-      effects: { intelligence: 0, network: 12, mentalHealth: 4, luck: 2, money: -6 },
-    },
-    {
-      id: 'study-group',
-      title: 'Study group (with pizza)',
-      desc: 'You meet to go over the problem set. Half of it is actually studying.',
-      effects: { intelligence: 6, network: 8, mentalHealth: 2, luck: 0, money: -4 },
-    },
-    {
-      id: 'reading',
-      title: 'Extra reading',
-      desc: 'Stay in. Catch up on the reading list.',
-      effects: { intelligence: 12, network: -2, mentalHealth: -4, luck: 0, money: 0 },
-    },
-    {
-      id: 'library',
-      title: 'Library day',
-      desc: 'You camp in the quiet section. Books, laptop, and the same coffee twice.',
-      effects: { intelligence: 10, network: -4, mentalHealth: -2, luck: 0, money: -2 },
-    },
-    {
-      id: 'notes',
-      title: 'Rework your notes',
-      desc: 'Turn scribbles into something you can revise from. Boring but useful.',
-      effects: { intelligence: 8, network: 0, mentalHealth: -2, luck: 0, money: 0 },
-    },
-    {
-      id: 'student-job',
-      title: 'Student job',
-      desc: 'Work a few hours. Pays less than the bar, but you pick up skills and meet people from uni. (You’ll need it for workshops and travel.)',
-      effects: { intelligence: 4, network: 8, mentalHealth: -2, luck: 2, money: 12 },
-    },
-    {
-      id: 'bar-shift',
-      title: 'Bar shift',
-      desc: 'Someone\'s got to pour the drinks. Better pay, but your brain goes on standby.',
-      effects: { intelligence: -6, network: 6, mentalHealth: -4, luck: 2, money: 24 },
-    },
-    {
-      id: 'sleep',
-      title: 'Sleep',
-      desc: 'Just sleep. You need it.',
-      effects: { intelligence: 2, network: 0, mentalHealth: 14, luck: 0, money: 0 },
-    },
-    {
-      id: 'netflix',
-      title: 'Netflix and nothing',
-      desc: 'You switch off. No guilt. Well, a little guilt.',
-      effects: { intelligence: -2, network: 0, mentalHealth: 10, luck: 0, money: 0 },
-    },
-    {
-      id: 'walk',
-      title: 'Long walk',
-      desc: 'Fresh air, no screen. You come back feeling almost human.',
-      effects: { intelligence: 0, network: 0, mentalHealth: 12, luck: 2, money: 0 },
-    },
+  /** 6-way free-time allocator: % sums to 100; effects scale linearly (full row = these values). */
+  const FREETIME_ALLOC_ROWS = [
+    { id: 'ft-party', title: 'Going out & parties', desc: 'Nights out, concerts, “just one drink.”', perHundred: { intelligence: -4, network: 12, mentalHealth: 8, luck: 2, money: -10, hIndex: 0 }, avatar: 'dance' },
+    { id: 'ft-study', title: 'Deep study & library', desc: 'Quiet floors, highlighters, guilt.', perHundred: { intelligence: 14, network: -3, mentalHealth: -6, luck: 0, money: -2, hIndex: 0 }, avatar: 'study' },
+    { id: 'ft-work', title: 'Campus / student job', desc: 'Hours that pay a little and look “professional.”', perHundred: { intelligence: 4, network: 8, mentalHealth: -2, luck: 2, money: 12, hIndex: 0 }, avatar: 'work' },
+    { id: 'ft-rest', title: 'Sleep & recovery', desc: 'Naps, walks, no inbox.', perHundred: { intelligence: 2, network: 0, mentalHealth: 16, luck: 2, money: 0, hIndex: 0 }, avatar: 'rest' },
+    { id: 'ft-network', title: 'Networking & mixers', desc: 'Name tags, small talk, follow-ups.', perHundred: { intelligence: 0, network: 14, mentalHealth: 4, luck: 2, money: -6, hIndex: 0 }, avatar: 'dance' },
+    { id: 'ft-money', title: 'High-pay side gig', desc: 'Shifts that fund travel — and fry your brain.', perHundred: { intelligence: -6, network: 6, mentalHealth: -4, luck: 2, money: 24, hIndex: 0 }, avatar: 'money' },
   ];
+
+  const FREETIME_ALLOC_INITIAL = [20, 20, 20, 10, 10, 20];
 
   const THESIS_TOPICS = [
     {
@@ -827,22 +855,22 @@
     'Methods workshop: Causal inference',
     'Guest lecture assistance (Prof. Global)',
     'Thesis writing group, co-organiser',
-    'Conference attendance: ECPR General Conference',
+    'Conference attendance: Euro Consortium on Polity Research (general)',
     'Student rep, curriculum committee',
     'R and Stata training, self-directed',
   ];
 
   const CV_RANDOM_PHD = [
-    'Conference paper, APSA Annual Meeting',
+    'Conference paper, AmeriPol Society mega-meeting',
     'Invited talk, Comparative Politics Workshop (external)',
-    'Ad-hoc reviewer, Journal of Political Institutions',
+    'Ad-hoc reviewer, Journal of Polity Institutions',
     'Teaching: Introduction to Comparative Politics',
     'Co-organiser, PhD colloquium series',
     'Research stay, partner university (3 months)',
     'Fellowship: Early-career grant (foundation)',
-    'Panel chair, regional ISA conference',
+    'Panel chair, regional International Studies Forum',
     'Department seminar series, coordinator',
-    'Reviewer, Political Behavior (2 reports)',
+    'Reviewer, Electoral Behaviour & Polity (2 reports)',
   ];
 
   function cvSeededPick(arr, n, seed) {
@@ -861,7 +889,7 @@
 
   // ----- Game state -----
   let state = {
-    difficulty: null,
+    difficulty: 'medium',
     character: null,
     stats: null,
     step: 'character',
@@ -877,30 +905,138 @@
     currentScene: 'campus',
     hasKids: false,
     socializingCount: 0,
-    ba: {
-      year1Courses: [],
-      year2Courses: [],
-      thesisTopic: null,
-    },
-    ma: {
-      year1Courses: [],
-      year2Courses: [],
-      thesisTopic: null,
-    },
+    ba: { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null },
+    ma: { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null },
     phd: {
       round: 1,
       papers: [],
       nextPaperId: 1,
+      papersAccepted: 0,
+      sabbaticalUsedThisYear: false,
+      extensionYears: 0,
+      publicationLog: [],
     },
     conferences: [],
+    leaveConfirmRestore: null,
   };
+
+  const LEAVE_ACADEMIA_CONFIRM_PROMPTS = [
+    'Your ORCID will stand in the rain without an umbrella. Seriously leave?',
+    'The departmental coffee fund will miss your €2/year. Confirm exit?',
+    'Outside, "deadline" often means something humane. Inside, it means Tuesday. Still leaving?',
+    'Your citation count freezes where it is — like your face during mandatory methods talks. Sure?',
+    'Plot twist: you can still go back. Unless you confirm. Then the plot is just "LinkedIn."',
+    'The guild of perpetual students disowns you with one click. Still sure?',
+    'Are you fleeing — or strategically pivoting to "industry thought leadership"?',
+    'This ends the game. Not your trauma. But the game. Confirm?',
+    'The mascot of your alma mater sheds a single pixel tear. Final answer?',
+  ];
+
+  function restoreLeaveCancel(payload) {
+    if (!payload || !payload.kind) return;
+    switch (payload.kind) {
+      case 'ba_crossroads':
+        showBACrossroads(!!payload.eligibleMA);
+        break;
+      case 'ma_crossroads':
+        showMACrossroads();
+        break;
+      case 'ma_rejected':
+        showMARejectedChoice();
+        break;
+      case 'ma_apply_again':
+        showMAApplyAgainChoice();
+        break;
+      case 'after_phd':
+        showAfterPhDChoice();
+        break;
+      case 'phd_stuck':
+        showPhDApplicationChoice([]);
+        break;
+      case 'phd_reject_leave_offer':
+        showPhDRejectLeaveChoice();
+        break;
+      case 'phd_shortfall_leave':
+        showPhdPaperShortfallMenu();
+        break;
+      default:
+        break;
+    }
+  }
+
+  function confirmLeaveAcademia(restorePayload) {
+    state.leaveConfirmRestore = restorePayload;
+    const p = LEAVE_ACADEMIA_CONFIRM_PROMPTS[Math.floor(Math.random() * LEAVE_ACADEMIA_CONFIRM_PROMPTS.length)];
+    showChoice(
+      p,
+      [
+        {
+          id: 'cancel_leave',
+          title: 'No — misclick / cold feet',
+          desc: 'Return to the previous menu. I read "Leave academia" as "Lease more desk space."',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'confirm_leave',
+          title: 'Yes — end my run',
+          desc: 'Thanks for playing. Forward my mail to whoever enjoys ethics forms.',
+          effects: {},
+          btnVariant: 'leave-confirm',
+        },
+      ],
+      choice => {
+        const restore = state.leaveConfirmRestore;
+        state.leaveConfirmRestore = null;
+        if (choice.id === 'cancel_leave') restoreLeaveCancel(restore);
+        else if (restore && restore.kind === 'phd_shortfall_leave') triggerHeaven('phd_thrown_out');
+        else triggerHeaven();
+      },
+      'campus',
+      'leave_academia_confirm'
+    );
+  }
 
   function getCharacter() {
     return CHARACTERS.find(c => c.id === state.character) || null;
   }
 
+  function getBACourseIds() {
+    if (state.ba && state.ba.courses && state.ba.courses.length) return state.ba.courses;
+    const y1 = (state.ba && state.ba.year1Courses) || [];
+    const y2 = (state.ba && state.ba.year2Courses) || [];
+    return y1.concat(y2);
+  }
+
+  function getMACourseIds() {
+    if (state.ma && state.ma.courses && state.ma.courses.length) return state.ma.courses;
+    const y1 = (state.ma && state.ma.year1Courses) || [];
+    const y2 = (state.ma && state.ma.year2Courses) || [];
+    return y1.concat(y2);
+  }
+
+  function cloneStats(s) {
+    const o = {};
+    STAT_NAMES.forEach(k => { o[k] = s[k] != null ? s[k] : 0; });
+    return o;
+  }
+
+  function mergeLinearEffects(base, percents, rows) {
+    const out = cloneStats(base);
+    for (let i = 0; i < rows.length; i++) {
+      const p = (percents[i] || 0) / 100;
+      const ph = rows[i].perHundred;
+      STAT_NAMES.forEach(stat => {
+        const v = ph[stat];
+        if (v) out[stat] += p * v;
+      });
+    }
+    STAT_NAMES.forEach(stat => { out[stat] = clampStat(out[stat]); });
+    return out;
+  }
+
   function getDifficulty() {
-    return state.difficulty && DIFFICULTIES[state.difficulty] ? DIFFICULTIES[state.difficulty] : DIFFICULTIES.medium;
+    return DIFFICULTIES.medium;
   }
 
   function getVariance() {
@@ -956,6 +1092,87 @@
     { id: 'pub', title: 'Work at a pub', desc: 'You pull pints. You hear more about politics than you did in undergrad. Nobody asks for your h-index.', effects: { intelligence: -2, network: 12, mentalHealth: 8, luck: 6, money: 14 } },
   ];
 
+  const BA_EXCHANGE_PITCHES = [
+    { id: 'humble', title: 'Humble servant of science', desc: 'You promise "methodological cross-pollination." You mostly mean free snacks at welcome week.', effects: { intelligence: 2, mentalHealth: -1, network: 1 } },
+    { id: 'party', title: 'Ambassador of vibes', desc: 'You list "intercultural nightlife competencies." The coordinator blinks. You call it soft power.', effects: { mentalHealth: 3, network: 2, intelligence: -1, money: -2 } },
+    { id: 'budget', title: 'Spreadsheet samurai', desc: 'Your budget itemizes bread, bus tickets, and existential dread. They admire the honesty.', effects: { money: 1, luck: 2, mentalHealth: -1 } },
+    { id: 'lies', title: 'Fluent in Localish', desc: 'You claim conversational Localish. Your entire vocabulary is "two beers, please" — flawlessly declined.', effects: { luck: -1, intelligence: 2, network: 1 } },
+  ];
+
+  const MA_EXCHANGE_PITCHES = [
+    { id: 'grant', title: 'Grant-shaped poetry', desc: 'You describe the trip as "a reflexive intervention in mobility regimes." The jury nods as if they understood.', effects: { intelligence: 3, mentalHealth: -2, money: -3 } },
+    { id: 'network', title: 'Conference tourism, but honest', desc: 'You admit you want to meet people who cite people who cite you someday. Refreshing, in a capitalist way.', effects: { network: 3, luck: 1, mentalHealth: 1 } },
+    { id: 'escape', title: 'Strategic disappearance', desc: 'You frame it as "writing retreat abroad." Your laptop will mostly show Netflix. The muse works in mysterious codecs.', effects: { mentalHealth: 4, intelligence: -1, money: -2 } },
+    { id: 'branding', title: 'Personal brand on wheels', desc: 'You attach a headshot and a QR code to your CV. Someone calls it "bold." Nobody says "good."', effects: { network: 2, luck: -1, mentalHealth: -1 } },
+  ];
+
+  const BA_EXCHANGE_STORIES = {
+    humble: [
+      'You get placed in a town whose name has seventeen vowels. The international office calls it immersion. Google Maps calls it "are you sure?"',
+      'Your host university prints a welcome poster with someone else\'s face. You sign autographs anyway. Methodological rigor is knowing when to commit.',
+      'You spend a semester proving that "Erasmus" is Latin for paperwork. You still come home with one (1) souvenir mug and twelve (12) PDFs.',
+    ],
+    party: [
+      'Welcome week ends in a fountain. You title your reflection note "Hydropolitics of joy." Nobody reads it. You still feel clever.',
+      'You become class rep because you were the only one who showed up sober on Monday. Democracy is a fragile little thing.',
+      'You explain your research at a karaoke bar. The mic feedback counts as peer review.',
+    ],
+    budget: [
+      'You submit a budget in cents. The portal crashes. IT blames "unexpected realism" and waives a fee out of pity.',
+      'You couch-surf through three countries. Your ethics form says "homestay." Your spine says "no comment."',
+      'You meal-prep like you are defending a dissertation against inflation. You return with recipes and mild scurvy (kidding) (mostly).',
+    ],
+    lies: [
+      'They test your Localish. You answer in interpretive dance. They pass you for "creativity" and quietly add a language tutor to the budget.',
+      'Your roommate thinks you are a spy for the course catalogue. You lean in. Espionage is networking if you squint.',
+      'You mistranslate "office hours" as "party hours" once. Attendance triples. The chair asks for your syllabus.',
+    ],
+  };
+
+  const MA_EXCHANGE_STORIES = {
+    grant: [
+      'You are accepted to a partner lab that mostly studies how other labs write emails. You contribute a robust N of one.',
+      'Your mobility report is 40 pages. The actual trip is four days and one memorable misunderstanding about laundry tokens.',
+      'A reviewer later calls your chapter "derivative." You whisper "that was the luggage tag, actually."',
+    ],
+    network: [
+      'You collect business cards like Pokémon. Your wallet bulges. Your soul feels oddly light.',
+      'You meet someone who knows someone who might know your future advisor. You practice saying "small world" until it sounds sincere.',
+      'You attend seventeen mixers. You remember two names and one cheese. Academia.',
+    ],
+    escape: [
+      'You write 200 words and 2,000 browser tabs. The chapter is called "Field notes from the duvet."',
+      'The "writing retreat" is mostly you and a seagull debating who owns the croissant on the windowsill. You split it. Solidarity.',
+      'You return with a tan, a draft folder, and a new fear of group chats named after cities.',
+    ],
+    branding: [
+      'Someone scans your QR code. It leads to a 404. They assume it is conceptual art and invite you to a panel.',
+      'Your headshot is cropped aggressively. People think you are taller and more confident. You lean into the lie.',
+      'A mentor says "memorable." You choose to hear "marketable." Same industry.',
+    ],
+  };
+
+  const BA_EXCHANGE_CV = {
+    humble: 'Exchange semester (methodological croissants, administrative marathons).',
+    party: 'Mobility programme (soft power, hard floors, welcome-week hydropolitics).',
+    budget: 'Semester abroad (budget line items approved by pity).',
+    lies: 'Study abroad (Localish: conversational; interpretive dance: fluent).',
+  };
+
+  const MA_EXCHANGE_CV = {
+    grant: 'Research stay (mobility regimes thoroughly reflexed).',
+    network: 'International placement (business cards acquired; dignity negotiable).',
+    escape: 'Writing retreat abroad (field site: duvet; co-author: seagull).',
+    branding: 'Exchange (QR-coded CV; one conceptual 404).',
+  };
+
+  function pickExchangeStory(map, pitchId) {
+    const list = map[pitchId];
+    if (list && list.length) return list[Math.floor(Math.random() * list.length)];
+    const firstKey = Object.keys(map).find(k => map[k] && map[k].length);
+    return firstKey ? map[firstKey][Math.floor(Math.random() * map[firstKey].length)] : 'You went somewhere. You came back. Paperwork remained.';
+  }
+
   function showTransparency() {
     return getDifficulty().showTransparency;
   }
@@ -994,6 +1211,20 @@
     });
   }
 
+  /** Same scaling as applyEffects but no RNG (e.g. bundled course picks). */
+  function applyEffectsDeterministic(effects) {
+    const char = getCharacter();
+    if (!char || !state.stats) return;
+    const difficultyScale = getDifficulty().gainScale != null ? getDifficulty().gainScale : 1;
+    STAT_NAMES.forEach(stat => {
+      let delta = effects[stat] || 0;
+      const mult = delta >= 0 ? char.gainMult[stat] : char.lossMult[stat];
+      delta *= mult;
+      if (delta > 0) delta *= difficultyScale;
+      state.stats[stat] = clampStat(state.stats[stat] + delta);
+    });
+  }
+
   function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(el => el.classList.add('hidden'));
     const screen = document.getElementById(screenId);
@@ -1002,7 +1233,7 @@
     const showStats = screenId !== 'screen-difficulty' && screenId !== 'screen-character' && screenId !== 'screen-heaven';
     document.getElementById('stat-bars').classList.toggle('hidden', !showStats);
 
-    const showStage = screenId === 'screen-choice' || screenId === 'screen-outcome' || screenId === 'screen-sabbatical' || screenId === 'screen-bureaucracy' || screenId === 'screen-report-card';
+    const showStage = screenId === 'screen-choice' || screenId === 'screen-outcome' || screenId === 'screen-sabbatical' || screenId === 'screen-bureaucracy' || screenId === 'screen-report-card' || screenId === 'screen-course-pick' || screenId === 'screen-freetime-alloc';
     const stage = document.getElementById('game-stage');
     if (stage) stage.classList.toggle('hidden', !showStage);
     const pauseBtn = document.getElementById('pause-btn');
@@ -1021,7 +1252,8 @@
     switch (stat) {
       case 'money': return '$' + v;
       case 'intelligence': return (70 + Math.round(value * 0.6)) + ' IQ';
-      case 'network': return (50 + Math.round(value * 2.5)) + ' conn., ' + Math.round(value * 1.5) + ' fol.';
+      case 'network':
+        return (50 + Math.round(value * 2.5)) + '/' + Math.round(value * 1.5);
       case 'mentalHealth': return v + '/100';
       case 'luck': return v + '';
       case 'hIndex': return '' + Math.round(value * 0.2);
@@ -1029,14 +1261,19 @@
     }
   }
 
-  function updateStatBars() {
-    if (!state.stats) return;
+  function updateStatBarsFromStats(stats) {
+    if (!stats) return;
     STAT_NAMES.forEach(stat => {
       const fill = document.getElementById(`stat-${stat}`);
-      if (fill) fill.style.width = state.stats[stat] + '%';
+      if (fill) fill.style.width = stats[stat] + '%';
       const valueEl = document.getElementById(`stat-value-${stat}`);
-      if (valueEl) valueEl.textContent = formatStatValue(stat, state.stats[stat]);
+      if (valueEl) valueEl.textContent = formatStatValue(stat, stats[stat]);
     });
+  }
+
+  function updateStatBars() {
+    if (!state.stats) return;
+    updateStatBarsFromStats(state.stats);
   }
 
   const REPORT_CARD_GRADES = ['A', 'A-', 'B+', 'B', 'B-', 'B+', 'A-', 'B'];
@@ -1052,19 +1289,14 @@
     'Peer review (course)',
   ];
 
-  function showReportCard(year, isMA, courseIds, onContinue, effects) {
-    const prefix = isMA ? 'MA' : 'BA';
-    const courseList = isMA
-      ? (year === 1 ? MA_COURSES_Y1 : MA_COURSES_Y2)
-      : (year === 1 ? BA_COURSES_Y1 : BA_COURSES_Y2);
-    const courses = courseIds.map(id => courseList.find(c => c.id === id)).filter(Boolean);
+  function showProgramReportCard(degreePrefix, isMA, courseIds, onContinue, effects) {
+    const pool = isMA ? MA_COURSES_POOL : BA_COURSES_POOL;
+    const courses = courseIds.map(id => pool.find(c => c.id === id) || getCourseById(id)).filter(Boolean);
     const grades = courses.map(() => REPORT_CARD_GRADES[Math.floor(Math.random() * REPORT_CARD_GRADES.length)]);
 
-    document.getElementById('report-card-title').textContent = prefix + ' Year ' + year + ' – Grades';
-    const introText = year === 1
-      ? 'The envelope arrives. You tear it open. Your heart sinks. Or soars. Anyway — the registrar has spoken. Here\'s your report card.'
-      : 'Another year, another envelope. You\'ve learned to open these with one eye closed. Your transcript, as promised.';
-    document.getElementById('report-card-intro').textContent = introText;
+    document.getElementById('report-card-title').textContent = degreePrefix + ' – Programme transcript';
+    document.getElementById('report-card-intro').textContent =
+      'One envelope for the whole programme. Four courses you actually took — plus the usual mystery grades from things nobody remembers signing up for.';
 
     const inner = document.getElementById('report-card-inner');
     inner.innerHTML = '';
@@ -1100,8 +1332,12 @@
   }
 
   function getCourseTitleById(id, list) {
-    const c = list.find(x => x.id === id);
-    return c ? (c.title || id) : id;
+    if (list) {
+      const c = list.find(x => x.id === id);
+      if (c) return c.title || id;
+    }
+    const g = getCourseById(id);
+    return g ? (g.title || id) : id;
   }
 
   function recordConference(phase, yearOrRound, role, eventName) {
@@ -1122,28 +1358,28 @@
     const sections = [];
 
     const educationLines = [];
-    if (state.ba && (state.ba.year1Courses.length > 0 || state.ba.year2Courses.length > 0 || state.ba.thesisTopic)) {
-      const y1 = state.ba.year1Courses.map(id => getCourseTitleById(id, BA_COURSES_Y1)).join('; ');
-      const y2 = state.ba.year2Courses.map(id => getCourseTitleById(id, BA_COURSES_Y2)).join('; ');
+    const baIds = getBACourseIds();
+    if (state.ba && (baIds.length > 0 || state.ba.thesisTopic)) {
+      const courseLine = baIds.map(id => getCourseTitleById(id, null)).join('; ');
       let ba = 'BA Political Science, ' + uniBA;
-      if (y1) ba += '. Year 1: ' + y1;
-      if (y2) ba += '. Year 2: ' + y2;
+      if (courseLine) ba += '. Courses: ' + courseLine;
       if (state.ba.thesisTopic) {
         const t = THESIS_TOPICS.find(x => x.id === state.ba.thesisTopic);
         ba += '. Thesis: ' + (t ? t.title : state.ba.thesisTopic);
       }
+      if (state.ba.exchangeBlurb) ba += ' ' + state.ba.exchangeBlurb;
       educationLines.push(ba);
     }
-    if (state.ma && (state.ma.year1Courses.length > 0 || state.ma.year2Courses.length > 0 || state.ma.thesisTopic)) {
-      const y1 = state.ma.year1Courses.map(id => getCourseTitleById(id, MA_COURSES_Y1)).join('; ');
-      const y2 = state.ma.year2Courses.map(id => getCourseTitleById(id, MA_COURSES_Y2)).join('; ');
+    const maIds = getMACourseIds();
+    if (state.ma && (maIds.length > 0 || state.ma.thesisTopic)) {
+      const courseLine = maIds.map(id => getCourseTitleById(id, null)).join('; ');
       let ma = 'MA Political Science / IR, ' + uniMA;
-      if (y1) ma += '. Year 1: ' + y1;
-      if (y2) ma += '. Year 2: ' + y2;
+      if (courseLine) ma += '. Courses: ' + courseLine;
       if (state.ma.thesisTopic) {
         const t = MA_THESIS_TOPICS.find(x => x.id === state.ma.thesisTopic);
         ma += '. Thesis: ' + (t ? t.title : state.ma.thesisTopic);
       }
+      if (state.ma.exchangeBlurb) ma += ' ' + state.ma.exchangeBlurb;
       educationLines.push(ma);
     }
     if (state.phase === 'phd' && state.phd) {
@@ -1153,7 +1389,7 @@
     }
     if (educationLines.length > 0) sections.push({ title: 'Education', lines: educationLines });
 
-    const cvSeed = ((state.cvName || '').length + (state.character || '').length) * 31 + (state.phd ? state.phd.round : 0) * 7 + (state.ba ? state.ba.year1Courses.length + state.ba.year2Courses.length : 0);
+    const cvSeed = ((state.cvName || '').length + (state.character || '').length) * 31 + (state.phd ? state.phd.round : 0) * 7 + (state.ba ? getBACourseIds().length : 0);
 
     if (state.ba) {
       const baExtras = cvSeededPick(CV_RANDOM_BA, 2 + (cvSeed % 2), cvSeed);
@@ -1174,22 +1410,69 @@
       });
       sections.push({ title: 'Conference participation', lines: confLines });
     }
+
+    const pubSectionLines = [];
+    if (state.phd) {
+      const log = state.phd.publicationLog || [];
+      log.forEach(pub => {
+        const t = String(pub.title || 'Untitled').replace(/</g, '');
+        const j = String(pub.journal || 'Journal').replace(/</g, '');
+        pubSectionLines.push('«' + t + '», ' + j + ' (accepted / in print).');
+      });
+      const nAcc = state.phd.papersAccepted || 0;
+      if (nAcc > log.length && nAcc > 0) {
+        pubSectionLines.push('Additional peer-reviewed acceptance(s) from earlier in this save: ' + (nAcc - log.length) + ' (titles not on file).');
+      }
+      const pipeline = [];
+      (state.phd.papers || []).forEach(p => {
+        const t = String(p.title || 'Untitled').replace(/</g, '');
+        if (p.status === 'rr_revision') {
+          const j = getPhdJournal(p.submittedTo);
+          const jn = j ? j.name : 'journal';
+          pipeline.push('«' + t + '» — Revise & resubmit at ' + jn + '.');
+        } else if (p.status === 'under_review') {
+          const j = getPhdJournal(p.submittedTo);
+          const jn = j ? j.name : 'journal';
+          if (p.rrFromRevision) {
+            pipeline.push('«' + t + '» — Revised manuscript under review at ' + jn + '.');
+          } else {
+            pipeline.push('«' + t + '» — Under review at ' + jn + '.');
+          }
+        }
+      });
+      if (pipeline.length > 0) {
+        if (pubSectionLines.length > 0) pubSectionLines.push('');
+        pubSectionLines.push('Under review & R&R:');
+        pipeline.forEach(line => pubSectionLines.push(line));
+      }
+    }
     if (state.stats && state.stats.hIndex > 0) {
-      sections.push({ title: 'Publications', lines: ['H-index: ' + Math.round(state.stats.hIndex * 0.2)] });
+      if (pubSectionLines.length > 0) pubSectionLines.push('');
+      pubSectionLines.push('H-index (game proxy): ' + Math.round(state.stats.hIndex * 0.2));
+    }
+    if (pubSectionLines.length > 0) {
+      sections.push({ title: 'Publications', lines: pubSectionLines });
     }
 
     return { name: displayName, current, sections };
   }
 
+  function escapeCvHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
   function buildCVContent() {
     const data = getCVData();
     const lines = [];
-    lines.push('<div class="cv-name">' + data.name + '</div>');
-    lines.push('Current: ' + data.current);
+    lines.push('<div class="cv-name">' + escapeCvHtml(data.name) + '</div>');
+    lines.push('Current: ' + escapeCvHtml(data.current));
     lines.push('');
     data.sections.forEach(sec => {
-      lines.push('<div class="cv-section">' + sec.title.replace(/&/g, '&amp;') + '</div>');
-      sec.lines.forEach(l => { lines.push('<div class="cv-line">' + l + '</div>'); });
+      lines.push('<div class="cv-section">' + escapeCvHtml(sec.title) + '</div>');
+      sec.lines.forEach(l => { lines.push('<div class="cv-line">' + escapeCvHtml(l) + '</div>'); });
     });
     return lines.join('\n');
   }
@@ -1330,7 +1613,7 @@
     const sceneEl = document.getElementById('scene-' + (scene || 'campus'));
     if (sceneEl) sceneEl.classList.remove('hidden');
     char.style.left = '50%';
-    char.classList.remove('anim-walk', 'anim-walk-in', 'anim-stress', 'anim-happy');
+    char.classList.remove('anim-walk', 'anim-walk-in', 'anim-stress', 'anim-happy', 'anim-dance');
     char.classList.add('anim-idle');
     applyCharacterAvatar(char, state.character);
   }
@@ -1343,7 +1626,7 @@
   function playCharacterAnim(animName, durationMs, thenIdle) {
     const char = document.getElementById('game-stage-character');
     if (!char) return;
-    char.classList.remove('anim-idle', 'anim-walk', 'anim-walk-in', 'anim-stress', 'anim-happy');
+    char.classList.remove('anim-idle', 'anim-walk', 'anim-walk-in', 'anim-stress', 'anim-happy', 'anim-dance');
     char.classList.add('anim-' + animName);
     const d = durationMs != null ? durationMs : (animName === 'stress' || animName === 'happy' ? 600 : 900);
     setTimeout(() => {
@@ -1355,27 +1638,11 @@
     }, d);
   }
 
-  // ----- Difficulty select -----
+  // ----- Start menu (name + play; difficulty fixed to medium) -----
   function renderDifficultySelect() {
     setStageTitle('Political Science Academy');
-    const list = document.getElementById('difficulty-list');
-    list.innerHTML = '';
-
-    Object.entries(DIFFICULTIES).forEach(([id, d]) => {
-      const btn = document.createElement('button');
-      btn.className = 'choice-btn';
-      btn.innerHTML = `
-        <span class="choice-title">${d.name}</span>
-        <span class="choice-desc">${d.description}</span>
-      `;
-      btn.addEventListener('click', () => selectDifficulty(id));
-      list.appendChild(btn);
-    });
-
     const startBlock = document.getElementById('start-block');
-    const difficultyBlock = document.getElementById('difficulty-block');
     if (startBlock) startBlock.classList.remove('hidden');
-    if (difficultyBlock) difficultyBlock.classList.add('hidden');
     updatePlayButtonState();
     showScreen('screen-difficulty');
   }
@@ -1386,13 +1653,6 @@
     if (!playBtn || !nameInput) return;
     const hasName = (nameInput.value || '').trim().length > 0;
     playBtn.disabled = !hasName;
-  }
-
-  function selectDifficulty(id) {
-    const nameInput = document.getElementById('player-name-input');
-    state.playerName = (nameInput ? (nameInput.value || '').trim() : '') || 'Academic';
-    state.difficulty = id;
-    renderCharacterSelect();
   }
 
   function getCharacterAvatarSvg(avatar) {
@@ -1428,36 +1688,316 @@
     showScreen('screen-character');
   }
 
-  function runBAYear1CourseSelection() {
-    setStageTitle('BA – Year 1');
-    tryTwoCourseChoice(
-      'Choose two courses for your first year. Pick your first, then your second.',
-      'Now pick your second course.',
-      BA_COURSES_Y1,
-      'year1_courses_1',
-      'lecture-seminar',
-      (choice1, choice2) => {
-        state.ba.year1Courses.push(choice1.id);
-        state.ba.year1Courses.push(choice2.id);
-        applyEffects(choice1.effects);
-        applyEffects(choice2.effects);
-        state.currentScene = getLectureSceneForCourse(choice2.id);
-        showGameStage(state.currentScene);
-        const mergedEffects = {};
-        STAT_NAMES.forEach(s => { mergedEffects[s] = (choice1.effects[s] || 0) + (choice2.effects[s] || 0); });
-        showReportCard(1, false, [choice1.id, choice2.id], () => goToFreeTime(1), mergedEffects);
-      }
-    );
-  }
-
   function selectCharacter(id) {
     state.character = id;
     const char = getCharacter();
     state.stats = { ...char.start };
     state.universityBA = FAKE_UNIVERSITIES[Math.floor(Math.random() * FAKE_UNIVERSITIES.length)];
-    state.step = 'ba_year1_courses';
+    state.step = 'ba_courses';
+    state.ba.courses = [];
+    state.ba.year1Courses = [];
+    state.ba.year2Courses = [];
+    state.ba.emailsCompleted = false;
+    state.ba.exchangeBlurb = null;
     updateStatBars();
-    runBAYear1CourseSelection();
+    runBACoursePick();
+  }
+
+  function adjustFreetimePercent(percents, i, delta) {
+    const n = percents.length;
+    if (delta === 10) {
+      const sum = percents.reduce((a, b) => a + b, 0);
+      if (sum < 100) {
+        percents[i] += 10;
+        return true;
+      }
+      for (let j = 0; j < n; j++) {
+        if (j === i) continue;
+        if (percents[j] >= 10) {
+          percents[j] -= 10;
+          percents[i] += 10;
+          return true;
+        }
+      }
+      return false;
+    }
+    if (delta === -10) {
+      if (percents[i] < 10) return false;
+      percents[i] -= 10;
+      for (let j = 0; j < n; j++) {
+        if (j === i) continue;
+        if (percents[j] + 10 <= 100) {
+          percents[j] += 10;
+          return true;
+        }
+      }
+      percents[i] += 10;
+      return false;
+    }
+    return false;
+  }
+
+  function dominantFreetimeAvatarHint(percents, rows) {
+    let max = -1;
+    let idx = 0;
+    for (let i = 0; i < percents.length; i++) {
+      if (percents[i] > max) {
+        max = percents[i];
+        idx = i;
+      }
+    }
+    return (rows[idx] && rows[idx].avatar) || 'rest';
+  }
+
+  function playFreeTimeAvatar(avatarHint) {
+    const map = {
+      dance: () => playCharacterAnim('dance', 1100, true),
+      study: () => playCharacterAnim('stress', 550, true),
+      work: () => playCharacterAnim('walk', 700, true),
+      rest: () => playCharacterAnim('happy', 650, true),
+      network: () => playCharacterAnim('dance', 900, true),
+      money: () => playCharacterAnim('walk', 650, true),
+    };
+    (map[avatarHint] || map.rest)();
+  }
+
+  function goToFreeTimeAllocation(phaseKey) {
+    const isMA = phaseKey === 'ma';
+    const prefix = isMA ? 'MA' : 'BA';
+    state.phase = isMA ? 'ma' : 'ba';
+    state.resumeStep = isMA ? 'ma_freetime_alloc' : 'ba_freetime_alloc';
+    const baseSnapshot = cloneStats(state.stats);
+    const percents = FREETIME_ALLOC_INITIAL.slice();
+    const rows = FREETIME_ALLOC_ROWS;
+    setStageTitle(`${prefix} – Time outside class`);
+    state.currentScene = 'campus';
+    showGameStage('campus');
+
+    const promptEl = document.getElementById('freetime-alloc-prompt');
+    const rowsEl = document.getElementById('freetime-alloc-rows');
+    const sumEl = document.getElementById('freetime-alloc-sum');
+    const confirmBtn = document.getElementById('freetime-alloc-confirm');
+    if (!promptEl || !rowsEl || !sumEl || !confirmBtn) {
+      const fallback = () => (isMA ? goToEmailsMAProgram() : goToEmailsBAProgram());
+      showOutcome('Free time UI missing — refresh the page.', fallback, {}, null);
+      return;
+    }
+    promptEl.textContent = 'Slice your free time across the degree (must total 100%). Stats update live — watch your avatar react.';
+
+    let lastAvatarHint = null;
+
+    function sumP() {
+      return percents.reduce((a, b) => a + b, 0);
+    }
+
+    function refresh() {
+      const sum = sumP();
+      sumEl.textContent = `Allocated: ${sum}% / 100%`;
+      confirmBtn.disabled = sum !== 100;
+      const preview = mergeLinearEffects(baseSnapshot, percents, rows);
+      updateStatBarsFromStats(preview);
+      const hint = dominantFreetimeAvatarHint(percents, rows);
+      if (hint !== lastAvatarHint) {
+        lastAvatarHint = hint;
+        playFreeTimeAvatar(hint);
+      }
+    }
+
+    rowsEl.innerHTML = '';
+    rows.forEach((row, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'freetime-alloc-row';
+      wrap.innerHTML = `
+        <div class="freetime-alloc-label">
+          <span class="freetime-alloc-title">${row.title}</span>
+          <span class="freetime-alloc-desc">${row.desc}</span>
+        </div>
+        <div class="freetime-alloc-controls">
+          <button type="button" class="btn freetime-minus" data-idx="${i}">−</button>
+          <span class="freetime-pct" id="freetime-pct-${i}">0%</span>
+          <button type="button" class="btn freetime-plus" data-idx="${i}">+</button>
+        </div>`;
+      rowsEl.appendChild(wrap);
+    });
+
+    function updatePctLabels() {
+      rows.forEach((_, i) => {
+        const el = document.getElementById('freetime-pct-' + i);
+        if (el) el.textContent = percents[i] + '%';
+      });
+    }
+
+    rowsEl.querySelectorAll('.freetime-plus').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.getAttribute('data-idx'), 10);
+        if (adjustFreetimePercent(percents, i, 10)) {
+          updatePctLabels();
+          refresh();
+        }
+      });
+    });
+    rowsEl.querySelectorAll('.freetime-minus').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.getAttribute('data-idx'), 10);
+        if (adjustFreetimePercent(percents, i, -10)) {
+          updatePctLabels();
+          refresh();
+        }
+      });
+    });
+
+    updatePctLabels();
+    refresh();
+
+    const nextAfterFreetime = () => (isMA ? goToEmailsMAProgram() : goToEmailsBAProgram());
+    confirmBtn.onclick = () => {
+      if (sumP() !== 100) return;
+      Object.assign(state.stats, mergeLinearEffects(baseSnapshot, percents, rows));
+      const socialPct = percents[0] + percents[4];
+      if (socialPct >= 55) state.socializingCount += 2;
+      else if (socialPct >= 25) state.socializingCount += 1;
+      updateStatBars();
+      const resumeTok = isMA ? 'goToEmailsMAProgram' : 'goToEmailsBAProgram';
+      const shouldGetKids = state.socializingCount >= KIDS_THRESHOLD && !state.hasKids && Math.random() < getKidsChance();
+      if (shouldGetKids) {
+        state.hasKids = true;
+        applyEffects(KIDS_EFFECTS);
+        showOutcome(
+          'You went hard on nights out and mixers. One thing led to another. You have kids now. (They’re great. You’re also very tired.)',
+          nextAfterFreetime,
+          { effects: KIDS_EFFECTS },
+          resumeTok
+        );
+      } else {
+        const opts = {};
+        if (showTransparency() && state.socializingCount >= KIDS_THRESHOLD && !state.hasKids) {
+          opts.kidsChancePercent = Math.round(getKidsChance() * 100);
+        }
+        showOutcome(
+          isMA ? 'Time budget set. Your inbox is waiting.' : 'Time budget set. Your inbox is waiting.',
+          nextAfterFreetime,
+          opts,
+          resumeTok
+        );
+      }
+    };
+    showScreen('screen-freetime-alloc');
+  }
+
+  function runBACoursePick() {
+    state.resumeStep = 'ba_courses_pick';
+    state.step = 'ba_courses';
+    setStageTitle('BA – Pick 4 courses');
+    state.currentScene = 'lecture-seminar';
+    showGameStage('lecture-seminar');
+    const pool = BA_COURSES_POOL.slice();
+    const selected = new Set();
+    const listEl = document.getElementById('course-pick-list');
+    const promptEl = document.getElementById('course-pick-prompt');
+    const confirmBtn = document.getElementById('course-pick-confirm');
+    const countEl = document.getElementById('course-pick-count');
+    if (!listEl || !promptEl || !confirmBtn || !countEl) {
+      showOutcome('Course picker UI missing — refresh the page.', () => restart(), {}, null);
+      return;
+    }
+    promptEl.textContent = `Pick exactly ${PROGRAM_PICK_COUNT} courses from the pool (click to toggle).`;
+    function syncCount() {
+      countEl.textContent = `Selected ${selected.size} / ${PROGRAM_PICK_COUNT}`;
+      confirmBtn.disabled = selected.size !== PROGRAM_PICK_COUNT;
+    }
+    function render() {
+      listEl.innerHTML = '';
+      pool.forEach((c) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn course-pick-btn' + (selected.has(c.id) ? ' course-pick-selected' : '');
+        btn.innerHTML = '<span class="choice-title">' + c.title + '</span>\t<span class="choice-desc">' + c.desc + '</span>';
+        btn.addEventListener('click', () => {
+          if (selected.has(c.id)) selected.delete(c.id);
+          else if (selected.size < PROGRAM_PICK_COUNT) selected.add(c.id);
+          render();
+          syncCount();
+        });
+        listEl.appendChild(btn);
+      });
+      syncCount();
+    }
+    render();
+    confirmBtn.onclick = () => {
+      if (selected.size !== PROGRAM_PICK_COUNT) return;
+      const ids = [...selected];
+      state.ba.courses = ids;
+      state.ba.year1Courses = [];
+      state.ba.year2Courses = [];
+      const merged = {};
+      STAT_NAMES.forEach(s => { merged[s] = 0; });
+      ids.forEach(id => {
+        const co = pool.find(x => x.id === id);
+        if (co) STAT_NAMES.forEach(s => { merged[s] += (co.effects[s] || 0); });
+      });
+      applyEffectsDeterministic(merged);
+      state.currentScene = getLectureSceneForCourse(ids[ids.length - 1]);
+      showGameStage(state.currentScene);
+      showProgramReportCard('BA', false, ids, () => goToFreeTimeAllocation('ba'), merged);
+    };
+    showScreen('screen-course-pick');
+  }
+
+  function runMACoursePick() {
+    state.resumeStep = 'ma_courses_pick';
+    state.step = 'ma_courses';
+    state.phase = 'ma';
+    setStageTitle('MA – Pick 4 courses');
+    state.currentScene = 'lecture-seminar';
+    showGameStage('lecture-seminar');
+    const pool = MA_COURSES_POOL.slice();
+    const selected = new Set();
+    const listEl = document.getElementById('course-pick-list');
+    const promptEl = document.getElementById('course-pick-prompt');
+    const confirmBtn = document.getElementById('course-pick-confirm');
+    const countEl = document.getElementById('course-pick-count');
+    if (!listEl || !promptEl || !confirmBtn || !countEl) return;
+    promptEl.textContent = `Pick exactly ${PROGRAM_PICK_COUNT} graduate courses (click to toggle).`;
+    function syncCount() {
+      countEl.textContent = `Selected ${selected.size} / ${PROGRAM_PICK_COUNT}`;
+      confirmBtn.disabled = selected.size !== PROGRAM_PICK_COUNT;
+    }
+    function render() {
+      listEl.innerHTML = '';
+      pool.forEach((c) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn course-pick-btn' + (selected.has(c.id) ? ' course-pick-selected' : '');
+        btn.innerHTML = '<span class="choice-title">' + c.title + '</span>\t<span class="choice-desc">' + c.desc + '</span>';
+        btn.addEventListener('click', () => {
+          if (selected.has(c.id)) selected.delete(c.id);
+          else if (selected.size < PROGRAM_PICK_COUNT) selected.add(c.id);
+          render();
+          syncCount();
+        });
+        listEl.appendChild(btn);
+      });
+      syncCount();
+    }
+    render();
+    confirmBtn.onclick = () => {
+      if (selected.size !== PROGRAM_PICK_COUNT) return;
+      const ids = [...selected];
+      state.ma.courses = ids;
+      state.ma.year1Courses = [];
+      state.ma.year2Courses = [];
+      const merged = {};
+      STAT_NAMES.forEach(s => { merged[s] = 0; });
+      ids.forEach(id => {
+        const co = pool.find(x => x.id === id);
+        if (co) STAT_NAMES.forEach(s => { merged[s] += (co.effects[s] || 0); });
+      });
+      applyEffectsDeterministic(merged);
+      state.currentScene = getLectureSceneForCourse(ids[ids.length - 1]);
+      showGameStage(state.currentScene);
+      showProgramReportCard('MA', true, ids, () => goToFreeTimeAllocation('ma'), merged);
+    };
+    showScreen('screen-course-pick');
   }
 
   function goToFreeTime(year) {
@@ -1466,29 +2006,46 @@
     const label = year === 1 ? 'Year 1' : 'Year 2';
     setStageTitle(`${prefix} – ${label} (free time)`);
     const resumeStep = isMA ? `ma_year${year}_freetime` : (year === 1 ? 'year1_freetime' : 'year2_freetime');
-    const resumeToken = isMA ? `goToMAConference_${year}` : (year === 1 ? 'goToConference_1' : 'goToConference_2');
+    const resumeToken = isMA ? 'goToEmailsMAProgram' : (year === 1 ? 'goToEmails_1' : 'goToEmails_2');
     showChoice(
       year === 1
         ? 'How do you spend your free time this year?'
         : 'How do you spend your free time in your second year?',
-      FREE_TIME_OPTIONS,
+      FREETIME_ALLOC_ROWS.map(r => ({
+        id: r.id,
+        title: r.title,
+        desc: r.desc,
+        effects: {
+          intelligence: Math.round(r.perHundred.intelligence / 10),
+          network: Math.round(r.perHundred.network / 10),
+          mentalHealth: Math.round(r.perHundred.mentalHealth / 10),
+          luck: Math.round(r.perHundred.luck / 10),
+          money: Math.round(r.perHundred.money / 10),
+          hIndex: Math.round((r.perHundred.hIndex || 0) / 10),
+        },
+      })),
       choice => {
         applyEffects(choice.effects);
-        if (['reading', 'library', 'notes'].includes(choice.id)) {
+        if (choice.id === 'ft-study') {
           state.currentScene = 'library';
           showGameStage('library');
-        } else if (['party', 'drinks', 'mixer', 'study-group', 'bar-shift'].includes(choice.id)) {
+        } else if (choice.id === 'ft-party' || choice.id === 'ft-network' || choice.id === 'ft-money') {
           state.currentScene = 'party';
           showGameStage('party');
+        } else {
+          state.currentScene = 'campus';
+          showGameStage('campus');
         }
-        if (SOCIAL_FREE_TIME_IDS.includes(choice.id)) {
+        if (choice.id === 'ft-party' || choice.id === 'ft-network') {
           state.socializingCount += 1;
         }
-        const nextStep = year === 1 ? () => goToConference(1) : () => goToConference(2);
+        const nextStep = isMA
+          ? () => goToEmailsMAProgram()
+          : (year === 1 ? () => goToEmails(1) : () => goToEmails(2));
         let normalMessage = year === 1
-          ? 'Good call. Department Research Day is coming up.'
-          : 'Year 2 done. Thesis Showcase next, then the thesis.';
-        if (isMA) normalMessage = year === 1 ? 'Good call. The Graduate Colloquium is coming up.' : 'Year 2 done. Thesis Workshop next, then the MA thesis.';
+          ? 'Good call. Email never sleeps — neither does the programme.'
+          : 'Year done. Onward.';
+        if (isMA) normalMessage = year === 1 ? 'Good call. Your inbox is already judging you.' : 'Year done. Thesis next.';
         const shouldGetKids = state.socializingCount >= KIDS_THRESHOLD && !state.hasKids && Math.random() < getKidsChance();
         if (shouldGetKids) {
           state.hasKids = true;
@@ -1512,19 +2069,38 @@
     );
   }
 
-  function goToConference(year) {
+  /** Department-style meetings (abstract, present, etc.). BA/MA skip this; PhD uses `goToPhDConference` instead. */
+  function goToConference(year, programSingle) {
     const isMA = state.phase === 'ma';
     const isY1 = year === 1;
-    const options = isMA ? (isY1 ? CONFERENCE_MA_Y1 : CONFERENCE_MA_Y2) : (isY1 ? CONFERENCE_Y1 : CONFERENCE_Y2);
+    const options = programSingle
+      ? (isMA ? CONFERENCE_MA_Y2 : CONFERENCE_Y2)
+      : (isMA ? (isY1 ? CONFERENCE_MA_Y1 : CONFERENCE_MA_Y2) : (isY1 ? CONFERENCE_Y1 : CONFERENCE_Y2));
     const skipOption = options.find(o => o.id === 'skip');
     const cost = isMA ? CONFERENCE_MA_COST : CONFERENCE_COST;
     const prefix = isMA ? 'MA' : 'BA';
-    setStageTitle(isMA ? `${prefix} – Year ${year} (colloquium)` : `${prefix} – Year ${year} (research day)`);
-    const confResumeStep = isMA ? `ma_year${year}_conference` : (isY1 ? 'year1_conference' : 'year2_conference');
-    const confResumeToken = isMA ? `goToMAEmails_${year}` : (isY1 ? 'goToEmails_1' : 'goToEmails_2');
-    const prompt = isMA
-      ? (isY1 ? 'The Graduate Colloquium is coming up. Present, attend, discussant/chair, or skip? (Going costs money.)' : 'The Thesis Workshop is coming up. Present, attend, discussant/chair, or skip? (Going costs money.)')
-      : (isY1 ? 'Department Research Day is coming up. Present, attend, help out, or skip? (Going costs money.)' : 'The Thesis Showcase is coming up. Present, attend, help out, or skip? (Going costs money.)');
+    const afterEmails = programSingle
+      ? (isMA ? () => goToEmailsMAProgram() : () => goToEmailsBAProgram())
+      : () => goToEmails(year);
+    const recordYear = programSingle ? 1 : year;
+    if (programSingle) {
+      setStageTitle(isMA ? `${prefix} – Showcase (colloquium)` : `${prefix} – Showcase (research day)`);
+    } else {
+      setStageTitle(isMA ? `${prefix} – Year ${year} (colloquium)` : `${prefix} – Year ${year} (research day)`);
+    }
+    const confResumeStep = programSingle
+      ? (isMA ? 'ma_conference' : 'ba_conference')
+      : (isMA ? `ma_year${year}_conference` : (isY1 ? 'year1_conference' : 'year2_conference'));
+    const confResumeToken = programSingle
+      ? (isMA ? 'goToEmailsMAProgram' : 'goToEmailsBAProgram')
+      : (isMA ? `goToMAEmails_${year}` : (isY1 ? 'goToEmails_1' : 'goToEmails_2'));
+    const prompt = programSingle
+      ? (isMA
+        ? 'Thesis workshop block: present, attend, discussant/chair, or skip? (Going costs money.)'
+        : 'Thesis showcase: present, attend, help out, or skip? (Going costs money.)')
+      : (isMA
+        ? (isY1 ? 'The Graduate Colloquium is coming up. Present, attend, discussant/chair, or skip? (Going costs money.)' : 'The Thesis Workshop is coming up. Present, attend, discussant/chair, or skip? (Going costs money.)')
+        : (isY1 ? 'Department Research Day is coming up. Present, attend, help out, or skip? (Going costs money.)' : 'The Thesis Showcase is coming up. Present, attend, help out, or skip? (Going costs money.)'));
 
     function showMainChoice(opts) {
       showChoice(
@@ -1545,7 +2121,7 @@
               fundingChoice => {
                 if (fundingChoice.id === 'stay') {
                   applyEffects(skipOption.effects);
-                  showOutcome("You couldn't afford the trip. You stayed home.", () => goToEmails(year), { effects: skipOption.effects }, confResumeToken);
+                  showOutcome("You couldn't afford the trip. You stayed home.", afterEmails, { effects: skipOption.effects }, confResumeToken);
                   return;
                 }
                 const source = Math.random() < 0.5 ? 'department' : 'foundation';
@@ -1581,11 +2157,11 @@
                 if (granted) {
                   applyEffects(choice.effects);
                   const eventName = isY1 ? 'Graduate Colloquium' : 'Thesis Workshop';
-                  recordConference('ma', year, choice.id, eventName);
-                  showOutcome(msg + " You went. " + (isY1 ? "Event over. Your inbox is still there." : "Event over. So is your inbox. Then: the MA thesis."), () => goToEmails(year), { effects: choice.effects }, confResumeToken);
+                  recordConference('ma', recordYear, choice.id, eventName);
+                  showOutcome(msg + " You went. " + (isY1 ? "Event over. Your inbox is still there." : "Event over. So is your inbox. Then: the MA thesis."), afterEmails, { effects: choice.effects }, confResumeToken);
                 } else {
                   applyEffects(skipOption.effects);
-                  showOutcome(msg + " You stayed home.", () => goToEmails(year), { effects: skipOption.effects }, confResumeToken);
+                  showOutcome(msg + " You stayed home.", afterEmails, { effects: skipOption.effects }, confResumeToken);
                 }
               },
               'conference',
@@ -1596,7 +2172,7 @@
           applyEffects(skipOption.effects);
           showOutcome(
             'You couldn’t afford the trip — registration, travel, or both. You stayed home. (Money matters. Student jobs help.)',
-            () => goToEmails(year),
+            afterEmails,
             { effects: skipOption.effects },
             confResumeToken
           );
@@ -1606,7 +2182,7 @@
         if (goingCostsMoney) state.stats.money = clampStat(state.stats.money - cost);
         const eventNameBA = isY1 ? 'Department Research Day' : 'Thesis Showcase';
         const eventNameMA = isY1 ? 'Graduate Colloquium' : 'Thesis Workshop';
-        recordConference(isMA ? 'ma' : 'ba', year, choice.id, isMA ? eventNameMA : eventNameBA);
+        recordConference(isMA ? 'ma' : 'ba', recordYear, choice.id, isMA ? eventNameMA : eventNameBA);
         let message = isMA ? (isY1 ? 'Colloquium over. Your inbox is still there.' : 'Workshop over. So is your inbox. Then: the MA thesis.') : (isY1 ? 'Research Day over. Your inbox, meanwhile, is not.' : 'Showcase over. So is your inbox. Then: the thesis.');
         let outcomeEffects = choice.effects;
         if (choice.serviceNoBenefit && Math.random() < CONFERENCE_SHIRK_CHANCE) {
@@ -1618,7 +2194,7 @@
         }
         showOutcome(
           message,
-          () => goToEmails(year),
+          afterEmails,
           { effects: outcomeEffects },
           confResumeToken
         );
@@ -1672,8 +2248,6 @@
     state.currentScene = 'conference';
     showGameStage('conference');
     setStageTitle('PhD – Conferences');
-    const resumeToken = 'goToPhDRound';
-    const skipEffects = { intelligence: 6, network: -10, mentalHealth: 8, luck: 0 };
 
     showChoice(
       'First: submit an abstract? (If accepted, you can Present at any conference you attend.)',
@@ -1691,7 +2265,7 @@
               "Your abstract was rejected. You can still attend, discussant, or chair at conferences you choose.",
               () => showPhDConferenceSelect(canPresent),
               {},
-              resumeToken
+              PHD_CONFERENCE_OUTCOME_RESUME
             );
             return;
           }
@@ -1740,8 +2314,8 @@
       confirmBtn.onclick = () => {
         const list = four.filter(c => selected.has(c.id));
         if (list.length === 0) {
-          applyEffects(skipEffects);
-          showOutcome('You skipped the conference season. Back to the grind.', () => { advancePhdYear(); goToPhDRound(); }, { effects: skipEffects }, resumeToken);
+          applyEffects(PHD_CONFERENCE_SKIP_EFFECTS);
+          showOutcome('You skipped the conference season. Back to the grind.', () => { advancePhdYear(); goToPhDRound(); }, { effects: PHD_CONFERENCE_SKIP_EFFECTS }, PHD_CONFERENCE_OUTCOME_RESUME);
           return;
         }
         const cost = totalCost();
@@ -1758,7 +2332,7 @@
               const granted = Math.random() < 0.5;
               const msg = granted ? "Funding granted. You're going." : "Funding denied. Back to the list.";
               if (granted) state.stats.money = clampStat((state.stats.money || 0) + cost);
-              showOutcome(msg, () => granted ? doRolesForConferences(list, canPresent) : showPhDConferenceSelect(canPresent), {}, resumeToken);
+              showOutcome(msg, () => granted ? doRolesForConferences(list, canPresent) : showPhDConferenceSelect(canPresent), {}, PHD_CONFERENCE_OUTCOME_RESUME);
             },
             'conference',
             'phd_conference'
@@ -1824,28 +2398,82 @@
     next();
   }
 
-  const EMAILS_PER_SESSION = 2;
+  const EMAILS_PER_SESSION = 1;
 
-  function goToEmails(year) {
-    const isMA = state.phase === 'ma';
-    const prefix = isMA ? 'MA' : 'BA';
-    setStageTitle(prefix + ' – Year ' + year + ' (inbox)');
-    const emailResumeStep = isMA ? 'ma_year' + year + '_emails' : (year === 1 ? 'year1_emails' : 'year2_emails');
-    const nextStep = isMA
-      ? (year === 1 ? () => goToMAYear2Courses() : () => goToMAThesis())
-      : (year === 1 ? () => runBureaucracyGame(() => goToYear2Courses()) : () => goToThesis());
-    const outcomeMsg = isMA
-      ? (year === 1 ? 'Inbox (mostly) handled. Year 2 courses next.' : 'You did what you could. Now: the MA thesis.')
-      : (year === 1 ? 'Inbox (mostly) handled. Then: admin week. The department wants forms.' : 'You did what you could. Now: the thesis.');
-    const nextToken = isMA ? (year === 1 ? 'goToMAYear2Courses' : 'goToMAThesis') : (year === 1 ? 'runBureaucracy' : 'goToThesis');
-
-    const phase = state.phase || 'ba';
+  function goToEmailsCore(prefix, emailResumeStep, nextStep, nextToken, outcomeMsg) {
+    setStageTitle(prefix + ' – Inbox');
+    const phase = prefix === 'MA' ? 'ma' : 'ba';
+    state.phase = phase;
     const pool = EMAIL_POOL.filter(e => e.phase === 'both' || e.phase === phase).slice();
     const emails = [];
     for (let i = 0; i < Math.min(EMAILS_PER_SESSION, pool.length); i++) {
       emails.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
     }
     showEmailRound(emails, 0, nextStep, nextToken, outcomeMsg, emailResumeStep);
+  }
+
+  function goToEmailsBAProgram() {
+    if (state.ba.emailsCompleted) {
+      runBureaucracyGame(() => goToThesis());
+      return;
+    }
+    const afterInbox = () => {
+      state.ba.emailsCompleted = true;
+      runBureaucracyGame(() => goToThesis());
+    };
+    goToEmailsCore(
+      'BA',
+      'ba_emails',
+      afterInbox,
+      'runBureaucracyThesis',
+      'One email handled. Then: admin week. The department wants forms.'
+    );
+  }
+
+  function goToEmailsMAProgram() {
+    if (state.ma.emailsCompleted) {
+      goToMAThesis();
+      return;
+    }
+    const afterInbox = () => {
+      state.ma.emailsCompleted = true;
+      goToMAThesis();
+    };
+    goToEmailsCore(
+      'MA',
+      'ma_emails',
+      afterInbox,
+      'goToMAThesis',
+      'One email handled. Now: the MA thesis.'
+    );
+  }
+
+  function goToEmails(year) {
+    const isMA = state.phase === 'ma';
+    const prefix = isMA ? 'MA' : 'BA';
+    setStageTitle(prefix + ' – Year ' + year + ' (inbox)');
+    const emailResumeStep = isMA ? 'ma_year' + year + '_emails' : (year === 1 ? 'year1_emails' : 'year2_emails');
+    const rawNext = isMA
+      ? () => goToMAThesis()
+      : (year === 1 ? () => runBureaucracyGame(() => goToThesis()) : () => goToThesis());
+    if (!isMA && state.ba.emailsCompleted) {
+      rawNext();
+      return;
+    }
+    if (isMA && state.ma.emailsCompleted) {
+      rawNext();
+      return;
+    }
+    const nextStep = () => {
+      if (isMA) state.ma.emailsCompleted = true;
+      else state.ba.emailsCompleted = true;
+      rawNext();
+    };
+    const outcomeMsg = isMA
+      ? 'One email handled. Now: the MA thesis.'
+      : (year === 1 ? 'One email handled. Then: admin week. The department wants forms.' : 'One email handled. Now: the thesis.');
+    const nextToken = isMA ? 'goToMAThesis' : (year === 1 ? 'runBureaucracyThesis' : 'goToThesis');
+    goToEmailsCore(prefix, emailResumeStep, nextStep, nextToken, outcomeMsg);
   }
 
   function showEmailRound(emails, index, nextStep, nextToken, outcomeMsg, emailResumeStep) {
@@ -1885,11 +2513,86 @@
     );
   }
 
+  function bureaucracyDrawSignature(formBox, offsetX, offsetY) {
+    const w = formBox.clientWidth || 180;
+    const h = formBox.clientHeight || 140;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'bureaucracy-signature-canvas';
+    canvas.width = w;
+    canvas.height = h;
+    const pad = 10;
+    let x = typeof offsetX === 'number' ? offsetX : w * 0.55;
+    let y = typeof offsetY === 'number' ? offsetY : h * 0.62;
+    x = Math.max(pad, Math.min(w - pad, x));
+    y = Math.max(pad, Math.min(h - pad, y));
+    const ctx = canvas.getContext('2d');
+    const seed = Math.random() * 1000;
+    ctx.strokeStyle = 'rgba(12, 28, 55, 0.88)';
+    ctx.lineWidth = 1.35;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    const steps = 38 + Math.floor(Math.random() * 18);
+    let cx = x - 32 + Math.random() * 10;
+    let cy = y - 8 + Math.random() * 12;
+    ctx.moveTo(cx, cy);
+    for (let i = 0; i < steps; i++) {
+      const t = i * 0.32 + seed;
+      cx += Math.sin(t * 1.9) * 4.2 + 2.4 + Math.random() * 1.2;
+      cy += Math.cos(t * 2.2) * 2.8 + (Math.random() - 0.45) * 2;
+      ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(30, 55, 100, 0.4)';
+    ctx.lineWidth = 0.9;
+    let x2 = x - 18 + Math.random() * 6;
+    let y2 = y + 14 + Math.random() * 8;
+    ctx.moveTo(x2, y2);
+    for (let j = 0; j < 16; j++) {
+      x2 += 3.5 + Math.random() * 2.5;
+      y2 += (Math.random() - 0.5) * 5;
+      ctx.lineTo(x2, y2);
+    }
+    ctx.stroke();
+    formBox.appendChild(canvas);
+  }
+
+  function bureaucracyShowStamp(formBox) {
+    const word = BUREAUCRACY_STAMP_WORDS[Math.floor(Math.random() * BUREAUCRACY_STAMP_WORDS.length)];
+    const rot = (-20 + Math.random() * 18).toFixed(1);
+    const outer = document.createElement('div');
+    outer.className = 'bureaucracy-stamp-hit';
+    const face = document.createElement('div');
+    face.className = 'bureaucracy-stamp-face';
+    face.style.transform = 'rotate(' + rot + 'deg)';
+    face.textContent = word;
+    outer.appendChild(face);
+    formBox.appendChild(outer);
+  }
+
+  function bureaucracySetInstructionBanner(targetColor) {
+    const el = document.getElementById('bureaucracy-instruction');
+    if (!el) return;
+    const label = BUREAUCRACY_COLOR_LABEL[targetColor] || targetColor;
+    const hex = BUREAUCRACY_COLOR_HEX[targetColor] || '#fff';
+    el.innerHTML =
+      'This round: sign only when a <strong class="bureaucracy-target-highlight" style="color:' +
+      hex +
+      '">' +
+      label +
+      '</strong> form appears. Any other colour — hands off.';
+  }
+
   function runBureaucracyGame(onComplete) {
-    state.resumeStep = 'year1_bureaucracy';
+    state.resumeStep = 'ba_bureaucracy';
     setStageTitle('Admin week');
     document.getElementById('bureaucracy-game').classList.remove('hidden');
-    document.getElementById('bureaucracy-instruction').textContent = 'Sign only the BLUE form when it appears. Don\'t click red, green, or yellow. Speed depends on difficulty.';
+    const instructionEl = document.getElementById('bureaucracy-instruction');
+    if (instructionEl) {
+      instructionEl.textContent =
+        'Press Start. Each round, only click the form that matches the colour in the banner — if a different colour appears, do not click.';
+    }
     document.getElementById('bureaucracy-feedback').textContent = '';
     document.getElementById('bureaucracy-form-area').innerHTML = '';
     document.getElementById('bureaucracy-score').textContent = '';
@@ -1911,7 +2614,7 @@
 
     function updateScore() {
       const strikes = wrongCount + missedCount;
-      scoreEl.textContent = 'Signed: ' + signedCount + ' / ' + BUREAUCRACY_BLUE_SIGNS_NEEDED + '  —  Wrong: ' + wrongCount + '  Missed: ' + missedCount + '  (' + strikes + ' / ' + BUREAUCRACY_STRIKES_MAX + ')';
+      scoreEl.textContent = 'Signed: ' + signedCount + ' / ' + BUREAUCRACY_SIGNS_NEEDED + '  —  Wrong: ' + wrongCount + '  Missed: ' + missedCount + '  (' + strikes + ' / ' + BUREAUCRACY_STRIKES_MAX + ')';
     }
 
     function endGame(won) {
@@ -1962,37 +2665,64 @@
       feedbackEl.textContent = '';
       updateScore();
 
+      const targetColor = BUREAUCRACY_FORM_COLORS[Math.floor(Math.random() * BUREAUCRACY_FORM_COLORS.length)];
+      bureaucracySetInstructionBanner(targetColor);
+
       const color = BUREAUCRACY_FORM_COLORS[Math.floor(Math.random() * BUREAUCRACY_FORM_COLORS.length)];
-      const isBlue = color === 'blue';
+      const isCorrect = color === targetColor;
+      const targetLabel = BUREAUCRACY_COLOR_LABEL[targetColor] || targetColor;
 
       const formBox = document.createElement('div');
       formBox.className = 'bureaucracy-form-box bureaucracy-form-' + color;
       formBox.textContent = BUREAUCRACY_FORM_NAMES[Math.floor(Math.random() * BUREAUCRACY_FORM_NAMES.length)];
       formBox.dataset.color = color;
+      formBox.dataset.target = targetColor;
 
-      const handleClick = function () {
+      function finishRound(next) {
         if (formTimeoutId) clearTimeout(formTimeoutId);
         formTimeoutId = null;
-        formBox.remove();
-        if (isBlue) {
-          signedCount++;
+        if (formBox.parentNode) formBox.remove();
+        next();
+      }
+
+      const handleClick = function (ev) {
+        if (formBox.dataset.locked === '1') return;
+        formBox.dataset.locked = '1';
+        if (formTimeoutId) clearTimeout(formTimeoutId);
+        formTimeoutId = null;
+        const ox = ev.offsetX != null ? ev.offsetX : undefined;
+        const oy = ev.offsetY != null ? ev.offsetY : undefined;
+
+        if (isCorrect) {
+          bureaucracyDrawSignature(formBox, ox, oy);
           feedbackEl.textContent = 'Signed!';
           feedbackEl.style.color = 'var(--good)';
-          if (signedCount >= BUREAUCRACY_BLUE_SIGNS_NEEDED) {
-            endGame(true);
-          } else {
-            setTimeout(showNextForm, formPauseMs);
-          }
+          setTimeout(function () {
+            signedCount++;
+            finishRound(function () {
+              updateScore();
+              if (signedCount >= BUREAUCRACY_SIGNS_NEEDED) {
+                endGame(true);
+              } else {
+                setTimeout(showNextForm, formPauseMs);
+              }
+            });
+          }, 260);
         } else {
+          bureaucracyShowStamp(formBox);
           wrongCount++;
-          feedbackEl.textContent = 'Wrong form! Only sign the blue one.';
+          feedbackEl.textContent = 'Wrong form — only ' + targetLabel + ' was authorised this round.';
           feedbackEl.style.color = 'var(--bad)';
           updateScore();
-          if (wrongCount + missedCount >= BUREAUCRACY_STRIKES_MAX) {
-            offerRestart();
-          } else {
-            setTimeout(showNextForm, formPauseMs);
-          }
+          setTimeout(function () {
+            finishRound(function () {
+              if (wrongCount + missedCount >= BUREAUCRACY_STRIKES_MAX) {
+                offerRestart();
+              } else {
+                setTimeout(showNextForm, formPauseMs);
+              }
+            });
+          }, 420);
         }
       };
 
@@ -2001,11 +2731,11 @@
 
       formTimeoutId = setTimeout(function () {
         formTimeoutId = null;
-        if (!formBox.parentNode) return;
+        if (!formBox.parentNode || formBox.dataset.locked === '1') return;
         formBox.remove();
-        if (isBlue) {
+        if (isCorrect) {
           missedCount++;
-          feedbackEl.textContent = 'You missed the blue form!';
+          feedbackEl.textContent = 'You missed the ' + targetLabel + ' form!';
           feedbackEl.style.color = 'var(--warn)';
           updateScore();
           if (wrongCount + missedCount >= BUREAUCRACY_STRIKES_MAX) {
@@ -2029,26 +2759,7 @@
   }
 
   function goToYear2Courses() {
-    state.step = 'ba_year2_courses';
-    setStageTitle('BA – Year 2');
-    tryTwoCourseChoice(
-      'Choose two courses for Year 2. Pick your first, then your second.',
-      'Now pick your second course.',
-      BA_COURSES_Y2,
-      'year2_courses_1',
-      'lecture-seminar',
-      (choice1, choice2) => {
-        state.ba.year2Courses.push(choice1.id);
-        state.ba.year2Courses.push(choice2.id);
-        applyEffects(choice1.effects);
-        applyEffects(choice2.effects);
-        state.currentScene = getLectureSceneForCourse(choice2.id);
-        showGameStage(state.currentScene);
-        const mergedEffectsY2 = {};
-        STAT_NAMES.forEach(s => { mergedEffectsY2[s] = (choice1.effects[s] || 0) + (choice2.effects[s] || 0); });
-        showReportCard(2, false, [choice1.id, choice2.id], () => goToFreeTime(2), mergedEffectsY2);
-      }
-    );
+    goToThesis();
   }
 
   function goToThesis() {
@@ -2076,30 +2787,86 @@
     );
   }
 
+  function showBAExchangeApplication() {
+    setStageTitle('BA – Exchange application');
+    showChoice(
+      'The form asks for "cultural curiosity." How do you answer in practice?',
+      BA_EXCHANGE_PITCHES,
+      choice => {
+        applyEffects(choice.effects);
+        const msg = pickExchangeStory(BA_EXCHANGE_STORIES, choice.id);
+        state.ba.exchangeBlurb = BA_EXCHANGE_CV[choice.id] || BA_EXCHANGE_CV.humble;
+        showOutcome(
+          msg + ' You close the tab. The bigger question remains.',
+          () => {
+            const th = getMAThreshold();
+            showBACrossroads(state.stats.intelligence >= th.int && state.stats.mentalHealth >= th.mh);
+          },
+          { effects: choice.effects },
+          'showBACrossroads'
+        );
+      },
+      'campus',
+      'ba_exchange'
+    );
+  }
+
+  function showMAExchangeApplication() {
+    setStageTitle('MA – Exchange application');
+    showChoice(
+      'The partner university wants "learning outcomes." Translation: why should we let you roam?',
+      MA_EXCHANGE_PITCHES,
+      choice => {
+        applyEffects(choice.effects);
+        const msg = pickExchangeStory(MA_EXCHANGE_STORIES, choice.id);
+        state.ma.exchangeBlurb = MA_EXCHANGE_CV[choice.id] || MA_EXCHANGE_CV.grant;
+        showOutcome(
+          msg + ' You update your CV while the microwave screams.',
+          () => showMACrossroads(),
+          { effects: choice.effects },
+          'showMACrossroads'
+        );
+      },
+      'campus',
+      'ma_exchange'
+    );
+  }
+
   function showBACrossroads(eligibleMA) {
     setStageTitle('BA – What next?');
     const choices = [
       {
-        id: 'leave',
-        title: 'Leave academia',
-        desc: 'Get a job. Sleep. Have a life. (You have a feeling something good awaits.)',
-        effects: {},
-      },
-      {
         id: 'ma',
         title: 'Apply for the MA',
         desc: eligibleMA
-          ? 'You meet the bar. Time to see if they take you.'
-          : 'It’s a long shot. But you could try.',
+          ? 'You clear the bar. Whether the bar clears you is another committee.'
+          : 'Long shot. You are applying on vibes, footnotes, and one decent seminar paper.',
         effects: {},
+        btnVariant: 'primary-path',
+      },
+      {
+        id: 'exchange',
+        title: 'Apply for a semester abroad',
+        desc: 'Mobility paperwork: the only genre where "learning agreement" is a thriller.',
+        effects: {},
+        btnVariant: 'secondary-path',
+      },
+      {
+        id: 'leave',
+        title: 'Leave academia (ends game)',
+        desc: 'Real weekends. Salaries with commas. Friends in grad school will supply horror stories for decades.',
+        effects: {},
+        btnVariant: 'leave-path',
       },
     ];
     showChoice(
-      'What do you do?',
+      'What do you do? — Main path first; leaving ends the whole run.',
       choices,
       choice => {
         if (choice.id === 'leave') {
-          triggerHeaven();
+          confirmLeaveAcademia({ kind: 'ba_crossroads', eligibleMA });
+        } else if (choice.id === 'exchange') {
+          showBAExchangeApplication();
         } else {
           const acceptChance = getMAAcceptChance(eligibleMA);
           const gotIn = Math.random() < acceptChance;
@@ -2149,12 +2916,24 @@
     showChoice(
       'What do you do?',
       [
-        { id: 'sit_out', title: 'Sit out a year', desc: 'Take a year. Do something. Apply again next cycle.', effects: {} },
-        { id: 'leave', title: 'Leave to heaven', desc: 'Enough. Corporate life awaits.', effects: {} },
+        {
+          id: 'sit_out',
+          title: 'Sit out a year',
+          desc: 'Take a year. Do something. Apply again next cycle.',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'leave',
+          title: 'Leave to heaven (ends game)',
+          desc: 'Enough. Corporate life awaits.',
+          effects: {},
+          btnVariant: 'leave-path',
+        },
       ],
       sitChoice => {
         if (sitChoice.id === 'leave') {
-          triggerHeaven();
+          confirmLeaveAcademia({ kind: 'ma_rejected' });
           return;
         }
         showMASitOutYear();
@@ -2200,11 +2979,23 @@
     showChoice(
       'Next cycle. Apply for the MA again?',
       [
-        { id: 'apply', title: 'Apply again', desc: 'Your stats have changed. Maybe this time.', effects: {} },
-        { id: 'leave', title: 'Leave to heaven', desc: 'You\'ve had enough of rejection letters.', effects: {} },
+        {
+          id: 'apply',
+          title: 'Apply again',
+          desc: 'Your stats have changed. Maybe this time.',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'leave',
+          title: 'Leave to heaven (ends game)',
+          desc: 'You\'ve had enough of rejection letters.',
+          effects: {},
+          btnVariant: 'leave-path',
+        },
       ],
       againChoice => {
-        if (againChoice.id === 'leave') triggerHeaven();
+        if (againChoice.id === 'leave') confirmLeaveAcademia({ kind: 'ma_apply_again' });
         else showBACrossroads(passedNow);
       },
       'campus',
@@ -2214,51 +3005,14 @@
 
   function startMA() {
     state.phase = 'ma';
-    state.ma = { year1Courses: [], year2Courses: [], thesisTopic: null };
-    state.step = 'ma_year1_courses';
-    state.resumeStep = 'ma_year1_courses_1';
-    setStageTitle('MA – Year 1');
-    tryTwoCourseChoice(
-      'Choose two courses for your first year of the MA. Pick your first, then your second.',
-      'Now pick your second course.',
-      MA_COURSES_Y1,
-      'ma_year1_courses_1',
-      'lecture-seminar',
-      (choice1, choice2) => {
-        state.ma.year1Courses.push(choice1.id);
-        state.ma.year1Courses.push(choice2.id);
-        applyEffects(choice1.effects);
-        applyEffects(choice2.effects);
-        state.currentScene = getLectureSceneForCourse(choice2.id);
-        showGameStage(state.currentScene);
-        const merged = {};
-        STAT_NAMES.forEach(s => { merged[s] = (choice1.effects[s] || 0) + (choice2.effects[s] || 0); });
-        showReportCard(1, true, [choice1.id, choice2.id], () => goToFreeTime(1), merged);
-      }
-    );
+    state.ma = { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null };
+    state.step = 'ma_courses';
+    state.resumeStep = 'ma_courses_pick';
+    runMACoursePick();
   }
 
   function goToMAYear2Courses() {
-    state.step = 'ma_year2_courses';
-    setStageTitle('MA – Year 2');
-    tryTwoCourseChoice(
-      'Choose two courses for Year 2 of the MA. Pick your first, then your second.',
-      'Now pick your second course.',
-      MA_COURSES_Y2,
-      'ma_year2_courses_1',
-      'lecture-seminar',
-      (choice1, choice2) => {
-        state.ma.year2Courses.push(choice1.id);
-        state.ma.year2Courses.push(choice2.id);
-        applyEffects(choice1.effects);
-        applyEffects(choice2.effects);
-        state.currentScene = getLectureSceneForCourse(choice2.id);
-        showGameStage(state.currentScene);
-        const merged = {};
-        STAT_NAMES.forEach(s => { merged[s] = (choice1.effects[s] || 0) + (choice2.effects[s] || 0); });
-        showReportCard(2, true, [choice1.id, choice2.id], () => goToFreeTime(2), merged);
-      }
-    );
+    goToMAThesis();
   }
 
   function goToMAThesis() {
@@ -2284,11 +3038,11 @@
 
   function startPhD(programName) {
     state.phase = 'phd';
-    state.phd = { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0 };
+    state.phd = { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0, sabbaticalUsedThisYear: false, extensionYears: 0, publicationLog: [] };
     if (programName) state.phdProgram = programName;
     const msg = programName
-      ? "You got into " + programName + ". PhD life begins. You'll work on paper projects — start new ones, drop ones that aren't progressing. Watch out: sometimes someone publishes the same idea first, or a draft gets stolen."
-      : "You got in. PhD life begins. You'll work on paper projects — start new ones, drop ones that aren't progressing. Watch out: sometimes someone publishes the same idea first, or a draft gets stolen.";
+      ? "You got into " + programName + ". PhD life begins. You'll work on paper projects — start new ones, drop ones that aren't progressing. Rarely, a draft is lost to a scoop or archival mishap — at most one per year, and the year-end summary names it if it happens."
+      : "You got in. PhD life begins. You'll work on paper projects — start new ones, drop ones that aren't progressing. Rarely, a draft is lost to a scoop or archival mishap — at most one per year, and the year-end summary names it if it happens.";
     showOutcome(msg, () => goToPhDRound(), {}, 'goToPhDRound');
   }
 
@@ -2343,13 +3097,31 @@
         showChoice(
           "You can't afford any applications right now (need €" + PHD_APP_MONEY_PER + " and enough mental health), or no programmes are unlocked.",
           [
-            { id: 'leave', title: 'Leave academia', desc: 'Enough. Heaven awaits.', effects: {} },
-            { id: 'rest', title: 'Take a break', desc: 'Step back and recover. +' + PHD_APP_REST_MH + ' mental health.', effects: { mentalHealth: PHD_APP_REST_MH } },
-            { id: 'bike', title: 'Work as a bike courier', desc: 'Earn money and get some fresh air. +€ per delivery, +' + BIKE_COURIER_MH_BONUS + ' mental health.', effects: {} },
+            {
+              id: 'rest',
+              title: 'Take a break',
+              desc: 'Step back and recover. +' + PHD_APP_REST_MH + ' mental health.',
+              effects: { mentalHealth: PHD_APP_REST_MH },
+              btnVariant: 'primary-path',
+            },
+            {
+              id: 'bike',
+              title: 'Work as a bike courier',
+              desc: 'Three-lane vertical run: dodge traffic, tweak speed for pay rate, earn € and fresh air (+' + BIKE_COURIER_MH_BONUS + ' mental health).',
+              effects: {},
+              btnVariant: 'secondary-path',
+            },
+            {
+              id: 'leave',
+              title: 'Leave academia (ends game)',
+              desc: 'Enough. Heaven awaits.',
+              effects: {},
+              btnVariant: 'leave-path',
+            },
           ],
           choice => {
             if (choice.id === 'leave') {
-              triggerHeaven();
+              confirmLeaveAcademia({ kind: 'phd_stuck' });
             } else if (choice.id === 'rest') {
               applyEffects({ mentalHealth: PHD_APP_REST_MH });
               showOutcome('You took a break and feel a bit better. Back to the application pile.', () => showPhDApplicationChoice([]), { mentalHealth: PHD_APP_REST_MH }, 'phd_application');
@@ -2358,7 +3130,7 @@
             }
           },
           'campus',
-          'ma_crossroads'
+          'phd_application'
         );
         return;
       }
@@ -2386,6 +3158,35 @@
       },
       'campus',
       'phd_application'
+    );
+  }
+
+  function showPhDRejectLeaveChoice() {
+    state.resumeStep = 'phd_reject_leave_choice';
+    showChoice(
+      'What do you do?',
+      [
+        {
+          id: 'retry',
+          title: 'Try again next cycle',
+          desc: 'Apply again. Your mental health has recovered a little.',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'leave',
+          title: 'Leave academia (ends game)',
+          desc: 'Enough. Heaven awaits.',
+          effects: {},
+          btnVariant: 'leave-path',
+        },
+      ],
+      c => {
+        if (c.id === 'leave') confirmLeaveAcademia({ kind: 'phd_reject_leave_offer' });
+        else startPhDApplication();
+      },
+      'campus',
+      'phd_reject_leave_choice'
     );
   }
 
@@ -2419,19 +3220,7 @@
       "No offers. You applied to: " + programList + ". The rejection letters were generic. You can take a year to recover and try again, or leave academia.",
       () => {
         applyEffects({ mentalHealth: 8, money: 0 });
-        showChoice(
-          'What do you do?',
-          [
-            { id: 'retry', title: 'Try again next cycle', desc: 'Apply again. Your mental health has recovered a little.', effects: {} },
-            { id: 'leave', title: 'Leave academia', desc: 'Enough. Heaven awaits.', effects: {} },
-          ],
-          c => {
-            if (c.id === 'leave') triggerHeaven();
-            else startPhDApplication();
-          },
-          'campus',
-          'ma_crossroads'
-        );
+        showPhDRejectLeaveChoice();
       },
       {},
       'phd_application'
@@ -2453,13 +3242,16 @@
     setStageTitle('PhD – Papers');
 
     const activePapers = state.phd.papers.filter(p => p.status === 'active');
+    const rrPapers = state.phd.papers.filter(p => p.status === 'rr_revision');
     const underReviewPapers = state.phd.papers.filter(p => p.status === 'under_review');
     const submittable = getSubmittablePapers();
-    const canStart = state.phd.papers.length < PHD_MAX_PAPERS;
+    /** Dead rows (scooped / shelved) must not block new projects — only the live pipeline counts. */
+    const papersInPipeline = activePapers.length + rrPapers.length + underReviewPapers.length;
+    const canStart = papersInPipeline < PHD_MAX_PAPERS;
 
     const options = [];
     if (canStart) {
-      options.push({ id: 'start', title: 'Start a new paper', desc: 'Pick a project and add it to your pile.', effects: {}, paper: null });
+      options.push({ id: 'start', title: 'Start a new paper', desc: 'Pick a project and add it to your pile.', effects: {}, paper: null, btnVariant: 'phd-paper-option' });
     }
     activePapers.forEach(p => {
       const subDesc = (p.progress >= PHD_SUBMIT_MIN_PROGRESS && state.phd.round > (p.startedRound ?? 0))
@@ -2471,6 +3263,25 @@
         desc: (p.abstract ? (p.abstract.length > 100 ? p.abstract.slice(0, 97) + '...' : p.abstract) : subDesc),
         effects: {},
         paper: p,
+        btnVariant: 'phd-paper-option',
+      });
+    });
+    rrPapers.forEach(p => {
+      const j = getPhdJournal(p.submittedTo);
+      const journalName = j ? j.name : 'Unknown';
+      const sit = p.rrSitOutYears || 0;
+      options.push({
+        id: 'paper_' + p.id,
+        title: (p.title || 'Paper #' + p.id) + ' — R&R @ ' + journalName,
+        desc:
+          'Progress ' +
+          (p.progress || 0) +
+          '%. Full revision years banked: ' +
+          sit +
+          ' (each end-of-year adds one; improves odds when you resubmit). Open to resubmit revisions or sit out more years.',
+        effects: {},
+        paper: p,
+        btnVariant: 'phd-papers-main',
       });
     });
     underReviewPapers.forEach(p => {
@@ -2482,17 +3293,15 @@
         desc: 'At ' + journalName + '. Decision next year.',
         effects: {},
         paper: p,
+        btnVariant: 'phd-paper-option',
       });
     });
-    options.push({ id: 'back', title: 'Back to round', desc: 'Return to the main menu.', effects: {}, paper: null });
-
-    if (options.length === 1) {
-      showOutcome('No active papers and you\'re at the max. Go back and spend the year.', () => goToPhDRound(), {}, 'goToPhDRound');
-      return;
-    }
+    options.push({ id: 'back', title: 'Back to round', desc: 'Return to the year menu.', effects: {}, paper: null, btnVariant: 'phd-round-secondary' });
 
     showChoice(
-      'Your papers. Start a new one, or open one to end or submit (submit only after at least one round since you started it).',
+      'Paper desk — your main job. R&Rs show as their own row until you resubmit. You can run up to ' +
+        PHD_MAX_PAPERS +
+        ' projects at once (active, under review, or revising); finished, shelved, or scooped papers do not use a slot. Start a new draft, open an active paper, or work an R&R (submit only after at least one round since you started a new project).',
       options,
       choice => {
         if (choice.id === 'back') {
@@ -2528,12 +3337,33 @@
   }
 
   function showPaperDetail(paper) {
-    if (paper.status === 'under_review') {
-      const j = getPhdJournal(paper.submittedTo);
+    const p = state.phd.papers.find(x => x.id === paper.id) || paper;
+
+    if (p.status === 'under_review') {
+      const j = getPhdJournal(p.submittedTo);
       const journalName = j ? j.name : 'Unknown';
+      const prog = p.progress != null ? p.progress : 0;
+      const subRound = p.submittedRound != null ? p.submittedRound : '?';
+      const resubmitLane = !!p.rrFromRevision;
+      const bank = p.rrPatienceBank != null ? p.rrPatienceBank : 0;
+      const prompt =
+        (p.title || 'Paper #' + p.id) +
+        '\n\n' +
+        (p.abstract || 'No abstract.') +
+        '\n\n— Status: ' +
+        (resubmitLane ? 'revised manuscript under review (post–R&R)' : 'first submission under review') +
+        '\n— Progress now: ' +
+        prog +
+        '%' +
+        '\n— Journal: ' +
+        journalName +
+        '\n— Sent after PhD year: ' +
+        subRound +
+        (resubmitLane && bank > 0 ? '\n— Revision years banked before this send: ' + bank + ' (improves odds of acceptance).' : '') +
+        '\n— Decision: when a new PhD year begins, you will see the outcome here.';
       showChoice(
-        (paper.title || 'Paper #' + paper.id) + '\n\n' + (paper.abstract || 'No abstract.') + '\n\nUnder review at ' + journalName + '. Decision next year.',
-        [{ id: 'back', title: 'Back to paper list', desc: '', effects: {}, paper: null }],
+        prompt,
+        [{ id: 'back', title: 'Back to paper list', desc: '', effects: {}, paper: null, btnVariant: 'phd-round-secondary' }],
         c => {
           if (c.id === 'back') showPapersMenu();
         },
@@ -2542,16 +3372,140 @@
       );
       return;
     }
-    const submittable = paper.status === 'active' && paper.progress >= PHD_SUBMIT_MIN_PROGRESS && state.phd.round > (paper.startedRound ?? 0);
-    const opts = [
-      { id: 'end', title: 'End this paper', desc: 'Drop the project. It will be marked stopped.', effects: {}, paper: paper },
-      { id: 'back', title: 'Back to paper list', desc: '', effects: {}, paper: null },
-    ];
-    if (submittable) {
-      opts.unshift({ id: 'submit', title: 'Submit to a journal', desc: 'Progress ' + paper.progress + '%. Decision next year: desk reject / R&R / rarely direct accept.', effects: {}, paper: paper });
+
+    if (p.status === 'rr_revision') {
+      const j = getPhdJournal(p.submittedTo);
+      const journalName = j ? j.name : 'Unknown';
+      const prog = p.progress != null ? p.progress : 0;
+      const sit = p.rrSitOutYears || 0;
+      const prompt =
+        (p.title || 'Paper #' + p.id) +
+        '\n\n' +
+        (p.abstract || 'No abstract.') +
+        '\n\n— Status: R&R — revising for ' +
+        journalName +
+        '\n— Progress: ' +
+        prog +
+        '%' +
+        '\n— Full PhD years spent revising since this R&R (bank for next resubmit): ' +
+        sit +
+        '\n— Each time you end a year without resubmitting, this bank grows and improves acceptance odds when you do send revisions.' +
+        '\n— You can also end the paper if the journal has broken you.';
+
+      const opts = [
+        {
+          id: 'resubmit',
+          title: 'Submit revised manuscript',
+          desc: 'Return it to ' + journalName + '. Decision next year. Patience bank now: ' + sit + ' year(s).',
+          effects: {},
+          paper: p,
+          btnVariant: 'phd-papers-main',
+        },
+        { id: 'back', title: 'Back to paper list', desc: 'Sit out — keep revising; ending the PhD year adds +1 to the bank and +' + PHD_RR_REVISION_PROGRESS_PER_YEAR + '% progress.', effects: {}, paper: null, btnVariant: 'phd-round-secondary' },
+        { id: 'end', title: 'End this paper', desc: 'Withdraw from this journal and drop the project.', effects: {}, paper: p, btnVariant: 'phd-round-secondary' },
+      ];
+
+      showChoice(
+        prompt,
+        opts,
+        c => {
+          if (c.id === 'back') {
+            showPapersMenu();
+            return;
+          }
+          if (c.id === 'end') {
+            const cur = state.phd.papers.find(x => x.id === paper.id);
+            if (cur) {
+              cur.status = 'stopped';
+              cur.submittedTo = null;
+              cur.rrSitOutYears = 0;
+              cur.rrPatienceBank = 0;
+              cur.rrFromRevision = false;
+            }
+            showOutcome('You shelved «' + (p.title || 'Paper #' + p.id) + '». The R&R dies with dignity.', () => showPapersMenu(), {}, 'phd_round');
+            return;
+          }
+          if (c.id === 'resubmit') {
+            const cur = state.phd.papers.find(x => x.id === paper.id);
+            if (!cur || cur.status !== 'rr_revision') {
+              showPapersMenu();
+              return;
+            }
+            cur.rrPatienceBank = cur.rrSitOutYears || 0;
+            cur.rrSitOutYears = 0;
+            cur.status = 'under_review';
+            cur.submittedRound = state.phd.round;
+            cur.rrFromRevision = true;
+            showOutcome(
+              'Revised «' +
+                (cur.title || 'Paper #' + cur.id) +
+                '» resubmitted to ' +
+                journalName +
+                '. You will get a decision when the next PhD year opens — long revision timelines usually help.',
+              () => showPapersMenu(),
+              {},
+              'phd_round'
+            );
+          }
+        },
+        'campus',
+        'phd_round'
+      );
+      return;
     }
+
+    if (p.status !== 'active') {
+      showPapersMenu();
+      return;
+    }
+    const prog = p.progress != null ? p.progress : 0;
+    const started = p.startedRound != null ? p.startedRound : 0;
+    const round = state.phd.round;
+    const submittable = p.status === 'active' && prog >= PHD_SUBMIT_MIN_PROGRESS && round > started;
+
+    const gaps = [];
+    if (prog < PHD_SUBMIT_MIN_PROGRESS) {
+      gaps.push('at least ' + PHD_SUBMIT_MIN_PROGRESS + '% progress (now ' + prog + '%)');
+    }
+    if (round <= started) {
+      gaps.push('a PhD year strictly after you started (started year ' + started + ', current year ' + round + ')');
+    }
+    const readiness = submittable
+      ? 'Submit: unlocked — pick a journal below.'
+      : 'Submit: locked until ' + gaps.join(' and ') + '. Draft quality rises when you end each year (e.g. teaching round or “spend the year”).';
+
+    const prompt =
+      (p.title || 'Paper #' + p.id) +
+      '\n\n' +
+      (p.abstract || 'No abstract.') +
+      '\n\n— Status: active' +
+      '\n— Progress: ' +
+      prog +
+      '%' +
+      '\n— Started PhD year: ' +
+      started +
+      ' · Current PhD year: ' +
+      round +
+      '\n— ' +
+      readiness;
+
+    const opts = [
+      {
+        id: 'submit',
+        title: 'Submit to a journal',
+        desc: submittable
+          ? 'Progress ' + prog + '%. Next: choose a venue — desk / R&R / accept depend on journal, progress, and luck.'
+          : 'Locked: need ' + gaps.join(' and ') + '.',
+        effects: {},
+        paper: p,
+        btnVariant: submittable ? 'phd-papers-main' : 'phd-paper-option',
+      },
+      { id: 'end', title: 'End this paper', desc: 'Drop the project. It will be marked stopped.', effects: {}, paper: p, btnVariant: 'phd-round-secondary' },
+      { id: 'back', title: 'Back to paper list', desc: '', effects: {}, paper: null, btnVariant: 'phd-round-secondary' },
+    ];
+
     showChoice(
-      (paper.title || 'Paper #' + paper.id) + '\n\n' + (paper.abstract || 'No abstract.'),
+      prompt,
       opts,
       c => {
         if (c.id === 'back') {
@@ -2559,29 +3513,48 @@
           return;
         }
         if (c.id === 'end') {
-          const p = state.phd.papers.find(x => x.id === paper.id);
-          if (p) p.status = 'stopped';
-          showOutcome('You ended «' + (paper.title || 'Paper #' + paper.id) + '». One less thing.', () => showPapersMenu(), {}, 'phd_round');
+          const cur = state.phd.papers.find(x => x.id === paper.id);
+          if (cur) cur.status = 'stopped';
+          showOutcome('You ended «' + (p.title || 'Paper #' + p.id) + '». One less thing.', () => showPapersMenu(), {}, 'phd_round');
           return;
         }
         if (c.id === 'submit') {
+          const cur = state.phd.papers.find(x => x.id === paper.id);
+          const pr = cur && cur.progress != null ? cur.progress : 0;
+          const st = cur && cur.startedRound != null ? cur.startedRound : 0;
+          const ok = cur && cur.status === 'active' && pr >= PHD_SUBMIT_MIN_PROGRESS && state.phd.round > st;
+          if (!ok) {
+            showOutcome(
+              'You still cannot submit — check progress (≥' +
+                PHD_SUBMIT_MIN_PROGRESS +
+                '%) and that the current PhD year is after the year you started this paper.',
+              () => showPaperDetail(cur || p),
+              {},
+              'phd_round'
+            );
+            return;
+          }
           const journalOptions = PHD_JOURNALS.map(j => ({
             id: j.id,
             title: j.name,
             desc: 'Prestige ' + j.prestige + ', h-index ' + j.hIndex + '. Decision next year: desk reject / R&R / rarely direct accept.',
             effects: {},
             journal: j,
+            btnVariant: 'phd-paper-option',
           }));
           showChoice('Which journal?', journalOptions, journalChoice => {
             const journal = journalChoice.journal;
-            const p = state.phd.papers.find(x => x.id === paper.id);
-            if (p) {
-              p.status = 'under_review';
-              p.submittedTo = journal.id;
-              p.submittedRound = state.phd.round;
+            const target = state.phd.papers.find(x => x.id === paper.id);
+            if (target) {
+              target.status = 'under_review';
+              target.submittedTo = journal.id;
+              target.submittedRound = state.phd.round;
+              target.rrFromRevision = false;
+              target.rrSitOutYears = 0;
+              target.rrPatienceBank = 0;
             }
             showOutcome(
-              '«' + (paper.title || paper.id) + '» submitted to ' + journal.name + '. You\'ll get a decision next year (desk reject, R&R, or rarely direct acceptance).',
+              '«' + (p.title || paper.id) + '» submitted to ' + journal.name + '. You\'ll get a decision next year (desk reject, R&R, or rarely direct acceptance).',
               () => showPapersMenu(),
               {},
               'phd_round'
@@ -2596,18 +3569,104 @@
 
   function advancePhdYear() {
     const activePapers = (state.phd.papers || []).filter(p => p.status === 'active');
+    const revisingPapers = (state.phd.papers || []).filter(p => p.status === 'rr_revision');
     const killed = [];
+    const luck = state.stats && state.stats.luck != null ? state.stats.luck : 50;
+    const pKill = Math.max(0.018, PHD_PAPER_KILL_CHANCE * (1 - (luck / 100) * 0.38));
+    let scoopAlreadyThisYear = false;
     activePapers.forEach(p => {
-      if (Math.random() < PHD_PAPER_KILL_CHANCE) {
+      if (scoopAlreadyThisYear) {
+        p.progress = Math.min(100, (p.progress || 0) + PHD_PROGRESS_PER_ROUND);
+        return;
+      }
+      if (Math.random() < pKill) {
+        scoopAlreadyThisYear = true;
+        const titleSnap = p.title || ('Paper #' + p.id);
         p.status = 'killed';
-        killed.push(p.id);
+        killed.push({ id: p.id, title: titleSnap });
         applyEffects({ mentalHealth: PHD_PAPER_KILL_MH });
       } else {
-        p.progress = Math.min(100, p.progress + PHD_PROGRESS_PER_ROUND);
+        p.progress = Math.min(100, (p.progress || 0) + PHD_PROGRESS_PER_ROUND);
       }
     });
+    revisingPapers.forEach(p => {
+      p.rrSitOutYears = (p.rrSitOutYears || 0) + 1;
+      p.progress = Math.min(100, (p.progress || 0) + PHD_RR_REVISION_PROGRESS_PER_YEAR);
+    });
     state.phd.round++;
+    state.phd.sabbaticalUsedThisYear = false;
     return killed;
+  }
+
+  function endPhdYearAndShowNext(prefixMsg, effects) {
+    const killed = advancePhdYear();
+    let msg = (prefixMsg ? prefixMsg + ' ' : '') + 'Year over. ';
+    if (killed.length > 0) {
+      const k = killed[0];
+      const name = k && k.title ? k.title : 'One project';
+      msg +=
+        'Project loss: «' +
+        name +
+        '» is no longer on your active list — usually someone published the same core claim first, or a file went missing in a server migration / stolen laptop legend. This is rare and capped at one draft per year; the year-end text names it so you notice. Your mental health took a hit. ';
+    }
+    const phdCap = getPhdMaxRound();
+    if (state.phd.round > phdCap) {
+      const accepted = state.phd.papersAccepted || 0;
+      if (accepted >= PHD_PAPERS_REQUIRED) {
+        msg += 'Formal programme window complete (Year ' + phdCap + ' on your letter). You have ' + accepted + ' paper(s) accepted. Time to submit the thesis and defend.';
+        showOutcome(msg, () => goToSubmitThesis(), effects || {}, 'phd_submit');
+        document.getElementById('outcome-continue').textContent = 'Continue';
+      } else {
+        msg +=
+          'Formal programme window complete (Year ' +
+          phdCap +
+          ' on your letter). You have ' +
+          accepted +
+          ' accepted paper(s) but need ' +
+          PHD_PAPERS_REQUIRED +
+          ' for the thesis portfolio here. Nobody auto-expels you — the next screen is advisory.';
+        showOutcome(msg, () => showPhdPaperShortfallMenu(), effects || {}, 'phd_extension_offer');
+        document.getElementById('outcome-continue').textContent = 'Continue';
+      }
+    } else {
+      msg +=
+        'Next year. You need ' +
+        PHD_PAPERS_REQUIRED +
+        ' papers accepted by end of Year ' +
+        phdCap +
+        '. So far: ' +
+        (state.phd.papersAccepted || 0) +
+        '.';
+      showOutcome(msg, () => goToPhDRound(), effects || {}, 'goToPhDRound');
+    }
+  }
+
+  function showPhdCoauthorMenu() {
+    state.currentScene = 'campus';
+    showGameStage('campus');
+    setStageTitle('PhD – Choose your co-author');
+    const opts = PHD_COAUTHOR_OPTIONS.map(o => ({
+      id: o.id,
+      title: o.title,
+      desc: o.desc,
+      effects: o.effects,
+      btnVariant: 'phd-round-secondary',
+    }));
+    showChoice(
+      'Choose your co-author (this year\'s tragicomedy).\n\nEvery thesis needs names on the title page — for labour, legitimacy, or alphabetical warfare. Pick one archetype. The year will roll when you confirm; effects apply now. (Satire. Your actual IRB still wants real humans.)',
+      opts,
+      choice => {
+        const o = PHD_COAUTHOR_OPTIONS.find(x => x.id === choice.id);
+        if (!o) {
+          goToPhDRound();
+          return;
+        }
+        applyEffects(o.effects);
+        endPhdYearAndShowNext(o.outcome, { effects: o.effects });
+      },
+      'campus',
+      'phd_coauthor'
+    );
   }
 
   function goToPhDRound() {
@@ -2623,20 +3682,50 @@
       pendingDecisions.forEach(paper => {
         const journal = getPhdJournal(paper.submittedTo);
         const journalName = journal ? journal.name : 'Unknown';
-        const decision = journal ? rollJournalDecision(journal, paper) : 'desk_reject';
+        const resubmitPath = !!paper.rrFromRevision;
+        const decision = journal
+          ? (resubmitPath ? rollRrResubmitDecision(journal, paper) : rollJournalDecision(journal, paper))
+          : 'desk_reject';
+        if (resubmitPath) paper.rrFromRevision = false;
+
         if (decision === 'accept') {
+          const acceptedTitle = paper.title || ('Paper #' + paper.id);
+          state.phd.publicationLog = state.phd.publicationLog || [];
+          state.phd.publicationLog.push({ title: acceptedTitle, journal: journalName });
           state.phd.papers = state.phd.papers.filter(p => p.id !== paper.id);
           state.phd.papersAccepted = (state.phd.papersAccepted || 0) + 1;
           Object.keys(PHD_ACCEPT_EFFECTS).forEach(k => { totalEffects[k] = (totalEffects[k] || 0) + (PHD_ACCEPT_EFFECTS[k] || 0); });
-          messages.push('«' + (paper.title || paper.id) + '» at ' + journalName + ': Direct acceptance. Published.');
+          messages.push('«' + (paper.title || paper.id) + '» at ' + journalName + ': accepted. Published.');
         } else if (decision === 'desk_reject') {
           paper.status = 'active';
+          paper.submittedTo = null;
+          paper.rrSitOutYears = 0;
+          paper.rrPatienceBank = 0;
           totalEffects.mentalHealth = (totalEffects.mentalHealth || 0) + PHD_REJECT_MH;
           messages.push('«' + (paper.title || paper.id) + '» at ' + journalName + ': Desk reject. You can resubmit elsewhere.');
-        } else {
+        } else if (decision === 'reject_after_rr') {
           paper.status = 'active';
+          paper.submittedTo = null;
+          paper.rrSitOutYears = 0;
+          paper.rrPatienceBank = 0;
+          totalEffects.mentalHealth = (totalEffects.mentalHealth || 0) + PHD_REJECT_MH;
+          const story = PHD_RR_FINAL_REJECT_STORIES[Math.floor(Math.random() * PHD_RR_FINAL_REJECT_STORIES.length)];
+          messages.push('«' + (paper.title || paper.id) + '» at ' + journalName + ': rejected after revise-and-resubmit. ' + story);
+        } else if (decision === 'rr') {
+          paper.status = 'rr_revision';
+          paper.rrSitOutYears = 0;
+          paper.rrPatienceBank = 0;
+          paper.rrFromRevision = false;
           totalEffects.mentalHealth = (totalEffects.mentalHealth || 0) + PHD_RR_MH;
-          messages.push('«' + (paper.title || paper.id) + '» at ' + journalName + ': R&R (revise and resubmit). You can resubmit next round.');
+          messages.push(
+            '«' +
+              (paper.title || paper.id) +
+              '» at ' +
+              journalName +
+              (resubmitPath
+                ? ': another full R&R. Back to the paper menu — you can sit out years revising (improves odds when you resubmit) or send revisions when ready.'
+                : ': R&R (revise and resubmit). Open the paper menu — track it there, sit out PhD years to polish, then resubmit; waiting usually helps final acceptance.')
+          );
         }
       });
       applyEffects(totalEffects);
@@ -2649,62 +3738,56 @@
       return;
     }
 
-    const activePapers = state.phd.papers.filter(p => p.status === 'active');
-    if (activePapers.length > 0) {
+    const upkeepPapers = state.phd.papers.filter(p => p.status === 'active' || p.status === 'rr_revision');
+    if (upkeepPapers.length > 0) {
       applyEffects({
-        mentalHealth: activePapers.length * PHD_PAPER_MH_PER_TURN,
-        network: activePapers.length * PHD_PAPER_NETWORK_PER_TURN,
+        mentalHealth: upkeepPapers.length * PHD_PAPER_MH_PER_TURN,
+        network: upkeepPapers.length * PHD_PAPER_NETWORK_PER_TURN,
       });
     }
 
-    let prompt = 'PhD Year ' + state.phd.round + '. ';
+    let prompt = 'PhD Year ' + state.phd.round + '. Main beat: your papers and journals — open the paper menu first when you can. ';
     if (state.phd.papers.length === 0) {
-      prompt += 'No papers yet. Open the paper menu to start one. ';
+      prompt += 'No papers yet. Start one from the paper menu. ';
     } else {
       prompt += 'Papers: ' + state.phd.papers.map(p => {
         if (p.status === 'active') return (p.title ? p.title.slice(0, 28) + (p.title.length > 28 ? '…' : '') : 'Paper') + ' (' + p.progress + '%)';
+        if (p.status === 'rr_revision') {
+          const j = getPhdJournal(p.submittedTo);
+          return (p.title ? p.title.slice(0, 18) + (p.title.length > 18 ? '…' : '') : 'Paper') + ' (R&R @ ' + (j ? j.name.slice(0, 14) : '?') + ')';
+        }
         if (p.status === 'under_review') {
           const j = getPhdJournal(p.submittedTo);
           return (p.title ? p.title.slice(0, 20) + (p.title.length > 20 ? '…' : '') : 'Paper') + ' (under review at ' + (j ? j.name : '?') + ')';
         }
         return p.status;
       }).join('; ') + '. ';
-      if (activePapers.length > 0) {
+      if (upkeepPapers.length > 0) {
         prompt += 'Keeping projects running costs mental health and network each year. ';
       }
     }
-    prompt += 'You need ' + PHD_PAPERS_REQUIRED + ' papers accepted by end of Year ' + PHD_MAX_ROUNDS + '. So far: ' + (state.phd.papersAccepted || 0) + '. What do you do this year?';
+    prompt += 'You need ' + PHD_PAPERS_REQUIRED + ' papers accepted by end of Year ' + getPhdMaxRound() + '. So far: ' + (state.phd.papersAccepted || 0) + '. Below: paper work first; the rest is how you spend the round.';
 
     const options = [];
-    options.push({ id: 'papers', title: 'Open paper menu', desc: 'Start, end, or submit papers. View titles and abstracts.', effects: {} });
-    PHD_ROUND_ACTIVITIES.forEach(a => {
-      options.push({ id: a.id, title: a.title, desc: a.desc, effects: a.effects, activity: a });
+    options.push({
+      id: 'papers',
+      title: 'Papers & journals (main)',
+      desc: 'Start projects, track progress, submit, or drop papers — this is what the PhD is for.',
+      effects: {},
+      btnVariant: 'phd-papers-main',
     });
-    options.push({ id: 'conference', title: 'Go to a conference', desc: 'Present, attend, or skip. Costs money.', effects: {} });
-    options.push({ id: 'continue', title: 'Spend the year on teaching, admin & drafts', desc: 'Teaching, committees, and writing. Papers inch forward — or get scooped.', effects: {} });
-
-    function endPhdYearAndShowNext(prefixMsg, effects) {
-      const killed = advancePhdYear();
-      let msg = (prefixMsg ? prefixMsg + ' ' : '') + 'Year over. ';
-      if (killed.length > 0) {
-        msg += 'One of your papers was scooped — someone had the same idea or it got stolen. It happens. ';
-      }
-      if (state.phd.round > PHD_MAX_ROUNDS) {
-        const accepted = state.phd.papersAccepted || 0;
-        if (accepted >= PHD_PAPERS_REQUIRED) {
-          msg += 'End of Year 6. You have ' + accepted + ' paper(s) accepted. Time to submit the thesis and defend.';
-          showOutcome(msg, () => goToSubmitThesis(), effects || {}, 'phd_submit');
-          document.getElementById('outcome-continue').textContent = 'Continue';
-        } else {
-          msg += 'End of Year 6. You needed ' + PHD_PAPERS_REQUIRED + ' papers accepted; you have ' + accepted + '. The department suggests you leave. You get a job in industry anyway.';
-          showOutcome(msg, () => triggerHeaven('phd_thrown_out'), effects || {}, 'phd_thrown_out');
-          document.getElementById('outcome-continue').textContent = 'Continue';
-        }
-      } else {
-        msg += 'Next year. You need ' + PHD_PAPERS_REQUIRED + ' papers accepted by end of Year ' + PHD_MAX_ROUNDS + '. So far: ' + (state.phd.papersAccepted || 0) + '.';
-        showOutcome(msg, () => goToPhDRound(), effects || {}, 'goToPhDRound');
-      }
-    }
+    PHD_ROUND_ACTIVITIES.forEach(a => {
+      options.push({ id: a.id, title: a.title, desc: a.desc, effects: a.effects, activity: a, btnVariant: 'phd-round-secondary' });
+    });
+    options.push({
+      id: 'coauthor',
+      title: 'Choose your co-author',
+      desc: 'Satirical roster: et al., supervisor\'s friend, ghost postdoc, alphabetical warfare, and more. Picks one story for the year.',
+      effects: {},
+      btnVariant: 'phd-round-secondary',
+    });
+    options.push({ id: 'conference', title: 'Go to a conference', desc: 'Present, attend, or skip. Costs money.', effects: {}, btnVariant: 'phd-round-secondary' });
+    options.push({ id: 'continue', title: 'Spend the year on teaching, admin & drafts', desc: 'Teaching, committees, and writing. Drafts usually gain progress; very rarely one project is lost to a scoop or archival mishap (at most one per year).', effects: {}, btnVariant: 'phd-round-secondary' });
 
     showChoice(prompt, options, choice => {
       if (choice.id === 'papers') {
@@ -2714,6 +3797,10 @@
       if (choice.activity) {
         applyEffects(choice.activity.effects);
         endPhdYearAndShowNext(choice.activity.title + '. ' + (choice.activity.desc || ''), { effects: choice.activity.effects });
+        return;
+      }
+      if (choice.id === 'coauthor') {
+        showPhdCoauthorMenu();
         return;
       }
       if (choice.id === 'conference') {
@@ -2782,12 +3869,24 @@
     showChoice(
       'You have a doctorate. The world is your oyster. Or at least the job market is.',
       [
-        { id: 'leave', title: 'Leave academia', desc: 'Industry, policy, consulting. You\'ve had enough.', effects: {} },
-        { id: 'postdoc', title: 'Apply for post-doc positions', desc: 'More grants, more papers. The grind continues.', effects: {} },
+        {
+          id: 'postdoc',
+          title: 'Apply for post-doc positions',
+          desc: 'More grants, more papers. Rejection does not end the game — try again as long as you like (or until you land an offer).',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'leave',
+          title: 'Leave academia (ends game)',
+          desc: 'Industry, policy, consulting. You\'ve had enough.',
+          effects: {},
+          btnVariant: 'leave-path',
+        },
       ],
       choice => {
         if (choice.id === 'leave') {
-          triggerHeaven();
+          confirmLeaveAcademia({ kind: 'after_phd' });
         } else {
           startPostDocApplication();
         }
@@ -2811,13 +3910,20 @@
     const n = selected.length;
     const canAddMore = n < POSTDOC_APP_MAX &&
       money >= (n + 1) * POSTDOC_APP_MONEY_PER &&
-      mh + (n + 1) * POSTDOC_APP_MH_PER >= 15;
+      mh + (n + 1) * POSTDOC_APP_MH_PER >= POSTDOC_APPLY_MIN_PROJECTED_MH;
     const unlocked = POSTDOC_PROGRAMS.filter(p =>
       (state.stats.network || 0) >= p.minNetwork && (state.stats.luck || 0) >= p.minLuck
     );
     const available = unlocked.filter(p => !selected.find(s => s.id === p.id) && canAddMore);
 
-    let prompt = 'Apply to post-doc positions. Each application costs €' + POSTDOC_APP_MONEY_PER + ' and ' + POSTDOC_APP_MH_PER + ' mental health. Max ' + POSTDOC_APP_MAX + '.';
+    let prompt =
+      'Apply to post-doc positions. Each application costs €' +
+      POSTDOC_APP_MONEY_PER +
+      ' and ' +
+      POSTDOC_APP_MH_PER +
+      ' mental health (stats are clamped; you can keep re-entering this screen until you get an offer or choose to leave). Max ' +
+      POSTDOC_APP_MAX +
+      ' per round.';
     if (n > 0) prompt += ' Applied: ' + selected.map(s => s.name).join(', ') + '.';
     const options = available.map(p => ({
       id: 'apply_' + p.id,
@@ -2828,7 +3934,14 @@
     }));
     if (n >= 1) options.push({ id: 'done', title: 'Submit ' + n + ' application(s)', desc: 'See who responds.', effects: {} });
     if (options.length === 0 && n === 0) {
-      showOutcome('You can\'t afford any applications or no positions are unlocked. You leave for industry.', () => triggerHeaven(), {}, 'phd_done');
+      showOutcome(
+        'No application slots open this visit: either you lack €' +
+          POSTDOC_APP_MONEY_PER +
+          ' (and enough for fees you already picked), or no listings match your network / luck yet. Nothing auto-ends your run — go back to "After the PhD", recover if you can, and try again whenever you want.',
+        () => showAfterPhDChoice(),
+        {},
+        'after_phd'
+      );
       return;
     }
     if (options.length === 0) {
@@ -2868,25 +3981,48 @@
     }
     const programList = selected.map(p => p.name).join(', ');
     showOutcome(
-      'No post-doc offers. You applied to: ' + programList + '. You leave for industry.',
-      () => triggerHeaven(),
+      'No post-doc offers this round. You applied to: ' +
+        programList +
+        '. The market is noisy, not a verdict — you can return to "After the PhD" and send another batch (or leave academia when you choose).',
+      () => showAfterPhDChoice(),
       {},
-      'phd_done'
+      'after_phd'
     );
   }
 
   function showMACrossroads() {
     setStageTitle('MA – What next?');
     const choices = [
-      { id: 'leave', title: 'Leave academia', desc: 'You have an MA. Corporate, policy, consulting. (Heaven awaits.)', effects: {} },
-      { id: 'phd', title: 'Apply for the PhD', desc: 'The long road. More papers, more reviews, more stress. You know the drill.', effects: {} },
+      {
+        id: 'phd',
+        title: 'Apply for the PhD',
+        desc: 'More papers, more reviews, more stress — now with stipend guilt as a side dish.',
+        effects: {},
+        btnVariant: 'primary-path',
+      },
+      {
+        id: 'exchange',
+        title: 'Apply for a research stay abroad',
+        desc: 'Collect stamps, stories, and ambiguously reciprocal hosting obligations.',
+        effects: {},
+        btnVariant: 'secondary-path',
+      },
+      {
+        id: 'leave',
+        title: 'Leave academia (ends game)',
+        desc: 'You have an MA. Policy decks, slide decks, occasional deck chairs. Still beats reviewer two.',
+        effects: {},
+        btnVariant: 'leave-path',
+      },
     ];
     showChoice(
-      'What do you do?',
+      'What do you do? — Main path first; leaving ends the whole run.',
       choices,
       choice => {
         if (choice.id === 'leave') {
-          triggerHeaven();
+          confirmLeaveAcademia({ kind: 'ma_crossroads' });
+        } else if (choice.id === 'exchange') {
+          showMAExchangeApplication();
         } else {
           startPhDApplication();
         }
@@ -2918,7 +4054,7 @@
 
     options.forEach(opt => {
       const btn = document.createElement('button');
-      btn.className = 'choice-btn';
+      btn.className = opt.btnVariant ? 'choice-btn choice-btn--' + opt.btnVariant : 'choice-btn';
       btn.innerHTML = opt.desc
         ? `<span class="choice-title">${opt.title}</span>\t<span class="choice-desc">${opt.desc}</span>`
         : `<span class="choice-title">${opt.title}</span>`;
@@ -3049,7 +4185,18 @@
   }
 
   function maybeSabbaticalThen(nextStep) {
-    if (!state.stats || state.stats.mentalHealth >= SABBATICAL_MENTAL_HEALTH_THRESHOLD) {
+    if (!state.stats) {
+      nextStep();
+      return;
+    }
+    const mh = state.stats.mentalHealth;
+    const threshold =
+      state.phase === 'phd' && state.phd ? SABBATICAL_PHD_MENTAL_HEALTH_THRESHOLD : SABBATICAL_MENTAL_HEALTH_THRESHOLD;
+    if (mh >= threshold) {
+      nextStep();
+      return;
+    }
+    if (state.phase === 'phd' && state.phd && state.phd.sabbaticalUsedThisYear) {
       nextStep();
       return;
     }
@@ -3060,11 +4207,18 @@
     const actions = {
       goToFreeTime_1: () => goToFreeTime(1),
       goToFreeTime_2: () => goToFreeTime(2),
-      goToConference_1: () => goToConference(1),
-      goToConference_2: () => goToConference(2),
+      goToConference_1: () => goToEmails(1),
+      goToConference_2: () => goToEmails(2),
       goToEmails_1: () => goToEmails(1),
       goToEmails_2: () => goToEmails(2),
-      runBureaucracy: () => runBureaucracyGame(() => goToYear2Courses()),
+      goToEmailsBAProgram: () => goToEmailsBAProgram(),
+      goToEmailsMAProgram: () => goToEmailsMAProgram(),
+      goToConferenceBA: () => goToEmailsBAProgram(),
+      goToConferenceMA: () => goToEmailsMAProgram(),
+      goToMAConference_1: () => goToEmailsMAProgram(),
+      goToMAConference_2: () => goToEmails(2),
+      runBureaucracy: () => runBureaucracyGame(() => goToThesis()),
+      runBureaucracyThesis: () => runBureaucracyGame(() => goToThesis()),
       goToYear2Courses: () => goToYear2Courses(),
       goToThesis: () => goToThesis(),
       showBACrossroads: () => { const th = getMAThreshold(); const passed = state.stats.intelligence >= th.int && state.stats.mentalHealth >= th.mh; showBACrossroads(passed); },
@@ -3077,7 +4231,8 @@
       phd_defend: () => goToDefend(),
       after_phd: () => showAfterPhDChoice(),
       postdoc_application: () => startPostDocApplication(),
-      phd_thrown_out: () => triggerHeaven('phd_thrown_out'),
+      phd_extension_offer: () => showPhdPaperShortfallMenu(),
+      phd_thrown_out: () => showPhdPaperShortfallMenu(),
       phd_done: () => triggerHeaven(),
       heavenAfterReject: () => showMARejectedChoice(),
       ma_sit_out_done: () => showMAApplyAgainChoice(),
@@ -3104,36 +4259,51 @@
       return;
     }
     const steps = {
-      year1_courses_1: () => runBAYear1CourseSelection(),
-      year1_courses_2: () => { state.ba.year1Courses = []; runBAYear1CourseSelection(); },
-      year1_freetime: () => goToFreeTime(1),
-      year1_conference: () => goToConference(1),
-      year1_emails: () => goToEmails(1),
-      year1_bureaucracy: () => runBureaucracyGame(() => goToYear2Courses()),
-      year2_courses_1: () => goToYear2Courses(),
-      year2_courses_2: () => { state.ba.year2Courses = []; goToYear2Courses(); },
-      year2_freetime: () => goToFreeTime(2),
-      year2_conference: () => goToConference(2),
-      year2_emails: () => goToEmails(2),
+      ba_courses_pick: () => runBACoursePick(),
+      ma_courses_pick: () => runMACoursePick(),
+      ba_freetime_alloc: () => goToFreeTimeAllocation('ba'),
+      ma_freetime_alloc: () => goToFreeTimeAllocation('ma'),
+      ba_conference: () => goToEmailsBAProgram(),
+      ma_conference: () => goToEmailsMAProgram(),
+      ba_emails: () => goToEmailsBAProgram(),
+      ma_emails: () => goToEmailsMAProgram(),
+      ba_bureaucracy: () => runBureaucracyGame(() => goToThesis()),
+      year1_courses_1: () => runBACoursePick(),
+      year1_courses_2: () => { state.ba.courses = []; state.ba.year1Courses = []; state.ba.year2Courses = []; runBACoursePick(); },
+      year1_freetime: () => goToFreeTimeAllocation('ba'),
+      year1_conference: () => goToEmails(1),
+      year1_emails: () => goToEmailsBAProgram(),
+      year1_bureaucracy: () => runBureaucracyGame(() => goToThesis()),
+      year2_courses_1: () => goToThesis(),
+      year2_courses_2: () => goToThesis(),
+      year2_freetime: () => goToFreeTimeAllocation('ba'),
+      year2_conference: () => goToEmails(2),
+      year2_emails: () => goToEmailsBAProgram(),
       year2_thesis: () => goToThesis(),
       crossroads: () => { const th = getMAThreshold(); showBACrossroads(state.stats.intelligence >= th.int && state.stats.mentalHealth >= th.mh); },
+      ba_exchange: () => showBAExchangeApplication(),
+      ma_exchange: () => showMAExchangeApplication(),
       ma_rejected_choice: () => showMARejectedChoice(),
       ma_sit_out: () => showMASitOutYear(),
       ma_uni_choice: () => { if (!state.universityMA) { const other = FAKE_UNIVERSITIES.filter(u => u !== state.universityBA); state.universityMA = other[Math.floor(Math.random() * other.length)] || FAKE_UNIVERSITIES[1]; } startMA(); },
       ma_year1_courses_1: () => startMA(),
-      ma_year1_courses_2: () => { state.ma.year1Courses = []; startMA(); },
-      ma_year1_freetime: () => goToFreeTime(1),
-      ma_year1_conference: () => goToConference(1),
-      ma_year1_emails: () => goToEmails(1),
-      ma_year2_courses_1: () => goToMAYear2Courses(),
-      ma_year2_courses_2: () => { state.ma.year2Courses = []; goToMAYear2Courses(); },
-      ma_year2_freetime: () => goToFreeTime(2),
-      ma_year2_conference: () => goToConference(2),
-      ma_year2_emails: () => goToEmails(2),
+      ma_year1_courses_2: () => { state.ma.courses = []; state.ma.year1Courses = []; state.ma.year2Courses = []; startMA(); },
+      ma_year1_freetime: () => goToFreeTimeAllocation('ma'),
+      ma_year1_conference: () => goToEmailsMAProgram(),
+      ma_year1_emails: () => goToEmailsMAProgram(),
+      ma_year2_courses_1: () => goToMAThesis(),
+      ma_year2_courses_2: () => goToMAThesis(),
+      ma_year2_freetime: () => goToFreeTimeAllocation('ma'),
+      ma_year2_conference: () => goToEmails(2),
+      ma_year2_emails: () => goToEmailsMAProgram(),
       ma_thesis: () => goToMAThesis(),
       ma_crossroads: () => showMACrossroads(),
+      leave_academia_confirm: () => restoreLeaveCancel(state.leaveConfirmRestore),
+      phd_reject_leave_choice: () => showPhDRejectLeaveChoice(),
       phd_application: () => startPhDApplication(),
       phd_round: () => goToPhDRound(),
+      phd_extension_choice: () => showPhdPaperShortfallMenu(),
+      phd_coauthor: () => showPhdCoauthorMenu(),
       phd_conference: () => goToPhDConference(),
       phd_submit: () => goToSubmitThesis(),
       phd_defend: () => goToDefend(),
@@ -3158,13 +4328,31 @@
     const s = data.state;
     if (!s.stats || !s.character || !s.resumeStep) return false;
     if (!s.phase) s.phase = 'ba';
-    if (!s.ma) s.ma = { year1Courses: [], year2Courses: [], thesisTopic: null };
-    if (!s.phd) s.phd = { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0 };
+    if (!s.ma) s.ma = { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null };
+    if (!s.ba) s.ba = { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null };
+    if (s.ba.emailsCompleted !== true) s.ba.emailsCompleted = false;
+    if (s.ma.emailsCompleted !== true) s.ma.emailsCompleted = false;
+    if (s.ba.exchangeBlurb === undefined) s.ba.exchangeBlurb = null;
+    if (s.ma.exchangeBlurb === undefined) s.ma.exchangeBlurb = null;
+    if (!s.ba.courses) s.ba.courses = [];
+    if (!s.ma.courses) s.ma.courses = [];
+    if (s.ba.courses.length === 0 && ((s.ba.year1Courses && s.ba.year1Courses.length) || (s.ba.year2Courses && s.ba.year2Courses.length))) {
+      s.ba.courses = [...(s.ba.year1Courses || []), ...(s.ba.year2Courses || [])].slice(0, PROGRAM_PICK_COUNT);
+    }
+    if (s.ma.courses.length === 0 && ((s.ma.year1Courses && s.ma.year1Courses.length) || (s.ma.year2Courses && s.ma.year2Courses.length))) {
+      s.ma.courses = [...(s.ma.year1Courses || []), ...(s.ma.year2Courses || [])].slice(0, PROGRAM_PICK_COUNT);
+    }
+    if (!s.phd) s.phd = { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0, sabbaticalUsedThisYear: false, extensionYears: 0, publicationLog: [] };
     if (s.phd && s.phd.papersAccepted === undefined) s.phd.papersAccepted = 0;
+    if (s.phd && s.phd.sabbaticalUsedThisYear === undefined) s.phd.sabbaticalUsedThisYear = false;
+    if (s.phd && s.phd.extensionYears === undefined) s.phd.extensionYears = 0;
+    if (s.phd && !Array.isArray(s.phd.publicationLog)) s.phd.publicationLog = [];
     if (!s.conferences) s.conferences = [];
     if (!s.universityBA) s.universityBA = null;
     if (!s.universityMA) s.universityMA = null;
     state = s;
+    state.difficulty = 'medium';
+    if (state.leaveConfirmRestore === undefined) state.leaveConfirmRestore = null;
     STAT_NAMES.forEach(stat => { if (state.stats[stat] === undefined) state.stats[stat] = 0; });
     updateStatBars();
     document.getElementById('pause-overlay').classList.add('hidden');
@@ -3174,9 +4362,10 @@
   }
 
   function startSabbatical(nextStep) {
+    if (state.phase === 'phd' && state.phd) state.phd.sabbaticalUsedThisYear = true;
     setStageTitle('Sabbatical');
     document.getElementById('sabbatical-intro-text').textContent =
-      'Your mental health has dropped. The department suggests a sabbatical. (They mean well.)';
+      'Your mental health has cratered. The department “strongly encourages” a sabbatical — which, in practice, means you may finally read something that is not a referee report. They booked you mental space near some palm trees. Politics will still be there when you get back; for now, jump the lagoon.';
     document.getElementById('sabbatical-intro').classList.remove('hidden');
     document.getElementById('sabbatical-game').classList.add('hidden');
     document.getElementById('sabbatical-done').classList.add('hidden');
@@ -3207,10 +4396,11 @@ function runIslandHoppingGame(nextStep) {
     let x = 0;
     for (let i = 0; i < SABBATICAL_SEGMENT_COUNT - 1; i++) {
       if (i % 2 === 0) {
-        const isLong = Math.random() < 0.35;
-        const width = isLong
+        const isLong = Math.random() < 0.42;
+        let width = isLong
           ? SABBATICAL_PLATFORM_LONG_MIN + Math.random() * (SABBATICAL_PLATFORM_LONG_MAX - SABBATICAL_PLATFORM_LONG_MIN)
           : SABBATICAL_PLATFORM_SHORT_MIN + Math.random() * (SABBATICAL_PLATFORM_SHORT_MAX - SABBATICAL_PLATFORM_SHORT_MIN);
+        if (i === 0) width = Math.max(width, 145);
         const seg = { type: 'platform', xStart: x, width, xEnd: x + width, hasCoin: false, hasDrink: false, coinCollected: false, drinkHit: false };
         if (isLong) {
           if (Math.random() < 0.6) seg.hasCoin = true; else seg.hasDrink = true;
@@ -3223,8 +4413,18 @@ function runIslandHoppingGame(nextStep) {
         x += width;
       }
     }
-    segments.push({ type: 'platform', xStart: x, width: 120, xEnd: x + 120 });
-    const worldWidth = x + 120;
+    segments.push({ type: 'platform', xStart: x, width: 200, xEnd: x + 200 });
+    const worldWidth = x + 200;
+
+    const beachSigns = [];
+    let signI = 0;
+    for (let sx = 280; sx < worldWidth - 100; sx += 220 + (signI % 4) * 35) {
+      beachSigns.push({
+        worldX: sx,
+        text: SABBATICAL_BEACH_SIGNS[signI % SABBATICAL_BEACH_SIGNS.length],
+      });
+      signI++;
+    }
 
     let worldX = -SABBATICAL_CHAR_SCREEN_X + segments[0].width / 2;
     let char = { y: groundY - platformH - charH, vy: 0 };
@@ -3233,6 +4433,7 @@ function runIslandHoppingGame(nextStep) {
     let splashes = 0;
     let gameOver = false;
     let animId = null;
+    let gameStarted = false;
 
     const gameDiv = document.getElementById('sabbatical-game');
     const doneDiv = document.getElementById('sabbatical-done');
@@ -3262,7 +4463,10 @@ function runIslandHoppingGame(nextStep) {
       gameDiv.classList.add('hidden');
       doneDiv.classList.remove('hidden');
       const moneyGain = coinsCollected * SABBATICAL_COIN_VALUE;
-      doneTextEl.textContent = "You're back. Still academic. But rested. Coins: +" + (coinsCollected * SABBATICAL_COIN_VALUE) + " money. Mental health restored.";
+      doneTextEl.textContent =
+        "Fieldwork complete. The palm trees wave; the inbox does not. +" +
+        (coinsCollected * SABBATICAL_COIN_VALUE) +
+        " in leftover grant money. Mental health restored — committee politics can wait until Monday.";
       playCharacterAnim('happy', 600);
       const mhRecovery = SABBATICAL_RECOVERY + drinkHits * SABBATICAL_DRINK_MH_PENALTY;
       document.getElementById('sabbatical-continue-btn').onclick = () => {
@@ -3277,25 +4481,41 @@ function runIslandHoppingGame(nextStep) {
     }
 
     function doJump() {
-      if (gameOver) return;
+      if (gameOver || !gameStarted) return;
       const wx = getCharWorldX();
       const cur = getSegmentAt(wx);
-      const onGround = char.vy >= 0 && char.y >= groundY - platformH - charH - 2;
-      if (!onGround) return;
+      const platformTop = groundY - platformH;
+      const onGround =
+        char.vy >= 0 &&
+        char.y + charH >= platformTop - 4 &&
+        char.y + charH <= platformTop + platformH + 10;
+      if (!cur || cur.seg.type !== 'platform' || !onGround) return;
 
-      const next = cur ? getSegmentAt(wx + 55) : null;
-      const gapAhead = next && next.seg.type === 'gap';
-      const inSecondHalf = cur && cur.seg.type === 'platform' && (wx - cur.seg.xStart) > cur.seg.width * 0.45;
+      const seg = cur.seg;
+      const nextIdx = cur.i + 1;
+      const nextSeg = nextIdx < segments.length ? segments[nextIdx] : null;
+      const gapFollows = nextSeg && nextSeg.type === 'gap';
+      const distToEdge = seg.xEnd - wx;
 
-      if (gapAhead && inSecondHalf) {
-        char.vy = SABBATICAL_JUMP_GAP_VY;
-      } else if (cur && cur.seg.type === 'platform' && cur.seg.hasCoin && !cur.seg.coinCollected) {
-        char.vy = SABBATICAL_JUMP_HOP_VY;
-      } else if (cur && cur.seg.type === 'platform' && cur.seg.hasDrink) {
+      if (seg.hasDrink && !seg.drinkHit) {
+        if (gapFollows && distToEdge < 62) {
+          char.vy = SABBATICAL_JUMP_GAP_VY;
+        } else {
+          char.vy = SABBATICAL_JUMP_HOP_VY;
+        }
         return;
-      } else if (cur && cur.seg.type === 'platform') {
-        char.vy = SABBATICAL_JUMP_HOP_VY;
       }
+
+      if (gapFollows) {
+        const useGapArc = distToEdge < Math.max(115, seg.width * 0.88);
+        char.vy = useGapArc ? SABBATICAL_JUMP_GAP_VY : SABBATICAL_JUMP_HOP_VY;
+        return;
+      }
+      if (seg.hasCoin && !seg.coinCollected) {
+        char.vy = SABBATICAL_JUMP_HOP_VY;
+        return;
+      }
+      char.vy = SABBATICAL_JUMP_HOP_VY;
     }
 
     function keyHandler(e) {
@@ -3378,9 +4598,59 @@ function runIslandHoppingGame(nextStep) {
       if (!gameOver) animId = requestAnimationFrame(tick);
     }
 
+    function drawPalm(screenX, scale) {
+      const baseY = groundY - 6;
+      const th = 30 * scale;
+      const tw = 5 * scale;
+      ctx.fillStyle = '#3d2818';
+      ctx.fillRect(screenX - tw / 2, baseY - th, tw, th);
+      ctx.fillStyle = '#1a5a2e';
+      ctx.beginPath();
+      ctx.moveTo(screenX, baseY - th);
+      ctx.lineTo(screenX - 26 * scale, baseY - th - 20 * scale);
+      ctx.lineTo(screenX - 10 * scale, baseY - th + 3);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#2a8044';
+      ctx.beginPath();
+      ctx.moveTo(screenX, baseY - th);
+      ctx.lineTo(screenX + 28 * scale, baseY - th - 18 * scale);
+      ctx.lineTo(screenX + 12 * scale, baseY - th + 4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#286a38';
+      ctx.beginPath();
+      ctx.moveTo(screenX, baseY - th - 4 * scale);
+      ctx.lineTo(screenX - 8 * scale, baseY - th - 26 * scale);
+      ctx.lineTo(screenX + 14 * scale, baseY - th - 24 * scale);
+      ctx.closePath();
+      ctx.fill();
+    }
+
     function draw() {
-      ctx.fillStyle = '#1a3a5c';
-      ctx.fillRect(0, 0, W, H);
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+      skyGrad.addColorStop(0, '#2e6aa8');
+      skyGrad.addColorStop(0.45, '#7ec9ea');
+      skyGrad.addColorStop(1, '#bfe8f4');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, W, groundY);
+
+      ctx.fillStyle = '#f0d060';
+      ctx.beginPath();
+      ctx.arc(W - 44, 42, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#c49a30';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      const palmSpacing = 152;
+      const palmShift = (worldX * 0.095) % palmSpacing;
+      for (let px = -palmShift; px < W + palmSpacing * 2; px += palmSpacing) {
+        const jitter = ((px * 0.17 + worldX * 0.03) % 1) * 14;
+        const sc = 0.72 + (((px + worldX) >> 3) % 5) * 0.06;
+        drawPalm(px + jitter + 18, sc);
+      }
+
       ctx.fillStyle = '#0e2a44';
       ctx.fillRect(0, groundY, W, H - groundY);
 
@@ -3429,6 +4699,22 @@ function runIslandHoppingGame(nextStep) {
         }
       });
 
+      beachSigns.forEach(s => {
+        const scrX = s.worldX - camLeft;
+        if (scrX < -80 || scrX > W + 40) return;
+        const label = s.text.length > 24 ? s.text.slice(0, 22) + '…' : s.text;
+        ctx.fillStyle = '#5a4a38';
+        ctx.fillRect(scrX + 14, groundY - 52, 4, 54);
+        ctx.fillStyle = '#eddcc8';
+        ctx.fillRect(scrX - 6, groundY - 74, 96, 22);
+        ctx.strokeStyle = '#7a6a58';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(scrX - 6, groundY - 74, 96, 22);
+        ctx.fillStyle = '#1a1814';
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText(label, scrX - 2, groundY - 58);
+      });
+
       ctx.fillStyle = '#7aa2f7';
       ctx.fillRect(Math.round(SABBATICAL_CHAR_SCREEN_X - 2), Math.round(char.y), charW + 4, charH);
       ctx.strokeStyle = '#5a82c7';
@@ -3437,24 +4723,27 @@ function runIslandHoppingGame(nextStep) {
     }
 
     document.getElementById('sabbatical-coin-btn').style.display = 'none';
-    const sabbaticalStartWrap = document.getElementById('sabbatical-start-wrap');
-    if (sabbaticalStartWrap) sabbaticalStartWrap.style.display = 'block';
-    document.getElementById('sabbatical-start-game-btn').onclick = function () {
-      if (sabbaticalStartWrap) sabbaticalStartWrap.style.display = 'none';
-      tick();
-    };
+    const startGameBtn = document.getElementById('sabbatical-start-game-btn');
+    gameStarted = false;
+    jumpBtn.disabled = true;
+    if (startGameBtn) {
+      startGameBtn.style.display = '';
+      startGameBtn.onclick = function () {
+        gameStarted = true;
+        jumpBtn.disabled = false;
+        if (startGameBtn) startGameBtn.style.display = 'none';
+        tick();
+      };
+    }
     updateHUD();
   }
 
-    function runBikeCourierGame(onDone) {
+  function runBikeCourierGame(onDone) {
     const canvas = document.getElementById('bike-courier-canvas');
+    if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
     const W = canvas.width;
     const H = canvas.height;
-    const groundY = H * BIKE_COURIER_GROUND_Y_RATIO;
-    const bikeW = 24;
-    const bikeH = 28;
-    const bikeX = 70;
 
     document.getElementById('bike-courier-intro').classList.remove('hidden');
     document.getElementById('bike-courier-game').classList.add('hidden');
@@ -3468,89 +4757,223 @@ function runIslandHoppingGame(nextStep) {
     };
 
     function startBikeGame() {
-      let bikeY = groundY - bikeH;
-      let bikeVy = 0;
+      const roadPadX = W * 0.1;
+      const roadW = W * 0.8;
+      const laneW = roadW / BIKE_LANE_COUNT;
+
+      function laneCenter(lane) {
+        return roadPadX + laneW * (lane + 0.5);
+      }
+
+      let laneIndex = 1;
+      let scrollSpeed = BIKE_INITIAL_SCROLL;
+      let totalEuros = 0;
+      let distance = 0;
+      let packagesPassed = 0;
+      let lastPackageAt = 0;
+      const bikeW = 26;
+      const bikeH = 34;
+      const bikeY = H - 78;
       const obstacles = [];
-      let deliveries = 0;
-      let crashes = 0;
+      const decor = [];
       let frameCount = 0;
-      let nextSpawn = BIKE_COURIER_SPAWN_INTERVAL_MIN + Math.random() * (BIKE_COURIER_SPAWN_INTERVAL_MAX - BIKE_COURIER_SPAWN_INTERVAL_MIN);
+      let nextVehicleSpawn = 20;
+      let nextDecorSpawn = 40 + Math.random() * 50;
+      let crashes = 0;
       let gameOver = false;
       let animId = null;
+      let gameStarted = false;
 
       const gameDiv = document.getElementById('bike-courier-game');
       const doneDiv = document.getElementById('bike-courier-done');
       const earnedEl = document.getElementById('bike-courier-earned');
+      const speedEl = document.getElementById('bike-courier-speed');
+      const laneEl = document.getElementById('bike-courier-lane');
       const crashesEl = document.getElementById('bike-courier-crashes');
       const doneTextEl = document.getElementById('bike-courier-done-text');
-      const jumpBtn = document.getElementById('bike-courier-jump-btn');
+      const btnLaneL = document.getElementById('bike-courier-lane-left');
+      const btnLaneR = document.getElementById('bike-courier-lane-right');
+      const btnSlower = document.getElementById('bike-courier-slower');
+      const btnFaster = document.getElementById('bike-courier-faster');
+
+      function bikeScreenX() {
+        return laneCenter(laneIndex) - bikeW / 2;
+      }
+
+      function spawnVehicle() {
+        const lane = Math.floor(Math.random() * BIKE_LANE_COUNT);
+        const truck = Math.random() < 0.36;
+        const w = truck ? 46 + Math.random() * 10 : 30 + Math.random() * 14;
+        const h = truck ? 58 + Math.random() * 12 : 40 + Math.random() * 10;
+        const palette = truck ? BIKE_TRUCK_COLORS : BIKE_CAR_COLORS;
+        const color = palette[Math.floor(Math.random() * palette.length)];
+        obstacles.push({ lane, y: -h - 6, w, h, truck, color });
+      }
+
+      function spawnDecor() {
+        const lane = Math.floor(Math.random() * BIKE_LANE_COUNT);
+        const label = BIKE_ROAD_SNIPPETS[Math.floor(Math.random() * BIKE_ROAD_SNIPPETS.length)];
+        const w = Math.min(laneW * 0.88, 118);
+        decor.push({ lane, y: -32, w, h: 26, label });
+      }
+
+      function drawVehicle(o) {
+        const x = laneCenter(o.lane) - o.w / 2;
+        if (o.truck) {
+          ctx.fillStyle = o.color;
+          ctx.fillRect(x + 3, o.y + o.h * 0.36, o.w - 6, o.h * 0.64);
+          ctx.fillRect(x, o.y, o.w * 0.44, o.h * 0.44);
+          ctx.fillStyle = 'rgba(0,0,0,0.28)';
+          ctx.fillRect(x + 5, o.y + 8, o.w * 0.28, 11);
+          ctx.fillStyle = '#f0e6d2';
+          ctx.fillRect(x + o.w * 0.52, o.y + o.h * 0.52, o.w * 0.22, 8);
+        } else {
+          ctx.fillStyle = o.color;
+          ctx.fillRect(x, o.y + 8, o.w, o.h - 8);
+          ctx.fillStyle = '#1a2515';
+          ctx.fillRect(x + o.w * 0.12, o.y, o.w * 0.76, 14);
+          ctx.fillStyle = 'rgba(0,0,0,0.22)';
+          ctx.fillRect(x + 5, o.y + 14, o.w - 10, 9);
+        }
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x, o.y, o.w, o.h);
+      }
+
+      function drawDecor(d) {
+        const cx = laneCenter(d.lane);
+        ctx.save();
+        ctx.translate(cx, d.y + d.h / 2);
+        ctx.rotate(-0.09);
+        ctx.fillStyle = 'rgba(252, 248, 232, 0.94)';
+        ctx.strokeStyle = '#3a3a3a';
+        ctx.lineWidth = 2;
+        ctx.fillRect(-d.w / 2, -d.h / 2, d.w, d.h);
+        ctx.strokeRect(-d.w / 2, -d.h / 2, d.w, d.h);
+        ctx.fillStyle = '#222';
+        const fs = Math.max(8, Math.round(W * 0.024));
+        ctx.font = 'bold ' + fs + 'px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const words = d.label.split(/\s+/);
+        let line = '';
+        let ty = -4;
+        words.forEach(word => {
+          const test = line + (line ? ' ' : '') + word;
+          if (ctx.measureText(test).width > d.w - 8 && line) {
+            ctx.fillText(line, 0, ty);
+            ty += fs + 2;
+            line = word;
+          } else {
+            line = test;
+          }
+        });
+        if (line) ctx.fillText(line, 0, ty);
+        ctx.restore();
+      }
 
       function updateHUD() {
-        earnedEl.textContent = 'Earned: €' + (deliveries * BIKE_COURIER_EUROS_PER_DELIVERY);
-        crashesEl.textContent = 'Crashes: ' + crashes + ' / ' + BIKE_COURIER_MAX_CRASHES;
+        if (earnedEl) earnedEl.textContent = 'Earned: €' + Math.floor(totalEuros);
+        if (crashesEl) crashesEl.textContent = 'Crashes: ' + crashes + ' / ' + BIKE_COURIER_MAX_CRASHES;
+        if (speedEl) {
+          speedEl.textContent =
+            'Speed: ' +
+            scrollSpeed.toFixed(1) +
+            ' · pay rate ' +
+            (0.35 + ((scrollSpeed - BIKE_SCROLL_MIN) / (BIKE_SCROLL_MAX - BIKE_SCROLL_MIN)) * 0.65).toFixed(2) +
+            '×';
+        }
+        if (laneEl) laneEl.textContent = 'Lane: ' + (laneIndex + 1) + ' / ' + BIKE_LANE_COUNT;
       }
 
       function endShift() {
         gameOver = true;
+        gameStarted = false;
         if (animId) cancelAnimationFrame(animId);
+        animId = null;
         document.removeEventListener('keydown', keyHandler);
         gameDiv.classList.add('hidden');
         doneDiv.classList.remove('hidden');
-        const earned = deliveries * BIKE_COURIER_EUROS_PER_DELIVERY;
-        doneTextEl.textContent = 'Shift over. You earned €' + earned + ' and feel a bit better from the exercise (+' + BIKE_COURIER_MH_BONUS + ' mental health). Back to the application pile.';
+        const earned = Math.max(0, Math.floor(totalEuros));
+        doneTextEl.textContent =
+          'Shift over. You threaded ' +
+          packagesPassed +
+          ' drop-offs through traffic, banked €' +
+          earned +
+          ' (faster legs pay more — slow scenic routes pay in sanity, not cash), and feel a bit better from the ride (+' +
+          BIKE_COURIER_MH_BONUS +
+          ' mental health). Back to the application pile.';
         applyEffects({ money: earned, mentalHealth: BIKE_COURIER_MH_BONUS });
         updateStatBars();
         document.getElementById('bike-courier-continue-btn').onclick = () => onDone();
       }
 
       function keyHandler(e) {
-        if (e.code === 'Space') {
+        if (gameOver || !gameStarted) return;
+        if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
           e.preventDefault();
-          if (gameOver) return;
-          if (bikeY >= groundY - bikeH - 2) {
-            bikeVy = BIKE_COURIER_JUMP_VY;
-          }
+          laneIndex = Math.max(0, laneIndex - 1);
+        } else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+          e.preventDefault();
+          laneIndex = Math.min(BIKE_LANE_COUNT - 1, laneIndex + 1);
+        } else if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+          e.preventDefault();
+          scrollSpeed = Math.min(BIKE_SCROLL_MAX, scrollSpeed + BIKE_SCROLL_STEP);
+        } else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+          e.preventDefault();
+          scrollSpeed = Math.max(BIKE_SCROLL_MIN, scrollSpeed - BIKE_SCROLL_STEP);
         }
       }
       document.addEventListener('keydown', keyHandler);
-      jumpBtn.onclick = () => {
-        if (!gameOver && bikeY >= groundY - bikeH - 2) bikeVy = BIKE_COURIER_JUMP_VY;
-      };
+
+      function bindTap(el, fn) {
+        if (!el) return;
+        el.onclick = () => {
+          if (gameOver || !gameStarted) return;
+          fn();
+        };
+      }
+      bindTap(btnLaneL, () => { laneIndex = Math.max(0, laneIndex - 1); });
+      bindTap(btnLaneR, () => { laneIndex = Math.min(BIKE_LANE_COUNT - 1, laneIndex + 1); });
+      bindTap(btnSlower, () => { scrollSpeed = Math.max(BIKE_SCROLL_MIN, scrollSpeed - BIKE_SCROLL_STEP); });
+      bindTap(btnFaster, () => { scrollSpeed = Math.min(BIKE_SCROLL_MAX, scrollSpeed + BIKE_SCROLL_STEP); });
 
       function tick() {
-        if (gameOver) return;
+        if (gameOver || !gameStarted) return;
 
         frameCount++;
-        bikeVy += BIKE_COURIER_GRAVITY;
-        bikeY += bikeVy;
-        if (bikeY >= groundY - bikeH) {
-          bikeY = groundY - bikeH;
-          bikeVy = 0;
+        distance += scrollSpeed;
+        const earnMult = 0.35 + ((scrollSpeed - BIKE_SCROLL_MIN) / (BIKE_SCROLL_MAX - BIKE_SCROLL_MIN)) * 0.65;
+        totalEuros += scrollSpeed * BIKE_EARN_PER_SCROLL_UNIT * earnMult;
+
+        if (distance - lastPackageAt >= 88) {
+          lastPackageAt += 88;
+          packagesPassed++;
         }
 
-        if (frameCount >= nextSpawn) {
-          const obsH = 18 + Math.random() * 22;
-          obstacles.push({
-            x: W,
-            w: 28 + Math.random() * 24,
-            h: obsH,
-            y: groundY - obsH,
-          });
-          nextSpawn = frameCount + BIKE_COURIER_SPAWN_INTERVAL_MIN + Math.random() * (BIKE_COURIER_SPAWN_INTERVAL_MAX - BIKE_COURIER_SPAWN_INTERVAL_MIN);
+        if (frameCount >= nextVehicleSpawn) {
+          spawnVehicle();
+          const gap =
+            (BIKE_SPAWN_FRAMES_MIN + Math.random() * (BIKE_SPAWN_FRAMES_MAX - BIKE_SPAWN_FRAMES_MIN)) * (4.1 / scrollSpeed);
+          nextVehicleSpawn = frameCount + gap;
+        }
+        if (frameCount >= nextDecorSpawn) {
+          spawnDecor();
+          nextDecorSpawn = frameCount + BIKE_DECOR_SPAWN_MIN + Math.random() * (BIKE_DECOR_SPAWN_MAX - BIKE_DECOR_SPAWN_MIN);
         }
 
         for (let i = obstacles.length - 1; i >= 0; i--) {
           const o = obstacles[i];
-          o.x -= BIKE_COURIER_OBSTACLE_SPEED;
-          if (o.x + o.w < bikeX) {
-            deliveries++;
+          o.y += scrollSpeed;
+          if (o.y > H + 30) {
             obstacles.splice(i, 1);
             continue;
           }
-          const onGround = bikeY >= groundY - bikeH - 2;
-          const overlapX = bikeX < o.x + o.w && bikeX + bikeW > o.x;
-          const overlapY = bikeY + bikeH > o.y && bikeY < o.y + o.h;
-          if (onGround && overlapX && overlapY) {
+          if (o.lane !== laneIndex) continue;
+          const bx = bikeScreenX();
+          const by = bikeY;
+          const ox = laneCenter(o.lane) - o.w / 2;
+          if (bx < ox + o.w - 3 && bx + bikeW > ox + 3 && by < o.y + o.h - 4 && by + bikeH > o.y + 6) {
             crashes++;
             obstacles.splice(i, 1);
             if (crashes >= BIKE_COURIER_MAX_CRASHES) {
@@ -3560,33 +4983,70 @@ function runIslandHoppingGame(nextStep) {
           }
         }
 
-        ctx.fillStyle = '#87a0b0';
-        ctx.fillRect(0, 0, W, H);
-        ctx.fillStyle = '#5a6a75';
-        ctx.fillRect(0, groundY, W, H - groundY);
+        for (let j = decor.length - 1; j >= 0; j--) {
+          const d = decor[j];
+          d.y += scrollSpeed;
+          if (d.y > H + 40) decor.splice(j, 1);
+        }
 
-        obstacles.forEach(o => {
-          ctx.fillStyle = '#3d4a52';
-          ctx.fillRect(o.x, o.y, o.w, o.h);
-          ctx.strokeStyle = '#2a3338';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(o.x, o.y, o.w, o.h);
-        });
+        ctx.fillStyle = '#9ec8e8';
+        ctx.fillRect(0, 0, W, H * 0.16);
+        ctx.fillStyle = '#6a7d8c';
+        ctx.fillRect(0, H * 0.16, W, H * 0.84);
+        ctx.fillStyle = '#4a5562';
+        ctx.fillRect(roadPadX, 0, roadW, H);
 
-        ctx.fillStyle = '#2d4a1f';
-        ctx.fillRect(bikeX, bikeY, bikeW, bikeH);
-        ctx.strokeStyle = '#4a7c35';
+        const dashOff = (frameCount * scrollSpeed * 0.75) % 36;
+        ctx.strokeStyle = 'rgba(255,255,255,0.32)';
         ctx.lineWidth = 2;
-        ctx.strokeRect(bikeX, bikeY, bikeW, bikeH);
+        ctx.setLineDash([11, 14]);
+        for (let ly = -36; ly < H; ly += 36) {
+          const y0 = ly + dashOff;
+          ctx.beginPath();
+          ctx.moveTo(roadPadX + laneW, y0);
+          ctx.lineTo(roadPadX + laneW, y0 + 18);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(roadPadX + 2 * laneW, y0);
+          ctx.lineTo(roadPadX + 2 * laneW, y0 + 18);
+          ctx.stroke();
+        }
+        ctx.setLineDash([]);
+
+        decor.forEach(drawDecor);
+        obstacles.forEach(drawVehicle);
+
+        const bx = bikeScreenX();
+        ctx.fillStyle = '#1a5c28';
+        ctx.fillRect(bx, bikeY, bikeW, bikeH);
+        ctx.strokeStyle = '#7fd964';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(bx, bikeY, bikeW, bikeH);
+        ctx.fillStyle = '#b8e0ff';
+        ctx.fillRect(bx + 5, bikeY + 8, 7, 7);
+        ctx.fillRect(bx + bikeW - 12, bikeY + 8, 7, 7);
 
         updateHUD();
         animId = requestAnimationFrame(tick);
       }
 
       const bikeStartWrap = document.getElementById('bike-courier-start-wrap');
-      if (bikeStartWrap) bikeStartWrap.style.display = 'block';
+      if (bikeStartWrap) bikeStartWrap.style.display = 'flex';
       document.getElementById('bike-courier-start-game-btn').onclick = function () {
         if (bikeStartWrap) bikeStartWrap.style.display = 'none';
+        gameStarted = true;
+        laneIndex = 1;
+        scrollSpeed = BIKE_INITIAL_SCROLL;
+        totalEuros = 0;
+        distance = 0;
+        packagesPassed = 0;
+        lastPackageAt = 0;
+        obstacles.length = 0;
+        decor.length = 0;
+        frameCount = 0;
+        crashes = 0;
+        nextVehicleSpawn = 15;
+        nextDecorSpawn = 35;
         tick();
       };
       updateHUD();
@@ -3649,7 +5109,7 @@ function runIslandHoppingGame(nextStep) {
 
   function restart() {
     state = {
-      difficulty: null,
+      difficulty: 'medium',
       character: null,
       stats: null,
       step: 'character',
@@ -3658,9 +5118,9 @@ function runIslandHoppingGame(nextStep) {
       currentScene: 'campus',
       hasKids: false,
       socializingCount: 0,
-      ba: { year1Courses: [], year2Courses: [], thesisTopic: null },
-      ma: { year1Courses: [], year2Courses: [], thesisTopic: null },
-      phd: { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0 },
+      ba: { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null },
+      ma: { courses: [], year1Courses: [], year2Courses: [], thesisTopic: null, emailsCompleted: false, exchangeBlurb: null },
+      phd: { round: 1, papers: [], nextPaperId: 1, papersAccepted: 0, sabbaticalUsedThisYear: false, extensionYears: 0, publicationLog: [] },
       conferences: [],
       resumeStep: null,
       outcomeText: null,
@@ -3669,6 +5129,7 @@ function runIslandHoppingGame(nextStep) {
       cvUniversity: null,
       universityBA: null,
       universityMA: null,
+      leaveConfirmRestore: null,
     };
     document.getElementById('outcome-continue').classList.remove('hidden');
     document.getElementById('outcome-continue').textContent = 'Continue';
@@ -3726,8 +5187,8 @@ function runIslandHoppingGame(nextStep) {
     const name = (nameInput && nameInput.value ? nameInput.value.trim() : '') || '';
     if (!name) return;
     state.playerName = name;
-    document.getElementById('start-block').classList.add('hidden');
-    document.getElementById('difficulty-block').classList.remove('hidden');
+    state.difficulty = 'medium';
+    renderCharacterSelect();
   });
   document.getElementById('player-name-input').addEventListener('input', () => {
     updatePlayButtonState();
