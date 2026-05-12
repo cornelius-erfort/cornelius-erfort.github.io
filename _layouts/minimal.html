@@ -14,6 +14,24 @@
     {% include head/custom.html %}
     <link rel="stylesheet" href="{{ base_path }}/assets/css/scroll.css">
     <link rel="stylesheet" href="{{ base_path }}/assets/css/minimal.css">
+    <script>
+      // Set theme before first paint to avoid a flash. Default = system.
+      (function() {
+        try {
+          var pref = localStorage.getItem('min-theme');
+          if (pref !== 'light' && pref !== 'dark' && pref !== 'system') pref = 'system';
+          var effective = pref;
+          if (pref === 'system') {
+            effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', effective);
+          document.documentElement.setAttribute('data-theme-preference', pref);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.setAttribute('data-theme-preference', 'system');
+        }
+      })();
+    </script>
   </head>
   <body class="minimal-layout">
     {% include browser-upgrade.html %}
@@ -35,5 +53,6 @@
 
     <script src="{{ base_path }}/assets/js/render-sections.js"></script>
     <script src="{{ base_path }}/assets/js/news.js"></script>
+    <script src="{{ base_path }}/assets/js/theme-switch.js"></script>
   </body>
 </html>

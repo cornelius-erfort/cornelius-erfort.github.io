@@ -1,7 +1,9 @@
 /* Minimal layout: compact, full-width, multi-column.
-   Light theme only; overrides Minimal Mistakes base styles loaded via main.css. */
+   Overrides Minimal Mistakes base styles loaded via main.css.
+   Supports light / dark / system themes via [data-theme] on <html>. */
 
-:root {
+:root,
+html[data-theme="light"] {
   --min-text:        #1a1a1a;
   --min-text-muted:  #6b6b6b;
   --min-text-soft:   #3a3a3a;
@@ -10,14 +12,85 @@
   --min-rule:        #e5e5e5;
   --min-accent:      #2b6cb0;
   --min-bg:          #fdfdfc;
+  --min-surface:     #ffffff;
+  --min-shadow:      rgba(0, 0, 0, 0.06);
+  --min-color-scheme: light;
 }
 
-/* Force light scheme even when the user's OS prefers dark. */
+html[data-theme="dark"] {
+  --min-text:        #e8e8e7;
+  --min-text-muted:  #9aa0a6;
+  --min-text-soft:   #c5c8cc;
+  --min-link:        #7eb3ec;
+  --min-link-hover:  #adcef3;
+  --min-rule:        #2c2f34;
+  --min-accent:      #7eb3ec;
+  --min-bg:          #16181b;
+  --min-surface:     #1f2226;
+  --min-shadow:      rgba(0, 0, 0, 0.5);
+  --min-color-scheme: dark;
+}
+
 html.minimal-html,
 body.minimal-layout {
   background: var(--min-bg);
   color: var(--min-text);
-  color-scheme: light;
+  color-scheme: var(--min-color-scheme);
+}
+
+/* Theme switcher --------------------------------------------------------
+   Sits in the masthead photo column, above the portrait, so it stays
+   visible above any overlay (which is anchored below the masthead). */
+.minimal-header__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: var(--min-surface);
+  border: 1px solid var(--min-rule);
+  border-radius: 999px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+}
+.theme-switch__btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--min-text-muted);
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.theme-switch__btn:hover,
+.theme-switch__btn:focus-visible {
+  color: var(--min-text);
+  outline: none;
+}
+.theme-switch__btn.is-active {
+  background: var(--min-bg);
+  color: var(--min-accent);
+  box-shadow: inset 0 0 0 1px var(--min-rule);
+}
+.theme-switch__btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 body.minimal-layout {
@@ -450,7 +523,7 @@ body.minimal-overlay-open {
   background: var(--min-bg);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 -1px 0 var(--min-rule), 0 -10px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 -1px 0 var(--min-rule), 0 -10px 30px var(--min-shadow);
   animation: minimal-overlay-in 0.18s ease-out;
 }
 .minimal-overlay[hidden] { display: none !important; }
@@ -570,7 +643,7 @@ body.minimal-overlay-open {
   width: auto;
   height: auto;
   object-fit: contain;
-  background: #fff;
+  background: var(--min-surface);
   border-radius: 4px;
 }
 .minimal-full .data-icon-cell {
@@ -630,7 +703,7 @@ body.minimal-overlay-open {
 }
 .minimal-full .pub-button {
   appearance: none;
-  background: #fff;
+  background: var(--min-surface);
   border: 1px solid var(--min-rule);
   color: var(--min-text-muted);
   font: inherit;
@@ -751,7 +824,7 @@ body.minimal-overlay-open {
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--min-rule);
   border-radius: 999px;
-  background: #fff;
+  background: var(--min-surface);
   color: var(--min-text-muted);
   font-size: 0.82rem;
   text-decoration: none !important;
