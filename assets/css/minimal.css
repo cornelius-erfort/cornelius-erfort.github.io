@@ -509,28 +509,24 @@ html[data-theme="dark"] .minimal-hex--filled {
   min-width: 0;
 }
 
-/* Date + description on one line below the title (wraps together) */
+/* Date + description flow as one line of text (wraps at word boundaries only) */
 .minimal-news__sub {
   margin-top: 0.22rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.5rem;
   font-size: 0.82rem;
   line-height: 1.4;
   color: var(--min-text-soft);
 }
 
 .minimal-news__date {
-  flex: 0 0 auto;
+  display: inline;
+  margin-right: 0.4rem;
   font-size: 0.78rem;
   color: var(--min-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
 .minimal-news__snippet {
-  flex: 1 1 12rem;
-  min-width: 0;
+  display: inline;
   color: inherit;
 }
 
