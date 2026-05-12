@@ -1,8 +1,21 @@
 ---
-layout: redirect_to_anchor
 permalink: /cv/
 title: "CV"
-redirect_anchor: cv
+layout: null
 redirect_from:
   - /resume
 ---
+{% include base_path %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to CV…</title>
+  <meta http-equiv="refresh" content="0;url={{ base_path }}/files/cv_erfort.pdf">
+  <script>window.location.replace("{{ base_path }}/files/cv_erfort.pdf");</script>
+  <link rel="canonical" href="{{ base_path }}/files/cv_erfort.pdf">
+</head>
+<body>
+  <p>Redirecting to <a href="{{ base_path }}/files/cv_erfort.pdf">CV (PDF)</a>…</p>
+</body>
+</html>

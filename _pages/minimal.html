@@ -2,7 +2,7 @@
 title: "Cornelius Erfort"
 layout: minimal
 permalink: /
-description: "Minimal overview — full profile, publications, and teaching tables on the full site."
+description: "Postdoctoral researcher in political science. Voter targeting, interest groups, voting behavior."
 ---
 
 {% include base_path %}
@@ -36,9 +36,10 @@ description: "Minimal overview — full profile, publications, and teaching tabl
   <div class="minimal-col">
 
     <section class="minimal-section" id="about">
-      <h2>About</h2>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="about">About<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <p>I'm a Postdoc at <a href="https://www.uni-wh.de">Witten/Herdecke University</a>, working on the DFG-funded project <a href="https://zweitstimme.org/">zweitstimme.org</a>. I'm also affiliated with the <a href="https://hu-govlab.de">Humboldt Governance Lab</a>.</p>
       <p>My research sits at the intersection of comparative politics and quantitative methods. I study <a href="https://doi.org/10.1016/j.electstud.2024.102872">voter targeting</a>, interest groups, and voting behavior, with a broader interest in how democratic representation works in practice.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="about">Read more</a></p>
     </section>
 
     <section class="minimal-section" id="research">
@@ -51,50 +52,141 @@ description: "Minimal overview — full profile, publications, and teaching tabl
       </ul>
     </section>
 
+    <section class="minimal-section" id="resources">
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="resources">Other resources<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
+      <p>You can find links to friends in academia <a href="#" data-open-overlay="resources">here</a>.</p>
+    </section>
+
   </div>
 
   <div class="minimal-col">
     <section class="minimal-section" id="publications">
-      <h2>Selected publications</h2>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="publications">Selected publications<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
       <ol class="minimal-pubs" id="minimal-pubs"></ol>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#publications">full list</a> with abstracts, BibTeX, and replication data.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="publications">See the full list</a> with abstracts, BibTeX, and replication data.</p>
     </section>
 
     <section class="minimal-section" id="working-papers">
-      <h2>Selected working papers</h2>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="work-in-progress">Selected working papers<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
       <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#work-in-progress">full list</a> for all ongoing projects.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="work-in-progress">See the full list</a> for all ongoing projects.</p>
     </section>
   </div>
 
   <div class="minimal-col">
     <section class="minimal-section" id="news">
-      <h2>News</h2>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="news">News<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
       <ul class="minimal-news" id="minimal-news"></ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#news">full news list</a> on the full site.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="news">See the full news list</a>.</p>
     </section>
 
     <section class="minimal-section" id="teaching">
-      <h2>Teaching</h2>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="teaching">Teaching<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <ul class="minimal-list">
         <li><em>Automated Web Data Collection</em> &mdash; PhD workshop, <a href="https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics">DYNAMICS</a>, HU Berlin (2025, 2026). <a href="https://cornelius-erfort.github.io/automated-web-data-collection-2026/index.html">Syllabus 2026</a>.</li>
         <li><em>Automated Web Data Collection &amp; Text as Data</em> &mdash; BA, HU Berlin (Summer 2023). <a href="https://github.com/cornelius-erfort/web-data-and-text-r" target="_blank" rel="noopener">Materials</a>.</li>
         <li><em>Comparative Politics and International Relations</em> &mdash; BA, HU Berlin (Winter 2022&ndash;23).</li>
       </ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#teaching">full list</a> of teaching.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="teaching">See the full list</a> of teaching.</p>
     </section>
 
     <section class="minimal-section" id="data">
-      <h2>Data &amp; software</h2>
-      <ul class="minimal-list">
-        <li><a href="https://partypress.org" target="_blank" rel="noopener"><strong>PARTYPRESS</strong></a> &mdash; multilingual database of party press releases with supervised issue classifications. Code on <a href="https://github.com/cornelius-erfort/partypress" target="_blank" rel="noopener">GitHub</a>, models on <a href="https://huggingface.co/partypress/partypress-multilingual" target="_blank" rel="noopener">Hugging Face</a>.</li>
-        <li><a href="https://zweitstimme.org/" target="_blank" rel="noopener"><strong>zweitstimme.org</strong></a> &mdash; Bayesian forecasting model for German federal elections.</li>
-      </ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#data">full list</a> of data &amp; software.</p>
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="data">Data &amp; software<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
+      <p class="minimal-aside"><a href="#" data-open-overlay="data">See the full list</a> of data &amp; software.</p>
     </section>
+  </div>
+</div>
+
+<!-- ====================================================================== *
+ * Hidden source panels: full-section content lives here until requested.
+ * On open, the matching panel is moved into the overlay body; on close it
+ * is returned. This keeps element IDs unique across the document so the
+ * render-sections.js / news.js helpers keep working.
+ * ====================================================================== -->
+<div class="minimal-fulls" aria-hidden="true">
+
+  <div class="minimal-full" id="full-about" data-overlay-key="about" data-title="About">
+    <p>I'm a Postdoc at <a href="https://www.uni-wh.de">Witten/Herdecke University</a>, working on the DFG funded project <a href="https://zweitstimme.org/">zweitstimme.org</a>. I'm also affiliated with the <a href="https://hu-govlab.de">Humboldt Governance Lab</a>.</p>
+    <p>My research sits at the intersection of comparative politics and quantitative methods. I study <a href="https://doi.org/10.1016/j.electstud.2024.102872">voter targeting</a>, interest groups, and voting behavior, with a broader interest in how democratic representation works in practice&mdash;and how political competition, information, and organization shape whose preferences are heard.</p>
+    <p>Beyond individual papers, I care about building research infrastructure that others can use. With <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a>, providing data is important to me: I want to create lasting value for the research community through transparency, reproducibility, and open data (and, where possible, open-source workflows). I'm especially interested in innovative data sources and new ways of measuring politics&mdash;treating data as something we can discover in many places, not only in familiar datasets, and turning it into well-documented resources that others can reuse and build on.</p>
+  </div>
+
+  <div class="minimal-full" id="full-publications" data-overlay-key="publications" data-title="Publications">
+    <div class="minimal-full__actions">
+      {% if site.author.googlescholar %}<a href="{{ site.author.googlescholar }}" class="pub-button" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
+      <button type="button" class="pub-button" data-action="download-all-bibtex">Download all BibTeX</button>
+    </div>
+    <script type="application/json" id="data-publications">{{ site.data.publications | jsonify }}</script>
+    <table id="publicationsTable"><tbody></tbody></table>
+  </div>
+
+  <div class="minimal-full" id="full-work-in-progress" data-overlay-key="work-in-progress" data-title="Work in progress">
+    <script type="application/json" id="data-work-in-progress">{{ site.data.work_in_progress | jsonify }}</script>
+    <table id="workInProgressTable"><tbody></tbody></table>
+  </div>
+
+  <div class="minimal-full" id="full-news" data-overlay-key="news" data-title="News">
+    <script type="application/json" id="news-data">{{ site.data.news | jsonify }}</script>
+    <table class="news-table">
+      <tbody id="newsTable"></tbody>
+    </table>
+  </div>
+
+  <div class="minimal-full" id="full-teaching" data-overlay-key="teaching" data-title="Teaching">
+    <script type="application/json" id="data-teaching">{{ site.data.teaching | jsonify }}</script>
+    <table id="teachingTable"><tbody></tbody></table>
+  </div>
+
+  <div class="minimal-full" id="full-data" data-overlay-key="data" data-title="Data &amp; software">
+    <script type="application/json" id="data-datasets">{{ site.data.datasets | jsonify }}</script>
+    <table id="dataTable"><tbody></tbody></table>
+  </div>
+
+  <div class="minimal-full" id="full-resources" data-overlay-key="resources" data-title="Other resources">
+    <p>Friends, collaborators, and other researchers I follow &mdash; in the spirit of <a href="https://simonmunzert.com/links.html" target="_blank" rel="noopener">Simon Munzert&rsquo;s links page</a>.</p>
+    <ul class="minimal-resources">
+      <li><a href="https://nicolaiberk.com/" target="_blank" rel="noopener">Nicolai Berk</a>. Media effects. Immigration politics. Text as data.</li>
+      <li><a href="https://mbondeli.github.io/" target="_blank" rel="noopener">Moritz Bondeli</a>. Democratic resilience. Political violence. Historical political science.</li>
+      <li><a href="https://z-dickson.github.io/" target="_blank" rel="noopener">Zachary P. Dickson</a>. Climate politics. Public opinion. Computational text analysis.</li>
+      <li><a href="https://www.fabioellger.com/" target="_blank" rel="noopener">Fabio Ellger</a>. Polarization. Voter mobilization. Comparative politics.</li>
+      <li><a href="https://christina.gahn.at/" target="_blank" rel="noopener">Christina Gahn</a>. Political targeting. Party competition. Public opinion polls.</li>
+      <li><a href="https://www.sowi.uni-mannheim.de/gschwend/" target="_blank" rel="noopener">Thomas Gschwend</a>. Electoral behavior. Election forecasting. Quantitative methods.</li>
+      <li><a href="https://violeta-haas.github.io/" target="_blank" rel="noopener">Violeta Haas</a>. Politics of belonging. Immigration and LGBTQ+ rights. Causal inference.</li>
+      <li><a href="https://linushagemann.de/" target="_blank" rel="noopener">Linus Hagemann</a>. Data and politics. EU politics. Election forecasting.</li>
+      <li><a href="https://hartmannfelix.github.io/" target="_blank" rel="noopener">Felix Hartmann</a>. Political economy. Migration. Quantitative methods.</li>
+      <li><a href="https://www.albahuidobro.com/" target="_blank" rel="noopener">Alba Huidobro</a>. Comparative politics. Elites and gender. Government formation.</li>
+      <li><a href="https://heike-kluever.com/" target="_blank" rel="noopener">Heike Kl&uuml;ver</a>. Comparative European politics. Parties and interest groups. Text analysis.</li>
+      <li><a href="https://elias-koch.com/" target="_blank" rel="noopener">Elias Koch</a>. Public opinion. Election forecasting. Political behavior.</li>
+      <li><a href="https://markus-kollberg.net/" target="_blank" rel="noopener">Markus Kollberg</a>. Populist parties. Party systems. Democratic resilience.</li>
+      <li><a href="https://www.djordjemilosav.com/" target="_blank" rel="noopener">&#272;or&#273;e Milo&scaron;av</a>. Political behavior. Political psychology. Trust and democracy.</li>
+      <li><a href="https://simonmunzert.com/" target="_blank" rel="noopener">Simon Munzert</a>. Survey methodology. Web data. Computational social science.</li>
+      <li><a href="https://www.uni-mannheim.de/gess/programs/cdss/our-students/2022/hannah-rajski/" target="_blank" rel="noopener">Hannah Rajski</a>. Election forecasting. Quantitative methods. Political behavior.</li>
+      <li><a href="https://www.lukas-stoetzer.org/" target="_blank" rel="noopener">Lukas F. Stoetzer</a>. Voting behavior. Coalition signals. Quantitative methods.</li>
+      <li><a href="https://www.janstuckatz.com/" target="_blank" rel="noopener">Jan Stuckatz</a>. Political economy. Lobbying. Trade politics.</li>
+      <li><a href="https://frederikthieme.net/" target="_blank" rel="noopener">Frederik Thieme</a>. Young voters. Climate politics. Experiments.</li>
+      <li><a href="https://antoniovalentim.github.io/" target="_blank" rel="noopener">Ant&oacute;nio Valentim</a>. Comparative politics. Behavioral political economy. Climate politics.</li>
+      <li><a href="https://www.timwappenhans.com/" target="_blank" rel="noopener">Tim Wappenhans</a>. Political behavior. Radical right. Experimental methods.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Shared overlay container -->
+<div class="minimal-overlay" id="minimal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="minimal-overlay-title">
+  <header class="minimal-overlay__head">
+    <button type="button" class="minimal-overlay__close" id="minimal-overlay-close" aria-label="Close section">&times;</button>
+    <h2 class="minimal-overlay__title" id="minimal-overlay-title"></h2>
+  </header>
+  <div class="minimal-overlay__body" id="minimal-overlay-body">
+    <div class="minimal-overlay__slot" id="minimal-overlay-slot"></div>
+    <div class="minimal-overlay__back-to-top-wrap">
+      <button type="button" class="minimal-overlay__back-to-top" id="minimal-overlay-to-top" aria-label="Back to top">
+        <span aria-hidden="true">↑</span> Back to top
+      </button>
+    </div>
   </div>
 </div>
 
@@ -114,7 +206,6 @@ description: "Minimal overview — full profile, publications, and teaching tabl
     if (!el || !el.textContent) return [];
     try { return normalize(JSON.parse(el.textContent.trim())); } catch (e) { return []; }
   }
-  /* Year sort: "forthcoming" first, then descending by year. */
   function yearKey(y) {
     if (y == null) return -1;
     var s = String(y).toLowerCase();
@@ -152,6 +243,7 @@ description: "Minimal overview — full profile, publications, and teaching tabl
     return raw;
   }
 
+  /* ---- Compact teasers ------------------------------------------------ */
   var newsItems = parse('data-news-minimal')
     .filter(function(n) { return n && n.date; })
     .sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); })
@@ -199,9 +291,7 @@ description: "Minimal overview — full profile, publications, and teaching tabl
 
   var wips = parse('data-wip-minimal')
     .filter(function(p) { return p && p.featured; })
-    .sort(function(a, b) {
-      return (a.order || 0) - (b.order || 0);
-    });
+    .sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
   var wipList = document.getElementById('minimal-wip');
   if (wipList) {
     wips.forEach(function(item) {
@@ -217,5 +307,206 @@ description: "Minimal overview — full profile, publications, and teaching tabl
       wipList.appendChild(li);
     });
   }
+
+  /* ---- Toggle helpers used by render-sections.js output ---------------- */
+  window.toggleContent = function(id) {
+    var clicked = document.getElementById(id);
+    if (!clicked) return;
+    var slot = document.getElementById('minimal-overlay-slot');
+    var siblings = slot ? slot.querySelectorAll('.pub-content') : [];
+    var wasActive = clicked.classList.contains('active');
+    for (var i = 0; i < siblings.length; i++) {
+      if (siblings[i] !== clicked) siblings[i].classList.remove('active');
+    }
+    clicked.classList.toggle('active', !wasActive);
+  };
+  window.downloadBibtex = function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var pre = el.querySelector('pre');
+    var text = pre ? pre.textContent : '';
+    if (!text) return;
+    var blob = new Blob([text], { type: 'text/plain' });
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'citation.bib';
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+  window.downloadAllBibtex = function() {
+    var pres = document.querySelectorAll('#publicationsTable [id^="bibtex"] pre, #workInProgressTable [id^="bibtex"] pre');
+    var parts = [];
+    pres.forEach(function(pre) { parts.push(pre.textContent.trim()); });
+    var all = parts.join('\n\n');
+    if (!all) return;
+    var blob = new Blob([all], { type: 'text/plain' });
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'erfort_publications.bib';
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
+  /* ---- Render full-section content (tables) into hidden panels --------- */
+  function renderFulls() {
+    if (typeof window.renderAllSections === 'function') {
+      try { window.renderAllSections(); } catch (e) { /* ignore */ }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderFulls);
+  } else {
+    renderFulls();
+  }
+
+  /* ---- Overlay open/close --------------------------------------------- */
+  var overlay = document.getElementById('minimal-overlay');
+  var slot = document.getElementById('minimal-overlay-slot');
+  var titleEl = document.getElementById('minimal-overlay-title');
+  var closeBtn = document.getElementById('minimal-overlay-close');
+  var body = document.getElementById('minimal-overlay-body');
+  var backTopBtn = document.getElementById('minimal-overlay-to-top');
+  var fullsHost = document.querySelector('.minimal-fulls');
+  var currentKey = null;
+  var lastFocus = null;
+
+  function measureOverlayTop() {
+    var header = document.querySelector('.minimal-header');
+    var page = document.querySelector('.minimal-page');
+    if (!header) return;
+    var rect = header.getBoundingClientRect();
+    var pageStyle = page ? window.getComputedStyle(page) : null;
+    var top = rect.bottom + (pageStyle ? parseFloat(pageStyle.paddingBottom) || 0 : 0);
+    var min = 80;
+    if (top < min) top = min;
+    document.documentElement.style.setProperty('--minimal-overlay-top', top + 'px');
+  }
+  measureOverlayTop();
+  window.addEventListener('resize', measureOverlayTop, { passive: true });
+
+  function openOverlay(key) {
+    if (!overlay || !slot) return;
+    var panel = document.getElementById('full-' + key);
+    if (!panel) return;
+    if (currentKey === key && !overlay.hidden) return;
+    closeOverlayInner(false);
+    measureOverlayTop();
+    var title = panel.getAttribute('data-title') || '';
+    if (titleEl) titleEl.innerHTML = title;
+    slot.appendChild(panel);
+    panel.removeAttribute('aria-hidden');
+    overlay.hidden = false;
+    document.body.classList.add('minimal-overlay-open');
+    currentKey = key;
+    lastFocus = document.activeElement;
+    if (body) body.scrollTop = 0;
+    if (closeBtn) closeBtn.focus();
+    if (window.history && window.history.replaceState) {
+      try { window.history.replaceState(null, '', '#' + key); } catch (e) {}
+    }
+  }
+
+  function closeOverlayInner(restoreFocus) {
+    if (!overlay || !slot) return;
+    if (!currentKey && overlay.hidden) return;
+    var panel = currentKey ? document.getElementById('full-' + currentKey) : null;
+    if (panel && fullsHost) {
+      panel.setAttribute('aria-hidden', 'true');
+      fullsHost.appendChild(panel);
+    }
+    overlay.hidden = true;
+    document.body.classList.remove('minimal-overlay-open');
+    currentKey = null;
+    if (restoreFocus && lastFocus && typeof lastFocus.focus === 'function') {
+      lastFocus.focus();
+    }
+    lastFocus = null;
+    if (window.history && window.history.replaceState && window.location.hash) {
+      try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    }
+  }
+  function closeOverlay() { closeOverlayInner(true); }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay && !overlay.hidden) {
+      e.preventDefault();
+      closeOverlay();
+    }
+  });
+
+  if (backTopBtn && body) {
+    backTopBtn.addEventListener('click', function() { body.scrollTop = 0; });
+  }
+
+  /* Click delegation: any element with data-open-overlay opens that section.
+     Also handles section h2 keyboard (Enter / Space) for role="button". */
+  document.addEventListener('click', function(e) {
+    var opener = e.target.closest && e.target.closest('[data-open-overlay]');
+    if (opener) {
+      var key = opener.getAttribute('data-open-overlay');
+      if (key) {
+        e.preventDefault();
+        openOverlay(key);
+        return;
+      }
+    }
+    var btn = e.target.closest && e.target.closest('.pub-button');
+    if (!btn) return;
+    var toggleId = btn.getAttribute('data-toggle-content');
+    if (toggleId) {
+      e.preventDefault();
+      window.toggleContent(toggleId);
+      return;
+    }
+    var dlId = btn.getAttribute('data-download-bibtex');
+    if (dlId) {
+      e.preventDefault();
+      window.downloadBibtex(dlId);
+      return;
+    }
+    if (btn.getAttribute('data-action') === 'download-all-bibtex') {
+      e.preventDefault();
+      window.downloadAllBibtex();
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var opener = e.target.closest && e.target.closest('[data-open-overlay][role="button"]');
+    if (!opener) return;
+    e.preventDefault();
+    var key = opener.getAttribute('data-open-overlay');
+    if (key) openOverlay(key);
+  });
+
+  /* If page loads with a hash that matches a section, open it. */
+  function handleHash() {
+    var h = (window.location.hash || '').replace(/^#/, '').trim().toLowerCase();
+    if (!h) return;
+    var aliases = {
+      'work-in-progress': 'work-in-progress',
+      'wip': 'work-in-progress',
+      'working-papers': 'work-in-progress',
+      'pubs': 'publications',
+      'publications': 'publications',
+      'about': 'about',
+      'teaching': 'teaching',
+      'data': 'data',
+      'news': 'news',
+      'resources': 'resources',
+      'links': 'resources'
+    };
+    var key = aliases[h];
+    if (!key) return;
+    if (document.getElementById('full-' + key)) openOverlay(key);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(handleHash, 0); });
+  } else {
+    setTimeout(handleHash, 0);
+  }
+  window.addEventListener('hashchange', handleHash);
 })();
 </script>

@@ -1,0 +1,20 @@
+---
+# /full/ no longer exists as a separate page — section content lives in
+# overlays on the homepage. Keep this redirect for legacy bookmarks.
+permalink: /full/
+layout: null
+---
+{% include base_path %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <meta http-equiv="refresh" content="0;url={{ base_path }}/">
+  <script>window.location.replace("{{ base_path }}/");</script>
+  <link rel="canonical" href="{{ base_path }}/">
+</head>
+<body>
+  <p>Moved — <a href="{{ base_path }}/">continue to the site</a>.</p>
+</body>
+</html>

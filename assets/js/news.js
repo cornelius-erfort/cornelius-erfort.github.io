@@ -15,7 +15,7 @@
     var typeLabels = { publication: 'Publication', grant: 'Grant', presentation: 'Presentation', award: 'Award', teaching: 'Teaching', other: 'News' };
     var typeIcons = { publication: 'fa-book', grant: 'fa-coins', presentation: 'fa-microphone', award: 'fa-award', teaching: 'fa-chalkboard-teacher', other: 'fa-newspaper' };
     var basePath = '';
-    var contentEl = document.querySelector('.scroll-content');
+    var contentEl = document.querySelector('.scroll-content[data-base-path], .minimal-content[data-base-path], [data-base-path]');
     if (contentEl && contentEl.getAttribute('data-base-path')) basePath = contentEl.getAttribute('data-base-path') || '';
 
     function formatDate(s) {
@@ -54,6 +54,7 @@
         (bodyContent ? '<div class="news-item-body">' + bodyContent + '</div>' : '') + '</td>';
       return tr;
     }
+    tbody.innerHTML = '';
     for (var i = 0; i < items.length; i++) tbody.appendChild(renderRow(items[i]));
   }
   // IMPORTANT:

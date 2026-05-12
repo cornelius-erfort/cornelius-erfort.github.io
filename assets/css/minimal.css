@@ -42,41 +42,8 @@ body.minimal-layout {
 .minimal-page {
   max-width: none;
   margin: 0;
-  /* Extra top padding so fixed “Full site” link does not overlap the header */
-  padding: 2.35rem 2rem 1.5rem;
+  padding: 1.5rem 2rem 1.5rem;
   box-sizing: border-box;
-}
-
-/* Full site — fixed top-left; mirrors scroll masthead .site-nav-static__to-minimal */
-.minimal-to-full {
-  position: fixed;
-  top: max(0.65rem, env(safe-area-inset-top, 0px));
-  left: max(0.85rem, env(safe-area-inset-left, 0px));
-  z-index: 100;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  color: var(--min-text-muted);
-  line-height: 1.2;
-  transition: color 0.15s ease;
-}
-.minimal-to-full:hover,
-.minimal-to-full:focus {
-  color: var(--min-link);
-  text-decoration: underline;
-}
-.minimal-to-full-arrow {
-  font-size: 0.85em;
-  opacity: 0.9;
-}
-.minimal-to-full-arrow .fa-arrow-right {
-  font-size: 0.9em;
 }
 
 /* Links --------------------------------------------------------------- */
@@ -204,6 +171,33 @@ body.minimal-layout {
   padding-bottom: 0.35rem;
   border-bottom: 2px solid rgba(43, 108, 176, 0.28);
   font-weight: 600;
+}
+
+/* Clickable section title (opens overlay) */
+.minimal-section h2.is-clickable {
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.minimal-section h2.is-clickable:hover,
+.minimal-section h2.is-clickable:focus {
+  color: var(--min-link);
+  border-bottom-color: var(--min-link);
+  outline: none;
+}
+.minimal-section h2.is-clickable .minimal-section__chev {
+  color: var(--min-text-muted);
+  font-size: 0.78em;
+  font-weight: 400;
+  transition: transform 0.15s ease, color 0.12s ease;
+}
+.minimal-section h2.is-clickable:hover .minimal-section__chev,
+.minimal-section h2.is-clickable:focus .minimal-section__chev {
+  color: var(--min-link);
+  transform: translateX(2px);
 }
 
 .minimal-section p {
@@ -429,4 +423,373 @@ body.minimal-layout {
     min-width: 0;
     grid-column: unset;
   }
+}
+
+/* ====================================================================== *
+ * Section overlay: covers everything below the masthead header. The
+ * trigger is a click on any minimal section h2 (with .is-clickable) or
+ * the "Read more" / "See the full list" aside link. One overlay shared
+ * across sections; the matching hidden panel is moved into the overlay
+ * body on open. Scroll happens inside the overlay body — no pagination,
+ * with a "Back to top" link at the end.
+ * ====================================================================== */
+
+.minimal-fulls { display: none; }
+
+body.minimal-overlay-open {
+  overflow: hidden;
+}
+
+.minimal-overlay {
+  position: fixed;
+  top: var(--minimal-overlay-top, 200px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  background: var(--min-bg);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -1px 0 var(--min-rule), 0 -10px 30px rgba(0, 0, 0, 0.06);
+  animation: minimal-overlay-in 0.18s ease-out;
+}
+.minimal-overlay[hidden] { display: none !important; }
+
+@keyframes minimal-overlay-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.minimal-overlay__head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1.25rem 0.6rem 0.85rem;
+  background: var(--min-bg);
+  border-bottom: 2px solid rgba(43, 108, 176, 0.28);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.minimal-overlay__close {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--min-text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  flex: 0 0 auto;
+}
+.minimal-overlay__close:hover,
+.minimal-overlay__close:focus {
+  color: var(--min-text);
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--min-rule);
+  outline: none;
+}
+
+.minimal-overlay__title {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--min-text);
+}
+
+.minimal-overlay__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem 1.5rem 4rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Each section panel hosted inside the overlay --------------------------- */
+.minimal-full {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.minimal-full p {
+  color: var(--min-text-soft);
+  margin: 0 0 0.85rem;
+  line-height: 1.6;
+}
+
+.minimal-full__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1.1rem;
+}
+
+/* Tables (publications/teaching/data/news/wip) — flow layout, no inlay */
+.minimal-full table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+.minimal-full table tr {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 0.85rem 1rem;
+  align-items: start;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--min-rule);
+}
+.minimal-full table tr:last-child { border-bottom: none; }
+.minimal-full table tr > td {
+  border: none !important;
+  padding: 0 !important;
+  vertical-align: top;
+}
+
+.minimal-full .publication-image-cell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.minimal-full .publication-image-cell img {
+  max-width: 96px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 4px;
+}
+.minimal-full .data-icon-cell {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--min-text-muted);
+  font-size: 1.5rem;
+}
+.minimal-full .data-icon-cell--logo {
+  width: 96px;
+  height: auto;
+}
+.minimal-full .data-icon-cell--logo img {
+  max-width: 96px;
+  max-height: 64px;
+  object-fit: contain;
+}
+.minimal-full .document-icon {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--min-text-muted);
+  font-size: 1.5rem;
+}
+
+.minimal-full .pub-cell b {
+  color: var(--min-text);
+  font-weight: 600;
+}
+.minimal-full .pub-cell {
+  font-size: 0.92rem;
+  color: var(--min-text-soft);
+  line-height: 1.5;
+}
+.minimal-full .pub-cell i { font-style: italic; }
+
+.minimal-full .pub-title-wrap .pub-title--narrow { display: none; }
+@media (max-width: 600px) {
+  .minimal-full .pub-title-wrap .pub-title--wide { display: none; }
+  .minimal-full .pub-title-wrap .pub-title--narrow {
+    display: inline;
+    color: var(--min-link);
+  }
+}
+
+/* Abstract / BibTeX / link toggle buttons */
+.minimal-full .publication-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.55rem;
+}
+.minimal-full .pub-button {
+  appearance: none;
+  background: #fff;
+  border: 1px solid var(--min-rule);
+  color: var(--min-text-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.minimal-full .pub-button:hover,
+.minimal-full .pub-button:focus {
+  color: var(--min-link);
+  border-color: var(--min-link);
+  background: rgba(43, 108, 176, 0.06);
+  outline: none;
+}
+
+.minimal-full .pub-content {
+  display: none;
+  margin: 0 0 0.7rem;
+  padding: 0.7rem 0.85rem;
+  background: rgba(0, 0, 0, 0.025);
+  border: 1px solid var(--min-rule);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--min-text-soft);
+  line-height: 1.5;
+}
+.minimal-full .pub-content.active { display: block; }
+.minimal-full .pub-content pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.minimal-full .external-link-content a {
+  color: var(--min-link);
+  font-weight: 500;
+}
+
+/* News rows in overlay ----------------------------------------------- */
+.minimal-full .news-item-date {
+  font-size: 0.82rem;
+  color: var(--min-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.minimal-full .news-item-type {
+  font-size: 0.7rem;
+  color: var(--min-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-left: 0.35rem;
+}
+.minimal-full .news-item-title {
+  font-size: 0.98rem;
+  color: var(--min-text);
+  margin: 0.18rem 0 0.35rem;
+  font-weight: 600;
+}
+.minimal-full .news-item-body {
+  color: var(--min-text-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.minimal-full .news-item-body p { margin: 0 0 0.5rem; }
+.minimal-full .news-item-body p:last-child { margin-bottom: 0; }
+
+/* Teaching date in overlay */
+.minimal-full .media-date {
+  font-size: 0.82rem;
+  color: var(--min-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Resources / friends-in-academia list ------------------------------- */
+.minimal-resources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.minimal-resources li {
+  position: relative;
+  padding-left: 0.9rem;
+  margin: 0 0 0.55rem;
+  color: var(--min-text-soft);
+  line-height: 1.55;
+}
+.minimal-resources li:last-child { margin-bottom: 0; }
+.minimal-resources li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--min-accent);
+  font-weight: 600;
+}
+.minimal-resources li a {
+  color: var(--min-text);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+.minimal-resources li a:hover,
+.minimal-resources li a:focus {
+  border-bottom-color: var(--min-accent);
+}
+
+/* Back to top --------------------------------------------------------- */
+.minimal-overlay__back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  margin: 2rem auto 0;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--min-rule);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--min-text-muted);
+  font-size: 0.82rem;
+  text-decoration: none !important;
+  border-bottom: 1px solid var(--min-rule) !important;
+  cursor: pointer;
+  font-family: inherit;
+}
+.minimal-overlay__back-to-top:hover,
+.minimal-overlay__back-to-top:focus {
+  color: var(--min-link);
+  border-color: rgba(43, 108, 176, 0.4) !important;
+  outline: none;
+}
+.minimal-overlay__back-to-top-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .minimal-overlay__head {
+    padding: 0.5rem 0.85rem 0.5rem 0.5rem;
+  }
+  .minimal-overlay__body {
+    padding: 1rem 1.1rem 4rem;
+  }
+  .minimal-full table tr {
+    grid-template-columns: 64px 1fr;
+    gap: 0.55rem 0.75rem;
+  }
+  .minimal-full .publication-image-cell img,
+  .minimal-full .data-icon-cell--logo,
+  .minimal-full .data-icon-cell--logo img {
+    max-width: 64px;
+  }
+  .minimal-full .data-icon-cell {
+    width: 64px;
+    height: 64px;
+  }
+  .minimal-full .pub-cell { font-size: 0.88rem; }
 }

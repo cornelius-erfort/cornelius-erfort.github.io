@@ -8,4 +8,5 @@ if [ -x /opt/homebrew/opt/ruby/bin/ruby ]; then
 elif [ -x /usr/local/opt/ruby/bin/ruby ]; then
   export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
-bundle exec jekyll serve "$@"
+# Use _config.dev.yml override so URLs resolve to localhost during dev
+bundle exec jekyll serve --config _config.yml,_config.dev.yml "$@"

@@ -2,8 +2,8 @@
 layout: null
 ---
 {% include base_path %}
-{% capture _scroll_root %}{{ base_path }}/full/{% endcapture %}
-{% assign _target = page.redirect_base | default: _scroll_root %}
+{% capture _home %}{{ base_path }}/{% endcapture %}
+{% assign _target = page.redirect_base | default: _home %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +14,6 @@ layout: null
   <link rel="canonical" href="{{ _target }}#{{ page.redirect_anchor }}">
 </head>
 <body>
-  <p>Redirecting to <a href="{{ _target }}#{{ page.redirect_anchor }}">full site</a>…</p>
+  <p>Redirecting to <a href="{{ _target }}#{{ page.redirect_anchor }}">main page</a>…</p>
 </body>
 </html>

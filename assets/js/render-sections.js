@@ -64,13 +64,14 @@
     return out;
   }
   function getBasePath() {
-    var el = document.querySelector('.scroll-content[data-base-path]');
+    var el = document.querySelector('.scroll-content[data-base-path], .minimal-content[data-base-path], [data-base-path]');
     return (el && el.getAttribute('data-base-path')) || '';
   }
 
   function renderPublications(items, basePath) {
     var tbody = q('#publicationsTable tbody');
     if (!tbody) return;
+    tbody.innerHTML = '';
     items.forEach(function(pub, i) {
       var idx = i + 1;
       var imgCell = '<td class="publication-image-cell" style="border:none">' +
@@ -116,6 +117,7 @@
     var table = el('workInProgressTable');
     if (!table) return;
     var tbody = table.querySelector('tbody') || table;
+    tbody.innerHTML = '';
     items.forEach(function(wip, i) {
       var idx = 11 + i;
       var buttons = [];
@@ -153,6 +155,7 @@
   function renderMedia(items, basePath) {
     var tbody = el('mediaTable');
     if (!tbody) return;
+    tbody.innerHTML = '';
     items.forEach(function(m) {
       var tr = document.createElement('tr');
       var cover = m.url
@@ -171,6 +174,7 @@
   function renderDatasets(items, basePath) {
     var tbody = q('#dataTable tbody');
     if (!tbody) return;
+    tbody.innerHTML = '';
     var bp = (basePath || '').replace(/\/$/, '');
     items.forEach(function(d) {
       var idBase = d.id || 'data-' + (d.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -272,6 +276,7 @@
   function renderTeaching(items, basePath) {
     var tbody = q('#teachingTable tbody');
     if (!tbody) return;
+    tbody.innerHTML = '';
     var bp = (basePath || '').replace(/\/$/, '');
     items.forEach(function(t) {
       var idBase = t.id || 'teaching-' + (t.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');

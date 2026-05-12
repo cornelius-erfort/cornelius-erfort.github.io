@@ -1,6 +1,8 @@
 ---
-# Minimal layout: a stripped-down, content-first version of the site.
-# Skips the fixed masthead, sidebar, scripts, and tailoring used on the main page.
+# Minimal layout: single-page, no sidebar/masthead/scroll inlays.
+# Loads scroll.css too so the section overlays (tables, abstract toggles,
+# coauthor popovers, logos) can re-use the same styles render-sections.js
+# expects.
 ---
 
 {% include base_path %}
@@ -10,15 +12,11 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ base_path }}/assets/css/scroll.css">
     <link rel="stylesheet" href="{{ base_path }}/assets/css/minimal.css">
   </head>
   <body class="minimal-layout">
     {% include browser-upgrade.html %}
-
-    <a href="{{ base_path }}/full/" class="minimal-to-full" aria-label="Open full profile site with all sections">
-      <span class="minimal-to-full-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
-      Full site
-    </a>
 
     <main class="minimal-page" id="top">
       <article class="minimal-content" data-base-path="{{ base_path }}">
@@ -27,8 +25,6 @@
 
       <footer class="minimal-footer">
         <p>
-          <a href="{{ base_path }}/full/">Full site</a>
-          <span class="minimal-sep" aria-hidden="true">·</span>
           <a href="{{ base_path }}/files/cv_erfort.pdf" target="_blank" rel="noopener">CV (PDF)</a>
           <span class="minimal-sep" aria-hidden="true">·</span>
           <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
@@ -36,5 +32,8 @@
         <p class="minimal-footer__copy">&copy; {{ site.time | date: "%Y" }} {{ site.name | default: site.title }}.</p>
       </footer>
     </main>
+
+    <script src="{{ base_path }}/assets/js/render-sections.js"></script>
+    <script src="{{ base_path }}/assets/js/news.js"></script>
   </body>
 </html>

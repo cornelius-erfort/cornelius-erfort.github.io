@@ -569,11 +569,11 @@
     { id: 'fixed', name: 'Fixed-term research contract', desc: 'Someone else\'s project. Two years. You\'re the hired hand.', baseAccept: 0.38, minNetwork: 30, minLuck: 0 },
     { id: 'abroad', name: 'Post-doc abroad', desc: 'New country, new department. Network helps.', baseAccept: 0.28, minNetwork: 45, minLuck: 25 },
   ];
-  const POSTDOC_APP_MONEY_PER = 15;
+  const POSTDOC_APP_MONEY_PER = 10;
   const POSTDOC_APP_MH_PER = -8;
   const POSTDOC_APP_MAX = 4;
-  /** Minimum projected mental health after hypothetically paying for the next app (was 15, i.e. needed MH ≥ 23 to apply once). */
-  const POSTDOC_APPLY_MIN_PROJECTED_MH = 0;
+  /** Cash top-up when you open post-doc apps broke (one round of hustle). */
+  const POSTDOC_HUSTLE_MONEY = 22;
 
   // BA Year 1: Department Research Day (posters, short talks)
   const CONFERENCE_Y1 = [
@@ -4163,16 +4163,54 @@
     showPostDocChoice([]);
   }
 
+  function showPostDocBlockedByFunds() {
+    setStageTitle('Post-doc applications');
+    showChoice(
+      'You cannot cover even one application fee right now (€' +
+        POSTDOC_APP_MONEY_PER +
+        ' per application). Nothing ends your run — hustle a little, or step back and return from "After the PhD" when you can.',
+      [
+        {
+          id: 'postdoc_hustle',
+          title: 'Side gigs: surveys, copy-editing, selling course packs',
+          desc: '+€' + POSTDOC_HUSTLE_MONEY + ', but it costs sleep and pride (mental health hit).',
+          effects: {},
+          btnVariant: 'primary-path',
+        },
+        {
+          id: 'postdoc_back',
+          title: 'Return to "After the PhD"',
+          desc: 'Regroup without spending cash you do not have.',
+          effects: {},
+          btnVariant: 'secondary-path',
+        },
+      ],
+      choice => {
+        if (choice.id === 'postdoc_hustle') {
+          applyEffects({ money: POSTDOC_HUSTLE_MONEY, mentalHealth: -8 });
+          updateStatBars();
+          showPostDocChoice([]);
+        } else {
+          showAfterPhDChoice();
+        }
+      },
+      'campus',
+      'postdoc_application'
+    );
+  }
+
   function showPostDocChoice(selected) {
     const money = state.stats.money || 0;
-    const mh = state.stats.mentalHealth || 0;
     const n = selected.length;
-    const canAddMore = n < POSTDOC_APP_MAX &&
-      money >= (n + 1) * POSTDOC_APP_MONEY_PER &&
-      mh + (n + 1) * POSTDOC_APP_MH_PER >= POSTDOC_APPLY_MIN_PROJECTED_MH;
-    const unlocked = POSTDOC_PROGRAMS.filter(p =>
-      (state.stats.network || 0) >= p.minNetwork && (state.stats.luck || 0) >= p.minLuck
+    /** Money + cap only — an old MH “projected floor” gate blocked almost everyone after a rough PhD. */
+    const canAddMore =
+      n < POSTDOC_APP_MAX && money >= (n + 1) * POSTDOC_APP_MONEY_PER;
+    let unlocked = POSTDOC_PROGRAMS.filter(
+      p => (state.stats.network || 0) >= p.minNetwork && (state.stats.luck || 0) >= p.minLuck
     );
+    if (unlocked.length === 0) {
+      unlocked = POSTDOC_PROGRAMS.filter(p => p.id === 'teaching');
+    }
     const available = unlocked.filter(p => !selected.find(s => s.id === p.id) && canAddMore);
 
     let prompt =
@@ -4180,7 +4218,7 @@
       POSTDOC_APP_MONEY_PER +
       ' and ' +
       POSTDOC_APP_MH_PER +
-      ' mental health (stats are clamped; you can keep re-entering this screen until you get an offer or choose to leave). Max ' +
+      ' mental health (stats are clamped at 0+; you can keep re-entering until you land an offer or leave). Max ' +
       POSTDOC_APP_MAX +
       ' per round.';
     if (n > 0) prompt += ' Applied: ' + selected.map(s => s.name).join(', ') + '.';
@@ -4193,12 +4231,25 @@
     }));
     if (n >= 1) options.push({ id: 'done', title: 'Submit ' + n + ' application(s)', desc: 'See who responds.', effects: {} });
     if (options.length === 0 && n === 0) {
-      showOutcome(
-        'No application slots open this visit: either you lack €' +
-          POSTDOC_APP_MONEY_PER +
-          ' (and enough for fees you already picked), or no listings match your network / luck yet. Nothing auto-ends your run — go back to "After the PhD", recover if you can, and try again whenever you want.',
-        () => showAfterPhDChoice(),
-        {},
+      if (money < POSTDOC_APP_MONEY_PER) {
+        showPostDocBlockedByFunds();
+        return;
+      }
+      showChoice(
+        'No new listings match your network / luck this visit, or you are short on cash for another slot. You can go back, recover stats elsewhere, and try again.',
+        [
+          {
+            id: 'postdoc_retry_later',
+            title: 'Back to "After the PhD"',
+            desc: 'Nothing auto-fails — return when your profile fits more calls.',
+            effects: {},
+            btnVariant: 'primary-path',
+          },
+        ],
+        choice => {
+          showAfterPhDChoice();
+        },
+        'campus',
         'after_phd'
       );
       return;

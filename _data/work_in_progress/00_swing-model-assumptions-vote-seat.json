@@ -1,8 +1,0 @@
-{
-  "order": 4,
-  "featured": true,
-  "title": "How Swing Model Assumptions Shape Vote-to-Seat Predictions",
-  "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>, and <a href=\"https://www.sowi.uni-mannheim.de/gschwend/\">Thomas Gschwend</a>. <i>Under review at Electoral Studies.</i>",
-  "abstract": "Forecasters map national trends to district seats via swing rules, but little is known about modelling choices. Using eight German federal elections and simulations, we compare uniform and proportional swing (and variants): differences are modest yet affect precision; uniform swing improves when national swings are larger, district volatility lower, and more parties compete.",
-  "bibtex": "@unpublished{erfort_stoetzer_gschwend_swing_voteseat, title = {How Swing Model Assumptions Shape Vote-to-Seat Predictions}, author = {Erfort, Cornelius and Stoetzer, Lukas F. and Gschwend, Thomas}, year = {2026}, note = {Under review at Electoral Studies}}"
-}
