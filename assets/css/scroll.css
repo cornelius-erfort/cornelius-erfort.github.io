@@ -69,7 +69,7 @@ body.scroll-layout {
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
-  /* Reserve space for fixed “Minimal site” link (same inset as /compact/). */
+  /* Reserve space for fixed “Minimal site” link (top-left inset). */
   padding-left: max(2rem, calc(env(safe-area-inset-left, 0px) + 0.85rem + 6.5rem));
   padding-right: max(2em, env(safe-area-inset-right, 0px));
 }
@@ -111,7 +111,7 @@ body.scroll-layout {
   line-height: 1.2;
 }
 
-/* Fixed top-left — secondary nav tone: inherit masthead font, normal weight */
+/* Fixed top-left — same type size as masthead nav links (inherit html/body) */
 .masthead--fixed .site-nav-static__to-minimal--fixed {
   position: fixed;
   top: max(0.65rem, env(safe-area-inset-top, 0px));
@@ -121,7 +121,7 @@ body.scroll-layout {
   align-items: center;
   gap: 0.4em;
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: inherit;
   font-weight: 400;
   letter-spacing: 0.01em;
   text-decoration: none;
@@ -194,6 +194,7 @@ body.scroll-layout {
   margin: 0 1rem;
   text-decoration: none;
   color: inherit;
+  font-size: inherit;
 }
 
 .masthead--fixed .site-nav-static .nav-links li:last-child a {

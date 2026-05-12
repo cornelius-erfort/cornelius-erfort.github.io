@@ -1,8 +1,8 @@
 ---
 title: "Cornelius Erfort"
 layout: minimal
-permalink: /compact/
-description: "Compact overview — full profile, publications, and teaching tables on the main site."
+permalink: /
+description: "Minimal overview — full profile, publications, and teaching tables on the full site."
 ---
 
 {% include base_path %}
@@ -54,27 +54,27 @@ description: "Compact overview — full profile, publications, and teaching tabl
   </div>
 
   <div class="minimal-col">
-    <section class="minimal-section" id="news">
-      <h2>News</h2>
-      <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
-      <ul class="minimal-news" id="minimal-news"></ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#news">full news list</a> on the main site.</p>
-    </section>
-
     <section class="minimal-section" id="publications">
       <h2>Selected publications</h2>
       <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
       <ol class="minimal-pubs" id="minimal-pubs"></ol>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#publications">full list</a> with abstracts, BibTeX, and replication data.</p>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#publications">full list</a> with abstracts, BibTeX, and replication data.</p>
     </section>
-  </div>
 
-  <div class="minimal-col">
     <section class="minimal-section" id="working-papers">
       <h2>Selected working papers</h2>
       <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
       <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#work-in-progress">full list</a> for all ongoing projects.</p>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#work-in-progress">full list</a> for all ongoing projects.</p>
+    </section>
+  </div>
+
+  <div class="minimal-col">
+    <section class="minimal-section" id="news">
+      <h2>News</h2>
+      <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
+      <ul class="minimal-news" id="minimal-news"></ul>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#news">full news list</a> on the full site.</p>
     </section>
 
     <section class="minimal-section" id="teaching">
@@ -84,7 +84,7 @@ description: "Compact overview — full profile, publications, and teaching tabl
         <li><em>Automated Web Data Collection &amp; Text as Data</em> &mdash; BA, HU Berlin (Summer 2023). <a href="https://github.com/cornelius-erfort/web-data-and-text-r" target="_blank" rel="noopener">Materials</a>.</li>
         <li><em>Comparative Politics and International Relations</em> &mdash; BA, HU Berlin (Winter 2022&ndash;23).</li>
       </ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#teaching">full list</a> of teaching.</p>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#teaching">full list</a> of teaching.</p>
     </section>
 
     <section class="minimal-section" id="data">
@@ -93,7 +93,7 @@ description: "Compact overview — full profile, publications, and teaching tabl
         <li><a href="https://partypress.org" target="_blank" rel="noopener"><strong>PARTYPRESS</strong></a> &mdash; multilingual database of party press releases with supervised issue classifications. Code on <a href="https://github.com/cornelius-erfort/partypress" target="_blank" rel="noopener">GitHub</a>, models on <a href="https://huggingface.co/partypress/partypress-multilingual" target="_blank" rel="noopener">Hugging Face</a>.</li>
         <li><a href="https://zweitstimme.org/" target="_blank" rel="noopener"><strong>zweitstimme.org</strong></a> &mdash; Bayesian forecasting model for German federal elections.</li>
       </ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#data">full list</a> of data &amp; software.</p>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/full/#data">full list</a> of data &amp; software.</p>
     </section>
   </div>
 </div>
