@@ -1,0 +1,368 @@
+% =============================================================================
+%  Curriculum Vitae — Cornelius Erfort
+%  Compile with: pdflatex cv_erfort.tex   (run twice, for the page counter),
+%  or simply `make` from this directory.
+%  Source lives at files/cv_erfort.tex and renders to files/cv_erfort.pdf,
+%  which is embedded on the website (see _pages/index.html #cv section).
+% =============================================================================
+\documentclass[11pt,a4paper]{article}
+
+% --- Geometry & basic layout --------------------------------------------------
+\usepackage[a4paper,
+            top=18mm, bottom=18mm,
+            left=20mm, right=20mm,
+            footskip=8mm]{geometry}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage{needspace}
+
+% --- Typography ---------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% XCharter is a refined Charter revival: classy, legible, very typewriter-CV
+% friendly. Old-style figures (osf) read more naturally in running text.
+\usepackage[osf,sups]{XCharter}
+\usepackage[scaled=0.92]{helvet}                 % sans for the header / icons
+\usepackage[varqu,varl]{inconsolata}              % matching monospaced font
+\usepackage{microtype}
+\linespread{1.06}
+
+% --- Colours, links, icons ----------------------------------------------------
+\usepackage[dvipsnames,table]{xcolor}
+\definecolor{cvink}{HTML}{1B1B1B}      % near-black body text
+\definecolor{cvaccent}{HTML}{2A4F7A}   % deep academic blue
+\definecolor{cvrule}{HTML}{B8B8B8}     % subtle rules
+\definecolor{cvmuted}{HTML}{6A6A6A}    % side column / dates
+\color{cvink}
+
+% pdfnewwindow applies to GoToR / Launch style actions, not http(s) URIs (viewer decides).
+\usepackage[hidelinks,
+            colorlinks=true,
+            urlcolor=cvaccent,
+            linkcolor=cvaccent,
+            citecolor=cvaccent,
+            pdfnewwindow=true,
+            pdfauthor={Cornelius Erfort},
+            pdftitle={Curriculum Vitae --- Cornelius Erfort},
+            pdfsubject={Curriculum Vitae},
+            pdfkeywords={CV, Cornelius Erfort, Political Science}]{hyperref}
+\usepackage{fontawesome5}
+
+% --- Section formatting -------------------------------------------------------
+\usepackage[nobottomtitles*]{titlesec}
+\renewcommand{\bottomtitlespace}{0.08\textheight}
+\titleformat{\section}
+  {\normalfont\scshape\large\color{cvaccent}}
+  {}{0pt}{}[{\vspace{1pt}\color{cvrule}\titlerule[0.4pt]}]
+\titlespacing*{\section}{0pt}{14pt plus 2pt minus 1pt}{9pt}
+
+% --- Page style: page x of n footer ------------------------------------------
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\footnotesize\color{cvmuted}\textendash\;\thepage\; of \;\pageref*{LastPage}\;\textendash}
+
+% --- Helper macros ------------------------------------------------------------
+% Two-column entry implemented with minipages so that the right column can
+% contain explicit line breaks, lists and other paragraph-level content
+% without fighting tabularx's argument scanner.
+\newlength{\cvleftw}\setlength{\cvleftw}{0.20\textwidth}
+\newlength{\cvrightw}\setlength{\cvrightw}{0.76\textwidth}
+\newlength{\cvgap}\setlength{\cvgap}{0.02\textwidth}
+
+\newenvironment{cventries}{\par\setlength{\parskip}{0pt}}{\par}
+
+% A single entry: \cvitem{dates}{body}
+% The left column carries the date / qualifier in a muted small typeface; the
+% right column hosts a regular paragraph block that may contain \\ line
+% breaks, \par paragraphs, or short lists.
+\newcommand{\cvitem}[2]{%
+  \par\nopagebreak[2]%
+  \noindent
+  \begin{minipage}[t]{\cvleftw}\raggedright\color{cvmuted}\small\vspace{0pt}\strut #1\end{minipage}%
+  \hspace{\cvgap}%
+  \begin{minipage}[t]{\cvrightw}\raggedright\vspace{0pt}\strut #2\end{minipage}%
+  \par\vspace{10pt plus 3pt minus 2pt}%
+}
+
+% Strong title used in entries
+\newcommand{\cvtitle}[1]{\textbf{#1}}
+\newcommand{\cvinst}[1]{\textsc{\small #1}}    % institution in small caps
+\newcommand{\cvrole}[1]{\textit{#1}}
+\newcommand{\cvjournal}[1]{\textit{#1}}
+
+% Section subheading inside a section (rarely used)
+\newcommand{\cvgroup}[1]{\vspace{2pt}\textsc{\footnotesize\color{cvmuted}#1}\par\vspace{-2pt}}
+
+% Author name in publication lists (same weight as coauthors)
+\newcommand{\me}{Cornelius Erfort}
+
+% =============================================================================
+\begin{document}
+\pagestyle{fancy}
+
+% --- Header -----------------------------------------------------------------
+\begin{center}
+  {\fontsize{26}{30}\selectfont\scshape Cornelius Erfort}\\[4pt]
+  {\small\color{cvmuted}Post-doctoral Researcher \textbullet{} Witten/Herdecke University}\\[6pt]
+  {\color{cvrule}\rule{0.55\textwidth}{0.4pt}}\\[8pt]
+  {\small
+    \faMapMarker*~Alfred-Herrhausen-Stra\ss{}e 50,\,58448 Witten,\,Germany
+    \quad\textbar\quad
+    \faEnvelope~\href{mailto:cornelius.erfort@uni-wh.de}{cornelius.erfort@uni-wh.de}\\[3pt]
+    \faGlobe~\href{https://corneliuserfort.de}{corneliuserfort.de}
+    \quad\textbar\quad
+    \faGithub~\href{https://github.com/cornelius-erfort}{cornelius-erfort}
+    \quad\textbar\quad
+    \faTwitter~\href{https://x.com/cornelius_mer}{@cornelius\_mer}
+    \quad\textbar\quad
+    \faCloud~\href{https://bsky.app/profile/cornelius-erfort.bsky.social}{cornelius-erfort.bsky.social}
+  }
+\end{center}
+\vspace{4pt}
+
+% --- Current Position -------------------------------------------------------
+\section*{Current Position}
+\begin{cventries}
+\cvitem{since Sep 2024}{%
+  \cvtitle{Post-doctoral Researcher} \\
+  \cvinst{Witten/Herdecke University} \\
+  Research Project \emph{Election Forecasts for the German Federal Election 2025} ---
+  \href{https://zweitstimme.org}{zweitstimme.org}.}
+\end{cventries}
+
+% --- Previous Positions ------------------------------------------------------
+\section*{Previous Positions}
+\begin{cventries}
+\cvitem{Sep 2021 -- Aug 2024}{%
+  \cvtitle{Doctoral Researcher} \\
+  \cvinst{Hertie School \& Humboldt-Universit\"at zu Berlin} \\
+  Research Training Group \emph{DYNAMICS}.}
+\cvitem{Oct 2023 -- Aug 2024}{%
+  \cvtitle{Doctoral Researcher} \\
+  \cvinst{Humboldt-Universit\"at zu Berlin} \\
+  Research Project \emph{MINISTERIALLOBBY}.}
+\cvitem{May 2021 -- Jul 2022}{%
+  \cvtitle{Doctoral Researcher} \\
+  \cvinst{Humboldt-Universit\"at zu Berlin \& Freie Universit\"at Berlin} \\
+  Cluster of Excellence \emph{SCRIPTS}.}
+\cvitem{Dec 2016 -- Apr 2021}{%
+  \cvtitle{Student Assistant} \\
+  \cvinst{Humboldt-Universit\"at zu Berlin} \\
+  Chair of Comparative Political Behavior.}
+\cvitem{May 2015 -- Mar 2017}{%
+  \cvtitle{Student Assistant} \\
+  \cvinst{Technische Universit\"at Berlin} \\
+  Institute of Machine Tools and Production.}
+\end{cventries}
+
+% --- Education ---------------------------------------------------------------
+\section*{Education}
+\begin{cventries}
+\cvitem{Sep 2021 -- Mar 2025}{%
+  \cvtitle{PhD in Political Science} \emph{(summa cum laude)} \\
+  \cvinst{Humboldt-Universit\"at zu Berlin} \\
+  Dissertation: \emph{Political Parties' Voter Targeting and Campaign Communication Strategies.} \\
+  Committee: Heike Kl\"uver, Anselm Hager, Hanna Schwander (all Humboldt-Universit\"at zu Berlin),
+  Mark A.\ Kayser (Hertie School), Sara B.\ Hobolt (LSE).}
+\cvitem{Sep 2023 -- Dec 2023}{%
+  \cvtitle{Research Visit}, Department of Government \\
+  \cvinst{London School of Economics and Political Science} \\
+  Supervisor: Prof.\ Sara B.\ Hobolt.}
+\cvitem{Oct 2019 -- May 2021}{%
+  \cvtitle{M.A.\ in Social Sciences} \,\emph{(Grade 1.0)} ---
+  \cvinst{Humboldt-Universit\"at zu Berlin}.}
+\cvitem{Sep 2020 -- Dec 2020}{%
+  \cvtitle{Exchange Program} (declined due to pandemic) ---
+  \cvinst{Northwestern University, Chicago}.}
+\cvitem{Oct 2015 -- Mar 2019}{%
+  \cvtitle{B.A.\ in Social Sciences} \,\emph{(Grade 1.6)} ---
+  \cvinst{Humboldt-Universit\"at zu Berlin}.}
+\cvitem{Aug 2017 -- Dec 2017}{%
+  \cvtitle{Exchange Program}, Mexico City ---
+  \cvinst{Centro de Investigaci\'on y Docencia Econ\'omicas (CIDE)}.}
+\cvitem{Oct 2011 -- Jul 2015}{%
+  \cvtitle{B.Sc.\ in Industrial Engineering \& Management} \,\emph{(Grade 2.3)} ---
+  \cvinst{Technische Universit\"at Berlin}.}
+\end{cventries}
+
+% --- Peer-Reviewed Publications ----------------------------------------------
+\section*{Peer-Reviewed Publications}
+\noindent{\small\href{https://scholar.google.com/citations?user=MMcwTuIAAAAJ}{Google Scholar profile.}\par\vspace{6pt}}
+\begin{cventries}
+\cvitem{forthcoming}{%
+  \cvtitle{Gendered Targeting: Do Parties Tailor Their Campaign Ads to Women?} \\
+  \me. \cvjournal{The Journal of Politics}.
+  \href{https://doi.org/10.1086/736027}{\,\faExternalLink*}}
+\cvitem{forthcoming}{%
+  \cvtitle{Parties' Issue Responsiveness Between Elections} \\
+  \me, Lukas F.\ Stoetzer, and Heike Kl\"uver. \cvjournal{West European Politics}.
+  \href{https://doi.org/10.1080/01402382.2026.2617088}{\,\faExternalLink*}}
+\cvitem{2026}{%
+  \cvtitle{The 2026 Europe Report of the Lancet Countdown on Health and Climate Change: Narrowing Window for Decisive Health Action} \\
+  with Zachary P.\ Dickson and others. \cvjournal{The Lancet Public Health}.
+  \href{https://doi.org/10.1016/S2468-2667(26)00025-3}{\,\faExternalLink*}}
+\cvitem{2025}{%
+  \cvtitle{Buying Voter Support for Unpopular Policies: Evidence from German Nuclear Power Plants} \\
+  \me, Ant\'onio Valentim, and Heike Kl\"uver. \cvjournal{Electoral Studies}.
+  \href{https://www.sciencedirect.com/science/article/pii/S0261379425000654}{\,\faExternalLink*}}
+\cvitem{2025}{%
+  \cvtitle{An Election Forecasting Model for Subnational Elections} \\
+  Lukas F.\ Stoetzer, \me, Hannah Rajski, Thomas Gschwend, Simon Munzert, and Elias Koch.
+  \cvjournal{Electoral Studies}.
+  \href{https://doi.org/10.1016/j.electstud.2025.102939}{\,\faExternalLink*}}
+\cvitem{2025}{%
+  \cvtitle{The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts} \\
+  \me, Lukas F.\ Stoetzer, Thomas Gschwend, Elias Koch, Simon Munzert, and Hannah Rajski.
+  \cvjournal{PS: Political Science \& Politics}.
+  \href{https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D}{\,\faExternalLink*}}
+\cvitem{2024}{%
+  \cvtitle{Targeting Voters Online: How Parties' Campaigns Differ} \\
+  \me. \cvjournal{Electoral Studies}.
+  \href{https://doi.org/10.1016/j.electstud.2024.102872}{\,\faExternalLink*}}
+\cvitem{2023}{%
+  \cvtitle{The {\scshape Partypress} Database: A New Comparative Database of Parties' Press Releases} \\
+  \me, Lukas F.\ Stoetzer, and Heike Kl\"uver. \cvjournal{Research \& Politics}.
+  \href{https://doi.org/10.1177/20531680231183512}{\,\faExternalLink*}}
+\end{cventries}
+
+% --- Work in Progress --------------------------------------------------------
+\section*{Work in Progress}
+\begin{cventries}
+\cvitem{}{%
+  \cvtitle{Who Becomes a Lobbyist? Comparative Evidence from the US and Germany} \\
+  with Jan Stuckatz, Felix Hartmann, and Heike Kl\"uver.}
+\cvitem{}{%
+  \cvtitle{Do Politicians Respond to Hostility? Evidence from Germany} \\
+  with Elias Koch.}
+\cvitem{}{%
+  \cvtitle{When and How do Political Parties Respond to Extreme Weather Events?} \\
+  with Zachary P.\ Dickson.}
+\cvitem{}{%
+  \cvtitle{How Swing Model Assumptions Shape Vote-to-Seat Predictions} \\
+  with Lukas F.\ Stoetzer and Thomas Gschwend. Under review at \cvjournal{Electoral Studies}.}
+\cvitem{}{%
+  \cvtitle{Stacking Election Forecasts} \\
+  with Lukas F.\ Stoetzer.}
+\cvitem{}{%
+  \cvtitle{How Should We Communicate Election Polls?} \\
+  with Elias Koch, Linus Hagemann, Simon Munzert, Hannah Rajski, Thomas Gschwend, and Lukas F.\ Stoetzer.}
+\cvitem{}{%
+  \cvtitle{Can an Interactive Dashboard Teach Polling Literacy? Evidence from a Large-Scale Experiment} \\
+  with Simon Munzert, Linus Hagemann, Elias Koch, Hannah Rajski, Thomas Gschwend, and Lukas F.\ Stoetzer.}
+\cvitem{}{%
+  \cvtitle{Measuring Protest Through News Articles: Validating Manual and Semi-Supervised Methods Using Government Data}.
+  \href{https://osf.io/g9t8y/}{\,\faExternalLink*}}
+\end{cventries}
+
+% --- Other Projects ----------------------------------------------------------
+\section*{Other Projects}
+\begin{cventries}
+\cvitem{2021}{%
+  \cvtitle{Election Dataset Germany 1953--2021} \\
+  County-level results made comparable over time using areal weighted interpolation.
+  \href{https://github.com/cornelius-erfort/election-data-germany}{\,\faGithub}}
+\cvitem{2017}{%
+  \cvtitle{erststimme2017.de} \\
+  Prediction of the district vote at the German Elections 2017.}
+\end{cventries}
+
+% --- Presentations -----------------------------------------------------------
+\section*{Selected Presentations}
+\begin{cventries}
+\cvitem{2026}{LSE Climate and Political Behaviour Workshop.}
+\cvitem{2025}{MZES Social Science Data Lab.}
+\cvitem{2025}{Lunchtalk --- Arbeitskreis \emph{Wahlen und politische Einstellungen}, DVPW.}
+\cvitem{2025}{APSA.}
+\cvitem{2025}{MPSA.}
+\cvitem{2024}{DVPW.}
+\cvitem{2024}{Transformations of Democracy Junior Scholars Workshop, WZB Berlin.}
+\cvitem{2022--25}{EPSA (2022, 2023, 2024, 2025).}
+\end{cventries}
+
+% --- Service -----------------------------------------------------------------
+\section*{Service to the Discipline}
+\begin{cventries}
+\cvitem{Reviewer}{%
+  \emph{The Journal of Politics} (JOP); \emph{Political Science Research and Methods} (PSRM);
+  \emph{Electoral Studies}; \emph{European Journal of Political Research} (EJPR);
+  \emph{Political Research Exchange} (PRX); \emph{Party Politics}; \emph{Environmental Politics};
+  \emph{Comparative European Politics}; \emph{Politische Vierteljahresschrift} (PVS).}
+\cvitem{2022}{%
+  \cvtitle{Student Representative}, Research Training Group DYNAMICS.}
+\end{cventries}
+
+% --- Teaching ----------------------------------------------------------------
+\section*{Teaching Experience}
+\begin{cventries}
+\cvitem{2025, 2026}{%
+  \cvtitle{Automated Web Data Collection} \\
+  PhD workshop. Research Training Group DYNAMICS, Humboldt-Universit\"at zu Berlin \\
+  16--17 May 2025; 24--25 April 2026. Instructor.
+  \href{https://github.com/cornelius-erfort/automated-web-data-collection}{\,\faGithub}}
+\cvitem{2023, 2025, 2026}{%
+  \cvtitle{Issue Agendas, Text Classification, and Transformer Models} \\
+  Guest lectures, M.A., Department of Social Sciences, Humboldt-Universit\"at zu Berlin \\
+  25 January 2023; 5 February 2025; 4 February 2026.}
+\cvitem{2023}{%
+  \cvtitle{Automated Web Data Collection and Text as Data} \\
+  B.A., Humboldt-Universit\"at zu Berlin. Lecturer.
+  \href{https://github.com/cornelius-erfort/web-data-and-text-r}{\,\faGithub}}
+\cvitem{2022}{%
+  \cvtitle{Comparative Politics and International Relations} \\
+  B.A., Humboldt-Universit\"at zu Berlin. Lecturer.}
+\end{cventries}
+
+% --- Funding -----------------------------------------------------------------
+\section*{Funding \& Awards}
+\begin{cventries}
+\cvitem{2025}{\cvtitle{LSE Seed Research Fund} (with Zach Dickson) --- GBP 9{,}600.}
+\cvitem{2020}{%
+  \cvtitle{Fulbright Travel Grant} (declined due to pandemic) --- EUR\,$\sim$2{,}000.\\
+  \cvtitle{DAAD PROMOS Scholarship USA} (declined due to pandemic) --- EUR\,$\sim$3{,}000.}
+\cvitem{2017}{\cvtitle{DAAD PROMOS Scholarship Mexico} --- EUR\,$\sim$3{,}000.}
+\end{cventries}
+
+% --- Additional Training -----------------------------------------------------
+\section*{Additional Training}
+\begin{cventries}
+\cvitem{2024}{%
+  \cvtitle{New Directions in Causal Inference}, by Prof.\ Ryan T.\ Moore, Ph.D.\ (American University).\\
+  DYNAMICS Graduate Program, Humboldt-Universit\"at zu Berlin.}
+\cvitem{2023}{%
+  \cvtitle{Image Analysis}, by Prof.\ Michelle Torres (UCLA);\enskip
+  \cvtitle{Good Scientific Practice}, by Dr.\ Christian Dumpitak (iGrad);\enskip
+  \cvtitle{Data Protection in PhD Projects}, by Oliver Watteler (GESIS).}
+\cvitem{2022}{%
+  \cvtitle{Essex Summer School in Social Science Data Analysis}.\\
+  \emph{Causal Inference and Experiments in the Social Sciences}, by Prof.\ Ryan T.\ Moore, Ph.D.\ (American University).}
+\cvitem{2021}{%
+  \cvtitle{Online Experiments}, by Dr.\ Amalia Alvarez-Benjumea (MPI);\enskip
+  \cvtitle{Survey Experiments}, by Sofia Breitenstein (UAB);\enskip
+  \cvtitle{Spatial Data Analysis}, by Prof.\ Dr.\ Karsten Donnay (UZH);\enskip
+  \cvtitle{Beyond Counting Words: Working with Word Embeddings}, by Prof.\ Dr.\ Damian Trilling (UvA).}
+\end{cventries}
+
+% --- Languages & Skills ------------------------------------------------------
+\section*{Languages \& Technical Skills}
+\begin{cventries}
+\cvitem{Languages}{%
+  German (native);\enskip
+  English (advanced, TOEFL iBT 112/130);\enskip
+  Spanish (fluent, UNIcert II).}
+\cvitem{Programming}{R, Python, Git/GitHub, Stata.}
+\cvitem{Typesetting}{\LaTeX, MS Office.}
+\cvitem{Other}{Web scraping, data visualization, quantitative text analysis, automated image analysis.}
+\end{cventries}
+
+\vspace{6pt}
+\begin{center}
+  {\color{cvrule}\rule{0.30\textwidth}{0.4pt}}\\[3pt]
+  {\footnotesize\color{cvmuted}\itshape Last updated \today.}
+\end{center}
+
+\end{document}

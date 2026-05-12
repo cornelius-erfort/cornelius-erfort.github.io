@@ -55,10 +55,10 @@ description: "Minimalist version of Cornelius Erfort's personal website."
 
   <div class="minimal-col">
     <section class="minimal-section" id="publications">
-      <h2>Publications</h2>
+      <h2>Selected publications</h2>
       <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
       <ol class="minimal-pubs" id="minimal-pubs"></ol>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#publications">full version</a> for abstracts, BibTeX, and replication data.</p>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/#publications">full list</a> with abstracts, BibTeX, and replication data.</p>
     </section>
 
     <section class="minimal-section" id="teaching">
@@ -73,9 +73,10 @@ description: "Minimalist version of Cornelius Erfort's personal website."
 
   <div class="minimal-col">
     <section class="minimal-section" id="working-papers">
-      <h2>Working papers</h2>
+      <h2>Selected working papers</h2>
       <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
       <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/#work-in-progress">full list</a> for all ongoing projects.</p>
     </section>
 
     <section class="minimal-section" id="data">
@@ -124,11 +125,13 @@ description: "Minimalist version of Cornelius Erfort's personal website."
     return null;
   }
 
-  var pubs = parse('data-publications-minimal').slice().sort(function(a, b) {
-    var ya = yearKey(a.year), yb = yearKey(b.year);
-    if (ya !== yb) return yb - ya;
-    return (a.order || 0) - (b.order || 0);
-  });
+  var pubs = parse('data-publications-minimal')
+    .filter(function(p) { return p && p.featured; })
+    .sort(function(a, b) {
+      var ya = yearKey(a.year), yb = yearKey(b.year);
+      if (ya !== yb) return yb - ya;
+      return (a.order || 0) - (b.order || 0);
+    });
   var pubList = document.getElementById('minimal-pubs');
   if (pubList) {
     pubs.forEach(function(pub) {
@@ -148,9 +151,11 @@ description: "Minimalist version of Cornelius Erfort's personal website."
     });
   }
 
-  var wips = parse('data-wip-minimal').slice().sort(function(a, b) {
-    return (a.order || 0) - (b.order || 0);
-  });
+  var wips = parse('data-wip-minimal')
+    .filter(function(p) { return p && p.featured; })
+    .sort(function(a, b) {
+      return (a.order || 0) - (b.order || 0);
+    });
   var wipList = document.getElementById('minimal-wip');
   if (wipList) {
     wips.forEach(function(item) {

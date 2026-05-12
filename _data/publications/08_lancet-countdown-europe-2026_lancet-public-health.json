@@ -1,5 +1,6 @@
 {
   "order": 1.5,
+  "featured": true,
   "year": "2026",
   "journal": "The Lancet Public Health",
   "image": "files/lancet.jpg",
