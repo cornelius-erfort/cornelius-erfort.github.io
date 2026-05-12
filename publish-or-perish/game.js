@@ -15,8 +15,8 @@
   const KIDS_THRESHOLD = 2; // how many social free-time picks before roll
   const KIDS_EFFECTS = { intelligence: -6, network: 4, mentalHealth: -14, luck: 0 }; // time and stress
   const SABBATICAL_MENTAL_HEALTH_THRESHOLD = 18; // below this: forced sabbatical (BA/MA/post-PhD)
-  /** During PhD only: higher bar so burnout does not route you to the island mini-game as often; see also `phd.sabbaticalUsedThisYear`. */
-  const SABBATICAL_PHD_MENTAL_HEALTH_THRESHOLD = 10;
+  /** During PhD only: MH must fall below this (after an outcome) to force the island; lower = rarer than BA/MA burnout routing. */
+  const SABBATICAL_PHD_MENTAL_HEALTH_THRESHOLD = 5;
   const SABBATICAL_RECOVERY = 36; // mental health restored after completing the mini-game
   const SABBATICAL_STRESS_PER_CLICK = 15; // stress (100→0) drained per "Rest" click
   const BUREAUCRACY_SIGNS_NEEDED = 5;
@@ -305,6 +305,16 @@
   ];
   const PHD_CONFERENCE_SKIP_EFFECTS = { intelligence: 6, network: -10, mentalHealth: 8, luck: 0 };
   const PHD_CONFERENCE_OUTCOME_RESUME = 'goToPhDRound';
+
+  /** Moves for the PhD "specification safari" mini-game (satire; not real research advice). */
+  const PHD_P_HACK_MOVES = [
+    { key: 'outliers', title: 'Drop three “erroneous” outliers', desc: 'They disagreed with theory. Classic data-entry slip.', pMin: 0.82, pMax: 0.92, sMin: 10, sMax: 20, quip: 'The scatterplot sighs. You pretend not to hear.' },
+    { key: 'onesided', title: 'One-sided test “because direction is predicted"', desc: 'The other tail was never going to happen. Probably.', pMin: 0.85, pMax: 0.94, sMin: 12, sMax: 22, quip: 'Stata asks if you are sure. You are spiritually sure.' },
+    { key: 'subset', title: 'Restrict to 2012–2016 “stable regime”', desc: 'Stability is whatever window clears the bar.', pMin: 0.8, pMax: 0.91, sMin: 14, sMax: 26, quip: 'Robustness appendix now has its own table of contents.' },
+    { key: 'control', title: 'Add “sunshine during election week”', desc: 'From a footnote in a working paper you skimmed on a train.', pMin: 0.88, pMax: 0.96, sMin: 8, sMax: 16, quip: 'R² crawls upward. Your soul crawls the other way.' },
+    { key: 'transform', title: 'Try log, log+1, asinh, rank…', desc: 'Somewhere in there lives a star.', pMin: 0.84, pMax: 0.93, sMin: 9, sMax: 18, quip: 'The histogram now looks like modern art. You call it progress.' },
+    { key: 'cluster', title: 'Re-cluster standard errors again', desc: 'Campus → postcode → timezone. Each peel nudges destiny.', pMin: 0.86, pMax: 0.95, sMin: 7, sMax: 15, quip: 'The SE column is a novel. Nobody reads novels.' },
+  ];
 
   const PHD_PAPER_TEMPLATES = [
     { title: 'Why Nobody Reads Your Literature Review: A Meta-Study', abstract: 'We systematically review 400 papers that cite themselves in the first paragraph. Findings: nobody else does either.' },
@@ -1095,6 +1105,12 @@
     { id: 'temp_dept', title: 'Temp at the department', desc: 'You run errands, invigilate exams, and get coffee for the same people who rejected you. They smile. You smile back. It\'s fine.', effects: { intelligence: 2, network: 20, mentalHealth: -6, luck: 0, money: 8 } },
     { id: 'retreat', title: 'Go to a writing retreat', desc: 'You pay to sit in a cabin and write. You mostly stared at the wall. The wall was very supportive.', effects: { intelligence: 10, network: -6, mentalHealth: 10, luck: 0, money: -18 } },
     { id: 'pub', title: 'Work at a pub', desc: 'You pull pints. You hear more about politics than you did in undergrad. Nobody asks for your h-index.', effects: { intelligence: -2, network: 12, mentalHealth: 8, luck: 6, money: 14 } },
+    {
+      id: 'field_site',
+      title: 'Budget “field site” by the sea',
+      desc: 'You scrape together a shoestring coastal stint. Same island-hopping drill overworked PhDs get sent on — except you volunteered. Small travel hit; the mini-game pays out after.',
+      effects: { money: -8, mentalHealth: 2 },
+    },
   ];
 
   const BA_EXCHANGE_PITCHES = [
@@ -1239,7 +1255,15 @@
     const showStats = screenId !== 'screen-difficulty' && screenId !== 'screen-character' && screenId !== 'screen-heaven';
     document.getElementById('stat-bars').classList.toggle('hidden', !showStats);
 
-    const showStage = screenId === 'screen-choice' || screenId === 'screen-outcome' || screenId === 'screen-sabbatical' || screenId === 'screen-bureaucracy' || screenId === 'screen-report-card' || screenId === 'screen-course-pick' || screenId === 'screen-freetime-alloc';
+    const showStage =
+      screenId === 'screen-choice' ||
+      screenId === 'screen-outcome' ||
+      screenId === 'screen-sabbatical' ||
+      screenId === 'screen-bureaucracy' ||
+      screenId === 'screen-p-hacking' ||
+      screenId === 'screen-report-card' ||
+      screenId === 'screen-course-pick' ||
+      screenId === 'screen-freetime-alloc';
     const stage = document.getElementById('game-stage');
     if (stage) stage.classList.toggle('hidden', !showStage);
     const pauseBtn = document.getElementById('pause-btn');
@@ -2885,14 +2909,23 @@
         effects: {},
         btnVariant: 'secondary-path',
       },
-      {
-        id: 'leave',
-        title: 'Leave academia (ends game)',
-        desc: 'Real weekends. Salaries with commas. Friends in grad school will supply horror stories for decades.',
-        effects: {},
-        btnVariant: 'leave-path',
-      },
     ];
+    if (!eligibleMA) {
+      choices.push({
+        id: 'gap_year_field',
+        title: 'Gap year — “field methods” trip',
+        desc: 'You are not at the MA stat bar yet. Spend a year on a shoestring tropical stint; the island mini-game runs, then you return to this choice with updated stats.',
+        effects: {},
+        btnVariant: 'secondary-path',
+      });
+    }
+    choices.push({
+      id: 'leave',
+      title: 'Leave academia (ends game)',
+      desc: 'Real weekends. Salaries with commas. Friends in grad school will supply horror stories for decades.',
+      effects: {},
+      btnVariant: 'leave-path',
+    });
     showChoice(
       'What do you do? — Main path first; leaving ends the whole run.',
       choices,
@@ -2901,6 +2934,20 @@
           confirmLeaveAcademia({ kind: 'ba_crossroads', eligibleMA });
         } else if (choice.id === 'exchange') {
           showBAExchangeApplication();
+        } else if (choice.id === 'gap_year_field') {
+          applyEffects({ money: -10, mentalHealth: 2 });
+          updateStatBars();
+          startSabbatical(
+            () => {
+              const th = getMAThreshold();
+              showBACrossroads(state.stats.intelligence >= th.int && state.stats.mentalHealth >= th.mh);
+            },
+            {
+              skipPhdYearSlot: true,
+              introText:
+                'You are not ready to clear the MA bar on paper, so you rebrand a cheap coastal hop as “participant observation in coastal governance.” Same lagoon mini-game the PhD office jokes about for burnout — except you signed up on purpose. When you land back home, the application question is still waiting.',
+            }
+          );
         } else {
           const acceptChance = getMAAcceptChance(eligibleMA);
           const gotIn = Math.random() < acceptChance;
@@ -2983,6 +3030,16 @@
       'How do you spend your year out?',
       MA_SIT_OUT_OPTIONS,
       sitOutChoice => {
+        if (sitOutChoice.id === 'field_site') {
+          applyEffects(sitOutChoice.effects);
+          updateStatBars();
+          startSabbatical(() => showMAApplyAgainChoice(), {
+            skipPhdYearSlot: true,
+            introText:
+              'Between MA application cycles you finagle a tiny “comparative coastal politics” field diary — same island-hopping exercise burned-out doctoral students get strong-armed into, except you are here on purpose and your own dime. Finish the run; then you re-enter the application pile.',
+          });
+          return;
+        }
         applyEffects(sitOutChoice.effects);
         updateStatBars();
         const outcomes = {
@@ -3831,6 +3888,13 @@
       effects: {},
       btnVariant: 'phd-round-secondary',
     });
+    options.push({
+      id: 'p_hacking',
+      title: 'Specification safari (p-hacking sim)',
+      desc: 'Satirical mini-game: fork the regression until p < .05 — or walk away with an honest null. Then the year ends.',
+      effects: {},
+      btnVariant: 'phd-round-secondary',
+    });
     options.push({ id: 'conference', title: 'Go to a conference', desc: 'Present, attend, or skip. Costs money.', effects: {}, btnVariant: 'phd-round-secondary' });
     options.push({ id: 'continue', title: 'Spend the year on teaching, admin & drafts', desc: 'Teaching, committees, and writing. Drafts usually gain progress; very rarely one project is lost to a scoop or archival mishap (at most one per year).', effects: {}, btnVariant: 'phd-round-secondary' });
 
@@ -3846,6 +3910,10 @@
       }
       if (choice.id === 'coauthor') {
         showPhdCoauthorMenu();
+        return;
+      }
+      if (choice.id === 'p_hacking') {
+        runPhdPHackingGame();
         return;
       }
       if (choice.id === 'conference') {
@@ -4272,6 +4340,7 @@
       goToMAThesis: () => goToMAThesis(),
       showMACrossroads: () => showMACrossroads(),
       goToPhDRound: () => goToPhDRound(),
+      phd_p_hacking: () => runPhdPHackingGame(),
       phd_submit: () => goToSubmitThesis(),
       phd_defend: () => goToDefend(),
       after_phd: () => showAfterPhDChoice(),
@@ -4409,10 +4478,12 @@
     return true;
   }
 
-  function startSabbatical(nextStep) {
-    if (state.phase === 'phd' && state.phd) state.phd.sabbaticalUsedThisYear = true;
+  function startSabbatical(nextStep, options) {
+    const o = options || {};
+    if (!o.skipPhdYearSlot && state.phase === 'phd' && state.phd) state.phd.sabbaticalUsedThisYear = true;
     setStageTitle('Sabbatical');
     document.getElementById('sabbatical-intro-text').textContent =
+      o.introText ||
       'Your mental health has cratered. The department “strongly encourages” a sabbatical — which, in practice, means you may finally read something that is not a referee report. They booked you mental space near some palm trees. Politics will still be there when you get back; for now, jump the lagoon.';
     document.getElementById('sabbatical-intro').classList.remove('hidden');
     document.getElementById('sabbatical-game').classList.add('hidden');
@@ -4807,6 +4878,154 @@ function runIslandHoppingGame(nextStep) {
       };
     }
     updateHUD();
+  }
+
+  function runPhdPHackingGame() {
+    state.resumeStep = 'phd_p_hacking';
+    state.currentScene = 'campus';
+    showGameStage('campus');
+    setStageTitle('PhD – Specification safari');
+
+    const intro = document.getElementById('p-hacking-intro');
+    const game = document.getElementById('p-hacking-game');
+    const startBtn = document.getElementById('p-hacking-start-btn');
+    const pEl = document.getElementById('p-hacking-p');
+    const sEl = document.getElementById('p-hacking-suspicion');
+    const rEl = document.getElementById('p-hacking-rounds');
+    const flavor = document.getElementById('p-hacking-flavor');
+    const movesEl = document.getElementById('p-hacking-moves');
+    const nullBtn = document.getElementById('p-hacking-null-btn');
+
+    if (!intro || !game || !startBtn || !pEl || !sEl || !rEl || !flavor || !movesEl || !nullBtn) {
+      endPhdYearAndShowNext('The p-hacking mini-game UI is missing from the page — the year still rolls.', {});
+      return;
+    }
+
+    let pValue = 0.24;
+    let suspicion = 12;
+    let roundsLeft = 10;
+    let active = false;
+
+    function fmtP() {
+      if (pValue < 0.05) return '< 0.05';
+      return pValue.toFixed(3);
+    }
+
+    function updateHUD() {
+      pEl.textContent = 'p ≈ ' + fmtP();
+      sEl.textContent = 'Reviewer 2 skepticism: ' + Math.round(Math.min(100, suspicion)) + '%';
+      rEl.textContent = 'Specification tweaks left: ' + Math.max(0, roundsLeft);
+    }
+
+    function finishP(type) {
+      active = false;
+      movesEl.innerHTML = '';
+      let msg;
+      const effects =
+        type === 'star'
+          ? { intelligence: 4, network: 6, mentalHealth: -12, luck: -10 }
+          : type === 'caught'
+            ? { mentalHealth: -16, network: -10, intelligence: 3 }
+            : type === 'timeout'
+              ? { mentalHealth: -4, intelligence: 8, luck: 4 }
+              : { mentalHealth: 14, intelligence: 8, luck: 6, network: -4 };
+      if (type === 'star') {
+        msg =
+          'The coefficient crosses the magic line. Your supervisor posts a screenshot in three Slacks at once. Twitter calls it "interesting." You are fairly sure the treatment did nothing real — but the stars are so pretty.';
+      } else if (type === 'caught') {
+        msg =
+          'Someone runs your script on the public repo. The thread titles itself "Degrees of freedom: many." The methods seminar adds popcorn emoji. You will be answering emails for months.';
+      } else if (type === 'timeout') {
+        msg =
+          'Ten tweaks later the universe still refuses significance. You file the honest null under «Further research needed» and update your bio to "open science curious."';
+      } else {
+        msg =
+          'You close fourteen do-files unmerged, delete the worst robustness folder, and write up the null. Reviewer 2 has not read it yet — but future-you sends a thumbs-up from the timeline where shame is smaller.';
+      }
+      updateHUD();
+      applyEffects(effects);
+      updateStatBars();
+      showOutcome(msg, () => { advancePhdYear(); goToPhDRound(); }, { effects }, 'goToPhDRound');
+    }
+
+    function shufflePick(n) {
+      const a = PHD_P_HACK_MOVES.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+      }
+      return a.slice(0, n);
+    }
+
+    function renderTurn() {
+      if (!active) return;
+      if (pValue < 0.05) {
+        finishP('star');
+        return;
+      }
+      if (suspicion >= 100) {
+        finishP('caught');
+        return;
+      }
+      if (roundsLeft <= 0) {
+        finishP('timeout');
+        return;
+      }
+
+      updateHUD();
+      movesEl.innerHTML = '';
+      const picks = shufflePick(3);
+      picks.forEach(m => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn phd-p-hack-move';
+        btn.innerHTML =
+          '<span class="choice-title">' +
+          m.title +
+          '</span><span class="choice-desc">' +
+          m.desc +
+          '</span>';
+        btn.addEventListener('click', function onMove() {
+          if (!active) return;
+          const mult = m.pMin + Math.random() * (m.pMax - m.pMin);
+          pValue = Math.max(0.001, pValue * mult);
+          suspicion += m.sMin + Math.random() * (m.sMax - m.sMin);
+          roundsLeft -= 1;
+          flavor.textContent = m.quip;
+          renderTurn();
+        });
+        movesEl.appendChild(btn);
+      });
+    }
+
+    nullBtn.onclick = function () {
+      if (!active) return;
+      finishP('honest');
+    };
+
+    startBtn.onclick = function () {
+      intro.classList.add('hidden');
+      game.classList.remove('hidden');
+      pValue = 0.22 + Math.random() * 0.22;
+      suspicion = 8 + Math.random() * 14;
+      roundsLeft = 10;
+      active = true;
+      flavor.textContent =
+        'The treatment genuinely does nothing in the DGP. The cursor blinks anyway. Each button is a fork in the garden — get below 0.05 before skepticism maxes, run out of tweaks, or walk away honest.';
+      renderTurn();
+    };
+
+    intro.classList.remove('hidden');
+    game.classList.add('hidden');
+    flavor.textContent = '';
+    movesEl.innerHTML = '';
+    pValue = 0.24;
+    suspicion = 12;
+    roundsLeft = 10;
+    updateHUD();
+    showScreen('screen-p-hacking');
   }
 
   function runBikeCourierGame(onDone) {

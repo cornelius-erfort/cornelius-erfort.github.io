@@ -1027,6 +1027,45 @@ body::after {
   display: none !important;
 }
 
+/* PhD — p-hacking / specification safari (satire) */
+#screen-p-hacking .hidden {
+  display: none !important;
+}
+
+#screen-p-hacking h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.p-hacking-game {
+  margin-top: 0.75rem;
+}
+
+.p-hacking-hud {
+  margin-bottom: 0.5rem;
+}
+
+.p-hacking-flavor {
+  min-height: 2.75em;
+  margin: 0.5rem 0 0.75rem;
+  line-height: 1.45;
+}
+
+.p-hacking-moves {
+  margin-bottom: 0.75rem;
+}
+
+.phd-p-hack-move {
+  text-align: left;
+}
+
+.p-hacking-null-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 0.5rem;
+}
+
 .bureaucracy-game {
   display: flex;
   flex-direction: column;

@@ -97,6 +97,37 @@ body.scroll-layout {
   flex: 0 0 auto;
 }
 
+.masthead--fixed .site-nav-static__brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 0 auto;
+  gap: 0.12rem;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.masthead--fixed .site-nav-static__to-minimal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--scroll-text-muted, #555);
+  letter-spacing: 0.01em;
+}
+
+.masthead--fixed .site-nav-static__to-minimal:hover {
+  color: var(--scroll-link, #0366d6);
+  text-decoration: underline;
+}
+
+.masthead--fixed .site-nav-static__to-minimal-arrow {
+  font-size: 0.85em;
+  opacity: 0.9;
+}
+
 .masthead--fixed .site-nav-static__toggle {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);

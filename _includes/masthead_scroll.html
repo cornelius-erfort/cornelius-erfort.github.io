@@ -4,10 +4,12 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav class="site-nav-static" aria-label="Primary navigation">
-        <span class="site-nav-static__brand-wrap">
+        <span class="site-nav-static__brand-stack">
+          <a class="site-nav-static__to-minimal" href="{{ base_path }}/compact/">
+            <span class="site-nav-static__to-minimal-arrow" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            Minimal site
+          </a>
           <a class="site-nav-static__brand" href="#about">{{ site.title }}</a>
-          <span class="site-nav-static__brand-sep" aria-hidden="true">·</span>
-          <a class="site-nav-static__minimal-link" href="{{ base_path }}/">Home</a>
         </span>
 
         <ul class="nav-links nav-links--visible" id="nav-links-visible" aria-label="Primary links">
