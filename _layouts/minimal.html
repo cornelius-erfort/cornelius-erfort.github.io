@@ -17,19 +17,18 @@
     <script>
       // Set theme before first paint to avoid a flash. Default = system.
       (function() {
-        try {
-          var pref = localStorage.getItem('min-theme');
-          if (pref !== 'light' && pref !== 'dark' && pref !== 'system') pref = 'system';
-          var effective = pref;
-          if (pref === 'system') {
-            effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-          }
-          document.documentElement.setAttribute('data-theme', effective);
-          document.documentElement.setAttribute('data-theme-preference', pref);
-        } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'light');
-          document.documentElement.setAttribute('data-theme-preference', 'system');
+        var pref;
+        try { pref = localStorage.getItem('min-theme'); } catch (e) {}
+        if (pref !== 'light' && pref !== 'dark' && pref !== 'system') pref = 'system';
+        var effective = pref;
+        if (pref === 'system') {
+          effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
+        document.documentElement.setAttribute('data-theme', effective);
+        document.documentElement.setAttribute('data-theme-preference', pref);
+        // Mobile browser UI matches the page background.
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', effective === 'dark' ? '#16181b' : '#fdfdfc');
       })();
     </script>
   </head>

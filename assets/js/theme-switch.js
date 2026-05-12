@@ -23,6 +23,8 @@
     var effective = resolveEffective(pref);
     html.setAttribute('data-theme', effective);
     html.setAttribute('data-theme-preference', pref);
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', effective === 'dark' ? '#16181b' : '#fdfdfc');
   }
   function updateButtons(pref) {
     var btns = document.querySelectorAll('.theme-switch__btn');

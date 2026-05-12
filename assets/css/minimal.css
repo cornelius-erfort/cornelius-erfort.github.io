@@ -782,6 +782,16 @@ body.minimal-overlay-open {
   font-variant-numeric: tabular-nums;
 }
 
+/* Co-author hover popover (rendered by render-sections.js) follows theme */
+html[data-theme="dark"] .coauthor-popover {
+  background: var(--min-surface);
+  border-color: var(--min-rule);
+  color: var(--min-text);
+}
+html[data-theme="dark"] .coauthor-popover a {
+  color: var(--min-link);
+}
+
 /* Resources / friends-in-academia list ------------------------------- */
 .minimal-resources {
   list-style: none;
