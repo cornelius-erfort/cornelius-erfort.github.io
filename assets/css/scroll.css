@@ -1558,8 +1558,8 @@ body.scroll-layout {
 }
 .scroll-content .news-item-title {
   margin: 0.35em 0 0.25em 0;
-  font-size: 1.05em;
-  font-weight: 600;
+  font-size: 1em;
+  font-weight: 400;
   color: var(--scroll-text);
   line-height: 1.35;
 }
@@ -1567,6 +1567,11 @@ body.scroll-layout {
   margin: 0;
   line-height: 1.55;
   color: var(--scroll-text);
+}
+.scroll-content .news-item-body strong,
+.scroll-content .news-item-body b {
+  font-weight: 400;
+  color: inherit;
 }
 .scroll-content .news-load-more {
   margin-top: 0.5em;

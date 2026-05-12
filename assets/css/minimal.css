@@ -409,6 +409,7 @@ html[data-theme="dark"] .minimal-hex--filled {
 .minimal-list li strong,
 .minimal-list li em {
   color: var(--min-text);
+  font-weight: 400;
 }
 
 /* Publications & working papers (same chevron as .minimal-list) */
@@ -500,33 +501,37 @@ html[data-theme="dark"] .minimal-hex--filled {
   font-weight: 600;
 }
 
-.minimal-news__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  line-height: 1.35;
-}
-
-.minimal-news__date {
-  font-size: 0.78rem;
-  color: var(--min-text-muted);
-  font-variant-numeric: tabular-nums;
-  flex: 0 0 auto;
-}
-
 .minimal-news__title {
-  font-weight: 600;
-  color: var(--min-text);
-  font-size: 0.93rem;
+  font-weight: 400;
+  color: var(--min-text-soft);
+  font-size: 0.82rem;
+  line-height: 1.35;
   min-width: 0;
 }
 
-.minimal-news__snippet {
+/* Date + description on one line below the title (wraps together) */
+.minimal-news__sub {
   margin-top: 0.22rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
   font-size: 0.82rem;
-  color: var(--min-text-soft);
   line-height: 1.4;
+  color: var(--min-text-soft);
+}
+
+.minimal-news__date {
+  flex: 0 0 auto;
+  font-size: 0.78rem;
+  color: var(--min-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.minimal-news__snippet {
+  flex: 1 1 12rem;
+  min-width: 0;
+  color: inherit;
 }
 
 .minimal-aside {
@@ -964,15 +969,20 @@ body.minimal-overlay-open {
   margin-left: 0.35rem;
 }
 .minimal-full .news-item-title {
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   color: var(--min-text);
   margin: 0.18rem 0 0.35rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 .minimal-full .news-item-body {
   color: var(--min-text-soft);
   font-size: 0.9rem;
   line-height: 1.5;
+}
+.minimal-full .news-item-body strong,
+.minimal-full .news-item-body b {
+  font-weight: 400;
+  color: inherit;
 }
 .minimal-full .news-item-body p { margin: 0 0 0.5rem; }
 .minimal-full .news-item-body p:last-child { margin-bottom: 0; }

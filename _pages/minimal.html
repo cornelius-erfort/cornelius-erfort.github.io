@@ -65,10 +65,10 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     <section class="minimal-section" id="research">
       <h2>Current research</h2>
       <ul class="minimal-list">
-        <li><strong>Voter targeting</strong> &mdash; how parties <a href="https://doi.org/10.1086/736027" target="_blank" rel="noopener">tailor</a> and <a href="https://doi.org/10.1016/j.electstud.2024.102872" target="_blank" rel="noopener">target</a> digital ads across platforms, audiences, and issues.</li>
-        <li><strong>Issue agendas</strong> &mdash; using the <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a> database to study how parties respond to public opinion and competitors.</li>
-        <li><strong>Election forecasting</strong> &mdash; Bayesian forecasting of <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" target="_blank" rel="noopener">federal elections</a> and <a href="https://doi.org/10.1016/j.electstud.2025.102939" target="_blank" rel="noopener">subnational elections</a> with <a href="https://zweitstimme.org/">zweitstimme.org</a>.</li>
-        <li><strong>Climate &amp; politics</strong> &mdash; public and political engagement as part of the <a href="https://www.lancetcountdown.org/" target="_blank" rel="noopener">Lancet Countdown</a> on health and climate change, and <a href="https://www.sciencedirect.com/science/article/pii/S0261379425000654" target="_blank" rel="noopener">how energy transitions connect to party support</a>.</li>
+        <li>Voter targeting &mdash; how parties <a href="https://doi.org/10.1086/736027" target="_blank" rel="noopener">tailor</a> and <a href="https://doi.org/10.1016/j.electstud.2024.102872" target="_blank" rel="noopener">target</a> digital ads across platforms, audiences, and issues.</li>
+        <li>Issue agendas &mdash; using the <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a> database to study how parties respond to public opinion and competitors.</li>
+        <li>Election forecasting &mdash; Bayesian forecasting of <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/zweitstimme-forecast-for-the-german-federal-election-2025-coalition-majorities-and-vacant-districts/9DD258D89C69F73D1AFC284B0CDBE54D" target="_blank" rel="noopener">federal elections</a> and <a href="https://doi.org/10.1016/j.electstud.2025.102939" target="_blank" rel="noopener">subnational elections</a> with <a href="https://zweitstimme.org/">zweitstimme.org</a>.</li>
+        <li>Climate &amp; politics &mdash; public and political engagement as part of the <a href="https://www.lancetcountdown.org/" target="_blank" rel="noopener">Lancet Countdown</a> on health and climate change, and <a href="https://www.sciencedirect.com/science/article/pii/S0261379425000654" target="_blank" rel="noopener">how energy transitions connect to party support</a>.</li>
       </ul>
     </section>
 
@@ -108,8 +108,8 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="teaching">Teaching<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <ul class="minimal-list">
         <li><em>Automated Web Data Collection</em> &mdash; PhD workshop, <a href="https://www.sowi.hu-berlin.de/en/dynamics/about-dynamics">DYNAMICS</a>, HU Berlin (2025, 2026). <a href="https://cornelius-erfort.github.io/automated-web-data-collection-2026/index.html">Syllabus 2026</a>.</li>
-        <li><em>Automated Web Data Collection &amp; Text as Data</em> &mdash; BA, HU Berlin (Summer 2023). <a href="https://github.com/cornelius-erfort/web-data-and-text-r" target="_blank" rel="noopener">Materials</a>.</li>
-        <li><em>Comparative Politics and International Relations</em> &mdash; BA, HU Berlin (Winter 2022&ndash;23).</li>
+        <li><em>Automated Web Data Collection &amp; Text as Data</em> &mdash; BA, HU Berlin (2023). <a href="https://github.com/cornelius-erfort/web-data-and-text-r" target="_blank" rel="noopener">Materials</a>.</li>
+        <li><em>Comparative Politics and International Relations</em> &mdash; BA, HU Berlin (2022).</li>
       </ul>
       <p class="minimal-aside"><a href="#" data-open-overlay="teaching">See the full list</a> of teaching.</p>
     </section>
@@ -280,10 +280,11 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       var li = document.createElement('li');
       li.className = 'minimal-news__item';
       li.innerHTML =
-        '<div class="minimal-news__head">' +
+        '<div class="minimal-news__title">' + esc(n.title || '') + '</div>' +
+        '<div class="minimal-news__sub">' +
         '<span class="minimal-news__date">' + esc(formatNewsDate(n.date)) + '</span>' +
-        '<span class="minimal-news__title">' + esc(n.title || '') + '</span></div>' +
-        (snippet ? '<div class="minimal-news__snippet">' + esc(snippet) + '</div>' : '');
+        (snippet ? '<span class="minimal-news__snippet">' + esc(snippet) + '</span>' : '') +
+        '</div>';
       newsList.appendChild(li);
     });
   }
