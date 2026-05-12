@@ -1,5 +1,6 @@
 {
   "order": 5,
+  "featured": true,
   "title": "Stacking Election Forecasts",
   "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>",
   "abstract": "We combine election forecasts with stacking weights from leave-future-out performance (Bayesian model averaging). Applications to U.S. presidential elections and German federal elections show stacked ensembles beat single-model benchmarks on accuracy and robustness.",

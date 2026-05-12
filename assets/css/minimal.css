@@ -14,6 +14,7 @@ html[data-theme="light"] {
   --min-bg:          #fdfdfc;
   --min-surface:     #ffffff;
   --min-shadow:      rgba(0, 0, 0, 0.06);
+  --min-fill-subtle: rgba(0, 0, 0, 0.045);
   --min-color-scheme: light;
 }
 
@@ -28,6 +29,7 @@ html[data-theme="dark"] {
   --min-bg:          #16181b;
   --min-surface:     #1f2226;
   --min-shadow:      rgba(0, 0, 0, 0.5);
+  --min-fill-subtle: rgba(255, 255, 255, 0.06);
   --min-color-scheme: dark;
 }
 
@@ -164,6 +166,100 @@ body.minimal-layout {
 
 .minimal-header__photo {
   flex: 0 0 auto;
+}
+
+/* Data & software: hex mosaic inside section (right col / full-width row on 2-col) */
+.minimal-section__hex-strip {
+  margin-top: 0.45rem;
+  padding-top: 0.35rem;
+  margin-bottom: 0;
+  padding-bottom: 0.15rem;
+}
+.minimal-hex-mosaic {
+  --hex-gap: 0.32rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hex-gap);
+  width: 100%;
+  overflow: visible;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+}
+/* Only the four stickers: nested rows share width so honeycomb shift stays correct */
+.minimal-hex-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  overflow: visible;
+}
+.minimal-hex-cluster__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: var(--hex-gap);
+}
+/* Second sticker row: half-hex shift relative to first row only (not whole winged row) */
+.minimal-hex-cluster__row--nest {
+  margin-top: calc(var(--hex-h, 97px) * -0.17);
+  transform: translateX(calc((var(--hex-w, 84px) + var(--hex-gap)) * 0.5));
+}
+
+.minimal-hex {
+  --hex-w: 84px;
+  --hex-h: 97px;
+  width: var(--hex-w);
+  height: var(--hex-h);
+  flex: 0 0 auto;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  overflow: hidden;
+  display: block;
+  position: relative;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.minimal-hex--filled {
+  background: var(--min-surface);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+html[data-theme="dark"] .minimal-hex--filled {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+.minimal-hex--filled img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: scale(1.02);
+}
+.minimal-hex--filled:hover,
+.minimal-hex--filled:focus {
+  transform: scale(1.06);
+  filter: brightness(1.03);
+  z-index: 1;
+  outline: none;
+}
+.minimal-hex--filled:focus-visible {
+  outline: 2px solid var(--min-link);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .minimal-hex-mosaic {
+    --hex-gap: 0.22rem;
+  }
+  .minimal-hex {
+    --hex-w: 67px;
+    --hex-h: 77px;
+  }
+  .minimal-hex-cluster__row--nest {
+    margin-top: calc(var(--hex-h) * -0.15);
+    transform: translateX(calc((var(--hex-w) + var(--hex-gap)) * 0.5));
+  }
 }
 
 .minimal-header__photo img {
@@ -567,8 +663,8 @@ body.minimal-overlay-open {
 .minimal-overlay__close:hover,
 .minimal-overlay__close:focus {
   color: var(--min-text);
-  background: rgba(0, 0, 0, 0.04);
-  border-color: var(--min-rule);
+  background: var(--min-fill-subtle);
+  border-color: transparent;
   outline: none;
 }
 
@@ -622,8 +718,8 @@ body.minimal-overlay-open {
   grid-template-columns: 96px 1fr;
   gap: 0.85rem 1rem;
   align-items: start;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--min-rule);
+  padding: 1rem 0;
+  border-bottom: none;
 }
 .minimal-full table tr:last-child { border-bottom: none; }
 .minimal-full table tr > td {
@@ -643,7 +739,7 @@ body.minimal-overlay-open {
   width: auto;
   height: auto;
   object-fit: contain;
-  background: var(--min-surface);
+  background: transparent;
   border-radius: 4px;
 }
 .minimal-full .data-icon-cell {
@@ -664,6 +760,19 @@ body.minimal-overlay-open {
   max-height: 64px;
   object-fit: contain;
 }
+
+/* Data full list (#dataTable): project logos ~35% larger */
+.minimal-full #dataTable tr {
+  grid-template-columns: 130px 1fr;
+}
+.minimal-full #dataTable .data-icon-cell--logo {
+  width: 130px;
+}
+.minimal-full #dataTable .data-icon-cell--logo img {
+  max-width: 130px;
+  max-height: 86px;
+}
+
 .minimal-full .document-icon {
   width: 64px;
   height: 64px;
@@ -703,33 +812,33 @@ body.minimal-overlay-open {
 }
 .minimal-full .pub-button {
   appearance: none;
-  background: var(--min-surface);
-  border: 1px solid var(--min-rule);
+  background: transparent;
+  border: none;
   color: var(--min-text-muted);
   font: inherit;
   font-size: 0.78rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
+  margin: 0 -0.35rem;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   line-height: 1.4;
-  transition: color 0.12s, border-color 0.12s, background 0.12s;
+  transition: color 0.12s, background 0.12s;
 }
 .minimal-full .pub-button:hover,
 .minimal-full .pub-button:focus {
   color: var(--min-link);
-  border-color: var(--min-link);
-  background: rgba(43, 108, 176, 0.06);
+  background: var(--min-fill-subtle);
   outline: none;
 }
 
 .minimal-full .pub-content {
   display: none;
   margin: 0 0 0.7rem;
-  padding: 0.7rem 0.85rem;
-  background: rgba(0, 0, 0, 0.025);
-  border: 1px solid var(--min-rule);
-  border-radius: 4px;
+  padding: 0.65rem 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   font-size: 0.9rem;
   color: var(--min-text-soft);
   line-height: 1.5;
@@ -831,21 +940,20 @@ html[data-theme="dark"] .coauthor-popover a {
   align-items: center;
   gap: 0.45em;
   margin: 2rem auto 0;
-  padding: 0.4rem 0.85rem;
-  border: 1px solid var(--min-rule);
-  border-radius: 999px;
-  background: var(--min-surface);
+  padding: 0.35rem 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
   color: var(--min-text-muted);
   font-size: 0.82rem;
   text-decoration: none !important;
-  border-bottom: 1px solid var(--min-rule) !important;
   cursor: pointer;
   font-family: inherit;
 }
 .minimal-overlay__back-to-top:hover,
 .minimal-overlay__back-to-top:focus {
   color: var(--min-link);
-  border-color: rgba(43, 108, 176, 0.4) !important;
+  background: var(--min-fill-subtle);
   outline: none;
 }
 .minimal-overlay__back-to-top-wrap {
@@ -873,6 +981,16 @@ html[data-theme="dark"] .coauthor-popover a {
   .minimal-full .data-icon-cell {
     width: 64px;
     height: 64px;
+  }
+  .minimal-full #dataTable tr {
+    grid-template-columns: 86px 1fr;
+  }
+  .minimal-full #dataTable .data-icon-cell--logo {
+    width: 86px;
+  }
+  .minimal-full #dataTable .data-icon-cell--logo img {
+    max-width: 86px;
+    max-height: 57px;
   }
   .minimal-full .pub-cell { font-size: 0.88rem; }
 }

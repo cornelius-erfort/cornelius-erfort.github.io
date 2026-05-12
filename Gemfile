@@ -10,6 +10,10 @@ source "https://rubygems.org"
 # Happy Jekylling!
 
 gem "github-pages", group: :jekyll_plugins
+# Faraday 2+ requires an explicit adapter (fixes jekyll-github-metadata on `jekyll serve`).
+# github-pages pins an old Faraday that breaks with current adapters; bump within 2.x.
+gem "faraday", ">= 2.7", "< 3"
+gem "faraday-net_http", "~> 3.0"
 
 # If you want to use Jekyll native, uncomment the line below.
 # To upgrade, run `bundle update`.
