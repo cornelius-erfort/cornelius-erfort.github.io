@@ -15,7 +15,10 @@
   <body class="minimal-layout">
     {% include browser-upgrade.html %}
 
-    <a href="{{ base_path }}/" class="minimal-back-to-full" aria-label="Open full profile site with all sections">Full site</a>
+    <a href="{{ base_path }}/" class="minimal-to-full" aria-label="Open full profile site with all sections">
+      <span class="minimal-to-full-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+      Full site
+    </a>
 
     <main class="minimal-page" id="top">
       <article class="minimal-content" data-base-path="{{ base_path }}">
@@ -24,7 +27,7 @@
 
       <footer class="minimal-footer">
         <p>
-          <a href="{{ base_path }}/">Full profile site</a>
+          <a href="{{ base_path }}/">Full site</a>
           <span class="minimal-sep" aria-hidden="true">·</span>
           <a href="{{ base_path }}/files/cv_erfort.pdf" target="_blank" rel="noopener">CV (PDF)</a>
           <span class="minimal-sep" aria-hidden="true">·</span>

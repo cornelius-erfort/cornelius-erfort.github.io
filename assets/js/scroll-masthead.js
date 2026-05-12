@@ -122,8 +122,8 @@
     function update() {
       moveAllToVisible();
 
-      var brand = nav.querySelector('.site-nav-static__brand');
-      var brandW = brand ? brand.getBoundingClientRect().width : 0;
+      var brandCol = nav.querySelector('.site-nav-static__brand-stack');
+      var brandW = brandCol ? brandCol.getBoundingClientRect().width : 0;
       var navW = nav.getBoundingClientRect().width || nav.clientWidth || 0;
       var reservedToggle = 48;
       var maxW = Math.max(0, Math.floor(navW - brandW - reservedToggle - 8));

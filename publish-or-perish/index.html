@@ -13,10 +13,14 @@
   <div id="app">
     <header class="game-header">
       <div class="header-row">
-        <h1 id="stage-title">Political Science Academy</h1>
-        <span id="player-name-display" class="player-name-display hidden"></span>
-        <button id="cv-btn" class="btn-cv hidden" type="button" title="View CV">CV</button>
-        <button id="pause-btn" class="btn-pause hidden" type="button" title="Pause">II</button>
+        <a class="game-site-home" href="../" title="Back to Cornelius Erfort">← Site</a>
+        <h1 id="stage-title" class="header-stage-title">Political Science Academy</h1>
+        <div class="header-actions">
+          <span id="player-name-display" class="player-name-display hidden"></span>
+          <button id="cv-btn" class="btn-cv hidden" type="button" title="View CV">CV</button>
+          <button id="career-skip-btn" class="btn-career-skip hidden" type="button" title="Jump to career checkpoint (testing)">Skip ▶</button>
+          <button id="pause-btn" class="btn-pause hidden" type="button" title="Pause">II</button>
+        </div>
       </div>
       <div id="stat-bars" class="stat-bars hidden" aria-label="Character stats">
         <div class="stat" data-stat="intelligence" title="Intelligence">
@@ -381,8 +385,8 @@
       <section id="screen-heaven" class="screen hidden">
         <div id="confetti-container"></div>
         <div class="heaven-content">
-          <h2>🎉 You left academia.</h2>
-          <p class="heaven-tagline">It was heaven all along.</p>
+          <h2 id="heaven-heading">🎉 You left academia.</h2>
+          <p id="heaven-tagline" class="heaven-tagline">It was heaven all along.</p>
           <p id="heaven-text" class="heaven-text"></p>
           <button id="heaven-restart" class="btn btn-primary">Play again</button>
         </div>
@@ -390,6 +394,7 @@
     </main>
 
     <div id="pause-overlay" class="pause-overlay hidden">
+      <a class="pause-overlay-home game-site-home" href="../" title="Back to Cornelius Erfort">← Site</a>
       <div class="pause-panel">
         <h2>Paused</h2>
         <button id="pause-resume-btn" class="btn btn-primary">Resume</button>
@@ -403,6 +408,7 @@
       </div>
     </div>
     <div id="cv-overlay" class="cv-overlay hidden">
+      <a class="cv-overlay-home game-site-home" href="../" title="Back to Cornelius Erfort">← Site</a>
       <div class="cv-panel">
         <h2 class="cv-panel-title">Curriculum Vitae</h2>
         <div id="cv-content" class="cv-content"></div>

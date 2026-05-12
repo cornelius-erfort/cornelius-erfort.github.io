@@ -54,11 +54,27 @@ description: "Compact overview — full profile, publications, and teaching tabl
   </div>
 
   <div class="minimal-col">
+    <section class="minimal-section" id="news">
+      <h2>News</h2>
+      <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
+      <ul class="minimal-news" id="minimal-news"></ul>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/#news">full news list</a> on the main site.</p>
+    </section>
+
     <section class="minimal-section" id="publications">
       <h2>Selected publications</h2>
       <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
       <ol class="minimal-pubs" id="minimal-pubs"></ol>
       <p class="minimal-aside">See the <a href="{{ base_path }}/#publications">full list</a> with abstracts, BibTeX, and replication data.</p>
+    </section>
+  </div>
+
+  <div class="minimal-col">
+    <section class="minimal-section" id="working-papers">
+      <h2>Selected working papers</h2>
+      <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
+      <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
+      <p class="minimal-aside">See the <a href="{{ base_path }}/#work-in-progress">full list</a> for all ongoing projects.</p>
     </section>
 
     <section class="minimal-section" id="teaching">
@@ -69,15 +85,6 @@ description: "Compact overview — full profile, publications, and teaching tabl
         <li><em>Comparative Politics and International Relations</em> &mdash; BA, HU Berlin (Winter 2022&ndash;23).</li>
       </ul>
       <p class="minimal-aside">See the <a href="{{ base_path }}/#teaching">full list</a> of teaching.</p>
-    </section>
-  </div>
-
-  <div class="minimal-col">
-    <section class="minimal-section" id="working-papers">
-      <h2>Selected working papers</h2>
-      <script type="application/json" id="data-wip-minimal">{{ site.data.work_in_progress | jsonify }}</script>
-      <ul class="minimal-pubs minimal-pubs--wip" id="minimal-wip"></ul>
-      <p class="minimal-aside">See the <a href="{{ base_path }}/#work-in-progress">full list</a> for all ongoing projects.</p>
     </section>
 
     <section class="minimal-section" id="data">
@@ -125,6 +132,43 @@ description: "Compact overview — full profile, publications, and teaching tabl
       if (pub.links[0] && pub.links[0].url) return pub.links[0].url;
     }
     return null;
+  }
+
+  function formatNewsDate(s) {
+    if (!s) return '';
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? String(s) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function stripHtml(html) {
+    if (!html) return '';
+    var d = document.createElement('div');
+    d.innerHTML = String(html);
+    return (d.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+  function newsSnippet(item) {
+    var raw = item.body_html ? stripHtml(item.body_html) : (item.body || '');
+    if (!raw) return '';
+    if (raw.length > 180) return raw.slice(0, 177) + '\u2026';
+    return raw;
+  }
+
+  var newsItems = parse('data-news-minimal')
+    .filter(function(n) { return n && n.date; })
+    .sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); })
+    .slice(0, 3);
+  var newsList = document.getElementById('minimal-news');
+  if (newsList) {
+    newsItems.forEach(function(n) {
+      var snippet = newsSnippet(n);
+      var li = document.createElement('li');
+      li.className = 'minimal-news__item';
+      li.innerHTML =
+        '<div class="minimal-news__head">' +
+        '<span class="minimal-news__date">' + esc(formatNewsDate(n.date)) + '</span>' +
+        '<span class="minimal-news__title">' + esc(n.title || '') + '</span></div>' +
+        (snippet ? '<div class="minimal-news__snippet">' + esc(snippet) + '</div>' : '');
+      newsList.appendChild(li);
+    });
   }
 
   var pubs = parse('data-publications-minimal')

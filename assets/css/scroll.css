@@ -68,14 +68,18 @@ body.scroll-layout {
   z-index: 100;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  /* Reserve space for fixed “Minimal site” link (same inset as /compact/). */
+  padding-left: max(2rem, calc(env(safe-area-inset-left, 0px) + 0.85rem + 6.5rem));
+  padding-right: max(2em, env(safe-area-inset-right, 0px));
 }
 
 .masthead--fixed .masthead__inner-wrap {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
 }
 
@@ -107,23 +111,32 @@ body.scroll-layout {
   line-height: 1.2;
 }
 
-.masthead--fixed .site-nav-static__to-minimal {
+/* Fixed top-left — secondary nav tone: inherit masthead font, normal weight */
+.masthead--fixed .site-nav-static__to-minimal--fixed {
+  position: fixed;
+  top: max(0.65rem, env(safe-area-inset-top, 0px));
+  left: max(0.85rem, env(safe-area-inset-left, 0px));
+  z-index: 101;
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  font-size: 0.72rem;
-  font-weight: 500;
-  text-decoration: none;
-  color: var(--scroll-text-muted, #555);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 400;
   letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--scroll-text-muted, #6c757d);
+  line-height: 1.2;
+  background: #fff;
+  padding: 0.1rem 0.15rem 0.1rem 0;
+  border-radius: 2px;
 }
-
-.masthead--fixed .site-nav-static__to-minimal:hover {
+.masthead--fixed .site-nav-static__to-minimal--fixed:hover,
+.masthead--fixed .site-nav-static__to-minimal--fixed:focus {
   color: var(--scroll-link, #0366d6);
   text-decoration: underline;
 }
-
-.masthead--fixed .site-nav-static__to-minimal-arrow {
+.masthead--fixed .site-nav-static__to-minimal--fixed .site-nav-static__to-minimal-arrow {
   font-size: 0.85em;
   opacity: 0.9;
 }

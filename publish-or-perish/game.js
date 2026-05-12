@@ -933,6 +933,7 @@
     },
     conferences: [],
     leaveConfirmRestore: null,
+    postdocPlacement: null,
   };
 
   const LEAVE_ACADEMIA_CONFIRM_PROMPTS = [
@@ -1270,6 +1271,8 @@
     if (pauseBtn) pauseBtn.classList.toggle('hidden', !state.stats);
     const cvBtn = document.getElementById('cv-btn');
     if (cvBtn) cvBtn.classList.toggle('hidden', !state.stats);
+    const careerSkipBtn = document.getElementById('career-skip-btn');
+    if (careerSkipBtn) careerSkipBtn.classList.toggle('hidden', !state.stats);
     const nameEl = document.getElementById('player-name-display');
     if (nameEl) {
       nameEl.textContent = state.stats ? (state.playerName || 'Academic') : '';
@@ -1387,7 +1390,8 @@
     const baseName = (state.cvName || '').replace(/^(Dr\.?|Prof\.?)\s+/i, '').trim() || state.cvName;
     const playerName = (state.playerName || '').trim();
     const nameForCV = playerName || baseName;
-    const displayName = state.phase === 'phd' ? 'Dr. ' + nameForCV : nameForCV;
+    const displayName =
+      state.phase === 'phd' || state.postdocPlacement ? 'Dr. ' + nameForCV : nameForCV;
     const current = (state.phase === 'phd' ? uniMA : state.phase === 'ma' ? uniMA : uniBA);
     const sections = [];
 
@@ -1420,6 +1424,9 @@
       let phdLine = 'PhD (in progress), ' + uniMA + '. Year ' + state.phd.round + '.';
       if (state.phdProgram) phdLine += ' ' + state.phdProgram + '.';
       educationLines.push(phdLine);
+    }
+    if (state.postdocPlacement) {
+      educationLines.push('Postdoctoral placement: ' + state.postdocPlacement + '.');
     }
     if (educationLines.length > 0) sections.push({ title: 'Education', lines: educationLines });
 
@@ -4009,6 +4016,145 @@
     );
   }
 
+  function cheatBootstrapIfNeeded() {
+    if (!state.character) state.character = CHARACTERS[0].id;
+    const ch = getCharacter();
+    if (!ch) return;
+    if (!state.stats) {
+      state.stats = {};
+      STAT_NAMES.forEach(stat => {
+        state.stats[stat] = clampStat(ch.start[stat] != null ? ch.start[stat] : 0, stat);
+      });
+    }
+    if (!state.universityBA) state.universityBA = 'Dev State University';
+    if (!state.universityMA) state.universityMA = 'Dev Other University';
+    if (!(state.playerName || '').trim()) state.playerName = 'Skip';
+    updateStatBars();
+  }
+
+  function showCareerSkipMenu() {
+    cheatBootstrapIfNeeded();
+    showChoice(
+      'Career skip (testing) — jump to a checkpoint. Your stats are bootstrapped if needed.',
+      [
+        {
+          id: 'sk_ba',
+          title: 'BA — MA crossroads',
+          desc: 'Thesis done; eligible for MA application.',
+          effects: {},
+        },
+        {
+          id: 'sk_ma',
+          title: 'MA — PhD crossroads',
+          desc: 'Thesis defended; choose PhD / exchange / leave.',
+          effects: {},
+        },
+        {
+          id: 'sk_phd',
+          title: 'PhD — year menu',
+          desc: 'Year 1, empty paper pipeline.',
+          effects: {},
+        },
+        {
+          id: 'sk_after',
+          title: 'After PhD',
+          desc: 'Post-doc applications vs leave academia.',
+          effects: {},
+        },
+        {
+          id: 'sk_postdoc',
+          title: 'Post-doc applications only',
+          desc: 'Opens the post-doc list directly.',
+          effects: {},
+        },
+        {
+          id: 'sk_cancel',
+          title: 'Cancel',
+          desc: 'Close this menu.',
+          effects: {},
+          btnVariant: 'secondary-path',
+        },
+      ],
+      c => {
+        if (c.id === 'sk_cancel') return;
+        state.postdocPlacement = null;
+        if (c.id === 'sk_ba') {
+          state.phase = 'ba';
+          state.ba = {
+            courses: ['methods-strict', 'theory-weber', 'comparative-easy', 'casual-y1'],
+            year1Courses: [],
+            year2Courses: [],
+            thesisTopic: 'voting',
+            emailsCompleted: true,
+            exchangeBlurb: null,
+          };
+          showBACrossroads(true);
+          return;
+        }
+        if (c.id === 'sk_ma') {
+          state.phase = 'ma';
+          state.ma = {
+            courses: [],
+            year1Courses: [],
+            year2Courses: [],
+            thesisTopic: 'ma-policy',
+            emailsCompleted: true,
+            exchangeBlurb: null,
+          };
+          showMACrossroads();
+          return;
+        }
+        if (c.id === 'sk_phd') {
+          state.phase = 'phd';
+          state.phd = {
+            round: 1,
+            papers: [],
+            nextPaperId: 1,
+            papersAccepted: 0,
+            sabbaticalUsedThisYear: false,
+            extensionYears: 0,
+            publicationLog: [],
+          };
+          state.phdProgram = 'Dev-track programme';
+          goToPhDRound();
+          return;
+        }
+        if (c.id === 'sk_after') {
+          state.phase = 'phd';
+          state.phd = {
+            round: PHD_MAX_ROUNDS,
+            papers: [],
+            nextPaperId: 1,
+            papersAccepted: PHD_PAPERS_REQUIRED,
+            sabbaticalUsedThisYear: false,
+            extensionYears: 0,
+            publicationLog: [],
+          };
+          state.phdProgram = 'Completed (skip)';
+          showAfterPhDChoice();
+          return;
+        }
+        if (c.id === 'sk_postdoc') {
+          state.phase = 'phd';
+          if (!state.phd) {
+            state.phd = {
+              round: PHD_MAX_ROUNDS,
+              papers: [],
+              nextPaperId: 1,
+              papersAccepted: PHD_PAPERS_REQUIRED,
+              sabbaticalUsedThisYear: false,
+              extensionYears: 0,
+              publicationLog: [],
+            };
+          }
+          startPostDocApplication();
+        }
+      },
+      'campus',
+      null
+    );
+  }
+
   function startPostDocApplication() {
     state.resumeStep = 'postdoc_application';
     state.currentScene = 'campus';
@@ -4089,6 +4235,9 @@
     const accepted = results.filter(r => r.accept);
     if (accepted.length > 0) {
       const picked = accepted[Math.floor(Math.random() * accepted.length)].program;
+      state.postdocPlacement = picked.name;
+      applyEffects({ network: 10, money: 18, mentalHealth: 8, luck: 4 });
+      updateStatBars();
       triggerHeaven('postdoc');
       return;
     }
@@ -4464,6 +4613,7 @@
     if (!s.conferences) s.conferences = [];
     if (!s.universityBA) s.universityBA = null;
     if (!s.universityMA) s.universityMA = null;
+    if (s.postdocPlacement === undefined) s.postdocPlacement = null;
     state = s;
     state.difficulty = 'medium';
     if (state.leaveConfirmRestore === undefined) state.leaveConfirmRestore = null;
@@ -5344,14 +5494,25 @@ function runIslandHoppingGame(nextStep) {
   }
 
   function triggerHeaven(reason) {
+    const h2 = document.getElementById('heaven-heading');
+    const tag = document.getElementById('heaven-tagline');
     showScreen('screen-heaven');
     let heavenText = 'Corporate job. Work–life balance. A salary. You’re pretty sure this is what people mean by “making it”.';
-    if (reason === 'phd_thrown_out') {
-      heavenText = "You didn't get two papers in time. The department suggested you leave. You got a job in industry anyway. It's fine. Really.";
-    } else if (reason === 'postdoc') {
-      heavenText = "You got a post-doc! More papers, more reviews, more grant applications. The saga continues. (Or you could have left. You didn't.)";
+    if (reason === 'postdoc') {
+      if (h2) h2.textContent = '🎉 Post-doc secured.';
+      if (tag) tag.textContent = 'Still in the research game — new badge, same inbox dread, slightly better coffee budget.';
+      const place = (state.postdocPlacement || '').trim();
+      heavenText = place
+        ? `You landed a post-doc at ${place}. More deadlines, but also a desk with your name on a piece of tape. Grant portals will learn your face. Reviewer 2 has already bookmarked you. This is a win screen — congrats.`
+        : 'You landed a post-doc: more deadlines, but also a desk with your name on a piece of tape. Grant portals will learn your face. Reviewer 2 has already bookmarked you. This is a win screen — congrats.';
+    } else {
+      if (h2) h2.textContent = '🎉 You left academia.';
+      if (tag) tag.textContent = 'It was heaven all along.';
+      if (reason === 'phd_thrown_out') {
+        heavenText = "You didn't get two papers in time. The department suggested you leave. You got a job in industry anyway. It's fine. Really.";
+      }
     }
-    if (state.hasKids && reason !== 'phd_thrown_out') {
+    if (state.hasKids && reason !== 'phd_thrown_out' && reason !== 'postdoc') {
       heavenText += ' Your kids will grow up with a parent who has evenings. Nice.';
     }
     document.getElementById('heaven-text').textContent = heavenText;
@@ -5420,6 +5581,7 @@ function runIslandHoppingGame(nextStep) {
       universityBA: null,
       universityMA: null,
       leaveConfirmRestore: null,
+      postdocPlacement: null,
     };
     document.getElementById('outcome-continue').classList.remove('hidden');
     document.getElementById('outcome-continue').textContent = 'Continue';
@@ -5455,6 +5617,10 @@ function runIslandHoppingGame(nextStep) {
     document.getElementById('pause-overlay').classList.add('hidden');
   });
   document.getElementById('cv-btn').addEventListener('click', () => showCV());
+  const careerSkipBtnEl = document.getElementById('career-skip-btn');
+  if (careerSkipBtnEl) {
+    careerSkipBtnEl.addEventListener('click', () => showCareerSkipMenu());
+  }
   document.getElementById('cv-btn-pause').addEventListener('click', () => {
     document.getElementById('pause-overlay').classList.add('hidden');
     showCV();

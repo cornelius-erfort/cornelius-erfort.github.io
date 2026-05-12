@@ -1,14 +1,14 @@
 {% include base_path %}
 
 <div class="masthead masthead--fixed" id="masthead-scroll">
+  <a class="site-nav-static__to-minimal site-nav-static__to-minimal--fixed" href="{{ base_path }}/compact/" aria-label="Minimal site (compact overview)">
+    <span class="site-nav-static__to-minimal-arrow" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+    Minimal site
+  </a>
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav class="site-nav-static" aria-label="Primary navigation">
         <span class="site-nav-static__brand-stack">
-          <a class="site-nav-static__to-minimal" href="{{ base_path }}/compact/">
-            <span class="site-nav-static__to-minimal-arrow" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
-            Minimal site
-          </a>
           <a class="site-nav-static__brand" href="#about">{{ site.title }}</a>
         </span>
 
