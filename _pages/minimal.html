@@ -58,8 +58,8 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     <section class="minimal-section" id="about">
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="about">About<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <p>I'm a Postdoc at <a href="https://www.uni-wh.de">Witten/Herdecke University</a>, working on the DFG-funded project <a href="https://zweitstimme.org/">zweitstimme.org</a>. I'm also affiliated with the <a href="https://hu-govlab.de">Humboldt Governance Lab</a>.</p>
-      <p>My research sits at the intersection of comparative politics and quantitative methods. I study <a href="https://doi.org/10.1016/j.electstud.2024.102872">voter targeting</a>, interest groups, and voting behavior, with a broader interest in how democratic representation works in practice&mdash;and how political competition, information, and organization shape whose preferences are heard.</p>
-      <p>Beyond individual papers, I care about building research infrastructure that others can use. With <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a>, providing data is important to me: I want to create lasting value for the research community through transparency, reproducibility, and open data (and, where possible, open-source workflows). I'm especially interested in innovative data sources and new ways of measuring politics&mdash;treating data as something we can discover in many places, not only in familiar datasets, and turning it into well-documented resources that others can reuse and build on.</p>
+      <p>My research sits at the intersection of comparative politics and quantitative methods. I study <a href="https://doi.org/10.1016/j.electstud.2024.102872">voter targeting</a>, interest groups, and voting behavior, with a broader interest in how democratic representation works in practice.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="about">Read more</a></p>
     </section>
 
     <section class="minimal-section" id="research">
@@ -79,6 +79,7 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
 
   </div>
 
+  <div class="minimal-grid__right">
   <div class="minimal-col">
     <section class="minimal-section" id="publications">
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="publications">Recent publications<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
@@ -117,64 +118,10 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     {% assign _ds_keys = "02_partypress,01_party-press-releases-30-countries,03_election-dataset-germany-1953-2021,04_election-dataset-germany-1953-2017" | split: "," %}
     <section class="minimal-section minimal-section--data" id="data">
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="data">Data &amp; software<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
-      <nav class="minimal-section__hex-strip" aria-label="Data projects">
-        <div class="minimal-hex-mosaic">
-          <div class="minimal-hex-cluster">
-            <div class="minimal-hex-cluster__row">
-              {% for key in _ds_keys limit:2 %}
-                {% assign d = site.data.datasets[key] %}
-                {% assign hex_url = '' %}
-                {% if d.links %}
-                  {% for link in d.links %}
-                    {% if link.label == 'Website' %}
-                      {% assign hex_url = link.url %}
-                    {% endif %}
-                  {% endfor %}
-                  {% if hex_url == '' %}
-                    {% assign hex_url = d.links.first.url %}
-                  {% endif %}
-                {% endif %}
-                {% if hex_url == '' %}
-                  {% assign hex_url = '#' %}
-                {% endif %}
-                <a class="minimal-hex minimal-hex--filled"
-                   href="{{ hex_url }}"
-                   {% if hex_url == '#' %}data-open-overlay="data"{% else %}target="_blank" rel="noopener"{% endif %}
-                   title="{{ d.title | strip_html | escape }}">
-                  <img src="{{ base_path }}/{{ d.image }}" alt="{{ d.title | strip_html | escape }}" loading="lazy" width="134" height="134">
-                </a>
-              {% endfor %}
-            </div>
-            <div class="minimal-hex-cluster__row minimal-hex-cluster__row--nest">
-              {% for key in _ds_keys offset:2 %}
-                {% assign d = site.data.datasets[key] %}
-                {% assign hex_url = '' %}
-                {% if d.links %}
-                  {% for link in d.links %}
-                    {% if link.label == 'Website' %}
-                      {% assign hex_url = link.url %}
-                    {% endif %}
-                  {% endfor %}
-                  {% if hex_url == '' %}
-                    {% assign hex_url = d.links.first.url %}
-                  {% endif %}
-                {% endif %}
-                {% if hex_url == '' %}
-                  {% assign hex_url = '#' %}
-                {% endif %}
-                <a class="minimal-hex minimal-hex--filled"
-                   href="{{ hex_url }}"
-                   {% if hex_url == '#' %}data-open-overlay="data"{% else %}target="_blank" rel="noopener"{% endif %}
-                   title="{{ d.title | strip_html | escape }}">
-                  <img src="{{ base_path }}/{{ d.image }}" alt="{{ d.title | strip_html | escape }}" loading="lazy" width="134" height="134">
-                </a>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </nav>
-      <p class="minimal-aside"><a href="#" data-open-overlay="data">See the full list</a> of data &amp; software.</p>
+      
+      <p>See the <a href="#" data-open-overlay="data">full list of data &amp; software</a>.</p>
     </section>
+  </div>
   </div>
 </div>
 

@@ -168,7 +168,10 @@ body.minimal-layout {
   flex: 0 0 auto;
 }
 
-/* Data & software: hex mosaic inside section (right col / full-width row on 2-col) */
+/* Data & software: hex mosaic (hidden on main page; full list in overlay) */
+#data .minimal-section__hex-strip {
+  display: none;
+}
 .minimal-section__hex-strip {
   margin-top: 0.45rem;
   padding-top: 0.35rem;
@@ -177,6 +180,8 @@ body.minimal-layout {
 }
 .minimal-hex-mosaic {
   --hex-gap: 0.32rem;
+  --hex-w: 109px;
+  --hex-h: 126px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -206,13 +211,11 @@ body.minimal-layout {
 }
 /* Second sticker row: half-hex shift relative to first row only (not whole winged row) */
 .minimal-hex-cluster__row--nest {
-  margin-top: calc(var(--hex-h, 97px) * -0.17);
-  transform: translateX(calc((var(--hex-w, 84px) + var(--hex-gap)) * 0.5));
+  margin-top: calc(var(--hex-h) * -0.17);
+  transform: translateX(calc((var(--hex-w) + var(--hex-gap)) * 0.5));
 }
 
 .minimal-hex {
-  --hex-w: 84px;
-  --hex-h: 97px;
   width: var(--hex-w);
   height: var(--hex-h);
   flex: 0 0 auto;
@@ -251,10 +254,8 @@ html[data-theme="dark"] .minimal-hex--filled {
 @media (max-width: 600px) {
   .minimal-hex-mosaic {
     --hex-gap: 0.22rem;
-  }
-  .minimal-hex {
-    --hex-w: 67px;
-    --hex-h: 77px;
+    --hex-w: 87px;
+    --hex-h: 100px;
   }
   .minimal-hex-cluster__row--nest {
     margin-top: calc(var(--hex-h) * -0.15);
@@ -316,6 +317,11 @@ html[data-theme="dark"] .minimal-hex--filled {
 
 .minimal-col {
   min-width: 0;
+}
+
+/* Wrap middle + right columns: 3-col uses contents so both cols stay grid items; 2-col stacks them in one cell. */
+.minimal-grid__right {
+  display: contents;
 }
 
 /* Sections ------------------------------------------------------------- */
@@ -560,9 +566,48 @@ html[data-theme="dark"] .minimal-hex--filled {
   .minimal-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0 1.5rem;
+    align-items: start;
   }
-  .minimal-col:nth-child(3) {
-    grid-column: 1 / -1;
+  /* Pull #news into column 1 (between research and resources); right col = pubs → wip → teaching → data */
+  .minimal-grid > .minimal-col:first-child,
+  .minimal-grid__right,
+  .minimal-grid__right > .minimal-col {
+    display: contents;
+  }
+  #about {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  #research {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #news {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 0.35rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.09);
+  }
+  #resources {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  #publications {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  #working-papers {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  #teaching {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  #data {
+    grid-column: 2;
+    grid-row: 4;
   }
 }
 
@@ -581,11 +626,59 @@ html[data-theme="dark"] .minimal-hex--filled {
     object-position: 50% 28%;
   }
   .minimal-name { font-size: 1.4rem; }
-  /* Flex avoids grid placement bugs when switching from 2-col (where col 3 spanned full width). */
+  /* Flatten columns so flex `order` can place Other resources last in one column. */
   .minimal-grid {
     display: flex;
     flex-direction: column;
     gap: 0;
+  }
+  .minimal-col:nth-child(1),
+  .minimal-grid__right,
+  .minimal-grid__right > .minimal-col {
+    display: contents;
+  }
+  #about {
+    order: 1;
+  }
+  #research {
+    order: 2;
+  }
+  #publications {
+    order: 3;
+  }
+  #working-papers {
+    order: 4;
+  }
+  #news {
+    order: 5;
+  }
+  #teaching {
+    order: 6;
+  }
+  #data {
+    order: 7;
+  }
+  #resources {
+    order: 8;
+  }
+  #about,
+  #research,
+  #news,
+  #resources,
+  #publications,
+  #working-papers,
+  #teaching,
+  #data {
+    grid-column: unset;
+    grid-row: unset;
+    width: 100%;
+    min-width: 0;
+  }
+  /* Separator when stacked columns collapse to one flex column */
+  .minimal-col + .minimal-grid__right .minimal-col > .minimal-section:first-child {
+    margin-top: 0.35rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.09);
   }
   .minimal-col {
     width: 100%;
