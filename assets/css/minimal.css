@@ -42,8 +42,30 @@ body.minimal-layout {
 .minimal-page {
   max-width: none;
   margin: 0;
-  padding: 1.75rem 2rem 1.5rem;
+  /* Extra top padding so fixed “Full site” link does not overlap the header */
+  padding: 2.35rem 2rem 1.5rem;
   box-sizing: border-box;
+}
+
+/* Back to full site — fixed viewport top-left */
+.minimal-back-to-full {
+  position: fixed;
+  top: max(0.65rem, env(safe-area-inset-top, 0px));
+  left: max(0.85rem, env(safe-area-inset-left, 0px));
+  z-index: 100;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--min-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.minimal-back-to-full:hover,
+.minimal-back-to-full:focus {
+  color: var(--min-link-hover);
+  border-bottom-color: currentColor;
 }
 
 /* Links --------------------------------------------------------------- */
@@ -98,6 +120,8 @@ body.minimal-layout {
   width: 84px;
   height: 84px;
   object-fit: cover;
+  /* Portrait: between top (face too low) and center; tweak % if your crop changes */
+  object-position: 50% 28%;
   border-radius: 50%;
   filter: grayscale(0.1);
 }
@@ -149,18 +173,25 @@ body.minimal-layout {
 
 /* Sections ------------------------------------------------------------- */
 .minimal-section {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.85rem;
   break-inside: avoid;
 }
 
+/* When two sections stack in one column, separate them from the grey body text */
+.minimal-col .minimal-section + .minimal-section {
+  margin-top: 0.35rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
 .minimal-section h2 {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--min-text-muted);
-  margin: 0 0 0.6rem;
-  padding-bottom: 0.3rem;
-  border-bottom: 1px solid var(--min-rule);
+  letter-spacing: 0.07em;
+  color: var(--min-text);
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid rgba(43, 108, 176, 0.28);
   font-weight: 600;
 }
 
@@ -200,19 +231,27 @@ body.minimal-layout {
   color: var(--min-text);
 }
 
-/* Publications --------------------------------------------------------- */
+/* Publications & working papers (same chevron as .minimal-list) */
 .minimal-pubs {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: pub;
 }
 
 .minimal-pubs li {
+  position: relative;
   margin: 0 0 0.75rem;
-  padding-left: 0;
+  padding-left: 0.9rem;
 }
 .minimal-pubs li:last-child { margin-bottom: 0; }
+
+.minimal-pubs li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--min-accent);
+  font-weight: 600;
+}
 
 .minimal-pub__title {
   font-weight: 500;
@@ -258,9 +297,22 @@ body.minimal-layout {
 }
 
 .minimal-aside {
-  margin-top: 0.6rem;
-  font-size: 0.82rem;
+  clear: both;
+  margin-top: 1.1rem;
+  margin-bottom: 0;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+  font-size: 0.8rem;
   color: var(--min-text-muted);
+  line-height: 1.45;
+}
+
+/* Visually separate “See the full list …” from the last bullet / publication */
+.minimal-aside::before {
+  content: "\2192\00a0";
+  color: var(--min-accent);
+  font-weight: 700;
+  font-size: 0.95em;
 }
 
 /* Footer --------------------------------------------------------------- */
@@ -289,7 +341,7 @@ body.minimal-layout {
 
 @media (max-width: 600px) {
   .minimal-page {
-    padding: 1.25rem 1.1rem;
+    padding: 2.1rem 1.1rem 1.25rem;
   }
   .minimal-header {
     flex-direction: row;
@@ -299,6 +351,7 @@ body.minimal-layout {
   .minimal-header__photo img {
     width: 64px;
     height: 64px;
+    object-position: 50% 28%;
   }
   .minimal-name { font-size: 1.4rem; }
   .minimal-grid {

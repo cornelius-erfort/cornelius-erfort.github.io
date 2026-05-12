@@ -7,6 +7,7 @@
   const STAT_NAMES = ['intelligence', 'network', 'mentalHealth', 'luck', 'money', 'hIndex'];
   const STAT_MIN = 0;
   const STAT_MAX = 100;
+  const STAT_MAX_MONEY = 1000;
   const CONFERENCE_COST = 25; // research day / showcase (BA); Skip costs 0
   const SAVE_VERSION = 2;
   const CONFERENCE_MA_COST = 35; // colloquium/workshop cost (MA)
@@ -89,12 +90,16 @@
   const SABBATICAL_PLATFORM_SHORT_MAX = 185;
   const SABBATICAL_PLATFORM_LONG_MIN = 210;
   const SABBATICAL_PLATFORM_LONG_MAX = 320;
+  /** First sandbar only: long, empty stretch so players learn jump timing before gaps and pickups. */
+  const SABBATICAL_START_PLATFORM_MIN = 340;
+  const SABBATICAL_START_PLATFORM_MAX = 430;
   const SABBATICAL_SPLASHES_MAX = 3;
 
   const PHD_APP_MONEY_PER = 22;
   const PHD_APP_MH_PER = -12;
   const PHD_APP_MAX = 5;
-  const PHD_APP_MIN_MH_AFTER = 18;
+  /** Min mental health after *all* chosen applications are paid; keep low enough that 2–3 apps stay viable post-MA. */
+  const PHD_APP_MIN_MH_AFTER = 12;
   const PHD_APP_REST_MH = 22; // wellbeing from "Take a break" when stuck
 
   const BIKE_COURIER_MH_BONUS = 8;
@@ -1031,7 +1036,7 @@
         if (v) out[stat] += p * v;
       });
     }
-    STAT_NAMES.forEach(stat => { out[stat] = clampStat(out[stat]); });
+    STAT_NAMES.forEach(stat => { out[stat] = clampStat(out[stat], stat); });
     return out;
   }
 
@@ -1187,8 +1192,9 @@
     return parts.length ? 'Effects: ' + parts.join(', ') + '.' : '';
   }
 
-  function clampStat(value) {
-    return Math.max(STAT_MIN, Math.min(STAT_MAX, Math.round(value)));
+  function clampStat(value, stat) {
+    const max = stat === 'money' ? STAT_MAX_MONEY : STAT_MAX;
+    return Math.max(STAT_MIN, Math.min(max, Math.round(value)));
   }
 
   function randomVariance() {
@@ -1207,7 +1213,7 @@
       const mult = delta >= 0 ? char.gainMult[stat] : char.lossMult[stat];
       delta *= mult;
       if (delta > 0) delta *= difficultyScale;
-      state.stats[stat] = clampStat(state.stats[stat] + delta);
+      state.stats[stat] = clampStat(state.stats[stat] + delta, stat);
     });
   }
 
@@ -1221,7 +1227,7 @@
       const mult = delta >= 0 ? char.gainMult[stat] : char.lossMult[stat];
       delta *= mult;
       if (delta > 0) delta *= difficultyScale;
-      state.stats[stat] = clampStat(state.stats[stat] + delta);
+      state.stats[stat] = clampStat(state.stats[stat] + delta, stat);
     });
   }
 
@@ -1265,7 +1271,11 @@
     if (!stats) return;
     STAT_NAMES.forEach(stat => {
       const fill = document.getElementById(`stat-${stat}`);
-      if (fill) fill.style.width = stats[stat] + '%';
+      if (fill) {
+        const max = stat === 'money' ? STAT_MAX_MONEY : STAT_MAX;
+        const pct = Math.min(100, ((stats[stat] || 0) / max) * 100);
+        fill.style.width = pct + '%';
+      }
       const valueEl = document.getElementById(`stat-value-${stat}`);
       if (valueEl) valueEl.textContent = formatStatValue(stat, stats[stat]);
     });
@@ -1664,6 +1674,30 @@
       <rect x="14" y="18" width="6" height="14" fill="${a.leg}"/>
       <rect x="20" y="10" width="4" height="6" fill="${a.book}"/>
     </svg>`;
+  }
+
+  /** Same 24×32 layout as `getCharacterAvatarSvg`, scaled to fit a canvas rectangle. */
+  function drawPixelAvatarOnCanvas(ctx, avatar, destX, destY, destW, destH) {
+    const a = avatar || { head: '#e0c4a0', body: '#7aa2f7', leg: '#4a4a6a', book: '#ffcc00' };
+    const vw = 24;
+    const vh = 32;
+    const scale = Math.min(destW / vw, destH / vh);
+    const ox = destX + (destW - vw * scale) / 2;
+    const oy = destY + (destH - vh * scale) / 2;
+    function fr(x, y, w, h, fill) {
+      ctx.fillStyle = fill;
+      ctx.fillRect(
+        Math.round(ox + x * scale),
+        Math.round(oy + y * scale),
+        Math.max(1, Math.round(w * scale)),
+        Math.max(1, Math.round(h * scale))
+      );
+    }
+    fr(8, 0, 8, 8, a.head);
+    fr(4, 8, 16, 10, a.body);
+    fr(4, 18, 6, 14, a.leg);
+    fr(14, 18, 6, 14, a.leg);
+    fr(20, 10, 4, 6, a.book);
   }
 
   // ----- Character select -----
@@ -2179,7 +2213,7 @@
           return;
         }
         applyEffects(choice.effects);
-        if (goingCostsMoney) state.stats.money = clampStat(state.stats.money - cost);
+        if (goingCostsMoney) state.stats.money = clampStat(state.stats.money - cost, 'money');
         const eventNameBA = isY1 ? 'Department Research Day' : 'Thesis Showcase';
         const eventNameMA = isY1 ? 'Graduate Colloquium' : 'Thesis Workshop';
         recordConference(isMA ? 'ma' : 'ba', recordYear, choice.id, isMA ? eventNameMA : eventNameBA);
@@ -2331,7 +2365,7 @@
               if (fc.id === 'back') { showPhDConferenceSelect(canPresent); return; }
               const granted = Math.random() < 0.5;
               const msg = granted ? "Funding granted. You're going." : "Funding denied. Back to the list.";
-              if (granted) state.stats.money = clampStat((state.stats.money || 0) + cost);
+              if (granted) state.stats.money = clampStat((state.stats.money || 0) + cost, 'money');
               showOutcome(msg, () => granted ? doRolesForConferences(list, canPresent) : showPhDConferenceSelect(canPresent), {}, PHD_CONFERENCE_OUTCOME_RESUME);
             },
             'conference',
@@ -2360,7 +2394,7 @@
         return;
       }
       const conf = conferences[index];
-      state.stats.money = clampStat((state.stats.money || 0) - conf.cost);
+      state.stats.money = clampStat((state.stats.money || 0) - conf.cost, 'money');
       updateStatBars();
       const roleOptions = roles.map(r => ({
         id: r.id,
@@ -3065,12 +3099,23 @@
       (state.stats.network || 0) >= p.minNetwork && (state.stats.luck || 0) >= p.minLuck
     );
     const available = unlocked.filter(p => !selected.find(s => s.id === p.id) && canAddMore);
+    const remainingUnlocked = unlocked.filter(p => !selected.find(s => s.id === p.id));
 
     let prompt = 'Choose programmes to apply to. Each application costs €' + PHD_APP_MONEY_PER + ' and costs mental health (' + PHD_APP_MH_PER + '). You can apply to at most ' + PHD_APP_MAX + '. Your network and luck determine which options you see.';
     if (n > 0) {
       prompt += ' Applied so far: ' + selected.map(s => s.name).join(', ') + '. Money left: €' + Math.max(0, money - n * PHD_APP_MONEY_PER) + ', mental health after apps: ' + Math.max(0, mh + n * PHD_APP_MH_PER) + '.';
     } else {
       prompt += ' You have €' + money + ' and mental health ' + mh + '.';
+    }
+    if (n >= 1 && !canAddMore && remainingUnlocked.length > 0 && n < PHD_APP_MAX) {
+      if (money < (n + 1) * PHD_APP_MONEY_PER) {
+        prompt += ' You cannot add another application: not enough money for €' + (n + 1) * PHD_APP_MONEY_PER + ' total fees.';
+      } else if (mh + (n + 1) * PHD_APP_MH_PER < PHD_APP_MIN_MH_AFTER) {
+        prompt +=
+          ' You cannot add another application: your mental health would fall below ' +
+          PHD_APP_MIN_MH_AFTER +
+          ' after paying for another. Use Done to submit your current list.';
+      }
     }
 
     const options = [];
@@ -3193,8 +3238,8 @@
   function resolvePhDApplications(selected) {
     const totalCost = selected.length * PHD_APP_MONEY_PER;
     const totalMH = selected.length * PHD_APP_MH_PER;
-    state.stats.money = clampStat((state.stats.money || 0) - totalCost);
-    state.stats.mentalHealth = clampStat((state.stats.mentalHealth || 0) + totalMH);
+    state.stats.money = clampStat((state.stats.money || 0) - totalCost, 'money');
+    state.stats.mentalHealth = clampStat((state.stats.mentalHealth || 0) + totalMH, 'mentalHealth');
 
     const int = (state.stats.intelligence || 0) / 100;
     const net = (state.stats.network || 0) / 100;
@@ -3962,8 +4007,8 @@
   function resolvePostDocApplications(selected) {
     const totalCost = selected.length * POSTDOC_APP_MONEY_PER;
     const totalMH = selected.length * POSTDOC_APP_MH_PER;
-    state.stats.money = clampStat((state.stats.money || 0) - totalCost);
-    state.stats.mentalHealth = clampStat((state.stats.mentalHealth || 0) + totalMH);
+    state.stats.money = clampStat((state.stats.money || 0) - totalCost, 'money');
+    state.stats.mentalHealth = clampStat((state.stats.mentalHealth || 0) + totalMH, 'mentalHealth');
     const int = (state.stats.intelligence || 0) / 100;
     const net = (state.stats.network || 0) / 100;
     const luck = (state.stats.luck || 0) / 100;
@@ -4353,7 +4398,10 @@
     state = s;
     state.difficulty = 'medium';
     if (state.leaveConfirmRestore === undefined) state.leaveConfirmRestore = null;
-    STAT_NAMES.forEach(stat => { if (state.stats[stat] === undefined) state.stats[stat] = 0; });
+    STAT_NAMES.forEach(stat => {
+      if (state.stats[stat] === undefined) state.stats[stat] = 0;
+      state.stats[stat] = clampStat(state.stats[stat], stat);
+    });
     updateStatBars();
     document.getElementById('pause-overlay').classList.add('hidden');
     if (state.resumeStep === 'outcome') resumeGame('outcome');
@@ -4396,13 +4444,21 @@ function runIslandHoppingGame(nextStep) {
     let x = 0;
     for (let i = 0; i < SABBATICAL_SEGMENT_COUNT - 1; i++) {
       if (i % 2 === 0) {
-        const isLong = Math.random() < 0.42;
-        let width = isLong
-          ? SABBATICAL_PLATFORM_LONG_MIN + Math.random() * (SABBATICAL_PLATFORM_LONG_MAX - SABBATICAL_PLATFORM_LONG_MIN)
-          : SABBATICAL_PLATFORM_SHORT_MIN + Math.random() * (SABBATICAL_PLATFORM_SHORT_MAX - SABBATICAL_PLATFORM_SHORT_MIN);
-        if (i === 0) width = Math.max(width, 145);
+        let isLong;
+        let width;
+        if (i === 0) {
+          isLong = true;
+          width =
+            SABBATICAL_START_PLATFORM_MIN +
+            Math.random() * (SABBATICAL_START_PLATFORM_MAX - SABBATICAL_START_PLATFORM_MIN);
+        } else {
+          isLong = Math.random() < 0.42;
+          width = isLong
+            ? SABBATICAL_PLATFORM_LONG_MIN + Math.random() * (SABBATICAL_PLATFORM_LONG_MAX - SABBATICAL_PLATFORM_LONG_MIN)
+            : SABBATICAL_PLATFORM_SHORT_MIN + Math.random() * (SABBATICAL_PLATFORM_SHORT_MAX - SABBATICAL_PLATFORM_SHORT_MIN);
+        }
         const seg = { type: 'platform', xStart: x, width, xEnd: x + width, hasCoin: false, hasDrink: false, coinCollected: false, drinkHit: false };
-        if (isLong) {
+        if (isLong && i > 0) {
           if (Math.random() < 0.6) seg.hasCoin = true; else seg.hasDrink = true;
         }
         segments.push(seg);
@@ -4441,6 +4497,12 @@ function runIslandHoppingGame(nextStep) {
     const coinsEl = document.getElementById('sabbatical-coins');
     const mhEl = document.getElementById('sabbatical-mh');
     const jumpBtn = document.getElementById('sabbatical-jump-btn');
+
+    const charPick = getCharacter();
+    const islandAvatar =
+      charPick && charPick.avatar
+        ? charPick.avatar
+        : { head: '#e0c4a0', body: '#7aa2f7', leg: '#4a4a6a', book: '#ffcc00' };
 
     function getCharWorldX() { return worldX + SABBATICAL_CHAR_SCREEN_X; }
     function getSegmentAt(wx) {
@@ -4540,9 +4602,15 @@ function runIslandHoppingGame(nextStep) {
           char.y = platformTop - charH;
           char.vy = 0;
         }
-        if (char.vy < 0 && cur.seg.hasCoin && !cur.seg.coinCollected) {
-          const coinY = platformTop - itemH - coinR - 4;
-          if (char.y + charH / 2 < coinY + coinR && char.y > coinY - coinR - charH) {
+        if (cur.seg.hasCoin && !cur.seg.coinCollected) {
+          // Coin is drawn at arc center (groundY - platformH - coinR - 4); collision used itemH by mistake and missed the sprite.
+          const coinCy = platformTop - coinR - 4;
+          const coinCx = cur.seg.xStart + cur.seg.width / 2;
+          const charCx = getCharWorldX() + charW / 2;
+          const inAir = char.y + charH < platformTop - 2;
+          const horiz = Math.abs(charCx - coinCx) < coinR + charW * 0.65;
+          const vert = char.y + charH > coinCy - coinR && char.y < coinCy + coinR;
+          if (inAir && horiz && vert) {
             cur.seg.coinCollected = true;
             coinsCollected++;
             updateHUD();
@@ -4715,11 +4783,14 @@ function runIslandHoppingGame(nextStep) {
         ctx.fillText(label, scrX - 2, groundY - 58);
       });
 
-      ctx.fillStyle = '#7aa2f7';
-      ctx.fillRect(Math.round(SABBATICAL_CHAR_SCREEN_X - 2), Math.round(char.y), charW + 4, charH);
-      ctx.strokeStyle = '#5a82c7';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(Math.round(SABBATICAL_CHAR_SCREEN_X - 2), Math.round(char.y), charW + 4, charH);
+      drawPixelAvatarOnCanvas(
+        ctx,
+        islandAvatar,
+        Math.round(SABBATICAL_CHAR_SCREEN_X - 2),
+        Math.round(char.y),
+        charW + 4,
+        charH
+      );
     }
 
     document.getElementById('sabbatical-coin-btn').style.display = 'none';

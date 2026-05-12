@@ -35,6 +35,34 @@
     var d = new Date(s);
     return isNaN(d.getTime()) ? String(s) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   }
+  /** YYYY-MM-DD parsed as local calendar date (avoids UTC off-by-one). */
+  function parseDateLoose(s) {
+    var str = String(s == null ? '' : s).trim();
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    var d = new Date(str);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function formatMonthYear(s) {
+    var d = parseDateLoose(s);
+    if (!d) return s == null ? '' : String(s);
+    return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+  }
+  /** Teaching: one label per calendar month (e.g. two workshop days in May → "May 2025"). */
+  function teachingMonthYearParts(dates) {
+    if (!Array.isArray(dates) || !dates.length) return [];
+    var seen = Object.create(null);
+    var out = [];
+    for (var i = 0; i < dates.length; i++) {
+      var d = parseDateLoose(dates[i]);
+      if (!d) continue;
+      var key = d.getFullYear() + '-' + d.getMonth();
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push(d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }));
+    }
+    return out;
+  }
   function getBasePath() {
     var el = document.querySelector('.scroll-content[data-base-path]');
     return (el && el.getAttribute('data-base-path')) || '';
@@ -212,12 +240,12 @@
       return '<span class="media-date">' + esc(t.date_display) + '</span><br>';
     }
     if (Array.isArray(t.dates) && t.dates.length) {
-      var parts = t.dates.map(function(d) { return esc(formatDate(d)); }).filter(Boolean);
-      if (!parts.length) return '';
-      return '<span class="media-date">' + parts.join(' \u00b7 ') + '</span><br>';
+      var monthParts = teachingMonthYearParts(t.dates);
+      if (!monthParts.length) return '';
+      return '<span class="media-date">' + monthParts.map(function(p) { return esc(p); }).join(' \u00b7 ') + '</span><br>';
     }
     if (t.date) {
-      var one = formatDate(t.date);
+      var one = formatMonthYear(t.date);
       if (!one) return '';
       return '<span class="media-date">' + esc(one) + '</span><br>';
     }

@@ -23,6 +23,13 @@
       var d = new Date(s);
       return isNaN(d.getTime()) ? s : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     }
+    function formatMonthYear(s) {
+      if (!s) return '';
+      var str = String(s).trim();
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+      var d = m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(str);
+      return isNaN(d.getTime()) ? s : d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+    }
     function escapeHtml(s) {
       if (!s) return '';
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -39,8 +46,9 @@
       var type = (item.type && typeLabels[item.type]) ? typeLabels[item.type] : typeLabels.other;
       var bodyContent = item.body_html ? item.body_html : (item.body ? escapeHtml(item.body) : '');
       var tr = document.createElement('tr');
+      var dateStr = (item.type === 'teaching') ? formatMonthYear(item.date) : formatDate(item.date);
       tr.innerHTML = coverCell(item) +
-        '<td style="border:none"><span class="news-item-date">' + escapeHtml(formatDate(item.date)) + '</span> ' +
+        '<td style="border:none"><span class="news-item-date">' + escapeHtml(dateStr) + '</span> ' +
         (item.type ? '<span class="news-item-type">' + escapeHtml(type) + '</span> ' : '') +
         '<h3 class="news-item-title">' + escapeHtml(item.title || '') + '</h3>' +
         (bodyContent ? '<div class="news-item-body">' + bodyContent + '</div>' : '') + '</td>';
