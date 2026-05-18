@@ -1,0 +1,45 @@
+---
+# No compress layout: large inline JSON in index can be corrupted by HTML compression
+# and theme main.min.js is skipped (see scripts_scroll.html) to avoid updateNav stack overflow.
+---
+
+{% include base_path %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js scroll-html">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ base_path }}/assets/css/scroll.css">
+  </head>
+  <body class="scroll-layout">
+    {% include browser-upgrade.html %}
+
+    <div class="scroll-page" id="top">
+      {% include masthead_scroll.html %}
+
+      <main id="main" class="scroll-main" role="main">
+        <article class="scroll-content" data-base-path="{{ base_path }}">
+          {{ content }}
+        </article>
+      </main>
+
+      <div class="scroll-back-to-top" aria-hidden="true">
+        <a href="#top" class="scroll-back-to-top__link" id="back-to-top-link" aria-label="Back to top">
+          <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="page__footer">
+        <footer>
+          {% include footer/custom.html %}
+          {% include footer.html %}
+        </footer>
+      </div>
+    </div>
+
+    {% include scripts_scroll.html %}
+    <script src="{{ base_path }}/assets/js/scroll-masthead.js"></script>
+    <script src="{{ base_path }}/assets/js/scroll-inlay.js"></script>
+  </body>
+</html>

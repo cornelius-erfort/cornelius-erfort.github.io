@@ -1,0 +1,7 @@
+{% comment %}
+  Scroll layout: do not load main.min.js (theme nav + greedy navigation).
+  It expects #site-nav / .visible-links which the scroll masthead doesn't have,
+  and can cause "Maximum call stack size exceeded" in updateNav().
+{% endcomment %}
+{% include analytics.html %}
+{% include /comments-providers/scripts.html %}
