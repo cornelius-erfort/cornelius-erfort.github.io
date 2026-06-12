@@ -1,6 +1,7 @@
 _site/
 vendor/
 .bundle/
+.venv-scholar/
 
 # System/personal junk
 .DS_Store

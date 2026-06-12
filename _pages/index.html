@@ -71,7 +71,7 @@ title: "Cornelius Erfort"
     document.addEventListener('click', function(e) {
         var viewport = e.target.closest && e.target.closest('.scroll-inlay__viewport');
         if (!viewport) return;
-        var btn = e.target.closest && e.target.closest('.pub-button');
+        var btn = e.target.closest && e.target.closest('.pub-button, .pub-cite-badge');
         if (!btn) return;
         var id = btn.getAttribute('data-toggle-content');
         if (id && typeof window.toggleContent === 'function') {
@@ -372,6 +372,7 @@ title: "Cornelius Erfort"
     <button type="button" class="pub-button" onclick="downloadAllBibtex()">Download all BibTeX</button>
 </div>
 <script type="application/json" id="data-publications">{{ site.data.publications | jsonify }}</script>
+<script type="application/json" id="data-citations">{{ site.data.citations | jsonify }}</script>
 <div class="scroll-inlay">
   <div class="scroll-inlay__viewport">
     <table id="publicationsTable" style="border:none">
@@ -382,6 +383,25 @@ title: "Cornelius Erfort"
     <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--prev" aria-label="Previous page"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
     <div class="scroll-inlay__dots" aria-label="Pages"></div>
     <button type="button" class="scroll-inlay__page-btn scroll-inlay__page-btn--next" aria-label="Next page"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+  </div>
+</div>
+</section>
+
+<section id="citations" class="scroll-section">
+<div class="section-header">
+  <h2>Citations</h2>
+</div>
+<div id="citationsSummary" class="citations-summary"></div>
+<div class="scroll-inlay scroll-inlay--citations">
+  <div class="scroll-inlay__viewport">
+    <div id="citationsLeaderboard" class="citations-leaderboard">
+      <div class="citations-leaderboard__header" aria-hidden="true">
+        <span class="citations-leaderboard__col-author">Citing scholar</span>
+        <span class="citations-leaderboard__col-count">Citations</span>
+        <span class="citations-leaderboard__col-action"></span>
+      </div>
+      <div class="citations-leaderboard__body"></div>
+    </div>
   </div>
 </div>
 </section>

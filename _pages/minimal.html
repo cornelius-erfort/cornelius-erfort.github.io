@@ -84,8 +84,10 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     <section class="minimal-section" id="publications">
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="publications">Recent publications<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       <script type="application/json" id="data-publications-minimal">{{ site.data.publications | jsonify }}</script>
+      <script type="application/json" id="data-citations-minimal">{{ site.data.citations | jsonify }}</script>
       <ol class="minimal-pubs" id="minimal-pubs"></ol>
       <p class="minimal-aside"><a href="#" data-open-overlay="publications">See the full list</a> with abstracts, BibTeX, and replication data.</p>
+      <p class="minimal-aside"><a href="#" data-open-overlay="citations">Citation counts, citing papers, and leaderboard</a> (from Google Scholar).</p>
     </section>
 
     <section class="minimal-section" id="working-papers">
@@ -139,12 +141,29 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     <p>Beyond individual papers, I care about building research infrastructure that others can use. With <a href="https://partypress.org" target="_blank" rel="noopener">PARTYPRESS</a>, providing data is important to me: I want to create lasting value for the research community through transparency, reproducibility, and open data (and, where possible, open-source workflows). I'm especially interested in innovative data sources and new ways of measuring politics&mdash;treating data as something we can discover in many places, not only in familiar datasets, and turning it into well-documented resources that others can reuse and build on.</p>
   </div>
 
+  <div class="minimal-full" id="full-citations" data-overlay-key="citations" data-title="Citations">
+    <div id="citationsSummary" class="citations-summary"></div>
+    <div id="citationsLeaderboard" class="citations-leaderboard">
+      <div class="citations-leaderboard__header" aria-hidden="true">
+        <span class="citations-leaderboard__col-author">Citing scholar</span>
+        <span class="citations-leaderboard__col-count">Citations</span>
+        <span class="citations-leaderboard__col-action"></span>
+      </div>
+      <div class="citations-leaderboard__body"></div>
+    </div>
+  </div>
+
   <div class="minimal-full" id="full-publications" data-overlay-key="publications" data-title="Recent publications">
+    <div class="minimal-citations-block minimal-citations-block--overlay">
+      <p class="minimal-citations-teaser"></p>
+      <p class="minimal-aside minimal-aside--citations"><a href="#" data-open-overlay="citations">Citation counts, citing papers, and leaderboard</a> (from Google Scholar).</p>
+    </div>
     <div class="minimal-full__actions">
       {% if site.author.googlescholar %}<a href="{{ site.author.googlescholar }}" class="pub-button" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
       <button type="button" class="pub-button" data-action="download-all-bibtex">Download all BibTeX</button>
     </div>
     <script type="application/json" id="data-publications">{{ site.data.publications | jsonify }}</script>
+    <script type="application/json" id="data-citations">{{ site.data.citations | jsonify }}</script>
     <table id="publicationsTable"><tbody></tbody></table>
   </div>
 
@@ -289,32 +308,6 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     });
   }
 
-  var pubs = parse('data-publications-minimal')
-    .filter(function(p) { return p && p.featured; })
-    .sort(function(a, b) {
-      var ya = yearKey(a.year), yb = yearKey(b.year);
-      if (ya !== yb) return yb - ya;
-      return (a.order || 0) - (b.order || 0);
-    });
-  var pubList = document.getElementById('minimal-pubs');
-  if (pubList) {
-    pubs.forEach(function(pub) {
-      var url = articleUrl(pub);
-      var titleHtml = url
-        ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(pub.title) + '</a>'
-        : esc(pub.title);
-      var year = pub.year ? '<span class="minimal-pub__year">' + esc(pub.year) + '</span>' : '';
-      var venue = pub.journal ? '<em class="minimal-pub__venue">' + esc(pub.journal) + '</em>' : '';
-      var authors = pub.authors || '';
-      var li = document.createElement('li');
-      li.className = 'minimal-pub';
-      li.innerHTML =
-        '<div class="minimal-pub__title">' + titleHtml + '</div>' +
-        '<div class="minimal-pub__meta">' + authors + (venue ? ' &middot; ' + venue : '') + (year ? ' &middot; ' + year : '') + '</div>';
-      pubList.appendChild(li);
-    });
-  }
-
   var wips = parse('data-wip-minimal')
     .filter(function(p) { return p && p.featured; })
     .sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
@@ -338,11 +331,17 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
   window.toggleContent = function(id) {
     var clicked = document.getElementById(id);
     if (!clicked) return;
-    var slot = document.getElementById('minimal-overlay-slot');
-    var siblings = slot ? slot.querySelectorAll('.pub-content') : [];
+    var scope = clicked.closest('.minimal-pub') || clicked.closest('tr') || clicked.closest('#minimal-overlay-slot') || document;
+    var siblings = scope.querySelectorAll('.pub-content, .minimal-pub__citedby');
+    var triggers = scope.querySelectorAll('[data-toggle-content]');
     var wasActive = clicked.classList.contains('active');
     for (var i = 0; i < siblings.length; i++) {
       if (siblings[i] !== clicked) siblings[i].classList.remove('active');
+    }
+    for (var j = 0; j < triggers.length; j++) {
+      var tid = triggers[j].getAttribute('data-toggle-content');
+      if (tid === id) triggers[j].classList.toggle('active', !wasActive);
+      else triggers[j].classList.remove('active');
     }
     clicked.classList.toggle('active', !wasActive);
   };
@@ -377,6 +376,9 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
 
   /* ---- Render full-section content (tables) into hidden panels --------- */
   function renderFulls() {
+    if (typeof window.renderMinimalHomePubs === 'function') {
+      try { window.renderMinimalHomePubs(); } catch (e) { /* ignore */ }
+    }
     if (typeof window.renderAllSections === 'function') {
       try { window.renderAllSections(); } catch (e) { /* ignore */ }
     }
@@ -479,7 +481,7 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
         return;
       }
     }
-    var btn = e.target.closest && e.target.closest('.pub-button');
+    var btn = e.target.closest && e.target.closest('.pub-button, .pub-cite-badge, .minimal-pub__cites');
     if (!btn) return;
     var toggleId = btn.getAttribute('data-toggle-content');
     if (toggleId) {
@@ -517,6 +519,8 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       'working-papers': 'work-in-progress',
       'pubs': 'publications',
       'publications': 'publications',
+      'citations': 'citations',
+      'citation': 'citations',
       'about': 'about',
       'teaching': 'teaching',
       'data': 'data',

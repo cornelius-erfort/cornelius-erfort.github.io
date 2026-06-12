@@ -2108,6 +2108,178 @@ body.scroll-layout {
   }
 }
 
+/* Citations (Google Scholar snapshot) */
+.citations-summary {
+  max-width: 1000px;
+  margin: 0 auto 1rem;
+  padding: 0 2rem;
+}
+.citations-summary__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin: 0 0 0.5rem;
+}
+.citations-stat {
+  color: var(--scroll-text-muted);
+  font-size: var(--scroll-font-size-sm);
+}
+.citations-stat strong {
+  color: var(--scroll-text);
+  font-weight: 600;
+}
+.citations-summary__meta {
+  margin: 0;
+  font-size: var(--scroll-font-size-muted);
+  color: var(--scroll-text-muted);
+}
+.pub-cite-badge {
+  display: inline-block;
+  margin: 0 0 0 0.35rem;
+  padding: 0.1rem 0.45rem;
+  font-size: var(--scroll-font-size-muted);
+  font-style: normal;
+  font-family: inherit;
+  line-height: inherit;
+  color: var(--scroll-link);
+  background: var(--scroll-surface);
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  white-space: nowrap;
+  cursor: pointer;
+  vertical-align: baseline;
+}
+.pub-cite-badge:hover,
+.pub-cite-badge:focus-visible {
+  background: var(--scroll-surface-hover);
+}
+.pub-cell .pub-cite-badge.active {
+  font-weight: 600;
+  border-color: var(--scroll-link);
+}
+.citations-panel .citing-works-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.citing-work {
+  margin-bottom: 0.75rem;
+}
+.citing-work__title {
+  font-weight: 500;
+  line-height: 1.4;
+}
+.citing-work__year {
+  font-weight: 400;
+  color: var(--scroll-text-muted);
+}
+.citing-work__authors {
+  font-size: var(--scroll-font-size-muted);
+  color: var(--scroll-text-muted);
+  margin-top: 0.15rem;
+}
+.citing-et-al {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: var(--scroll-link);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.citing-authors-rest[hidden] {
+  display: none !important;
+}
+.citing-authors-rest:not([hidden]) {
+  display: inline;
+}
+.citations-empty {
+  margin: 0;
+  color: var(--scroll-text-muted);
+  font-size: var(--scroll-font-size-sm);
+}
+.scroll-inlay--citations .scroll-inlay__viewport {
+  --inlay-slot-height: auto;
+  min-height: 200px;
+  max-height: 420px;
+}
+.citations-leaderboard {
+  width: 100%;
+}
+.citations-leaderboard__header,
+.citations-leaderboard__row {
+  display: grid;
+  grid-template-columns: 1fr 4.5rem 6.5rem;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+.citations-leaderboard__header {
+  padding: 0 0 0.4rem;
+  margin-bottom: 0.15rem;
+  border-bottom: 1px solid var(--scroll-border);
+  font-size: var(--scroll-font-size-muted);
+  font-weight: 600;
+  color: var(--scroll-text-muted);
+}
+.citations-leaderboard__col-count {
+  text-align: right;
+}
+.citations-leaderboard__item {
+  border-bottom: 1px solid var(--scroll-border);
+}
+.citations-leaderboard__item:last-child {
+  border-bottom: none;
+}
+.citations-leaderboard__row {
+  padding: 0.55rem 0;
+}
+.citations-leaderboard__author {
+  min-width: 0;
+  line-height: 1.35;
+}
+.citations-leaderboard__count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--scroll-text);
+}
+.citations-leaderboard__action {
+  text-align: right;
+}
+.citations-leaderboard__toggle {
+  margin: 0;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--scroll-border);
+  border-radius: var(--scroll-radius);
+  background: var(--scroll-surface);
+  color: var(--scroll-link);
+  font-size: var(--scroll-font-size-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.citations-leaderboard__works {
+  padding: 0 0 0.65rem;
+}
+.citations-leaderboard__works-list {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  list-style: disc;
+}
+.citations-leaderboard__work {
+  margin-bottom: 0.45rem;
+  font-size: var(--scroll-font-size-sm);
+  line-height: 1.4;
+  color: var(--scroll-text-soft, var(--scroll-text));
+}
+.citations-leaderboard__cites-my {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: var(--scroll-font-size-muted);
+  color: var(--scroll-text-muted);
+  font-style: italic;
+}
+
 /* Temporary stability mode: reduce repaint churn in WebKit/Blink. */
 body.scroll-layout *,
 body.scroll-layout *::before,

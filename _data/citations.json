@@ -1,0 +1,1081 @@
+{
+  "updated_at": "2026-06-12",
+  "source": "google_scholar",
+  "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
+  "profile": {
+    "total_citations": 55,
+    "h_index": 4,
+    "i10_index": 2
+  },
+  "by_publication": {
+    "07_partypress-database_rap_2023": {
+      "scholar_title": "The PARTYPRESS Database: A new comparative database of parties’ press releases",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:9yKSN-GCB0IC",
+      "citation_id": "MMcwTuIAAAAJ:9yKSN-GCB0IC",
+      "cites_cluster_id": "8471948866040535245",
+      "cited_by_count": 20,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=8471948866040535245",
+      "citing_works": [
+        {
+          "title": "Going against the grain: Climate change as a wedge issue for the radical right",
+          "url": "https://journals.sagepub.com/doi/abs/10.1177/00104140241271297",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "ZP Dickson",
+              "scholar_url": "https://scholar.google.com/citations?user=r72XtswAAAAJ"
+            },
+            {
+              "name": "SB Hobolt",
+              "scholar_url": "https://scholar.google.com/citations?user=YT7QBLgAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
+          "url": "https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(26)00025-3/fulltext",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Chen-Xu",
+              "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ"
+            },
+            {
+              "name": "H Heiliger",
+              "scholar_url": "https://scholar.google.com/citations?user=0_-lQNIAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Extreme weather events do not increase political parties' environmental attention",
+          "url": "https://www.nature.com/articles/s41558-024-02024-z",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "T Wappenhans",
+              "scholar_url": "https://scholar.google.com/citations?user=KDtMlLEAAAAJ"
+            },
+            {
+              "name": "A Valentim",
+              "scholar_url": "https://scholar.google.com/citations?user=iPd3LCkAAAAJ"
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Beyond time delays: How web scraping distorts measures of online news consumption",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/19312458.2025.2482538",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "R Ulloa",
+              "scholar_url": "https://scholar.google.com/citations?user=NKygdwgAAAAJ"
+            },
+            {
+              "name": "F Mangold",
+              "scholar_url": "https://scholar.google.com/citations?user=ao0a01cAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "The green transition and political polarization along occupational lines",
+          "url": "https://www.cambridge.org/core/journals/american-political-science-review/article/green-transition-and-political-polarization-along-occupational-lines/5A563C0DBDC283E9111DBD980F1A52C9",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "V Heddesheimer",
+              "scholar_url": "https://scholar.google.com/citations?user=6NP7hJ8AAAAJ"
+            },
+            {
+              "name": "H Hilbig",
+              "scholar_url": "https://scholar.google.com/citations?user=JzQv9FMAAAAJ"
+            },
+            {
+              "name": "E Voeten",
+              "scholar_url": "https://scholar.google.com/citations?user=M4QhACsAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Parties' issue responsiveness between elections",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2026.2617088",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Erfort",
+              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
+            },
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Some policies matter more: party salience and interest group access to political parties in Western democracies",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/13501763.2024.2387641",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "L Rødland",
+              "scholar_url": "https://scholar.google.com/citations?user=AIqZdA0AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "South Korean Election Campaign Booklet and Party Statements Corpora",
+          "url": "https://www.nature.com/articles/s41597-025-05220-4",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "TH Lim",
+              "scholar_url": "https://scholar.google.com/citations?user=prfRV4AAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Elite rhetoric and the running tally of party-group linkages",
+          "url": "https://www.journals.uchicago.edu/doi/pdf/10.1086/741560",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "CH Dausgaard",
+              "scholar_url": "https://scholar.google.com/citations?user=cgRByH8AAAAJ"
+            },
+            {
+              "name": "F Hjorth",
+              "scholar_url": "https://scholar.google.com/citations?user=gRyjUuwAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "The Prophet in the Minister's Office: Do Green Parties Tone Down Moral Rhetoric When They Govern?",
+          "url": "https://www.researchgate.net/profile/Mohamed-Nasr-40/publication/394598624_The_Prophet_in_the_Minister's_Office_Do_Green_Parties_Tone_Down_Moral_Rhetoric_When_They_Govern/links/68a96a292c7d3e0029b2e92e/The-Prophet-in-the-Ministers-Office-Do-Green-Parties-Tone-Down-Moral-Rhetoric-When-They-Govern.pdf",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "M Nasr",
+              "scholar_url": "https://scholar.google.com/citations?user=ggWTFEUAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "한국 양대 정당의 공격적 언어 사용 분석: 2007~ 2023 정당 논평을 중심으로",
+          "url": "https://scholar.kyobobook.co.kr/article/detail/4040069498640",
+          "year": 2024,
+          "authors": []
+        },
+        {
+          "title": "L'opposition aux politiques climatiques comme stratégie électorale: La conflictualisation de la compétition partisane sur les enjeux écologiques en France (1981-2024 …",
+          "url": "https://shs.cairn.info/revue-revue-francaise-de-science-politique-2025-3-page-459",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "M Jan",
+              "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Parties' issue adaptation between elections",
+          "url": "https://files.osf.io/v1/resources/6n3z4/providers/osfstorage/668fd7c28566c601f07205f3?format=pdf&action=download&direct&version=1",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "C Erfort",
+              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Parties' responsiveness to political protests in Western Europe",
+          "url": "https://search.proquest.com/openview/2207c7b59dadf03ace09da6d9ae0cb60/1?pq-origsite=gscholar&cbl=2026366&diss=y",
+          "year": 2024,
+          "authors": []
+        },
+        {
+          "title": "The (spatial) land before time: on the dominance of affection over rational choice and the fallacy of explaining populist support via party communications and issue …",
+          "url": "https://madoc.bib.uni-mannheim.de/67742/",
+          "year": 2024,
+          "authors": []
+        },
+        {
+          "title": "Issue Competition on Social Media",
+          "url": "https://osf.io/download/x47qr/",
+          "year": null,
+          "authors": [
+            {
+              "name": "L Sattelmayer",
+              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Sur les traces d'un Wikipédia politique Écrire le politique dans un espace encyclopédique: discours, contributeurs et discussions en ligne à l'épreuve d'une …",
+          "url": "https://theses.hal.science/tel-05391208/",
+          "year": 2025,
+          "authors": []
+        },
+        {
+          "title": "Social media press releases as a tool for political communication in Nigerian politics: a study of post-2023 general election audience engagements on …",
+          "url": "https://www.njomacs.com/uploads/719890_1716808217.pdf",
+          "year": 2024,
+          "authors": []
+        },
+        {
+          "title": "South Korean Election Campaign Booklet and Party Statements Corpora",
+          "url": "https://search.proquest.com/openview/dae5d2a52625dfed3077c66de3981a1e/1?pq-origsite=gscholar&cbl=2041912",
+          "year": null,
+          "authors": []
+        },
+        {
+          "title": "[CITATION][C] ¿ Quién marca la agenda? Estudio de la influencia mediática en el discurso parlamentario mediante series temporales y clasificación textual multinivel",
+          "url": null,
+          "year": 2025,
+          "authors": []
+        }
+      ]
+    },
+    "01_gendered-targeting_jop_forthcoming": {
+      "scholar_title": "Gendered targeting: Do parties tailor their campaign ads to women?",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:u-x6o8ySG0sC",
+      "citation_id": "MMcwTuIAAAAJ:u-x6o8ySG0sC",
+      "cites_cluster_id": "3427469273154547280",
+      "cited_by_count": 11,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3427469273154547280",
+      "citing_works": [
+        {
+          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram",
+          "url": "https://academic.oup.com/pnasnexus/article-abstract/3/7/pgae247/7695718",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "D Bär",
+              "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ"
+            },
+            {
+              "name": "F Pierri",
+              "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ"
+            },
+            {
+              "name": "G De Francisci Morales",
+              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Politics in the facebook era. Evidence from the 2016 US presidential elections",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0176268025000011",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "F Liberini",
+              "scholar_url": "https://scholar.google.com/citations?user=tSQDeFcAAAAJ"
+            },
+            {
+              "name": "M Redoano",
+              "scholar_url": "https://scholar.google.com/citations?user=gTm-odEAAAAJ"
+            },
+            {
+              "name": "A Russo",
+              "scholar_url": "https://scholar.google.com/citations?user=50_-_TsAAAAJ"
+            },
+            {
+              "name": "A Cuevas",
+              "scholar_url": "https://scholar.google.com/citations?user=lGuDTyAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Can wedge strategies by mainstream parties cross-cut the anti-immigration far right vote?",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0261379423000392",
+          "year": 2023,
+          "authors": [
+            {
+              "name": "VI Haas",
+              "scholar_url": "https://scholar.google.com/citations?user=zbiC8-oAAAAJ"
+            },
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Gahn",
+              "scholar_url": "https://scholar.google.com/citations?user=x5H46nkAAAAJ"
+            },
+            {
+              "name": "S Kruschinski",
+              "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Opposition parties seek more conflict with the government when losing electoral support",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "E Koch",
+              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Digital Dilemmas: Evaluating the Ethics and Efficacy of Personalised Political Advertising in Modern Democracies",
+          "url": "https://search.proquest.com/openview/99f60100223d973c5ff3a95d87adacca/1?pq-origsite=gscholar&cbl=1606370",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "V Moravec",
+              "scholar_url": "https://scholar.google.com/citations?user=hGLDLmIAAAAJ"
+            },
+            {
+              "name": "N Hynek",
+              "scholar_url": "https://scholar.google.com/citations?user=bgdZRsUAAAAJ"
+            },
+            {
+              "name": "B Gavurová",
+              "scholar_url": "https://scholar.google.com/citations?user=J72JyYYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Shy Women Voters: Private Preferences and Public Expression in the 2024 US Presidential Election",
+          "url": "https://laurapaler.com/wp-content/uploads/2026/01/shy_voters_main.pdf",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "L Paler",
+              "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
+            }
+          ]
+        },
+        {
+          "title": "Ehdokaskampanjoiden kohdentaminen",
+          "url": "https://library.oapen.org/bitstream/handle/20.500.12657/111788/1/9789523590762.pdf#page=120",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram Supplemental Materials",
+          "url": "https://www.scienceopen.com/document_file/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5/PubMedCentral/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "GDEF MORALES",
+              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Václav MORAVEC–Nik HYNEK–Beáta GAVUROVÁ–",
+          "url": "https://www.ceeol.com/search/article-detail?id=1295626",
+          "year": null,
+          "authors": [
+            {
+              "name": "M KUBÁK",
+              "scholar_url": "https://scholar.google.com/citations?user=XZVZdYgAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
+          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU5UM4T33&sig=xaQmFGxbMheKATiIeLI-Y8SMpnk",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "04_targeting-voters-online_jelst_2024": {
+      "scholar_title": "Targeting voters online: How parties’ campaigns differ",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
+      "citation_id": "MMcwTuIAAAAJ:UeHWp8X0CEIC",
+      "cites_cluster_id": "13181887300357457949",
+      "cited_by_count": 7,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13181887300357457949",
+      "citing_works": [
+        {
+          "title": "Party organizational resources and election campaigns: Explaining party contacting",
+          "url": "https://journals.sagepub.com/doi/abs/10.1177/13540688251391578",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "AF Ponce",
+              "scholar_url": "https://scholar.google.com/citations?user=cZl28P4AAAAJ"
+            },
+            {
+              "name": "SE Scarrow",
+              "scholar_url": "https://scholar.google.com/citations?user=hokLoSEAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "PartySOME: A comprehensive dataset on political parties' SOcial MEdia activity",
+          "url": "https://journals.sagepub.com/doi/abs/10.1177/13540688251388763",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "M Jan",
+              "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ"
+            },
+            {
+              "name": "L Sattelmayer",
+              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Gahn",
+              "scholar_url": "https://scholar.google.com/citations?user=x5H46nkAAAAJ"
+            },
+            {
+              "name": "S Kruschinski",
+              "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Opposition parties seek more conflict with the government when losing electoral support",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "E Koch",
+              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Universally Attractive Target Groups in the Political Market",
+          "url": "https://cejsh.icm.edu.pl/cejsh/element/bwmeta1.element.ojs-doi-10_15804_ppsy202550",
+          "year": 2025,
+          "authors": []
+        },
+        {
+          "title": "The features of communicative interaction in public administration in the context of digital transformation",
+          "url": "https://periodicals.karazin.ua/db/article/view/27224",
+          "year": 2025,
+          "authors": []
+        },
+        {
+          "title": "Marketing polityczny w erze cyfrowej: studium przypadku wyborów parlamentarnych 2023",
+          "url": "https://wiz.pb.edu.pl/akademia-zarzadzania/wp-content/uploads/sites/3/2025/09/4.7.-Kamil-Paprotny-Katarzyna-Krystyna-Snarska-Marketing-polityczny-w-erze-cyfrowej-studium-przypadku-wyborow-parlamentarnych-2023_with_metadata.pdf",
+          "year": 2025,
+          "authors": []
+        }
+      ]
+    },
+    "05_forecasting-subnational-elections_jelst_2025": {
+      "scholar_title": "An election forecasting model for subnational elections",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:zYLM7Y9cAGgC",
+      "citation_id": "MMcwTuIAAAAJ:zYLM7Y9cAGgC",
+      "cites_cluster_id": "11895116147877479937",
+      "cited_by_count": 5,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11895116147877479937",
+      "citing_works": [
+        {
+          "title": "Forecasting Election Outcomes: A Bibliometric Analysis",
+          "url": "https://www.igi-global.com/chapter/forecasting-election-outcomes/389504",
+          "year": 2026,
+          "authors": []
+        },
+        {
+          "title": "CLUSTERING-DRIVEN PREDICTION OF LOCAL ELECTION OUTCOMES USING SURVEY DATA AND K-MEANS ALGORITHM",
+          "url": "https://icceph.com/wp-content/uploads/2025/09/ELECTION-OUTCOMES-K-MEANS-ALGORITHM.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "FJ Talirongan",
+              "scholar_url": "https://scholar.google.com/citations?user=4FyN_AsAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Dijital Siyasal İletişimde Algoritmik Temsiliyet: YouTube Yorumları Üzerinden 2024 ABD Seçimlerinin Geriye Dönük Okuması",
+          "url": "https://dergipark.org.tr/en/pub/ohuiibf/article/1794701",
+          "year": null,
+          "authors": [
+            {
+              "name": "HT Karakoç",
+              "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "COLLABORATIVE GOVERNANCE DALAM PENYELENGGARAAN PEMILU TAHUN 2024 DI KOTA PONTIANAK PROVINSI KALIMANTAN BARAT",
+          "url": "http://eprints.ipdn.ac.id/23662/",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "MBZ Tjenreng",
+              "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "ANÁLISIS PREDICTIVO DEL COMPORTAMIENTO ELECTORAL EN ESPAÑA.",
+          "url": "https://repositorio.comillas.edu/xmlui/bitstream/handle/11531/90362/TFG%20-%20Albaladejo%20Gutierrez%2C%20Gloria.pdf?sequence=3",
+          "year": null,
+          "authors": []
+        }
+      ]
+    },
+    "03_buying-voter-support_nuclear_jelst_2025": {
+      "scholar_title": "How nuclear power hurts the Greens: Evidence from German nuclear power plants",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
+      "citation_id": "MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
+      "cites_cluster_id": "15909930767043463675",
+      "cited_by_count": 4,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=15909930767043463675,858059745511172599",
+      "citing_works": [
+        {
+          "title": "Nuclear Energy as a Strategic Resource: A Historical and Technological Review",
+          "url": "https://www.mdpi.com/2227-9717/13/8/2654",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "F Nápoles-Rivera",
+              "scholar_url": "https://scholar.google.com/citations?user=MbkGe04AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Nuclear Policy Reversals and Small Modular Reactor Development in the European Union Since 2022",
+          "url": "https://link.springer.com/article/10.1007/s40518-026-00289-w",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Broughel",
+              "scholar_url": "https://scholar.google.com/citations?user=ELjLxFwAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "An approach for Assessing the Investment Viability of Innovative Power Technologies in Sub-Saharan Africa: A Risk-Based Appraisal of Small Modular Reactors in …",
+          "url": "http://www.cambridge.org/engage/coe/article-details/69bc208cd1922e37d5a66ffd",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "D TSUANYO",
+              "scholar_url": "https://scholar.google.com/citations?user=K5Qu1XIAAAAJ"
+            },
+            {
+              "name": "L Hatton",
+              "scholar_url": "https://scholar.google.com/citations?user=WBFQvR8AAAAJ"
+            },
+            {
+              "name": "N Tan",
+              "scholar_url": "https://scholar.google.com/citations?user=0ql1hRYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Big Investments, No Electoral Reward: The Inflation Reduction Act",
+          "url": "https://osf.io/download/7qhns",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "KM Møller",
+              "scholar_url": "https://scholar.google.com/citations?user=UhBBFUcAAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "06_zweitstimme-forecast_ps_2025": {
+      "scholar_title": "The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
+      "citation_id": "MMcwTuIAAAAJ:IjCSPb-OGe4C",
+      "cites_cluster_id": "2174742726414067779",
+      "cited_by_count": 4,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=2174742726414067779",
+      "citing_works": [
+        {
+          "title": "An election forecasting model for subnational elections",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0261379425000459",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            },
+            {
+              "name": "C Erfort",
+              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
+            },
+            {
+              "name": "H Rajski",
+              "scholar_url": "https://scholar.google.com/citations?user=9p0h2YUAAAAJ"
+            },
+            {
+              "name": "T Gschwend",
+              "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ"
+            },
+            {
+              "name": "S Munzert",
+              "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Combining forecasts for the 2025 german federal election: The PollyVote",
+          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/combining-forecasts-for-the-2025-german-federal-election-the-pollyvote/8E6F9841EFAC3253FCD260680C0EB28B",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Graefe",
+              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Forecasting the 2025 German Election: An Introduction",
+          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/forecasting-the-2025-german-election-an-introduction/503222BEF828AA5FB1669ED4CB5BE965",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "B Jérôme",
+              "scholar_url": "https://scholar.google.com/citations?user=6KkjzsgAAAAJ"
+            },
+            {
+              "name": "A Graefe",
+              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Losing Political Representation",
+          "url": "https://www.econstor.eu/handle/10419/327661",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "N Potrafke",
+              "scholar_url": "https://scholar.google.com/citations?user=_eOMu1wAAAAJ"
+            },
+            {
+              "name": "F Rösel",
+              "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ"
+            },
+            {
+              "name": "T Wochner",
+              "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "08_lancet-countdown-europe-2026_lancet-public-health": {
+      "scholar_title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
+      "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
+      "cites_cluster_id": "9118597870844943979",
+      "cited_by_count": 2,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
+      "citing_works": [
+        {
+          "title": "Pan-European Commission on Climate and Health: recommendations for accelerating climate action for health",
+          "url": "https://www.thelancet.com/article/S0140-6736(26)00808-1/abstract",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Haines",
+              "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Fordítás: A Lancet „Visszaszámlálás az egészség és éghajlatváltozás kapcsán” 2026-os európai jelentésének vezetői összefoglalója",
+          "url": "https://ojs3.mtak.hu/index.php/MEJ/article/view/22926",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Vitrai",
+              "scholar_url": "https://scholar.google.com/citations?user=DQQWl_IAAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "02_issue-responsiveness_wep_forthcoming": {
+      "scholar_title": "Parties’ issue responsiveness between elections",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:YsMSGLbcyi4C",
+      "citation_id": "MMcwTuIAAAAJ:YsMSGLbcyi4C",
+      "cites_cluster_id": "6273156438861862519",
+      "cited_by_count": 1,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=6273156438861862519,3469080524159254101",
+      "citing_works": [
+        {
+          "title": "Issue Competition on Social Media",
+          "url": "https://osf.io/download/x47qr/",
+          "year": null,
+          "authors": [
+            {
+              "name": "L Sattelmayer",
+              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "scholar:MMcwTuIAAAAJ:2osOgNQ5qMEC": {
+      "scholar_title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:2osOgNQ5qMEC",
+      "citation_id": "MMcwTuIAAAAJ:2osOgNQ5qMEC",
+      "cites_cluster_id": "13074849629137909085",
+      "cited_by_count": 1,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13074849629137909085",
+      "citing_works": [
+        {
+          "title": "Repeated exposure and protest outcomes: How Fridays for Future protests influenced voters",
+          "url": "https://files.osf.io/v1/resources/m6dpg_v2/providers/osfstorage/67dca9ffa6078c7cc3c6f725?action=download&direct&version=2",
+          "year": 2023,
+          "authors": [
+            {
+              "name": "A Valentim",
+              "scholar_url": "https://scholar.google.com/citations?user=iPd3LCkAAAAJ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "citing_author_leaderboard": [
+    {
+      "name": "H Klüver",
+      "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ",
+      "count": 4
+    },
+    {
+      "name": "C Erfort",
+      "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
+      "count": 3
+    },
+    {
+      "name": "L Sattelmayer",
+      "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ",
+      "count": 3
+    },
+    {
+      "name": "LF Stoetzer",
+      "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
+      "count": 3
+    },
+    {
+      "name": "A Graefe",
+      "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "A Valentim",
+      "scholar_url": "https://scholar.google.com/citations?user=iPd3LCkAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "C Gahn",
+      "scholar_url": "https://scholar.google.com/citations?user=x5H46nkAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "E Koch",
+      "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "J Huttunen",
+      "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "M Jan",
+      "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "S Kruschinski",
+      "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ",
+      "count": 2
+    },
+    {
+      "name": "A Broughel",
+      "scholar_url": "https://scholar.google.com/citations?user=ELjLxFwAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "A Cuevas",
+      "scholar_url": "https://scholar.google.com/citations?user=lGuDTyAAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "A Haines",
+      "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "A Russo",
+      "scholar_url": "https://scholar.google.com/citations?user=50_-_TsAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "AF Ponce",
+      "scholar_url": "https://scholar.google.com/citations?user=cZl28P4AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "B Gavurová",
+      "scholar_url": "https://scholar.google.com/citations?user=J72JyYYAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "B Jérôme",
+      "scholar_url": "https://scholar.google.com/citations?user=6KkjzsgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "CH Dausgaard",
+      "scholar_url": "https://scholar.google.com/citations?user=cgRByH8AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "D Bär",
+      "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "D TSUANYO",
+      "scholar_url": "https://scholar.google.com/citations?user=K5Qu1XIAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "E Voeten",
+      "scholar_url": "https://scholar.google.com/citations?user=M4QhACsAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Hjorth",
+      "scholar_url": "https://scholar.google.com/citations?user=gRyjUuwAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Liberini",
+      "scholar_url": "https://scholar.google.com/citations?user=tSQDeFcAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Mangold",
+      "scholar_url": "https://scholar.google.com/citations?user=ao0a01cAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Nápoles-Rivera",
+      "scholar_url": "https://scholar.google.com/citations?user=MbkGe04AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Pierri",
+      "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Rösel",
+      "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "FJ Talirongan",
+      "scholar_url": "https://scholar.google.com/citations?user=4FyN_AsAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "G De Francisci Morales",
+      "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "GDEF MORALES",
+      "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "H Heiliger",
+      "scholar_url": "https://scholar.google.com/citations?user=0_-lQNIAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "H Hilbig",
+      "scholar_url": "https://scholar.google.com/citations?user=JzQv9FMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "H Rajski",
+      "scholar_url": "https://scholar.google.com/citations?user=9p0h2YUAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "HT Karakoç",
+      "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "J Chen-Xu",
+      "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "J Vitrai",
+      "scholar_url": "https://scholar.google.com/citations?user=DQQWl_IAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "KM Møller",
+      "scholar_url": "https://scholar.google.com/citations?user=UhBBFUcAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "L Hatton",
+      "scholar_url": "https://scholar.google.com/citations?user=WBFQvR8AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "L Paler",
+      "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC",
+      "count": 1
+    },
+    {
+      "name": "L Rødland",
+      "scholar_url": "https://scholar.google.com/citations?user=AIqZdA0AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M KUBÁK",
+      "scholar_url": "https://scholar.google.com/citations?user=XZVZdYgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Nasr",
+      "scholar_url": "https://scholar.google.com/citations?user=ggWTFEUAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Redoano",
+      "scholar_url": "https://scholar.google.com/citations?user=gTm-odEAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "MBZ Tjenreng",
+      "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "N Hynek",
+      "scholar_url": "https://scholar.google.com/citations?user=bgdZRsUAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "N Potrafke",
+      "scholar_url": "https://scholar.google.com/citations?user=_eOMu1wAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "N Tan",
+      "scholar_url": "https://scholar.google.com/citations?user=0ql1hRYAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "R Ulloa",
+      "scholar_url": "https://scholar.google.com/citations?user=NKygdwgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "S Munzert",
+      "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "SB Hobolt",
+      "scholar_url": "https://scholar.google.com/citations?user=YT7QBLgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "SE Scarrow",
+      "scholar_url": "https://scholar.google.com/citations?user=hokLoSEAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "T Gschwend",
+      "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "T Wappenhans",
+      "scholar_url": "https://scholar.google.com/citations?user=KDtMlLEAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "T Wochner",
+      "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "TH Lim",
+      "scholar_url": "https://scholar.google.com/citations?user=prfRV4AAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "V Heddesheimer",
+      "scholar_url": "https://scholar.google.com/citations?user=6NP7hJ8AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "V Moravec",
+      "scholar_url": "https://scholar.google.com/citations?user=hGLDLmIAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "VI Haas",
+      "scholar_url": "https://scholar.google.com/citations?user=zbiC8-oAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "ZP Dickson",
+      "scholar_url": "https://scholar.google.com/citations?user=r72XtswAAAAJ",
+      "count": 1
+    }
+  ]
+}
