@@ -604,6 +604,27 @@ $slide-body-scale: 1.3em; // tuned for slide bullets (was 1.95em)
   }
 }
 
+.reveal .slides section#linking-candidate-surveys-to-police-records {
+  > h2 {
+    margin-bottom: 0.06em;
+  }
+
+  .tiny {
+    margin-top: 0.06em;
+    line-height: 1.1;
+  }
+
+  .appendix-links {
+    margin-top: 0.06em;
+  }
+
+  .slide-iframe-figure-gles {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-top: 0.02em;
+  }
+}
+
 .reveal .slides section#does-talking-about-attacks-pay-off {
   > h2 {
     margin-bottom: 0.04em;

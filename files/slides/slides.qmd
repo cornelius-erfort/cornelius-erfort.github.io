@@ -36,15 +36,6 @@ format:
 - **Gap:** little systematic evidence on **police-recorded incidents** themselves, or on how politicians **take them up in communication**
 :::
 
-## This paper {.smaller}
-
-::: {.incremental}
-- **10,730 police-recorded attacks** (2021--2025), linked to politicians, surveys, and posts
-- **Mapping:** low-level, thinly spread, campaign-driven, ideological
-- **Surveys:** at most a **weak link** between survey and police data
-- **Communication:** uneven politicization — **more engagement**
-:::
-
 # The data {background-color="#5386b9"}
 
 ## 10,730 recorded incidents {.smaller}
@@ -54,7 +45,6 @@ format:
 ::: {.column width="55%"}
 - Federal government responses to *Kleine Anfragen*: lists of police-recorded offenses against politicians and party structures
 - Per incident: **date, location, targeted party, criminal offense**; for a subset a short **narrative** of what happened
-- Geocoded to **federal** (BTW 2021) and **state constituencies** (12 covered states)
 :::
 
 ::: {.column width="45%"}
@@ -115,34 +105,17 @@ Where attacks happen. Dots = incidents over population density. Attacks broadly 
 <a href="#/appendix-repertoires-state" class="appendix-inline-link">State by party</a>
 :::
 
-## Linking candidate surveys to police records {.smaller}
-
-- GLES 2021 + 2025 × attacks (N = 1,047)
+## Linking candidate surveys to police records
 
 ::: {.slide-iframe .slide-iframe-figure-gles}
 <iframe src="assets/interactive/gles_threat_attack_correlations.html?embed=1" loading="lazy"></iframe>
 :::
 
-## Perceived security and recorded attacks {.smaller}
-
-::: {.slide-iframe .slide-iframe-figure-wide .slide-iframe-figure-coef-panels}
-<iframe src="assets/interactive/coefplot_perceived_security_panels_bin_attacks_by_spec.html?embed=1" loading="lazy"></iframe>
-:::
-
-:::: {.columns .coef-panel-captions}
-
-::: {.column width="50%"}
-[(a) Federal targets, 6 months pre-election]{.tiny}
-:::
-
-::: {.column width="50%"}
-[(b) All targets through GLES field end]{.tiny}
-:::
-
-::::
+[GLES 2021 + 2025 × attacks (N = 1,047)]{.tiny}
 
 ::: {.appendix-links}
 <span class="appendix-label">Appendix:</span>
+<a href="#/appendix-perceived-security" class="appendix-inline-link">Perceived security</a>
 <a href="#/appendix-gles-full" class="appendix-inline-link">Full GLES specifications</a>
 :::
 
@@ -306,6 +279,24 @@ Verbal/online hate speech dominates; threats & physical violence are rare -- **l
 ## Repertoires by party (state) {#appendix-repertoires-state visibility="uncounted"}
 
 ![](assets/figures/attack_types_by_camp_landtag_by_party.png){height="640" fig-align="center"}
+
+## Perceived security and recorded attacks {#appendix-perceived-security visibility="uncounted" .smaller}
+
+::: {.slide-iframe .slide-iframe-figure-wide .slide-iframe-figure-coef-panels}
+<iframe src="assets/interactive/coefplot_perceived_security_panels_bin_attacks_by_spec.html?embed=1" loading="lazy"></iframe>
+:::
+
+:::: {.columns .coef-panel-captions}
+
+::: {.column width="50%"}
+[(a) Federal targets, 6 months pre-election]{.tiny}
+:::
+
+::: {.column width="50%"}
+[(b) All targets through GLES field end]{.tiny}
+:::
+
+::::
 
 ## GLES: full specifications (federal, 6 months pre-election) {#appendix-gles-full visibility="uncounted"}
 

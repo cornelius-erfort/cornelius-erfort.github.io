@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-1fdb8cb6cbb6a451471c81fd346d737a.css">
+  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-aba79c633f1b3f140c2f1a553566da19.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -183,15 +183,6 @@ Elias Koch
 <li class="fragment"><strong>Gap:</strong> little systematic evidence on <strong>police-recorded incidents</strong> themselves, or on how politicians <strong>take them up in communication</strong></li>
 </ul>
 </section>
-<section id="this-paper" class="slide level2 smaller">
-<h2>This paper</h2>
-<ul>
-<li class="fragment"><strong>10,730 police-recorded attacks</strong> (2021–2025), linked to politicians, surveys, and posts</li>
-<li class="fragment"><strong>Mapping:</strong> low-level, thinly spread, campaign-driven, ideological</li>
-<li class="fragment"><strong>Surveys:</strong> at most a <strong>weak link</strong> between survey and police data</li>
-<li class="fragment"><strong>Communication:</strong> uneven politicization — <strong>more engagement</strong></li>
-</ul>
-</section>
 <section>
 <section id="the-data" class="title-slide slide level1 center" data-background-color="#5386b9">
 <h1>The data</h1>
@@ -204,7 +195,6 @@ Elias Koch
 <ul>
 <li>Federal government responses to <em>Kleine Anfragen</em>: lists of police-recorded offenses against politicians and party structures</li>
 <li>Per incident: <strong>date, location, targeted party, criminal offense</strong>; for a subset a short <strong>narrative</strong> of what happened</li>
-<li>Geocoded to <strong>federal</strong> (BTW 2021) and <strong>state constituencies</strong> (12 covered states)</li>
 </ul>
 </div><div class="column" style="width:45%;">
 <div class="linked-sources">
@@ -273,30 +263,15 @@ Elias Koch
 <p><span class="appendix-label">Appendix:</span> <a href="#/appendix-electoral-calendar" class="appendix-inline-link">Electoral calendar</a> <a href="#/appendix-how-they-attack" class="appendix-inline-link">How they attack</a> <a href="#/appendix-repertoires-federal" class="appendix-inline-link">Federal by party</a> <a href="#/appendix-repertoires-state" class="appendix-inline-link">State by party</a></p>
 </div>
 </section>
-<section id="linking-candidate-surveys-to-police-records" class="slide level2 smaller">
+<section id="linking-candidate-surveys-to-police-records" class="slide level2">
 <h2>Linking candidate surveys to police records</h2>
-<ul>
-<li>GLES 2021 + 2025 × attacks (N = 1,047)</li>
-</ul>
 <div class="slide-iframe slide-iframe-figure-gles">
 <iframe src="assets/interactive/gles_threat_attack_correlations.html?embed=1" loading="lazy">
 </iframe>
 </div>
-</section>
-<section id="perceived-security-and-recorded-attacks" class="slide level2 smaller">
-<h2>Perceived security and recorded attacks</h2>
-<div class="slide-iframe slide-iframe-figure-wide slide-iframe-figure-coef-panels">
-<iframe src="assets/interactive/coefplot_perceived_security_panels_bin_attacks_by_spec.html?embed=1" loading="lazy">
-</iframe>
-</div>
-<div class="columns coef-panel-captions">
-<div class="column" style="width:50%;">
-<p><span class="tiny">(a) Federal targets, 6 months pre-election</span></p>
-</div><div class="column" style="width:50%;">
-<p><span class="tiny">(b) All targets through GLES field end</span></p>
-</div></div>
+<p><span class="tiny">GLES 2021 + 2025 × attacks (N = 1,047)</span></p>
 <div class="appendix-links">
-<p><span class="appendix-label">Appendix:</span> <a href="#/appendix-gles-full" class="appendix-inline-link">Full GLES specifications</a></p>
+<p><span class="appendix-label">Appendix:</span> <a href="#/appendix-perceived-security" class="appendix-inline-link">Perceived security</a> <a href="#/appendix-gles-full" class="appendix-inline-link">Full GLES specifications</a></p>
 </div>
 </section></section>
 <section>
@@ -458,6 +433,19 @@ State
 <p><img data-src="assets/figures/attack_types_by_camp_landtag_by_party.png" class="quarto-figure quarto-figure-center" height="640"></p>
 </figure>
 </div>
+</section>
+<section id="appendix-perceived-security" class="slide level2 smaller" data-visibility="uncounted">
+<h2>Perceived security and recorded attacks</h2>
+<div class="slide-iframe slide-iframe-figure-wide slide-iframe-figure-coef-panels">
+<iframe src="assets/interactive/coefplot_perceived_security_panels_bin_attacks_by_spec.html?embed=1" loading="lazy">
+</iframe>
+</div>
+<div class="columns coef-panel-captions">
+<div class="column" style="width:50%;">
+<p><span class="tiny">(a) Federal targets, 6 months pre-election</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="tiny">(b) All targets through GLES field end</span></p>
+</div></div>
 </section>
 <section id="appendix-gles-full" class="slide level2" data-visibility="uncounted">
 <h2>GLES: full specifications (federal, 6 months pre-election)</h2>
