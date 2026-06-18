@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attack description types by target</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #52606d;
+      --line: #d9e2ec;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --accent: #334e68;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      line-height: 1.45;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 40px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .subtitle, .caption {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .caption {
+      margin-top: 18px;
+      font-size: 0.85rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      padding: 22px 22px 18px;
+      margin-top: 22px;
+    }
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      font-weight: 650;
+      color: var(--accent);
+    }
+    .chart-wrap { position: relative; }
+    .super-labels {
+      position: relative;
+      height: 42px;
+      margin-bottom: 8px;
+    }
+    .super-label {
+      position: absolute;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 650;
+      color: var(--accent);
+      line-height: 1.2;
+      white-space: normal;
+      padding: 0 3px;
+    }
+    svg.share-bar {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+    .segment {
+      cursor: pointer;
+      transition: filter 0.15s ease, opacity 0.15s ease;
+    }
+    .segment:hover, .segment:focus {
+      filter: brightness(1.08);
+      outline: none;
+    }
+    .segment.dimmed { opacity: 0.45; }
+    .axis-line {
+      stroke: #9aa5b1;
+      stroke-width: 1;
+    }
+    .axis-tick {
+      fill: #7b8794;
+      font-size: 11px;
+    }
+    .segment-leader {
+      stroke: #94a3b8;
+      stroke-width: 1;
+      fill: none;
+    }
+    .segment-label-text {
+      fill: #1f2933;
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .segment-label-underline {
+      stroke: #334e68;
+      stroke-width: 1.15;
+    }
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .panel-card h3 {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+      font-weight: 650;
+      color: var(--accent);
+    }
+    #tooltip {
+      position: fixed;
+      z-index: 30;
+      pointer-events: none;
+      background: rgba(15, 23, 42, 0.94);
+      color: #fff;
+      padding: 8px 11px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      max-width: 360px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+      opacity: 0;
+      transform: translate(-50%, -110%);
+      transition: opacity 0.12s ease;
+    }
+    #tooltip.visible { opacity: 1; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 40;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(720px, 100%);
+      max-height: min(82vh, 900px);
+      overflow: auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+      padding: 24px 24px 18px;
+    }
+    .modal h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+    .modal-meta {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .modal h3 {
+      margin: 18px 0 8px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+    .detail-list {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .detail-list li { margin-bottom: 0.45rem; }
+    .modal-close {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .modal-close:hover { background: #f8fafc; }
+    @media (max-width: 720px) {
+      .super-label { font-size: 0.72rem; }
+    }
+    body.embed {
+      background: #fff;
+    }
+    html:has(body.embed.view-panels) {
+      height: 100%;
+    }
+    body.embed .page {
+      max-width: none;
+      padding: 6px 8px 8px;
+    }
+    body.embed header {
+      display: none;
+    }
+    body.embed .caption {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #6a6a6a;
+      line-height: 1.25;
+      margin-top: 0.45em;
+    }
+    body.embed.view-panels .panels-section > .caption {
+      margin-top: 0.35em;
+      flex-shrink: 0;
+    }
+    body.embed .card {
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+    }
+    body.embed .card h2 {
+      display: none;
+    }
+    body.embed.view-overview {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    body.embed.view-overview .page {
+      width: 100%;
+      padding: 0 8px;
+    }
+    body.view-overview .panels-section {
+      display: none;
+    }
+    body.view-panels .overview-section {
+      display: none;
+    }
+    body.view-panels .panel-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 0;
+    }
+    body.embed.view-panels {
+      min-height: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    body.embed.view-panels .page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 4px 8px 6px;
+      box-sizing: border-box;
+    }
+    body.embed.view-panels .panels-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    body.embed.view-panels .panel-grid {
+      flex: 1;
+      justify-content: space-between;
+      gap: 0;
+      min-height: 0;
+      padding: 0.15em 0 0.25em;
+    }
+    body.embed.view-panels .panel-card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+    body.embed.view-panels .panel-card-label {
+      display: block;
+      flex: 0 0 5.8em;
+      text-align: right;
+      font-size: 1.12rem;
+      font-weight: 650;
+      line-height: 1.12;
+      color: var(--accent);
+      padding-right: 2px;
+    }
+    body.embed.view-panels .panel-card-chart {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: visible;
+    }
+    body.embed .super-labels {
+      height: 52px;
+      margin-bottom: 10px;
+    }
+    body.embed.view-overview .super-labels {
+      height: 58px;
+      margin-bottom: 8px;
+    }
+    body.embed .super-label {
+      font-size: 1rem;
+    }
+    body.embed.view-overview .super-label {
+      font-size: 1.28rem;
+      line-height: 1.15;
+    }
+    body.embed .axis-tick {
+      font-size: 16px;
+    }
+    body.embed .panel-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+    body.embed.view-panels .panel-card h3 {
+      display: none;
+    }
+    .panel-card-label {
+      display: none;
+    }
+    body.embed.view-panels .segment-label-text {
+      font-size: 14px;
+    }
+    body.embed.view-panels .share-bar {
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Attack description types by target</h1>
+      <p class="subtitle" id="subtitle"></p>
+    </header>
+
+    <section class="card overview-section">
+      <h2>All attacks</h2>
+      <div class="chart-wrap">
+        <div class="super-labels" id="overview-super-labels"></div>
+        <svg class="share-bar" id="overview-bar" viewBox="0 0 1000 72" role="img" aria-label="Stacked bar of all attack description types"></svg>
+      </div>
+      <p class="caption" id="overview-caption"></p>
+    </section>
+
+    <section class="card panels-section">
+      <h2>Composition within each target type</h2>
+      <div class="panel-grid" id="panel-grid"></div>
+      <p class="caption" id="panels-caption"></p>
+    </section>
+  </div>
+
+  <div id="tooltip" role="tooltip"></div>
+
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title"></h2>
+      <p class="modal-meta" id="modal-meta"></p>
+      <h3>Description</h3>
+      <div id="modal-features"></div>
+      <h3>Representative examples</h3>
+      <div id="modal-examples"></div>
+      <button type="button" class="modal-close" id="modal-close">Close</button>
+    </div>
+  </div>
+
+  <script id="chart-data" type="application/json">{"total_n":4366,"sample_note":"N = 4,366 police narratives with attack descriptions (December 2021–June 2023)","overview":{"segments":[{"id":"individual::Harassment & threats via messages","title":"Harassment & threats via messages","short_title":"Messages","super_category":"individual","super_label":"Individuals","n":201,"share_pct":4.5,"share_within_pct":null,"label_mode":"all","x_min":0,"x_max":4.5,"fill":"#2166ACFF","hover_label":"Harassment & threats via messages (n = 201, 4.5%)","features":["Insulting or threatening private messages sent by email, letter, postcard, SMS or messaging apps","includes notes or labels left at offices or attached to mailboxes"],"examples":["A suspect emailed a police post calling the defence minister an unbearable half-ape. The message was sent as a written insult to a public authority naming a cabinet member. Police recorded it as a threatening communication by email.","A threatening and insulting letter addressed to a named CDU politician was delivered to the party office by post. The letter contained abusive language directed at the addressee. Staff reported it as a written threat against an elected representative.","A suspect sent repeated insulting messages to a named local politician by text. The messages arrived over several days and named the victim directly. Police recorded them as ongoing harassment via private messages."]},{"id":"individual::Harassment & threats on online platforms","title":"Harassment & threats on online platforms","short_title":"Online platforms","super_category":"individual","super_label":"Individuals","n":199,"share_pct":4.5,"share_within_pct":null,"label_mode":"all","x_min":4.5,"x_max":9,"fill":"#2166ACDA","hover_label":"Harassment & threats on online platforms (n = 199, 4.5%)","features":["Insulting or threatening posts, comments, images and videos on social media and other public online platforms","often naming specific politicians"],"examples":["A suspect posted a Facebook image styled as a movie poster depicting several German politicians in a threatening context. The post was reported as deliberate online intimidation of named officials. Police treated it as a politically motivated insult published on a social platform.","A suspect insulted an FDP federal politician on the internet, calling her a disgusting warmonger over the Ukraine war. The comment was posted publicly and named the victim directly. It was reported as targeted online abuse of an elected representative.","Federal police referred a case in which a Facebook user published threatening posts against politicians. The account was identified only by a pseudonym. The report was filed after the material was preserved as evidence of online harassment."]},{"id":"individual::Physical assault","title":"Physical assault","short_title":"Physical assault","super_category":"individual","super_label":"Individuals","n":74,"share_pct":1.7,"share_within_pct":null,"label_mode":"all","x_min":9,"x_max":10.7,"fill":"#2166ACB5","hover_label":"Physical assault (n = 74, 1.7%)","features":["Spitting at politicians or party staff","slaps or blows at info stands","bodily assault during confrontations"],"examples":["A party staff member was spat at during an argument at an information stand. The saliva struck the victim during a dispute over politics. Police recorded it as a physical assault on a campaign worker.","A politician was slapped in the face during a confrontation at a street campaign stall. The blow followed a verbal dispute with passers-by. The incident was reported as bodily assault at a party information stand.","A suspect kicked an AfD state MP in the shin during an AfD information event. The attack occurred in front of other attendees. Police investigated it as physical assault on an elected representative."]},{"id":"individual::Harassment & threats in person","title":"Harassment & threats in person","short_title":"In person","super_category":"individual","super_label":"Individuals","n":34,"share_pct":0.8,"share_within_pct":null,"label_mode":"all","x_min":10.7,"x_max":11.5,"fill":"#2166AC90","hover_label":"Harassment & threats in person (n = 34, 0.8%)","features":["Threatening or insulting communications face to face, by phone or at public events","directed at named politicians or party staff"],"examples":["A politician was threatened with a knuckle-duster during a confrontation and asked whether he wanted trouble. The suspect produced the weapon during the exchange. The incident was reported as an in-person threat against a named representative.","A party representative was repeatedly insulted and verbally abused at a public meeting. The suspect directed hostile remarks at the politician in front of other participants. Police recorded it as harassment during a political event.","A complainant reported being called a Nazi during a heated face-to-face argument with a political opponent. The exchange took place on the street after a campaign event. Police treated the insult as in-person harassment."]},{"id":"individual::Attacks on politicians' homes","title":"Attacks on politicians' homes","short_title":"Politicians' homes","super_category":"individual","super_label":"Individuals","n":17,"share_pct":0.4,"share_within_pct":null,"label_mode":"all","x_min":11.5,"x_max":11.9,"fill":"#2166AC6B","hover_label":"Attacks on politicians' homes (n = 17, 0.4%)","features":["Damage at private residences or politicians' vehicles","paint or objects thrown at house facades","property vandalism at home addresses"],"examples":["Unknown persons smashed a car window, slashed the tyres and painted \"NO AFD\" on the passenger side. The vehicle belonged to an AfD local politician. Police recorded it as vandalism of a politician's private car.","Spray-painted about 12 sqm of a politician's house wall and a car parked in front of the home black. The paint covered both the facade and a vehicle belonging to the household. Police recorded it as vandalism at a politician's private residence.","Unknown persons glued shut the front-door lock at an AfD city councillor's home. The lock was damaged and the household could not enter normally. The act was reported as intimidation at a private home address."]},{"id":"premises::Graffiti & paint on party premises","title":"Graffiti & paint on party premises","short_title":"Graffiti & paint","super_category":"premises","super_label":"Premises","n":643,"share_pct":14.4,"share_within_pct":null,"label_mode":"all","x_min":11.9,"x_max":26.3,"fill":"#B2182BFF","hover_label":"Graffiti & paint on party premises (n = 643, 14.4%)","features":["Paint or spray on party office walls, doors and windows","political slogans including anti-fascist messages"],"examples":["Spray-painted the antifascist code 161 on the window of an AfD MP's local office. The slogan referred to Antifaschistische Aktion. The window was marked as part of damage to party premises.","Spray-painted the word \"Dreck\" in yellow on the entrance door of a CDU party office. The slogan was applied directly to the door surface. Police recorded it together with other facade damage at the office.","Notice boards and campaign material at a party office entrance were covered with stickers and graffiti. Several items on the board were damaged or obscured. Staff reported defacement of office display material."]},{"id":"premises::Broken windows, doors & mailboxes","title":"Broken windows, doors & mailboxes","short_title":"Broken windows & doors","super_category":"premises","super_label":"Premises","n":190,"share_pct":4.3,"share_within_pct":null,"label_mode":"all","x_min":26.3,"x_max":30.6,"fill":"#B2182BE1","hover_label":"Broken windows, doors & mailboxes (n = 190, 4.3%)","features":["Glass panes cracked or shattered","damage to entrance doors, display cases and mailboxes"],"examples":["Threw a beer bottle at an SPD display case in anger over politics. The glass case was damaged by the impact. Police recorded it as physical damage to party display material.","An unknown object was used to crack a double-glazed entrance door pane at a party office. The impact left the security glass shattered. The damage was reported as broken glazing at party premises.","Five office window panes were pierced with a sharp object leaving holes and cracks in the double glazing. The damage targeted a party office without paint or slogans on the glass."]},{"id":"premises::Objects thrown at premises & facades","title":"Objects thrown at premises & facades","short_title":"Objects thrown","super_category":"premises","super_label":"Premises","n":102,"share_pct":2.3,"share_within_pct":null,"label_mode":"all","x_min":30.6,"x_max":32.9,"fill":"#B2182BC4","hover_label":"Objects thrown at premises & facades (n = 102, 2.3%)","features":["Stones, eggs, fireworks or paint bombs thrown at windows, doors or facades","impact marks on glass"],"examples":["Suspects threw a paint-filled container at a party office window. The vessel burst on impact and splattered the facade and glazing. Police recorded it as a thrown-object attack on party premises.","Faeces were thrown into an SPD mailbox at the Bonn office. Other letters already inside the box were contaminated. The act was reported as a thrown-object attack on party property.","Unknown persons threw stones at the window of a party office. The impacts left marks on the glass and damaged the outer pane."]},{"id":"premises::Stickers on party premises","title":"Stickers on party premises","short_title":"Stickers","super_category":"premises","super_label":"Premises","n":98,"share_pct":2.2,"share_within_pct":null,"label_mode":"all","x_min":32.9,"x_max":35.1,"fill":"#B2182BA6","hover_label":"Stickers on party premises (n = 98, 2.2%)","features":["Stickers glued to shopfront windows, doors or notice boards","campaign or protest labels affixed to party offices"],"examples":["Affixed a Make Racists Afraid Again sticker to an AfD constituency office window. The sticker was placed on the lower part of the glass. Staff reported it as protest messaging fixed to party premises.","Pasted Extinction Rebellion slogans with wallpaper paste in the entrance area of an FDP office. A campaign poster there was also covered with stickers. The office entrance was left with multiple glued messages.","Placed an NS AREA our neighbourhood our rules sticker on an SPD constituency office window. The label was fixed directly to the glass pane. It was reported as a threatening sticker on party premises."]},{"id":"premises::Protest marches at party premises","title":"Protest marches at party premises","short_title":"Protest marches","super_category":"premises","super_label":"Premises","n":71,"share_pct":1.6,"share_within_pct":null,"label_mode":"all","x_min":35.1,"x_max":36.7,"fill":"#B2182B89","hover_label":"Protest marches at party premises (n = 71, 1.6%)","features":["Unregistered demonstrations near party offices","participants carry banners or chant slogans","confrontational protest actions"],"examples":["About 212 people joined an unregistered march that passed party premises in Freiberg. The procession moved through Albertpark without prior approval. Police recorded it as an unlawful demonstration near party offices.","During a nationwide demonstration advertised in Hanover protesters gathered outside party offices. Participants carried banners and chanted political slogans. The event was reported as a protest action at party premises.","Participants in an unapproved protest marched with banners and chanted slogans outside a constituency office. The gathering was confrontational and not registered in advance. Police treated it as an unregistered demonstration at party premises."]},{"id":"premises::Physical damage to signs & mounts at party premises","title":"Physical damage to signs & mounts at party premises","short_title":"Signs & mounts","super_category":"premises","super_label":"Premises","n":30,"share_pct":0.7,"share_within_pct":null,"label_mode":"all","x_min":36.7,"x_max":37.4,"fill":"#B2182B6B","hover_label":"Physical damage to signs & mounts at party premises (n = 30, 0.7%)","features":["Party signs or fixtures pulled from walls","damage to mounted displays at offices or constituency premises"],"examples":["Stole a CSU party sign from a local office in Dachau. The mounted sign was removed from the premises. Police estimated the property value at about 350 euros.","Destroyed a plexiglass CDU district-office sign mounted on the exterior wall. The fixture was broken off the building front. The damage targeted a visible party identity marker.","Tore off a Die Linke office sign from the building. The sign was later recovered nearby. Police recorded it as theft and damage to a party office fixture."]},{"id":"poster::Poster damage & destruction","title":"Poster damage & destruction","short_title":"Damage & destruction","super_category":"poster","super_label":"Posters","n":1088,"share_pct":24.4,"share_within_pct":null,"label_mode":"all","x_min":37.4,"x_max":61.8,"fill":"#1B7837FF","hover_label":"Poster damage & destruction (n = 1,088, 24.4%)","features":"Posters set on fire, broken or otherwise physically destroyed while still mounted","examples":["Set fire to one mayoral campaign poster and tore another candidate's poster from a lamppost. Both acts removed election advertising from public display. Police recorded theft and destruction of mounted posters.","Set fire to a mounted CDU campaign poster so that part of the board burned away. A second poster fixed with cable ties was also damaged in the same incident. Police recorded arson and destruction of election advertising.","Kicked the wooden frame of a lamppost-mounted SPD poster until it broke. The double-sided board was still attached to the pole when damaged. The act was reported as physical destruction of a mounted poster."]},{"id":"poster::Poster defacement","title":"Poster defacement","short_title":"Defacement","super_category":"poster","super_label":"Posters","n":764,"share_pct":17.2,"share_within_pct":null,"label_mode":"all","x_min":61.8,"x_max":79,"fill":"#1B7837CE","hover_label":"Poster defacement (n = 764, 17.2%)","features":["Paint, spray, slogans or slashing on posters","faces drawn on or stickers added"],"examples":["A witness saw a suspect damage two CDU posters before fleeing the scene. The posters remained on their mounts but were visibly defaced. Police investigated the incident as poster vandalism.","Bent an AfD event poster and wrote Gegen Faschisten muss man sich wehren across it. The notice had been displayed at party premises. The poster was left visibly defaced as a political message.","Covered an AfD campaign banner with Antifa Area stickers and knocked the stand over. The banner and holder were both targeted. Police recorded defacement and physical damage to poster equipment."]},{"id":"poster::Poster removal","title":"Poster removal","short_title":"Removal","super_category":"poster","super_label":"Posters","n":474,"share_pct":10.6,"share_within_pct":null,"label_mode":"all","x_min":79,"x_max":89.6,"fill":"#1B78379C","hover_label":"Poster removal (n = 474, 10.6%)","features":["Posters torn down, ripped off or stolen","removed from lampposts or private displays"],"examples":["Damaged and stole SPD campaign posters at several locations in one area. Multiple boards were affected in the same reporting period. The cases were treated as deliberate poster removal.","Posted photos of torn-down posters on Instagram and Snapchat. The images showed campaign material that had been removed or destroyed. Police linked the online posts to physical poster theft.","A witness saw suspects tear a mayoral campaign poster from a lamppost and leave it damaged on the ground. The board was removed from public display rather than destroyed in place. Police recorded deliberate poster theft."]},{"id":"poster::Coordinated damage to multiple posters","title":"Coordinated damage to multiple posters","short_title":"Coordinated damage","super_category":"poster","super_label":"Posters","n":381,"share_pct":8.6,"share_within_pct":null,"label_mode":"all","x_min":89.6,"x_max":98.2,"fill":"#1B78376B","hover_label":"Coordinated damage to multiple posters (n = 381, 8.6%)","features":["Several or many posters affected in one incident","coordinated vandalism across a neighbourhood"],"examples":["Caught tearing down and destroying SPD CDU and FDP posters at the scene. The suspect was stopped by a patrol still near the damaged boards. Police recorded coordinated poster vandalism across parties.","Tore down ten posters from four different parties in one night. In that incident one SPD poster and five FDP posters were among those removed. The scale suggested deliberate multi-party targeting.","Posters from several parties were damaged in a coordinated sweep across one neighbourhood. Multiple boards were affected in the same time window. Police treated the case as organised poster vandalism."]}],"super_regions":[{"super_category":"individual","label":"Individuals\n(11.9%)","x_min":0,"x_max":11.9,"x_mid":5.95},{"super_category":"premises","label":"Premises\n(25.5%)","x_min":11.9,"x_max":37.4,"x_mid":24.65},{"super_category":"poster","label":"Posters\n(60.8%)","x_min":37.4,"x_max":98.2,"x_mid":67.8}]},"panels":[{"id":"individual","title":"Individuals\n(11.9%)","segments":[{"id":"individual::Harassment & threats via messages","title":"Harassment & threats via messages","short_title":"Messages","super_category":"individual","super_label":"Individuals","n":201,"share_pct":4.5,"share_within_pct":38.3,"label_mode":"within","x_min":0,"x_max":38.3,"fill":"#2166AC","hover_label":"Harassment & threats via messages (n = 201, 38.3%)","features":["Insulting or threatening private messages sent by email, letter, postcard, SMS or messaging apps","includes notes or labels left at offices or attached to mailboxes"],"examples":["A suspect emailed a police post calling the defence minister an unbearable half-ape. The message was sent as a written insult to a public authority naming a cabinet member. Police recorded it as a threatening communication by email.","A threatening and insulting letter addressed to a named CDU politician was delivered to the party office by post. The letter contained abusive language directed at the addressee. Staff reported it as a written threat against an elected representative.","A suspect sent repeated insulting messages to a named local politician by text. The messages arrived over several days and named the victim directly. Police recorded them as ongoing harassment via private messages."]},{"id":"individual::Harassment & threats on online platforms","title":"Harassment & threats on online platforms","short_title":"Online platforms","super_category":"individual","super_label":"Individuals","n":199,"share_pct":4.5,"share_within_pct":37.9,"label_mode":"within","x_min":38.3,"x_max":76.2,"fill":"#2166ACDA","hover_label":"Harassment & threats on online platforms (n = 199, 37.9%)","features":["Insulting or threatening posts, comments, images and videos on social media and other public online platforms","often naming specific politicians"],"examples":["A suspect posted a Facebook image styled as a movie poster depicting several German politicians in a threatening context. The post was reported as deliberate online intimidation of named officials. Police treated it as a politically motivated insult published on a social platform.","A suspect insulted an FDP federal politician on the internet, calling her a disgusting warmonger over the Ukraine war. The comment was posted publicly and named the victim directly. It was reported as targeted online abuse of an elected representative.","Federal police referred a case in which a Facebook user published threatening posts against politicians. The account was identified only by a pseudonym. The report was filed after the material was preserved as evidence of online harassment."]},{"id":"individual::Physical assault","title":"Physical assault","short_title":"Physical assault","super_category":"individual","super_label":"Individuals","n":74,"share_pct":1.7,"share_within_pct":14.1,"label_mode":"within","x_min":76.2,"x_max":90.3,"fill":"#2166ACB5","hover_label":"Physical assault (n = 74, 14.1%)","features":["Spitting at politicians or party staff","slaps or blows at info stands","bodily assault during confrontations"],"examples":["A party staff member was spat at during an argument at an information stand. The saliva struck the victim during a dispute over politics. Police recorded it as a physical assault on a campaign worker.","A politician was slapped in the face during a confrontation at a street campaign stall. The blow followed a verbal dispute with passers-by. The incident was reported as bodily assault at a party information stand.","A suspect kicked an AfD state MP in the shin during an AfD information event. The attack occurred in front of other attendees. Police investigated it as physical assault on an elected representative."]},{"id":"individual::Harassment & threats in person","title":"Harassment & threats in person","short_title":"In person","super_category":"individual","super_label":"Individuals","n":34,"share_pct":0.8,"share_within_pct":6.5,"label_mode":"within","x_min":90.3,"x_max":96.8,"fill":"#2166AC90","hover_label":"Harassment & threats in person (n = 34, 6.5%)","features":["Threatening or insulting communications face to face, by phone or at public events","directed at named politicians or party staff"],"examples":["A politician was threatened with a knuckle-duster during a confrontation and asked whether he wanted trouble. The suspect produced the weapon during the exchange. The incident was reported as an in-person threat against a named representative.","A party representative was repeatedly insulted and verbally abused at a public meeting. The suspect directed hostile remarks at the politician in front of other participants. Police recorded it as harassment during a political event.","A complainant reported being called a Nazi during a heated face-to-face argument with a political opponent. The exchange took place on the street after a campaign event. Police treated the insult as in-person harassment."]},{"id":"individual::Attacks on politicians' homes","title":"Attacks on politicians' homes","short_title":"Politicians' homes","super_category":"individual","super_label":"Individuals","n":17,"share_pct":0.4,"share_within_pct":3.2,"label_mode":"within","x_min":96.8,"x_max":100,"fill":"#2166AC6B","hover_label":"Attacks on politicians' homes (n = 17, 3.2%)","features":["Damage at private residences or politicians' vehicles","paint or objects thrown at house facades","property vandalism at home addresses"],"examples":["Unknown persons smashed a car window, slashed the tyres and painted \"NO AFD\" on the passenger side. The vehicle belonged to an AfD local politician. Police recorded it as vandalism of a politician's private car.","Spray-painted about 12 sqm of a politician's house wall and a car parked in front of the home black. The paint covered both the facade and a vehicle belonging to the household. Police recorded it as vandalism at a politician's private residence.","Unknown persons glued shut the front-door lock at an AfD city councillor's home. The lock was damaged and the household could not enter normally. The act was reported as intimidation at a private home address."]}]},{"id":"premises","title":"Premises\n(25.5%)","segments":[{"id":"premises::Graffiti & paint on party premises","title":"Graffiti & paint on party premises","short_title":"Graffiti & paint","super_category":"premises","super_label":"Premises","n":643,"share_pct":14.4,"share_within_pct":56.7,"label_mode":"within","x_min":0,"x_max":56.7,"fill":"#B2182B","hover_label":"Graffiti & paint on party premises (n = 643, 56.7%)","features":["Paint or spray on party office walls, doors and windows","political slogans including anti-fascist messages"],"examples":["Spray-painted the antifascist code 161 on the window of an AfD MP's local office. The slogan referred to Antifaschistische Aktion. The window was marked as part of damage to party premises.","Spray-painted the word \"Dreck\" in yellow on the entrance door of a CDU party office. The slogan was applied directly to the door surface. Police recorded it together with other facade damage at the office.","Notice boards and campaign material at a party office entrance were covered with stickers and graffiti. Several items on the board were damaged or obscured. Staff reported defacement of office display material."]},{"id":"premises::Broken windows, doors & mailboxes","title":"Broken windows, doors & mailboxes","short_title":"Broken windows & doors","super_category":"premises","super_label":"Premises","n":190,"share_pct":4.3,"share_within_pct":16.8,"label_mode":"within","x_min":56.7,"x_max":73.5,"fill":"#B2182BE1","hover_label":"Broken windows, doors & mailboxes (n = 190, 16.8%)","features":["Glass panes cracked or shattered","damage to entrance doors, display cases and mailboxes"],"examples":["Threw a beer bottle at an SPD display case in anger over politics. The glass case was damaged by the impact. Police recorded it as physical damage to party display material.","An unknown object was used to crack a double-glazed entrance door pane at a party office. The impact left the security glass shattered. The damage was reported as broken glazing at party premises.","Five office window panes were pierced with a sharp object leaving holes and cracks in the double glazing. The damage targeted a party office without paint or slogans on the glass."]},{"id":"premises::Objects thrown at premises & facades","title":"Objects thrown at premises & facades","short_title":"Objects thrown","super_category":"premises","super_label":"Premises","n":102,"share_pct":2.3,"share_within_pct":9,"label_mode":"within","x_min":73.5,"x_max":82.5,"fill":"#B2182BC4","hover_label":"Objects thrown at premises & facades (n = 102, 9%)","features":["Stones, eggs, fireworks or paint bombs thrown at windows, doors or facades","impact marks on glass"],"examples":["Suspects threw a paint-filled container at a party office window. The vessel burst on impact and splattered the facade and glazing. Police recorded it as a thrown-object attack on party premises.","Faeces were thrown into an SPD mailbox at the Bonn office. Other letters already inside the box were contaminated. The act was reported as a thrown-object attack on party property.","Unknown persons threw stones at the window of a party office. The impacts left marks on the glass and damaged the outer pane."]},{"id":"premises::Stickers on party premises","title":"Stickers on party premises","short_title":"Stickers","super_category":"premises","super_label":"Premises","n":98,"share_pct":2.2,"share_within_pct":8.6,"label_mode":"within","x_min":82.5,"x_max":91.1,"fill":"#B2182BA6","hover_label":"Stickers on party premises (n = 98, 8.6%)","features":["Stickers glued to shopfront windows, doors or notice boards","campaign or protest labels affixed to party offices"],"examples":["Affixed a Make Racists Afraid Again sticker to an AfD constituency office window. The sticker was placed on the lower part of the glass. Staff reported it as protest messaging fixed to party premises.","Pasted Extinction Rebellion slogans with wallpaper paste in the entrance area of an FDP office. A campaign poster there was also covered with stickers. The office entrance was left with multiple glued messages.","Placed an NS AREA our neighbourhood our rules sticker on an SPD constituency office window. The label was fixed directly to the glass pane. It was reported as a threatening sticker on party premises."]},{"id":"premises::Protest marches at party premises","title":"Protest marches at party premises","short_title":"Protest marches","super_category":"premises","super_label":"Premises","n":71,"share_pct":1.6,"share_within_pct":6.3,"label_mode":"within","x_min":91.1,"x_max":97.4,"fill":"#B2182B89","hover_label":"Protest marches at party premises (n = 71, 6.3%)","features":["Unregistered demonstrations near party offices","participants carry banners or chant slogans","confrontational protest actions"],"examples":["About 212 people joined an unregistered march that passed party premises in Freiberg. The procession moved through Albertpark without prior approval. Police recorded it as an unlawful demonstration near party offices.","During a nationwide demonstration advertised in Hanover protesters gathered outside party offices. Participants carried banners and chanted political slogans. The event was reported as a protest action at party premises.","Participants in an unapproved protest marched with banners and chanted slogans outside a constituency office. The gathering was confrontational and not registered in advance. Police treated it as an unregistered demonstration at party premises."]},{"id":"premises::Physical damage to signs & mounts at party premises","title":"Physical damage to signs & mounts at party premises","short_title":"Signs & mounts","super_category":"premises","super_label":"Premises","n":30,"share_pct":0.7,"share_within_pct":2.6,"label_mode":"within","x_min":97.4,"x_max":100,"fill":"#B2182B6B","hover_label":"Physical damage to signs & mounts at party premises (n = 30, 2.6%)","features":["Party signs or fixtures pulled from walls","damage to mounted displays at offices or constituency premises"],"examples":["Stole a CSU party sign from a local office in Dachau. The mounted sign was removed from the premises. Police estimated the property value at about 350 euros.","Destroyed a plexiglass CDU district-office sign mounted on the exterior wall. The fixture was broken off the building front. The damage targeted a visible party identity marker.","Tore off a Die Linke office sign from the building. The sign was later recovered nearby. Police recorded it as theft and damage to a party office fixture."]}]},{"id":"poster","title":"Posters\n(60.8%)","segments":[{"id":"poster::Poster damage & destruction","title":"Poster damage & destruction","short_title":"Damage & destruction","super_category":"poster","super_label":"Posters","n":1088,"share_pct":24.4,"share_within_pct":40.2,"label_mode":"within","x_min":0,"x_max":40.2,"fill":"#1B7837","hover_label":"Poster damage & destruction (n = 1,088, 40.2%)","features":"Posters set on fire, broken or otherwise physically destroyed while still mounted","examples":["Set fire to one mayoral campaign poster and tore another candidate's poster from a lamppost. Both acts removed election advertising from public display. Police recorded theft and destruction of mounted posters.","Set fire to a mounted CDU campaign poster so that part of the board burned away. A second poster fixed with cable ties was also damaged in the same incident. Police recorded arson and destruction of election advertising.","Kicked the wooden frame of a lamppost-mounted SPD poster until it broke. The double-sided board was still attached to the pole when damaged. The act was reported as physical destruction of a mounted poster."]},{"id":"poster::Poster defacement","title":"Poster defacement","short_title":"Defacement","super_category":"poster","super_label":"Posters","n":764,"share_pct":17.2,"share_within_pct":28.2,"label_mode":"within","x_min":40.2,"x_max":68.4,"fill":"#1B7837CE","hover_label":"Poster defacement (n = 764, 28.2%)","features":["Paint, spray, slogans or slashing on posters","faces drawn on or stickers added"],"examples":["A witness saw a suspect damage two CDU posters before fleeing the scene. The posters remained on their mounts but were visibly defaced. Police investigated the incident as poster vandalism.","Bent an AfD event poster and wrote Gegen Faschisten muss man sich wehren across it. The notice had been displayed at party premises. The poster was left visibly defaced as a political message.","Covered an AfD campaign banner with Antifa Area stickers and knocked the stand over. The banner and holder were both targeted. Police recorded defacement and physical damage to poster equipment."]},{"id":"poster::Poster removal","title":"Poster removal","short_title":"Removal","super_category":"poster","super_label":"Posters","n":474,"share_pct":10.6,"share_within_pct":17.5,"label_mode":"within","x_min":68.4,"x_max":85.9,"fill":"#1B78379C","hover_label":"Poster removal (n = 474, 17.5%)","features":["Posters torn down, ripped off or stolen","removed from lampposts or private displays"],"examples":["Damaged and stole SPD campaign posters at several locations in one area. Multiple boards were affected in the same reporting period. The cases were treated as deliberate poster removal.","Posted photos of torn-down posters on Instagram and Snapchat. The images showed campaign material that had been removed or destroyed. Police linked the online posts to physical poster theft.","A witness saw suspects tear a mayoral campaign poster from a lamppost and leave it damaged on the ground. The board was removed from public display rather than destroyed in place. Police recorded deliberate poster theft."]},{"id":"poster::Coordinated damage to multiple posters","title":"Coordinated damage to multiple posters","short_title":"Coordinated damage","super_category":"poster","super_label":"Posters","n":381,"share_pct":8.6,"share_within_pct":14.1,"label_mode":"within","x_min":85.9,"x_max":100,"fill":"#1B78376B","hover_label":"Coordinated damage to multiple posters (n = 381, 14.1%)","features":["Several or many posters affected in one incident","coordinated vandalism across a neighbourhood"],"examples":["Caught tearing down and destroying SPD CDU and FDP posters at the scene. The suspect was stopped by a patrol still near the damaged boards. Police recorded coordinated poster vandalism across parties.","Tore down ten posters from four different parties in one night. In that incident one SPD poster and five FDP posters were among those removed. The scale suggested deliberate multi-party targeting.","Posters from several parties were damaged in a coordinated sweep across one neighbourhood. Multiple boards were affected in the same time window. Police treated the case as organised poster vandalism."]}]}]}</script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const VIEW = params.get('view') || 'all';
+    const EMBED = params.get('embed') === '1';
+    if (EMBED) document.body.classList.add('embed');
+    document.body.classList.add(`view-${VIEW}`);
+
+    const DATA = JSON.parse(document.getElementById('chart-data').textContent);
+
+    const tooltip = document.getElementById('tooltip');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMeta = document.getElementById('modal-meta');
+    const modalFeatures = document.getElementById('modal-features');
+    const modalExamples = document.getElementById('modal-examples');
+
+    const sampleNote = DATA.sample_note ||
+      `N = ${DATA.total_n.toLocaleString()} police narratives with attack descriptions (December 2021–June 2023)`;
+    const interactionNote =
+      'Hover a segment to see its label. Click for the full description and representative examples.';
+
+    document.getElementById('subtitle').textContent = sampleNote;
+    document.getElementById('overview-caption').textContent =
+      `${sampleNote} ${interactionNote}`;
+    document.getElementById('panels-caption').textContent =
+      `${sampleNote} Shares within each target type. ${interactionNote}`;
+
+    const BAR_HEIGHT = EMBED ? 52 : 34;
+    const BAR_TOP = EMBED ? 16 : 18;
+    const PLOT_LEFT = EMBED ? 30 : 22;
+    const PLOT_RIGHT = EMBED ? 22 : 14;
+    const PLOT_WIDTH = 1000 - PLOT_LEFT - PLOT_RIGHT;
+    const VIEW_WIDTH = 1000;
+    const LABEL_EDGE_PAD = 8;
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+
+    function formatPct(value) {
+      const rounded = Math.round(value * 10) / 10;
+      return Math.abs(rounded - Math.round(rounded)) < 0.05
+        ? String(Math.round(rounded))
+        : rounded.toFixed(1);
+    }
+
+    function xScale(value) {
+      return PLOT_LEFT + (value / 100) * PLOT_WIDTH;
+    }
+
+    function estimateLabelWidth(text, fontSize = 13) {
+      return Math.max(38, text.length * fontSize * 0.58);
+    }
+
+    function segmentLabelGeometry(seg, text, width) {
+      const segLeft = xScale(seg.x_min);
+      const segRight = xScale(seg.x_max);
+      const segCenter = (segLeft + segRight) / 2;
+      const half = width / 2;
+      const plotLeft = PLOT_LEFT;
+      const plotRight = PLOT_LEFT + PLOT_WIDTH;
+      const viewRight = VIEW_WIDTH - LABEL_EDGE_PAD;
+      const viewLeft = LABEL_EDGE_PAD;
+
+      const centeredLeft = segCenter - half;
+      const centeredRight = segCenter + half;
+      const inLeftZone = segCenter <= plotLeft + PLOT_WIDTH * 0.38;
+      const inRightZone = segCenter >= plotLeft + PLOT_WIDTH * 0.62;
+
+      let x;
+      let anchor;
+      let xLeft;
+      let xRight;
+
+      if (centeredRight > viewRight || inRightZone) {
+        anchor = 'end';
+        x = Math.min(segRight, viewRight);
+        xRight = x;
+        xLeft = x - width;
+      } else if (centeredLeft < viewLeft || inLeftZone) {
+        anchor = 'start';
+        x = Math.max(segLeft, viewLeft);
+        xLeft = x;
+        xRight = x + width;
+      } else {
+        anchor = 'middle';
+        x = Math.min(viewRight - half, Math.max(viewLeft + half, segCenter));
+        xLeft = x - half;
+        xRight = x + half;
+      }
+
+      return {
+        seg,
+        text,
+        width,
+        anchorX: segCenter,
+        segLeft,
+        segRight,
+        x,
+        anchor,
+        xLeft,
+        xRight,
+      };
+    }
+
+    function layoutSegmentLabels(segments, barTop, compact = false) {
+      const fontSize = EMBED ? (compact ? 12 : 13) : 11;
+      const items = segments.map((seg) => {
+        const pct = seg.label_mode === 'within' ? seg.share_within_pct : seg.share_pct;
+        const text = `${seg.short_title || seg.title} ${formatPct(pct)}%`;
+        const width = estimateLabelWidth(text, fontSize);
+        return segmentLabelGeometry(seg, text, width);
+      }).sort((a, b) => a.anchorX - b.anchorX);
+
+      const rowGap = compact ? (EMBED ? 17 : 13) : (EMBED ? 22 : 18);
+      const labelBaseY = compact ? 8 : 12;
+      const rows = [];
+      const collisionPad = 8;
+
+      items.forEach((item) => {
+        let row = 0;
+        while (true) {
+          const y = labelBaseY + row * rowGap;
+          const conflict = (rows[row] || []).some((other) => !(
+            item.xRight + collisionPad < other.xLeft - collisionPad ||
+            item.xLeft - collisionPad > other.xRight + collisionPad
+          ));
+          if (!conflict) {
+            if (!rows[row]) rows[row] = [];
+            item.placement = { x: item.x, y, row, anchor: item.anchor };
+            rows[row].push({
+              xLeft: item.xLeft,
+              xRight: item.xRight,
+              ...item.placement,
+            });
+            break;
+          }
+          row += 1;
+        }
+      });
+
+      const maxRow = items.reduce(
+        (max, item) => Math.max(max, item.placement ? item.placement.row : 0),
+        0
+      );
+      const labelArea = labelBaseY + (maxRow + 1) * rowGap + (compact ? 4 : 6);
+      return { items: items.filter((item) => item.placement), labelArea, barTop: labelArea + (compact ? 5 : 8) };
+    }
+
+    function appendUnderlinedLabel(svg, x, y, text, labelWidth, anchor = 'middle') {
+      const group = document.createElementNS(SVG_NS, 'g');
+      group.setAttribute('class', 'segment-label');
+
+      let underlineStart;
+      let underlineEnd;
+      if (anchor === 'end') {
+        underlineEnd = x;
+        underlineStart = x - labelWidth;
+      } else if (anchor === 'start') {
+        underlineStart = x;
+        underlineEnd = x + labelWidth;
+      } else {
+        const half = labelWidth / 2;
+        underlineStart = x - half;
+        underlineEnd = x + half;
+      }
+
+      const textEl = document.createElementNS(SVG_NS, 'text');
+      textEl.setAttribute('class', 'segment-label-text');
+      textEl.setAttribute('x', String(x));
+      textEl.setAttribute('y', String(y));
+      textEl.setAttribute('text-anchor', anchor);
+      textEl.textContent = text;
+      group.appendChild(textEl);
+
+      const underline = document.createElementNS(SVG_NS, 'line');
+      underline.setAttribute('class', 'segment-label-underline');
+      underline.setAttribute('x1', String(underlineStart));
+      underline.setAttribute('x2', String(underlineEnd));
+      underline.setAttribute('y1', String(y + 4));
+      underline.setAttribute('y2', String(y + 4));
+      group.appendChild(underline);
+
+      svg.appendChild(group);
+    }
+
+    function renderSegmentLabels(svg, layout, barTop) {
+      layout.items.forEach((item) => {
+        const leader = document.createElementNS(SVG_NS, 'line');
+        leader.setAttribute('class', 'segment-leader');
+        leader.setAttribute('x1', String(item.anchorX));
+        leader.setAttribute('y1', String(barTop));
+        leader.setAttribute('x2', String(item.placement.x));
+        leader.setAttribute('y2', String(item.placement.y + 2));
+        svg.appendChild(leader);
+        appendUnderlinedLabel(
+          svg,
+          item.placement.x,
+          item.placement.y,
+          item.text,
+          item.width,
+          item.placement.anchor
+        );
+      });
+    }
+
+    function renderSuperLabels(container, regions, options = {}) {
+      container.innerHTML = '';
+      const plotLeftPct = (PLOT_LEFT / 1000) * 100;
+      const plotWidthPct = (PLOT_WIDTH / 1000) * 100;
+      const singleLine = options.singleLine ?? false;
+      regions.forEach((region) => {
+        const el = document.createElement('div');
+        el.className = 'super-label';
+        const spanPct = region.x_max - region.x_min;
+        const leftPct = plotLeftPct + (region.x_min / 100) * plotWidthPct;
+        const widthPct = (spanPct / 100) * plotWidthPct;
+        el.style.left = `${leftPct}%`;
+        el.style.width = `${widthPct}%`;
+        el.textContent = singleLine
+          ? region.label.replace(/\s*\n\s*/g, ' ')
+          : region.label;
+        container.appendChild(el);
+      });
+    }
+
+    function renderBar(svg, segments, options = {}) {
+      const compact = options.compact ?? false;
+      const barHeight = options.barHeight ?? (compact && EMBED ? 46 : BAR_HEIGHT);
+      const showAxis = options.showAxis ?? true;
+      const showSegmentLabels = options.showSegmentLabels ?? false;
+      let barTop = options.barTop ?? BAR_TOP;
+      let labelLayout = null;
+
+      svg.innerHTML = '';
+
+      if (showSegmentLabels) {
+        labelLayout = layoutSegmentLabels(segments, barTop, compact);
+        barTop = labelLayout.barTop;
+      }
+
+      segments.forEach((seg, idx) => {
+        const rect = document.createElementNS(SVG_NS, 'rect');
+        rect.setAttribute('class', 'segment');
+        rect.setAttribute('x', xScale(seg.x_min));
+        rect.setAttribute('y', barTop);
+        rect.setAttribute('width', Math.max(xScale(seg.x_max) - xScale(seg.x_min), 0.5));
+        rect.setAttribute('height', barHeight);
+        rect.setAttribute('fill', seg.fill);
+        rect.setAttribute('stroke', '#ffffff');
+        rect.setAttribute('stroke-width', '1.5');
+        rect.setAttribute('tabindex', '0');
+        rect.setAttribute('data-index', String(idx));
+        rect.setAttribute('aria-label', seg.hover_label);
+        svg.appendChild(rect);
+
+        const bind = (el) => {
+          el.addEventListener('mouseenter', (event) => showTooltip(event, seg));
+          el.addEventListener('mousemove', (event) => moveTooltip(event));
+          el.addEventListener('mouseleave', hideTooltip);
+          el.addEventListener('click', () => openModal(seg));
+          el.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openModal(seg);
+            }
+          });
+        };
+        bind(rect);
+      });
+
+      if (showSegmentLabels && labelLayout) {
+        renderSegmentLabels(svg, labelLayout, barTop);
+      }
+
+      if (showAxis) {
+        const axisY = barTop + barHeight + 14;
+        const axis = document.createElementNS(SVG_NS, 'line');
+        axis.setAttribute('class', 'axis-line');
+        axis.setAttribute('x1', String(PLOT_LEFT));
+        axis.setAttribute('x2', String(PLOT_LEFT + PLOT_WIDTH));
+        axis.setAttribute('y1', String(axisY));
+        axis.setAttribute('y2', String(axisY));
+        svg.appendChild(axis);
+
+        [0, 25, 50, 75, 100].forEach((tick) => {
+          const text = document.createElementNS(SVG_NS, 'text');
+          text.setAttribute('class', 'axis-tick');
+          const x = xScale(tick);
+          text.setAttribute('x', String(x));
+          text.setAttribute('y', String(axisY + 16));
+          if (tick === 0) {
+            text.setAttribute('text-anchor', 'start');
+          } else if (tick === 100) {
+            text.setAttribute('text-anchor', 'end');
+          } else {
+            text.setAttribute('text-anchor', 'middle');
+          }
+          text.textContent = `${tick}%`;
+          svg.appendChild(text);
+        });
+      }
+
+      const totalHeight = barTop + barHeight + (showAxis ? 36 : 8);
+      return totalHeight;
+    }
+
+    function showTooltip(event, seg) {
+      tooltip.textContent = seg.hover_label;
+      tooltip.classList.add('visible');
+      moveTooltip(event);
+    }
+
+    function moveTooltip(event) {
+      tooltip.style.left = `${event.clientX}px`;
+      tooltip.style.top = `${event.clientY}px`;
+    }
+
+    function hideTooltip() {
+      tooltip.classList.remove('visible');
+    }
+
+    function renderList(items, ordered = false) {
+      if (!items || !items.length) {
+        const empty = document.createElement('p');
+        empty.innerHTML = '<em>Not available.</em>';
+        return empty;
+      }
+      const list = document.createElement(ordered ? 'ol' : 'ul');
+      list.className = 'detail-list';
+      items.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
+      return list;
+    }
+
+    function openModal(seg) {
+      hideTooltip();
+      modalTitle.textContent = seg.title;
+      const nLabel = `n = ${seg.n.toLocaleString()}`;
+      if (seg.label_mode === 'within') {
+        modalMeta.textContent =
+          `${nLabel} | ${seg.share_within_pct}% within ${seg.super_label} | ${seg.share_pct}% of all narratives`;
+      } else {
+        modalMeta.textContent =
+          `${nLabel} | ${seg.share_pct}% of all narratives | ${seg.super_label}`;
+      }
+      modalFeatures.replaceChildren(renderList(seg.features, false));
+      modalExamples.replaceChildren(renderList(seg.examples, true));
+      modalBackdrop.classList.add('open');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove('open');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (event) => {
+      if (event.target === modalBackdrop) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeModal();
+    });
+
+    renderSuperLabels(
+      document.getElementById('overview-super-labels'),
+      DATA.overview.super_regions,
+      { singleLine: EMBED }
+    );
+    const overviewBar = document.getElementById('overview-bar');
+    const overviewHeight = renderBar(
+      overviewBar,
+      DATA.overview.segments,
+      { showAxis: true, showSegmentLabels: false }
+    );
+    overviewBar.setAttribute('viewBox', `0 0 1000 ${Math.ceil(overviewHeight)}`);
+
+    const panelGrid = document.getElementById('panel-grid');
+    DATA.panels.forEach((panel, panelIndex) => {
+      const card = document.createElement('div');
+      card.className = 'panel-card';
+
+      const heading = document.createElement('h3');
+      heading.textContent = panel.title;
+      card.appendChild(heading);
+
+      const sideLabel = document.createElement('div');
+      sideLabel.className = 'panel-card-label';
+      sideLabel.textContent = panel.title.replace(/\s*\n\s*/g, ' ');
+      card.appendChild(sideLabel);
+
+      const chartWrap = document.createElement('div');
+      chartWrap.className = 'panel-card-chart';
+
+      const svg = document.createElementNS(SVG_NS, 'svg');
+      svg.setAttribute('class', 'share-bar');
+      svg.setAttribute('viewBox', '0 0 1000 72');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', `Composition within ${panel.title}`);
+      chartWrap.appendChild(svg);
+      card.appendChild(chartWrap);
+
+      const isLastPanel = panelIndex === DATA.panels.length - 1;
+      const totalHeight = renderBar(svg, panel.segments, {
+        showAxis: isLastPanel,
+        showSegmentLabels: true,
+        compact: EMBED,
+      });
+      svg.setAttribute('viewBox', `0 0 1000 ${Math.ceil(totalHeight)}`);
+      panelGrid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
