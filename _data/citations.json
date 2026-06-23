@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-06-12",
+  "updated_at": "2026-06-23",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
-    "total_citations": 55,
-    "h_index": 4,
+    "total_citations": 57,
+    "h_index": 5,
     "i10_index": 2
   },
   "by_publication": {
@@ -317,6 +317,17 @@
           ]
         },
         {
+          "title": "Opposition parties seek more conflict with the government when losing electoral support",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "E Koch",
+              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+            }
+          ]
+        },
+        {
           "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
           "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
           "year": 2026,
@@ -328,17 +339,6 @@
             {
               "name": "S Kruschinski",
               "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Opposition parties seek more conflict with the government when losing electoral support",
-          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "E Koch",
-              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
             }
           ]
         },
@@ -407,7 +407,7 @@
         },
         {
           "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
-          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU5UM4T33&sig=xaQmFGxbMheKATiIeLI-Y8SMpnk",
+          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU6UH6U42&sig=peuQID5bT6OZXrcDTbZJdpp7V50",
           "year": 2026,
           "authors": [
             {
@@ -423,7 +423,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "citation_id": "MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "cites_cluster_id": "13181887300357457949",
-      "cited_by_count": 7,
+      "cited_by_count": 8,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13181887300357457949",
       "citing_works": [
         {
@@ -457,6 +457,17 @@
           ]
         },
         {
+          "title": "Opposition parties seek more conflict with the government when losing electoral support",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "E Koch",
+              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+            }
+          ]
+        },
+        {
           "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
           "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
           "year": 2026,
@@ -472,13 +483,25 @@
           ]
         },
         {
-          "title": "Opposition parties seek more conflict with the government when losing electoral support",
-          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
-          "year": 2025,
+          "title": "Bibliometric Insights into Digital Marketing Strategies for Political Campaigns in Indonesia",
+          "url": "https://mail.societyfisipubb.id/index.php/society/article/view/1081",
+          "year": 2026,
           "authors": [
             {
-              "name": "E Koch",
-              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+              "name": "K Dewi",
+              "scholar_url": "https://scholar.google.com/citations?user=LVVkTukAAAAJ"
+            },
+            {
+              "name": "DE Rahmawati",
+              "scholar_url": "https://scholar.google.com/citations?user=_cLzDz0AAAAJ"
+            },
+            {
+              "name": "M Younus",
+              "scholar_url": "https://scholar.google.com/citations?user=xVusvuoAAAAJ"
+            },
+            {
+              "name": "M Ridha",
+              "scholar_url": "https://scholar.google.com/citations?user=kahuUusAAAAJ"
             }
           ]
         },
@@ -557,6 +580,111 @@
         }
       ]
     },
+    "06_zweitstimme-forecast_ps_2025": {
+      "scholar_title": "The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
+      "citation_id": "MMcwTuIAAAAJ:IjCSPb-OGe4C",
+      "cites_cluster_id": "2174742726414067779",
+      "cited_by_count": 5,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=2174742726414067779",
+      "citing_works": [
+        {
+          "title": "An election forecasting model for subnational elections",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0261379425000459",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            },
+            {
+              "name": "C Erfort",
+              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
+            },
+            {
+              "name": "H Rajski",
+              "scholar_url": "https://scholar.google.com/citations?user=9p0h2YUAAAAJ"
+            },
+            {
+              "name": "T Gschwend",
+              "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ"
+            },
+            {
+              "name": "S Munzert",
+              "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Combining forecasts for the 2025 german federal election: The PollyVote",
+          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/combining-forecasts-for-the-2025-german-federal-election-the-pollyvote/8E6F9841EFAC3253FCD260680C0EB28B",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Graefe",
+              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "How swing model assumptions shape vote-to-seat predictions",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0261379426000624",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Erfort",
+              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
+            },
+            {
+              "name": "T Gschwend",
+              "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ"
+            },
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            },
+            {
+              "name": "S Munzert",
+              "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Forecasting the 2025 German Election: An Introduction",
+          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/forecasting-the-2025-german-election-an-introduction/503222BEF828AA5FB1669ED4CB5BE965",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "B Jérôme",
+              "scholar_url": "https://scholar.google.com/citations?user=6KkjzsgAAAAJ"
+            },
+            {
+              "name": "A Graefe",
+              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Losing Political Representation",
+          "url": "https://www.econstor.eu/handle/10419/327661",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "N Potrafke",
+              "scholar_url": "https://scholar.google.com/citations?user=_eOMu1wAAAAJ"
+            },
+            {
+              "name": "F Rösel",
+              "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ"
+            },
+            {
+              "name": "T Wochner",
+              "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
+            }
+          ]
+        }
+      ]
+    },
     "03_buying-voter-support_nuclear_jelst_2025": {
       "scholar_title": "How nuclear power hurts the Greens: Evidence from German nuclear power plants",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
@@ -619,88 +747,6 @@
         }
       ]
     },
-    "06_zweitstimme-forecast_ps_2025": {
-      "scholar_title": "The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
-      "citation_id": "MMcwTuIAAAAJ:IjCSPb-OGe4C",
-      "cites_cluster_id": "2174742726414067779",
-      "cited_by_count": 4,
-      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=2174742726414067779",
-      "citing_works": [
-        {
-          "title": "An election forecasting model for subnational elections",
-          "url": "https://www.sciencedirect.com/science/article/pii/S0261379425000459",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "LF Stoetzer",
-              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
-            },
-            {
-              "name": "C Erfort",
-              "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ"
-            },
-            {
-              "name": "H Rajski",
-              "scholar_url": "https://scholar.google.com/citations?user=9p0h2YUAAAAJ"
-            },
-            {
-              "name": "T Gschwend",
-              "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ"
-            },
-            {
-              "name": "S Munzert",
-              "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Combining forecasts for the 2025 german federal election: The PollyVote",
-          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/combining-forecasts-for-the-2025-german-federal-election-the-pollyvote/8E6F9841EFAC3253FCD260680C0EB28B",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "A Graefe",
-              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Forecasting the 2025 German Election: An Introduction",
-          "url": "https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/forecasting-the-2025-german-election-an-introduction/503222BEF828AA5FB1669ED4CB5BE965",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "B Jérôme",
-              "scholar_url": "https://scholar.google.com/citations?user=6KkjzsgAAAAJ"
-            },
-            {
-              "name": "A Graefe",
-              "scholar_url": "https://scholar.google.com/citations?user=pp2JjwcAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Losing Political Representation",
-          "url": "https://www.econstor.eu/handle/10419/327661",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "N Potrafke",
-              "scholar_url": "https://scholar.google.com/citations?user=_eOMu1wAAAAJ"
-            },
-            {
-              "name": "F Rösel",
-              "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ"
-            },
-            {
-              "name": "T Wochner",
-              "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
-            }
-          ]
-        }
-      ]
-    },
     "08_lancet-countdown-europe-2026_lancet-public-health": {
       "scholar_title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
@@ -722,7 +768,7 @@
         },
         {
           "title": "Fordítás: A Lancet „Visszaszámlálás az egészség és éghajlatváltozás kapcsán” 2026-os európai jelentésének vezetői összefoglalója",
-          "url": "https://ojs3.mtak.hu/index.php/MEJ/article/view/22926",
+          "url": "https://ojs.mtak.hu/index.php/MEJ/article/view/22926",
           "year": 2026,
           "authors": [
             {
@@ -774,27 +820,36 @@
           ]
         }
       ]
+    },
+    "09_swing-model-assumptions_jelst_forthcoming": {
+      "scholar_title": "How swing model assumptions shape vote-to-seat predictions",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:ufrVoPGSRksC",
+      "citation_id": "MMcwTuIAAAAJ:ufrVoPGSRksC",
+      "cites_cluster_id": null,
+      "cited_by_count": 0,
+      "cited_by_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ&hl=en&view_op=list_works",
+      "citing_works": []
     }
   },
   "citing_author_leaderboard": [
+    {
+      "name": "C Erfort",
+      "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
+      "count": 4
+    },
     {
       "name": "H Klüver",
       "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ",
       "count": 4
     },
     {
-      "name": "C Erfort",
-      "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
-      "count": 3
+      "name": "LF Stoetzer",
+      "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
+      "count": 4
     },
     {
       "name": "L Sattelmayer",
       "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ",
-      "count": 3
-    },
-    {
-      "name": "LF Stoetzer",
-      "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
       "count": 3
     },
     {
@@ -830,6 +885,16 @@
     {
       "name": "S Kruschinski",
       "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ",
+      "count": 2
+    },
+    {
+      "name": "S Munzert",
+      "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "T Gschwend",
+      "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ",
       "count": 2
     },
     {
@@ -880,6 +945,11 @@
     {
       "name": "D TSUANYO",
       "scholar_url": "https://scholar.google.com/citations?user=K5Qu1XIAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "DE Rahmawati",
+      "scholar_url": "https://scholar.google.com/citations?user=_cLzDz0AAAAJ",
       "count": 1
     },
     {
@@ -963,6 +1033,11 @@
       "count": 1
     },
     {
+      "name": "K Dewi",
+      "scholar_url": "https://scholar.google.com/citations?user=LVVkTukAAAAJ",
+      "count": 1
+    },
+    {
       "name": "KM Møller",
       "scholar_url": "https://scholar.google.com/citations?user=UhBBFUcAAAAJ",
       "count": 1
@@ -998,6 +1073,16 @@
       "count": 1
     },
     {
+      "name": "M Ridha",
+      "scholar_url": "https://scholar.google.com/citations?user=kahuUusAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Younus",
+      "scholar_url": "https://scholar.google.com/citations?user=xVusvuoAAAAJ",
+      "count": 1
+    },
+    {
       "name": "MBZ Tjenreng",
       "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ",
       "count": 1
@@ -1023,11 +1108,6 @@
       "count": 1
     },
     {
-      "name": "S Munzert",
-      "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
-      "count": 1
-    },
-    {
       "name": "SB Hobolt",
       "scholar_url": "https://scholar.google.com/citations?user=YT7QBLgAAAAJ",
       "count": 1
@@ -1035,11 +1115,6 @@
     {
       "name": "SE Scarrow",
       "scholar_url": "https://scholar.google.com/citations?user=hokLoSEAAAAJ",
-      "count": 1
-    },
-    {
-      "name": "T Gschwend",
-      "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ",
       "count": 1
     },
     {
