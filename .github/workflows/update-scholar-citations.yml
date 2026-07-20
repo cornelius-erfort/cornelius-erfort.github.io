@@ -1,18 +1,17 @@
-# Weekly Google Scholar citation refresh for _data/citations.json.
+# Manual fallback for refreshing _data/citations.json from Google Scholar.
 #
-# Scholar often rate-limits / CAPTCHA-blocks datacenter IPs, so this job is
-# best-effort: it merges with the previous file when citing-paper lists are
-# truncated, and fails without committing when the profile cannot be loaded.
+# The scheduled refresh runs on the polsci server (cron, Mondays 06:15 CET),
+# which scrapes from a university IP and pushes via a repo-scoped deploy key —
+# see ~/scholar-updater/ on polsci and scripts/README.md.
 #
-# Triggers:
-#   - schedule: Mondays 06:15 UTC
-#   - workflow_dispatch (manual "Run workflow")
+# GitHub runners are usually CAPTCHA-blocked by Scholar, so this workflow
+# exists only as a manual fallback and will often fail. It merges with the
+# previous file when citing-paper lists are truncated and fails without
+# committing when the profile cannot be loaded.
 
 name: Update Scholar citations
 
 on:
-  schedule:
-    - cron: "15 6 * * 1"
   workflow_dispatch:
 
 permissions:
