@@ -109,7 +109,74 @@ def build_leaderboard(by_publication: dict) -> list[dict]:
     return leaderboard
 
 
-def scrape_scholar(user_id: str, headless: bool) -> dict:
+def _work_key(work: dict) -> str:
+    url = (work.get("url") or "").strip().lower()
+    if url:
+        return "url:" + url
+    return "title:" + normalize_title(work.get("title") or "")
+
+
+def merge_citing_works(new_works: list, old_works: list) -> list:
+    """Union citing works; prefer newer metadata when the same paper appears twice."""
+    merged: dict[str, dict] = {}
+    for work in old_works or []:
+        if isinstance(work, dict) and work.get("title"):
+            merged[_work_key(work)] = work
+    for work in new_works or []:
+        if isinstance(work, dict) and work.get("title"):
+            merged[_work_key(work)] = work
+    return list(merged.values())
+
+
+def merge_with_previous(new_data: dict, old_data: dict | None) -> dict:
+    """Keep previous citing-paper lists when a scrape is truncated (CAPTCHA / rate limit)."""
+    if not old_data:
+        return new_data
+    old_by = old_data.get("by_publication") or {}
+    new_by = new_data.get("by_publication") or {}
+    for key, entry in new_by.items():
+        old_entry = old_by.get(key)
+        if not old_entry:
+            continue
+        old_works = old_entry.get("citing_works") or []
+        new_works = entry.get("citing_works") or []
+        if len(new_works) < len(old_works):
+            print(
+                f"  merge: {key}: scraped {len(new_works)} citing works, "
+                f"keeping union with previous {len(old_works)}",
+                file=sys.stderr,
+            )
+            entry["citing_works"] = merge_citing_works(new_works, old_works)
+        else:
+            entry["citing_works"] = merge_citing_works(new_works, old_works)
+    # Preserve publications that vanished from this scrape (rare matching glitch)
+    for key, old_entry in old_by.items():
+        if key not in new_by:
+            print(f"  merge: keeping previous publication missing from scrape: {key}", file=sys.stderr)
+            new_by[key] = old_entry
+    new_data["by_publication"] = new_by
+    new_data["citing_author_leaderboard"] = build_leaderboard(new_by)
+    return new_data
+
+
+def page_looks_blocked(page) -> bool:
+    """Heuristic: Scholar CAPTCHA / consent / empty block pages."""
+    try:
+        body = page.content()
+    except Exception:
+        return True
+    markers = (
+        "unusual traffic",
+        "not a robot",
+        "captcha",
+        "/sorry/",
+        "Please show you're not a robot",
+    )
+    low = body.lower()
+    return any(m in low for m in markers)
+
+
+def scrape_scholar(user_id: str, headless: bool, delay: float = 1.8) -> dict:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError as exc:
@@ -136,13 +203,19 @@ def scrape_scholar(user_id: str, headless: bool) -> dict:
         )
         page = context.new_page()
         page.goto(profile_url, wait_until="domcontentloaded", timeout=60000)
+        if page_looks_blocked(page):
+            browser.close()
+            raise RuntimeError("Google Scholar blocked the request (CAPTCHA / unusual traffic).")
         page.wait_for_selector(".gsc_a_at", timeout=60000)
         page.wait_for_selector("a.gsc_a_ac", timeout=60000)
-        time.sleep(2)
+        time.sleep(max(delay, 1.0))
 
         raw_profile = page.evaluate(PROFILE_EXTRACT)
         profile_data = json.loads(raw_profile)
         articles = profile_data.get("articles", [])
+        if not articles:
+            browser.close()
+            raise RuntimeError("No articles found on Scholar profile — aborting.")
 
         by_publication: dict[str, dict] = {}
         for article in articles:
@@ -157,8 +230,23 @@ def scrape_scholar(user_id: str, headless: bool) -> dict:
                     sep = "&" if "?" in cites_url else "?"
                     page_url = f"{cites_url}{sep}start={start}"
                     page.goto(page_url, wait_until="domcontentloaded", timeout=60000)
-                    page.wait_for_selector(".gs_ri, #gs_res_ccl", timeout=30000)
-                    time.sleep(1.2)
+                    if page_looks_blocked(page):
+                        print(
+                            f"  warn: blocked while fetching cites for {article.get('title')!r}; "
+                            "keeping partial list",
+                            file=sys.stderr,
+                        )
+                        break
+                    try:
+                        page.wait_for_selector(".gs_ri, #gs_res_ccl", timeout=30000)
+                    except Exception:
+                        print(
+                            f"  warn: timeout fetching cites for {article.get('title')!r}; "
+                            "keeping partial list",
+                            file=sys.stderr,
+                        )
+                        break
+                    time.sleep(delay)
                     batch = json.loads(page.evaluate(CITING_EXTRACT))
                     if not batch:
                         break
@@ -197,10 +285,29 @@ def main() -> None:
     parser.add_argument("--headless", action="store_true", help="Run browser headless")
     parser.add_argument("--scholar-user", default=read_default_scholar_user())
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--delay",
+        type=float,
+        default=1.8,
+        help="Seconds to wait between Scholar page loads (default: 1.8)",
+    )
+    parser.add_argument(
+        "--no-merge",
+        action="store_true",
+        help="Do not merge with the existing citations.json citing-work lists",
+    )
     args = parser.parse_args()
 
     print(f"Fetching Scholar profile {args.scholar_user} …", file=sys.stderr)
-    data = scrape_scholar(args.scholar_user, headless=args.headless)
+    data = scrape_scholar(args.scholar_user, headless=args.headless, delay=args.delay)
+
+    if not args.no_merge and OUTPUT_PATH.exists():
+        try:
+            old = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            old = None
+        data = merge_with_previous(data, old)
+
     payload = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
     if args.dry_run:
@@ -210,7 +317,12 @@ def main() -> None:
     OUTPUT_PATH.write_text(payload, encoding="utf-8")
     total = data.get("profile", {}).get("total_citations", "?")
     n_pubs = len(data.get("by_publication", {}))
-    print(f"Wrote {OUTPUT_PATH} ({n_pubs} works, {total} total citations)", file=sys.stderr)
+    n_works = sum(len(p.get("citing_works") or []) for p in data.get("by_publication", {}).values())
+    print(
+        f"Wrote {OUTPUT_PATH} ({n_pubs} works, {total} total citations, "
+        f"{n_works} citing papers indexed)",
+        file=sys.stderr,
+    )
 
 
 if __name__ == "__main__":
