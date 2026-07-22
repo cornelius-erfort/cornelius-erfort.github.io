@@ -1,16 +1,17 @@
 {
   "order": 0,
   "featured": true,
-  "year": "forthcoming",
+  "year": "2026",
   "journal": "Electoral Studies",
   "image": "files/jelst.jpg",
-  "image_link": "/files/How_Swing_Model_Assumptions_Shape_Vote_to_Seat_Predictions.pdf",
+  "image_link": "https://doi.org/10.1016/j.electstud.2026.103104",
   "title": "How swing model assumptions shape vote-to-seat predictions",
   "authors": "<span class=\"author-name\">Cornelius Erfort</span>, <a href=\"https://www.sowi.uni-mannheim.de/gschwend/\">Thomas Gschwend</a>, <a href=\"https://www.lukas-stoetzer.org\">Lukas F. Stoetzer</a>, and <a href=\"https://simonmunzert.com\">Simon Munzert</a>",
-  "venue": "Electoral Studies, forthcoming",
+  "venue": "Electoral Studies, 2026",
   "abstract": "Without district-level polls, forecasters project national voting trends to district outcomes using swing models—but we know little about how model assumptions shape predictions. Comparing uniform and proportional swing (and variants) across eight German federal elections, with a simulation study, we find differences are usually modest yet affect precision; uniform swing works better with larger national swings, lower district volatility, and more parties.",
-  "bibtex": "@article{erfort_gschwend_stoetzer_munzert_swing_forthcoming, title = {How swing model assumptions shape vote-to-seat predictions}, author = {Erfort, Cornelius and Gschwend, Thomas and Stoetzer, Lukas F. and Munzert, Simon}, journal = {Electoral Studies}, year = {forthcoming}}",
+  "bibtex": "@article{erfort_gschwend_stoetzer_munzert_swing_2026, title = {How swing model assumptions shape vote-to-seat predictions}, author = {Erfort, Cornelius and Gschwend, Thomas and Stoetzer, Lukas F. and Munzert, Simon}, journal = {Electoral Studies}, year = {2026}, volume = {102}, pages = {103104}, doi = {10.1016/j.electstud.2026.103104}, url = {https://doi.org/10.1016/j.electstud.2026.103104}}",
   "links": [
+    { "label": "Article", "url": "https://doi.org/10.1016/j.electstud.2026.103104", "text": "View on Electoral Studies \u2192" },
     { "label": "Paper", "url": "/files/How_Swing_Model_Assumptions_Shape_Vote_to_Seat_Predictions.pdf", "text": "View PDF \u2192" }
   ]
 }

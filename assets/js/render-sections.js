@@ -184,12 +184,12 @@
         : '<b>' + esc(pub.title) + '</b>';
       var td = '<td class="pub-cell" style="border:none">' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
-        contents.join('\n    ') +
         titleHtml + ' ' +
         (pub.authors || '') + ' <br><i>' + esc(pub.venue) + '</i>' +
         (citeCount > 0
           ? ' <button type="button" class="pub-cite-badge" data-toggle-content="citedby' + idx + '" title="Show citing papers (Google Scholar)">' + citeCount + ' citations</button>'
           : '') +
+        contents.join('\n    ') +
         '</td>';
       var tr = document.createElement('tr');
       tr.setAttribute('data-year', pub.year || '');
