@@ -183,12 +183,14 @@
         ? '<span class="pub-title-wrap"><span class="pub-title pub-title--wide"><b>' + esc(pub.title) + '</b></span><a href="' + esc(articleUrl) + '" class="pub-title pub-title--narrow" target="_blank" rel="noopener">' + esc(pub.title) + '</a></span>'
         : '<b>' + esc(pub.title) + '</b>';
       var td = '<td class="pub-cell" style="border:none">' +
+        '<div class="pub-main">' +
+          titleHtml + ' ' +
+          (pub.authors || '') + ' <br><i>' + esc(pub.venue) + '</i>' +
+          (citeCount > 0
+            ? ' <button type="button" class="pub-cite-badge" data-toggle-content="citedby' + idx + '" title="Show citing papers (Google Scholar)">' + citeCount + ' citations</button>'
+            : '') +
+        '</div>' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
-        titleHtml + ' ' +
-        (pub.authors || '') + ' <br><i>' + esc(pub.venue) + '</i>' +
-        (citeCount > 0
-          ? ' <button type="button" class="pub-cite-badge" data-toggle-content="citedby' + idx + '" title="Show citing papers (Google Scholar)">' + citeCount + ' citations</button>'
-          : '') +
         contents.join('\n    ') +
         '</td>';
       var tr = document.createElement('tr');

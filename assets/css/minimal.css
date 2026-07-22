@@ -1014,12 +1014,15 @@ body.minimal-overlay-open {
   }
 }
 
-/* Abstract / BibTeX / link toggle buttons */
+/* Title / authors / venue first; actions + panels below */
+.minimal-full .pub-main {
+  margin: 0 0 0.35rem;
+}
 .minimal-full .publication-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin: 0 0 0.55rem;
+  margin: 0.15rem 0 0;
 }
 .minimal-full .pub-button {
   appearance: none;
