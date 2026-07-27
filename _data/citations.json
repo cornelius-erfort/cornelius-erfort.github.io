@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-07-20",
+  "updated_at": "2026-07-27",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
-    "total_citations": 67,
+    "total_citations": 69,
     "h_index": 5,
     "i10_index": 3
   },
@@ -244,6 +244,254 @@
           "url": null,
           "year": 2025,
           "authors": []
+        },
+        {
+          "title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
+          "url": "https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(26)00025-3/fulltext?uuid=uuid%3Aade36895-d964-4687-815b-4d99cdb20c7e",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Chen-Xu",
+              "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ"
+            },
+            {
+              "name": "H Heiliger",
+              "scholar_url": "https://scholar.google.com/citations?user=0_-lQNIAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "¿ Quién marca la agenda? Estudio de la influencia mediática en el discurso parlamentario mediante series temporales y clasificación textual multinivel",
+          "url": "https://e-spacio.uned.es/entities/publication/6364c311-2483-46bc-ac7f-6a5753d1c890",
+          "year": 2025,
+          "authors": []
+        }
+      ]
+    },
+    "01_gendered-targeting_jop_2026": {
+      "scholar_title": "Gendered targeting: Do parties tailor their campaign ads to women?",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:u-x6o8ySG0sC",
+      "citation_id": "MMcwTuIAAAAJ:u-x6o8ySG0sC",
+      "cites_cluster_id": "3427469273154547280",
+      "cited_by_count": 12,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3427469273154547280",
+      "citing_works": [
+        {
+          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram",
+          "url": "https://academic.oup.com/pnasnexus/article-abstract/3/7/pgae247/7695718",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "D Bär",
+              "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ"
+            },
+            {
+              "name": "F Pierri",
+              "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ"
+            },
+            {
+              "name": "G De Francisci Morales",
+              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Politics in the facebook era. Evidence from the 2016 US presidential elections",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0176268025000011",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "F Liberini",
+              "scholar_url": "https://scholar.google.com/citations?user=tSQDeFcAAAAJ"
+            },
+            {
+              "name": "M Redoano",
+              "scholar_url": "https://scholar.google.com/citations?user=gTm-odEAAAAJ"
+            },
+            {
+              "name": "A Russo",
+              "scholar_url": "https://scholar.google.com/citations?user=50_-_TsAAAAJ"
+            },
+            {
+              "name": "A Cuevas",
+              "scholar_url": "https://scholar.google.com/citations?user=lGuDTyAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Can wedge strategies by mainstream parties cross-cut the anti-immigration far right vote?",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0261379423000392",
+          "year": 2023,
+          "authors": [
+            {
+              "name": "VI Haas",
+              "scholar_url": "https://scholar.google.com/citations?user=zbiC8-oAAAAJ"
+            },
+            {
+              "name": "LF Stoetzer",
+              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Opposition parties seek more conflict with the government when losing electoral support",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "E Koch",
+              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Gahn",
+              "scholar_url": "https://scholar.google.com/citations?user=x5H46nkAAAAJ"
+            },
+            {
+              "name": "S Kruschinski",
+              "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Digital Dilemmas: Evaluating the Ethics and Efficacy of Personalised Political Advertising in Modern Democracies",
+          "url": "https://search.proquest.com/openview/99f60100223d973c5ff3a95d87adacca/1?pq-origsite=gscholar&cbl=1606370",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "V Moravec",
+              "scholar_url": "https://scholar.google.com/citations?user=hGLDLmIAAAAJ"
+            },
+            {
+              "name": "N Hynek",
+              "scholar_url": "https://scholar.google.com/citations?user=bgdZRsUAAAAJ"
+            },
+            {
+              "name": "B Gavurová",
+              "scholar_url": "https://scholar.google.com/citations?user=J72JyYYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Shy Women Voters: Private Preferences and Public Expression in the 2024 US Presidential Election",
+          "url": "https://laurapaler.com/wp-content/uploads/2026/01/shy_voters_main.pdf",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "L Paler",
+              "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
+            }
+          ]
+        },
+        {
+          "title": "Ehdokaskampanjoiden kohdentaminen",
+          "url": "https://library.oapen.org/bitstream/handle/20.500.12657/111788/1/9789523590762.pdf#page=120",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram Supplemental Materials",
+          "url": "https://www.scienceopen.com/document_file/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5/PubMedCentral/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "GDEF MORALES",
+              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Václav MORAVEC–Nik HYNEK–Beáta GAVUROVÁ–",
+          "url": "https://www.ceeol.com/search/article-detail?id=1295626",
+          "year": null,
+          "authors": [
+            {
+              "name": "M KUBÁK",
+              "scholar_url": "https://scholar.google.com/citations?user=XZVZdYgAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
+          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU6UH6U42&sig=peuQID5bT6OZXrcDTbZJdpp7V50",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Private Preferences, Public Expression, and Campaign Persuasion: Experimental Evidence from the 2024 US Presidential Election",
+          "url": "https://laurapaler.com/wp-content/uploads/2026/06/sv_062626.pdf",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "L Paler",
+              "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
+            }
+          ]
+        },
+        {
+          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
+          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU8XK2V61&sig=VxehquXm2jR2J85TpLlx737g_rk",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram",
+          "url": "https://www.pnas.org/doi/full/10.1093/pnasnexus/pgae247",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "D Bär",
+              "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ"
+            },
+            {
+              "name": "F Pierri",
+              "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ"
+            },
+            {
+              "name": "G De Francisci Morales",
+              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
+            },
+            {
+              "name": "S Feuerriegel",
+              "scholar_url": "https://scholar.google.com/citations?user=TtgGRnEAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
+          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU9TI1R35&sig=ZvyKbg786X9Ct1doPohkFOC2mYs",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Huttunen",
+              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
+            }
+          ]
         }
       ]
     },
@@ -252,7 +500,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "citation_id": "MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "cites_cluster_id": "13181887300357457949",
-      "cited_by_count": 10,
+      "cited_by_count": 11,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13181887300357457949",
       "citing_works": [
         {
@@ -381,6 +629,12 @@
               "scholar_url": "https://scholar.google.com/citations?user=sXx_CkYAAAAJ"
             }
           ]
+        },
+        {
+          "title": "The Impact of Social Media on Political Marketing Education",
+          "url": "https://www.studiapolitologiczne.pl/pdf-226211-142630?filename=The-Impact-of-Social-Medi.pdf",
+          "year": 2026,
+          "authors": []
         }
       ]
     },
@@ -389,7 +643,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
       "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
       "cites_cluster_id": "9118597870844943979",
-      "cited_by_count": 8,
+      "cited_by_count": 9,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
       "citing_works": [
         {
@@ -494,6 +748,12 @@
               "scholar_url": "https://scholar.google.com/citations?user=X9HpTSAAAAAJ"
             }
           ]
+        },
+        {
+          "title": "Cumulative Intersection Risks of Aging and Climate Vulnerability: A Spatiotemporal Analysis Based on Global Public Databases",
+          "url": "https://journal.physa.org/index.php/fpm/article/view/108",
+          "year": 2026,
+          "authors": []
         }
       ]
     },
@@ -730,6 +990,27 @@
         }
       ]
     },
+    "02_issue-responsiveness_wep_2026": {
+      "scholar_title": "Parties’ issue responsiveness between elections",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:YsMSGLbcyi4C",
+      "citation_id": "MMcwTuIAAAAJ:YsMSGLbcyi4C",
+      "cites_cluster_id": "6273156438861862519",
+      "cited_by_count": 1,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=6273156438861862519,3469080524159254101",
+      "citing_works": [
+        {
+          "title": "Issue Competition on Social Media",
+          "url": "https://osf.io/download/x47qr/",
+          "year": null,
+          "authors": [
+            {
+              "name": "L Sattelmayer",
+              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
+            }
+          ]
+        }
+      ]
+    },
     "scholar:MMcwTuIAAAAJ:2osOgNQ5qMEC": {
       "scholar_title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:2osOgNQ5qMEC",
@@ -751,199 +1032,6 @@
         }
       ]
     },
-    "01_gendered-targeting_jop_2026": {
-      "scholar_title": "Gendered targeting: Do parties tailor their campaign ads to women?",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:u-x6o8ySG0sC",
-      "citation_id": "MMcwTuIAAAAJ:u-x6o8ySG0sC",
-      "cites_cluster_id": "3427469273154547280",
-      "cited_by_count": 12,
-      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3427469273154547280",
-      "citing_works": [
-        {
-          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram",
-          "url": "https://academic.oup.com/pnasnexus/article-abstract/3/7/pgae247/7695718",
-          "year": 2024,
-          "authors": [
-            {
-              "name": "D Bär",
-              "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ"
-            },
-            {
-              "name": "F Pierri",
-              "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ"
-            },
-            {
-              "name": "G De Francisci Morales",
-              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Politics in the facebook era. Evidence from the 2016 US presidential elections",
-          "url": "https://www.sciencedirect.com/science/article/pii/S0176268025000011",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "F Liberini",
-              "scholar_url": "https://scholar.google.com/citations?user=tSQDeFcAAAAJ"
-            },
-            {
-              "name": "M Redoano",
-              "scholar_url": "https://scholar.google.com/citations?user=gTm-odEAAAAJ"
-            },
-            {
-              "name": "A Russo",
-              "scholar_url": "https://scholar.google.com/citations?user=50_-_TsAAAAJ"
-            },
-            {
-              "name": "A Cuevas",
-              "scholar_url": "https://scholar.google.com/citations?user=lGuDTyAAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Can wedge strategies by mainstream parties cross-cut the anti-immigration far right vote?",
-          "url": "https://www.sciencedirect.com/science/article/pii/S0261379423000392",
-          "year": 2023,
-          "authors": [
-            {
-              "name": "VI Haas",
-              "scholar_url": "https://scholar.google.com/citations?user=zbiC8-oAAAAJ"
-            },
-            {
-              "name": "LF Stoetzer",
-              "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
-            },
-            {
-              "name": "H Klüver",
-              "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Opposition parties seek more conflict with the government when losing electoral support",
-          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2025.2524944",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "E Koch",
-              "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Targeting and/or tailoring?! A theoretical framework and its application to political social media advertising",
-          "url": "https://www.tandfonline.com/doi/abs/10.1080/1369118X.2026.2652497",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "C Gahn",
-              "scholar_url": "https://scholar.google.com/citations?user=x5H46nkAAAAJ"
-            },
-            {
-              "name": "S Kruschinski",
-              "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Digital Dilemmas: Evaluating the Ethics and Efficacy of Personalised Political Advertising in Modern Democracies",
-          "url": "https://search.proquest.com/openview/99f60100223d973c5ff3a95d87adacca/1?pq-origsite=gscholar&cbl=1606370",
-          "year": 2024,
-          "authors": [
-            {
-              "name": "V Moravec",
-              "scholar_url": "https://scholar.google.com/citations?user=hGLDLmIAAAAJ"
-            },
-            {
-              "name": "N Hynek",
-              "scholar_url": "https://scholar.google.com/citations?user=bgdZRsUAAAAJ"
-            },
-            {
-              "name": "B Gavurová",
-              "scholar_url": "https://scholar.google.com/citations?user=J72JyYYAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Shy Women Voters: Private Preferences and Public Expression in the 2024 US Presidential Election",
-          "url": "https://laurapaler.com/wp-content/uploads/2026/01/shy_voters_main.pdf",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "L Paler",
-              "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
-            }
-          ]
-        },
-        {
-          "title": "Ehdokaskampanjoiden kohdentaminen",
-          "url": "https://library.oapen.org/bitstream/handle/20.500.12657/111788/1/9789523590762.pdf#page=120",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "J Huttunen",
-              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Systematic discrepancies in the delivery of political ads on Facebook and Instagram Supplemental Materials",
-          "url": "https://www.scienceopen.com/document_file/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5/PubMedCentral/cb5ae9a0-5275-42e4-86a6-e6c51b2897d5.pdf",
-          "year": null,
-          "authors": [
-            {
-              "name": "GDEF MORALES",
-              "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Václav MORAVEC–Nik HYNEK–Beáta GAVUROVÁ–",
-          "url": "https://www.ceeol.com/search/article-detail?id=1295626",
-          "year": null,
-          "authors": [
-            {
-              "name": "M KUBÁK",
-              "scholar_url": "https://scholar.google.com/citations?user=XZVZdYgAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
-          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU6UH6U42&sig=peuQID5bT6OZXrcDTbZJdpp7V50",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "J Huttunen",
-              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Private Preferences, Public Expression, and Campaign Persuasion: Experimental Evidence from the 2024 US Presidential Election",
-          "url": "https://laurapaler.com/wp-content/uploads/2026/06/sv_062626.pdf",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "L Paler",
-              "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
-            }
-          ]
-        },
-        {
-          "title": "Politiikan henkilöityminen ja kampanjoinnin ammattimaistuminen",
-          "url": "https://books.google.com/books?hl=en&lr=&id=YsPJEQAAQBAJ&oi=fnd&pg=PA119&ots=3UU8XK2V61&sig=VxehquXm2jR2J85TpLlx737g_rk",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "J Huttunen",
-              "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ"
-            }
-          ]
-        }
-      ]
-    },
     "09_swing-model-assumptions_jelst_2026": {
       "scholar_title": "How swing model assumptions shape vote-to-seat predictions",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:ufrVoPGSRksC",
@@ -952,27 +1040,6 @@
       "cited_by_count": 0,
       "cited_by_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ&hl=en&view_op=list_works",
       "citing_works": []
-    },
-    "02_issue-responsiveness_wep_2026": {
-      "scholar_title": "Parties’ issue responsiveness between elections",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:YsMSGLbcyi4C",
-      "citation_id": "MMcwTuIAAAAJ:YsMSGLbcyi4C",
-      "cites_cluster_id": "6273156438861862519",
-      "cited_by_count": 1,
-      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=6273156438861862519,3469080524159254101",
-      "citing_works": [
-        {
-          "title": "Issue Competition on Social Media",
-          "url": "https://osf.io/download/x47qr/",
-          "year": null,
-          "authors": [
-            {
-              "name": "L Sattelmayer",
-              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
-            }
-          ]
-        }
-      ]
     }
   },
   "citing_author_leaderboard": [
@@ -987,14 +1054,14 @@
       "count": 4
     },
     {
-      "name": "LF Stoetzer",
-      "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
+      "name": "J Huttunen",
+      "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ",
       "count": 4
     },
     {
-      "name": "J Huttunen",
-      "scholar_url": "https://scholar.google.com/citations?user=Sa2YylYAAAAJ",
-      "count": 3
+      "name": "LF Stoetzer",
+      "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
+      "count": 4
     },
     {
       "name": "L Sattelmayer",
@@ -1022,8 +1089,33 @@
       "count": 2
     },
     {
+      "name": "D Bär",
+      "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ",
+      "count": 2
+    },
+    {
       "name": "E Koch",
       "scholar_url": "https://scholar.google.com/citations?user=_u-sNnAAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "F Pierri",
+      "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "G De Francisci Morales",
+      "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "H Heiliger",
+      "scholar_url": "https://scholar.google.com/citations?user=0_-lQNIAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "J Chen-Xu",
+      "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ",
       "count": 2
     },
     {
@@ -1102,11 +1194,6 @@
       "count": 1
     },
     {
-      "name": "D Bär",
-      "scholar_url": "https://scholar.google.com/citations?user=Ywoe3fkAAAAJ",
-      "count": 1
-    },
-    {
       "name": "D TSUANYO",
       "scholar_url": "https://scholar.google.com/citations?user=K5Qu1XIAAAAJ",
       "count": 1
@@ -1147,11 +1234,6 @@
       "count": 1
     },
     {
-      "name": "F Pierri",
-      "scholar_url": "https://scholar.google.com/citations?user=b17WlbMAAAAJ",
-      "count": 1
-    },
-    {
       "name": "F Rösel",
       "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ",
       "count": 1
@@ -1172,18 +1254,8 @@
       "count": 1
     },
     {
-      "name": "G De Francisci Morales",
-      "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
-      "count": 1
-    },
-    {
       "name": "GDEF MORALES",
       "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
-      "count": 1
-    },
-    {
-      "name": "H Heiliger",
-      "scholar_url": "https://scholar.google.com/citations?user=0_-lQNIAAAAJ",
       "count": 1
     },
     {
@@ -1199,11 +1271,6 @@
     {
       "name": "HT Karakoç",
       "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ",
-      "count": 1
-    },
-    {
-      "name": "J Chen-Xu",
-      "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ",
       "count": 1
     },
     {
@@ -1309,6 +1376,11 @@
     {
       "name": "R Ulloa",
       "scholar_url": "https://scholar.google.com/citations?user=NKygdwgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "S Feuerriegel",
+      "scholar_url": "https://scholar.google.com/citations?user=TtgGRnEAAAAJ",
       "count": 1
     },
     {
