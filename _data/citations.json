@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-08-10",
+  "updated_at": "2026-08-17",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
-    "total_citations": 69,
+    "total_citations": 73,
     "h_index": 5,
-    "i10_index": 3
+    "i10_index": 4
   },
   "by_publication": {
     "07_partypress-database_rap_2023": {
@@ -13,7 +13,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:9yKSN-GCB0IC",
       "citation_id": "MMcwTuIAAAAJ:9yKSN-GCB0IC",
       "cites_cluster_id": "8471948866040535245",
-      "cited_by_count": 21,
+      "cited_by_count": 22,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=8471948866040535245",
       "citing_works": [
         {
@@ -500,7 +500,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "citation_id": "MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "cites_cluster_id": "13181887300357457949",
-      "cited_by_count": 11,
+      "cited_by_count": 12,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13181887300357457949",
       "citing_works": [
         {
@@ -643,7 +643,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
       "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
       "cites_cluster_id": "9118597870844943979",
-      "cited_by_count": 9,
+      "cited_by_count": 10,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
       "citing_works": [
         {
@@ -757,78 +757,12 @@
         }
       ]
     },
-    "05_forecasting-subnational-elections_jelst_2025": {
-      "scholar_title": "An election forecasting model for subnational elections",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:zYLM7Y9cAGgC",
-      "citation_id": "MMcwTuIAAAAJ:zYLM7Y9cAGgC",
-      "cites_cluster_id": "11895116147877479937",
-      "cited_by_count": 5,
-      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11895116147877479937",
-      "citing_works": [
-        {
-          "title": "Forecasting Election Outcomes: A Bibliometric Analysis",
-          "url": "https://www.igi-global.com/chapter/forecasting-election-outcomes/389504",
-          "year": 2026,
-          "authors": []
-        },
-        {
-          "title": "CLUSTERING-DRIVEN PREDICTION OF LOCAL ELECTION OUTCOMES USING SURVEY DATA AND K-MEANS ALGORITHM",
-          "url": "https://icceph.com/wp-content/uploads/2025/09/ELECTION-OUTCOMES-K-MEANS-ALGORITHM.pdf",
-          "year": null,
-          "authors": [
-            {
-              "name": "FJ Talirongan",
-              "scholar_url": "https://scholar.google.com/citations?user=4FyN_AsAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Dijital Siyasal İletişimde Algoritmik Temsiliyet: YouTube Yorumları Üzerinden 2024 ABD Seçimlerinin Geriye Dönük Okuması",
-          "url": "https://dergipark.org.tr/en/pub/ohuiibf/article/1794701",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "HT Karakoç",
-              "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "COLLABORATIVE GOVERNANCE DALAM PENYELENGGARAAN PEMILU TAHUN 2024 DI KOTA PONTIANAK PROVINSI KALIMANTAN BARAT",
-          "url": "http://eprints.ipdn.ac.id/23662/",
-          "year": 2025,
-          "authors": [
-            {
-              "name": "MBZ Tjenreng",
-              "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "ANÁLISIS PREDICTIVO DEL COMPORTAMIENTO ELECTORAL EN ESPAÑA.",
-          "url": "https://repositorio.comillas.edu/xmlui/bitstream/handle/11531/90362/TFG%20-%20Albaladejo%20Gutierrez%2C%20Gloria.pdf?sequence=3",
-          "year": null,
-          "authors": []
-        },
-        {
-          "title": "State Civil Apparatus Neutrality Policy in General Elections: Lessons from Several Countries",
-          "url": "https://www.jhcls.org/index.php/JHCLS/article/view/996",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "S Handayani",
-              "scholar_url": "https://scholar.google.com/citations?user=GF66k2gAAAAJ"
-            }
-          ]
-        }
-      ]
-    },
     "06_zweitstimme-forecast_ps_2025": {
       "scholar_title": "The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
       "citation_id": "MMcwTuIAAAAJ:IjCSPb-OGe4C",
       "cites_cluster_id": "9031874089557118426",
-      "cited_by_count": 5,
+      "cited_by_count": 6,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9031874089557118426",
       "citing_works": [
         {
@@ -923,6 +857,72 @@
             {
               "name": "T Wochner",
               "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
+            }
+          ]
+        }
+      ]
+    },
+    "05_forecasting-subnational-elections_jelst_2025": {
+      "scholar_title": "An election forecasting model for subnational elections",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:zYLM7Y9cAGgC",
+      "citation_id": "MMcwTuIAAAAJ:zYLM7Y9cAGgC",
+      "cites_cluster_id": "11895116147877479937",
+      "cited_by_count": 5,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11895116147877479937",
+      "citing_works": [
+        {
+          "title": "Forecasting Election Outcomes: A Bibliometric Analysis",
+          "url": "https://www.igi-global.com/chapter/forecasting-election-outcomes/389504",
+          "year": 2026,
+          "authors": []
+        },
+        {
+          "title": "CLUSTERING-DRIVEN PREDICTION OF LOCAL ELECTION OUTCOMES USING SURVEY DATA AND K-MEANS ALGORITHM",
+          "url": "https://icceph.com/wp-content/uploads/2025/09/ELECTION-OUTCOMES-K-MEANS-ALGORITHM.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "FJ Talirongan",
+              "scholar_url": "https://scholar.google.com/citations?user=4FyN_AsAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Dijital Siyasal İletişimde Algoritmik Temsiliyet: YouTube Yorumları Üzerinden 2024 ABD Seçimlerinin Geriye Dönük Okuması",
+          "url": "https://dergipark.org.tr/en/pub/ohuiibf/article/1794701",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "HT Karakoç",
+              "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "COLLABORATIVE GOVERNANCE DALAM PENYELENGGARAAN PEMILU TAHUN 2024 DI KOTA PONTIANAK PROVINSI KALIMANTAN BARAT",
+          "url": "http://eprints.ipdn.ac.id/23662/",
+          "year": 2025,
+          "authors": [
+            {
+              "name": "MBZ Tjenreng",
+              "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "ANÁLISIS PREDICTIVO DEL COMPORTAMIENTO ELECTORAL EN ESPAÑA.",
+          "url": "https://repositorio.comillas.edu/xmlui/bitstream/handle/11531/90362/TFG%20-%20Albaladejo%20Gutierrez%2C%20Gloria.pdf?sequence=3",
+          "year": null,
+          "authors": []
+        },
+        {
+          "title": "State Civil Apparatus Neutrality Policy in General Elections: Lessons from Several Countries",
+          "url": "https://www.jhcls.org/index.php/JHCLS/article/view/996",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "S Handayani",
+              "scholar_url": "https://scholar.google.com/citations?user=GF66k2gAAAAJ"
             }
           ]
         }
