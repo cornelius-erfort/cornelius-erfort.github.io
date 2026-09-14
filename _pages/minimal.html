@@ -322,7 +322,8 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       li.className = 'minimal-pub';
       li.innerHTML =
         '<div class="minimal-pub__title">' + titleHtml + '</div>' +
-        '<div class="minimal-pub__meta">' + (item.authors || '') + '</div>';
+        '<div class="minimal-pub__meta">' + (item.authors || '') +
+        (item.status ? ' &middot; <em>' + esc(item.status) + '</em>' : '') + '</div>';
       wipList.appendChild(li);
     });
   }

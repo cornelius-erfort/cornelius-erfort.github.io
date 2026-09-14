@@ -230,10 +230,11 @@
       var titleHtml = articleUrl
         ? '<span class="pub-title-wrap"><span class="pub-title pub-title--wide"><b>' + esc(wip.title) + '</b></span><a href="' + esc(articleUrl) + '" class="pub-title pub-title--narrow" target="_blank" rel="noopener">' + esc(wip.title) + '</a></span>'
         : '<b>' + esc(wip.title) + '</b>';
+      var statusHtml = wip.status ? ' <br><i>' + esc(wip.status) + '</i>' : '';
       var td = '<td class="pub-cell" style="border:none">' +
         '<div class="publication-buttons">' + buttons.join('\n        ') + '</div>' +
         contents.join('\n    ') +
-        titleHtml + ' ' + wip.authors + '</td>';
+        titleHtml + ' ' + wip.authors + statusHtml + '</td>';
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="publication-image-cell" style="border:none"><div class="document-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div></td>' + td;
       tbody.appendChild(tr);
