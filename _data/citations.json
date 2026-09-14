@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-09-07",
+  "updated_at": "2026-09-14",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
-    "total_citations": 78,
+    "total_citations": 83,
     "h_index": 5,
     "i10_index": 4
   },
@@ -273,7 +273,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
       "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
       "cites_cluster_id": "9118597870844943979",
-      "cited_by_count": 14,
+      "cited_by_count": 19,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
       "citing_works": [
         {
