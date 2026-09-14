@@ -1,0 +1,8 @@
+{
+  "order": 3,
+  "featured": true,
+  "title": "Measuring Party Issue Attention Between Elections: A Cross-National, Sentence-Level Database of Party Press Releases",
+  "authors": "<span class=\"author-name\">Cornelius Erfort</span> and <a href=\"https://z-dickson.github.io\">Zachary P. Dickson</a>",
+  "abstract": "We introduce a cross-national, sentence-level database of party press releases to measure parties' issue attention between elections.",
+  "bibtex": "@unpublished{erfort_dickson_party_issue_attention, title = {Measuring Party Issue Attention Between Elections: A Cross-National, Sentence-Level Database of Party Press Releases}, author = {Erfort, Cornelius and Dickson, Zachary P.}, year = {2026}"
+}
