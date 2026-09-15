@@ -103,7 +103,6 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
   <div class="minimal-col">
     <section class="minimal-section" id="media">
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="media">Media<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
-      <p>Quoted in The Guardian. Forecasts from <a href="https://zweitstimme.org/" target="_blank" rel="noopener">zweitstimme.org</a> have been cited by The Economist, Tagesspiegel, and S&uuml;ddeutsche Zeitung.</p>
       <script type="application/json" id="data-media-minimal">{{ site.data.media | jsonify }}</script>
       <ul class="minimal-news" id="minimal-media"></ul>
       <p class="minimal-aside"><a href="#" data-open-overlay="media">See the full list</a> of media coverage.</p>
@@ -188,7 +187,6 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
   </div>
 
   <div class="minimal-full" id="full-media" data-overlay-key="media" data-title="Media">
-    <p>Quoted as an expert in The Guardian. Coverage below also includes reporting that cites forecasts from <a href="https://zweitstimme.org/" target="_blank" rel="noopener">zweitstimme.org</a>.</p>
     <script type="application/json" id="data-media">{{ site.data.media | jsonify }}</script>
     <table class="media-table">
       <tbody id="mediaTable"></tbody>
@@ -206,7 +204,7 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
   </div>
 
   <div class="minimal-full" id="full-resources" data-overlay-key="resources" data-title="Other resources">
-    <p>Friends, collaborators, and other researchers I follow &mdash; in the spirit of <a href="https://simonmunzert.com/links.html" target="_blank" rel="noopener">Simon Munzert&rsquo;s links page</a>.</p>
+    <p>Friends, collaborators, and other researchers I follow.</p>
     <ul class="minimal-resources">
       <li><a href="https://nicolaiberk.com/" target="_blank" rel="noopener">Nicolai Berk</a>. Media effects. Immigration politics. Text as data.</li>
       <li><a href="https://mbondeli.github.io/" target="_blank" rel="noopener">Moritz Bondeli</a>. Democratic resilience. Political violence. Historical political science.</li>
@@ -334,8 +332,6 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     return isNaN(d.getTime()) ? 0 : d.getTime();
   }
   mediaItems.sort(function(a, b) {
-    if (a.kind === 'quoted' && b.kind !== 'quoted') return -1;
-    if (b.kind === 'quoted' && a.kind !== 'quoted') return 1;
     return mediaTime(b) - mediaTime(a);
   });
   var mediaList = document.getElementById('minimal-media');
