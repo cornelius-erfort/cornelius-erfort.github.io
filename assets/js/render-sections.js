@@ -107,8 +107,8 @@
   }
   function formatDate(s) {
     if (s == null) return '';
-    var d = new Date(s);
-    return isNaN(d.getTime()) ? String(s) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    var d = parseDateLoose(s);
+    return d ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : String(s);
   }
   /** YYYY-MM-DD parsed as local calendar date (avoids UTC off-by-one). */
   function parseDateLoose(s) {
@@ -253,9 +253,14 @@
       var titleHtml = m.url
         ? '<a class="media-title-link" href="' + esc(m.url) + '" target="_blank" rel="noopener noreferrer">' + esc(m.title) + '</a>'
         : '<span class="media-title-link">' + esc(m.title || '') + '</span>';
+      var kind = m.kind === 'quoted'
+        ? '<span class="media-kind">Quoted</span>'
+        : (m.kind === 'cited' ? '<span class="media-kind">Cites zweitstimme.org</span>' : '');
       tr.innerHTML =
         '<td class="publication-image-cell" style="border:none">' + cover + '</td>' +
-        '<td style="border:none"><span class="media-date">' + esc(formatDate(m.date)) + '</span><br><span class="media-outlet">' + esc(m.outlet) + '</span>' + titleHtml + '</td>';
+        '<td style="border:none"><span class="media-date">' + esc(formatDate(m.date)) + '</span>' +
+        (kind ? ' ' + kind : '') +
+        '<br><span class="media-outlet">' + esc(m.outlet) + '</span>' + titleHtml + '</td>';
       tbody.appendChild(tr);
     });
   }

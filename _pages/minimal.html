@@ -72,9 +72,11 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       </ul>
     </section>
 
-    <section class="minimal-section" id="resources">
-      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="resources">Other resources<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
-      <p>You can find links to friends in academia <a href="#" data-open-overlay="resources">here</a>.</p>
+    <section class="minimal-section" id="news">
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="news">News<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
+      <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
+      <ul class="minimal-news" id="minimal-news"></ul>
+      <p class="minimal-aside"><a href="#" data-open-overlay="news">See the full news list</a>.</p>
     </section>
 
   </div>
@@ -99,11 +101,12 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
   </div>
 
   <div class="minimal-col">
-    <section class="minimal-section" id="news">
-      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="news">News<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
-      <script type="application/json" id="data-news-minimal">{{ site.data.news | jsonify }}</script>
-      <ul class="minimal-news" id="minimal-news"></ul>
-      <p class="minimal-aside"><a href="#" data-open-overlay="news">See the full news list</a>.</p>
+    <section class="minimal-section" id="media">
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="media">Media<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
+      <p>Quoted in The Guardian. Forecasts from <a href="https://zweitstimme.org/" target="_blank" rel="noopener">zweitstimme.org</a> have been cited by The Economist, Tagesspiegel, and S&uuml;ddeutsche Zeitung.</p>
+      <script type="application/json" id="data-media-minimal">{{ site.data.media | jsonify }}</script>
+      <ul class="minimal-news" id="minimal-media"></ul>
+      <p class="minimal-aside"><a href="#" data-open-overlay="media">See the full list</a> of media coverage.</p>
     </section>
 
     <section class="minimal-section" id="teaching">
@@ -122,6 +125,11 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
       <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="data">Data &amp; software<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
       
       <p>See the <a href="#" data-open-overlay="data">full list of data &amp; software</a>.</p>
+    </section>
+
+    <section class="minimal-section" id="resources">
+      <h2 class="is-clickable" role="button" tabindex="0" data-open-overlay="resources">Other resources<span class="minimal-section__chev" aria-hidden="true">›</span></h2>
+      <p>You can find links to friends in academia <a href="#" data-open-overlay="resources">here</a>.</p>
     </section>
   </div>
   </div>
@@ -176,6 +184,14 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
     <script type="application/json" id="news-data">{{ site.data.news | jsonify }}</script>
     <table class="news-table">
       <tbody id="newsTable"></tbody>
+    </table>
+  </div>
+
+  <div class="minimal-full" id="full-media" data-overlay-key="media" data-title="Media">
+    <p>Quoted as an expert in The Guardian. Coverage below also includes reporting that cites forecasts from <a href="https://zweitstimme.org/" target="_blank" rel="noopener">zweitstimme.org</a>.</p>
+    <script type="application/json" id="data-media">{{ site.data.media | jsonify }}</script>
+    <table class="media-table">
+      <tbody id="mediaTable"></tbody>
     </table>
   </div>
 
@@ -271,7 +287,9 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
 
   function formatNewsDate(s) {
     if (!s) return '';
-    var d = new Date(s);
+    var str = String(s).trim();
+    var iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    var d = iso ? new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3])) : new Date(str);
     return isNaN(d.getTime()) ? String(s) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   }
   function stripHtml(html) {
@@ -305,6 +323,36 @@ description: "Postdoctoral researcher in political science. Voter targeting, int
         (snippet ? '<span class="minimal-news__snippet">' + esc(snippet) + '</span>' : '') +
         '</div>';
       newsList.appendChild(li);
+    });
+  }
+
+  var mediaItems = parse('data-media-minimal').filter(function(m) { return m && m.featured; });
+  function mediaTime(m) {
+    var s = String(m.date || '').trim();
+    var iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+    var d = iso ? new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3])) : new Date(s);
+    return isNaN(d.getTime()) ? 0 : d.getTime();
+  }
+  mediaItems.sort(function(a, b) {
+    if (a.kind === 'quoted' && b.kind !== 'quoted') return -1;
+    if (b.kind === 'quoted' && a.kind !== 'quoted') return 1;
+    return mediaTime(b) - mediaTime(a);
+  });
+  var mediaList = document.getElementById('minimal-media');
+  if (mediaList) {
+    mediaItems.forEach(function(m) {
+      var titleHtml = m.url
+        ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.title || '') + '</a>'
+        : esc(m.title || '');
+      var li = document.createElement('li');
+      li.className = 'minimal-news__item';
+      li.innerHTML =
+        '<div class="minimal-news__title">' + esc(m.outlet || '') + '</div>' +
+        '<div class="minimal-news__sub">' +
+        '<span class="minimal-news__date">' + esc(formatNewsDate(m.date)) + '</span>' +
+        (titleHtml ? '<span class="minimal-news__snippet">' + titleHtml + '</span>' : '') +
+        '</div>';
+      mediaList.appendChild(li);
     });
   }
 
