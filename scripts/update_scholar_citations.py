@@ -3,25 +3,32 @@
 Fetch Google Scholar citation data (profile counts, citing papers, author leaderboard)
 and write _data/citations.json for the Jekyll site.
 
-Uses Playwright with a visible browser by default so you can solve CAPTCHAs if needed.
+Uses ordinary HTTP. Headless Chromium is served a CAPTCHA from the same IP
+that still returns these pages to a normal request.
+
 Run from the repo root:
 
-    .venv-scholar/bin/python scripts/update_scholar_citations.py
+    python3 scripts/update_scholar_citations.py
+    python3 scripts/update_scholar_citations.py --delay 2.5
 
 Options:
-    --headless          Run without opening a browser window
     --scholar-user ID   Google Scholar user id (default: from _config.yml)
     --dry-run           Print JSON to stdout instead of writing the file
+    --delay SECONDS     Pause between requests (default: 1.8)
 """
 
 from __future__ import annotations
 
 import argparse
+import html as html_lib
+import http.cookiejar
 import json
 import re
 import sys
 import time
 import unicodedata
+import urllib.error
+import urllib.request
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
@@ -29,10 +36,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PUBLICATIONS_DIR = ROOT / "_data" / "publications"
 OUTPUT_PATH = ROOT / "_data" / "citations.json"
-EXTRACT_JS = (Path(__file__).parent / "scholar_browser_extract.js").read_text(encoding="utf-8")
 
-PROFILE_EXTRACT = EXTRACT_JS + "\nJSON.stringify(scholarExtract.extractProfileArticles());"
-CITING_EXTRACT = EXTRACT_JS + "\nJSON.stringify(scholarExtract.extractCitingWorks());"
+USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
 
 
 def read_default_scholar_user() -> str:
@@ -159,117 +167,259 @@ def merge_with_previous(new_data: dict, old_data: dict | None) -> dict:
     return new_data
 
 
-def page_looks_blocked(page) -> bool:
-    """Heuristic: Scholar CAPTCHA / consent / empty block pages."""
-    try:
-        body = page.content()
-    except Exception:
+def _text(fragment: str) -> str:
+    no_tags = re.sub(r"<[^>]+>", " ", fragment)
+    return re.sub(r"\s+", " ", html_lib.unescape(no_tags)).strip()
+
+
+def _abs_scholar(href: str | None) -> str | None:
+    if not href:
+        return None
+    href = html_lib.unescape(href).strip()
+    if href.startswith("http://") or href.startswith("https://"):
+        return href
+    if href.startswith("/"):
+        return "https://scholar.google.com" + href
+    return href
+
+
+def _blocked(body: str, url: str) -> bool:
+    low = html_lib.unescape(body).lower()
+    if "/sorry/" in url.lower() or "unusual traffic" in low or "not a robot" in low:
         return True
-    markers = (
-        "unusual traffic",
-        "not a robot",
-        "captcha",
-        "/sorry/",
-        "Please show you're not a robot",
-    )
-    low = body.lower()
-    return any(m in low for m in markers)
+    if "javascript is turned off" in low or "enable javascript" in low:
+        return True
+    return False
 
 
-def scrape_scholar(user_id: str, headless: bool, delay: float = 1.8) -> dict:
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError as exc:
-        print(
-            "Playwright is required. Create the venv and install:\n"
-            "  python3 -m venv .venv-scholar\n"
-            "  .venv-scholar/bin/pip install playwright\n"
-            "  .venv-scholar/bin/python -m playwright install chromium",
-            file=sys.stderr,
+class ScholarHttp:
+    """Polite Scholar fetch. A cookie jar keeps the session across pages."""
+
+    def __init__(self, delay: float):
+        self.delay = max(delay, 0.5)
+        self._next_ok = 0.0
+        self.opener = urllib.request.build_opener(
+            urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar())
         )
-        raise SystemExit(1) from exc
 
-    pub_map = load_publication_keys()
-    profile_url = f"https://scholar.google.com/citations?user={user_id}&hl=en&view_op=list_works"
+    def get(self, url: str) -> str:
+        wait = self._next_ok - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        headers = {
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+        last_error: Exception | None = None
+        for attempt in range(5):
+            req = urllib.request.Request(url, headers=headers)
+            try:
+                with self.opener.open(req, timeout=60) as resp:
+                    body = resp.read().decode("utf-8", "replace")
+                    final = resp.geturl()
+            except urllib.error.HTTPError as exc:
+                last_error = exc
+                if exc.code == 429 and attempt < 4:
+                    time.sleep(self.delay * (2 + attempt))
+                    continue
+                raise
+            self._next_ok = time.monotonic() + self.delay
+            if _blocked(body, final):
+                raise RuntimeError(
+                    "Google Scholar blocked the request (CAPTCHA / unusual traffic)."
+                )
+            return body
+        raise last_error or RuntimeError("Scholar request failed")
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=headless, slow_mo=80 if not headless else 0)
-        context = browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-            ),
-            locale="en-US",
+
+def parse_profile(body: str) -> dict:
+    cells = [int(n) for n in re.findall(r'class="gsc_rsb_std">(\d+)</td>', body)]
+    profile = {"total_citations": None, "h_index": None, "i10_index": None}
+    if len(cells) >= 5:
+        profile = {
+            "total_citations": cells[0],
+            "h_index": cells[2],
+            "i10_index": cells[4],
+        }
+    articles = []
+    for row in re.findall(r'<tr class="gsc_a_tr">(.*?)</tr>', body, re.S):
+        title_m = re.search(r'<a href="([^"]+)" class="gsc_a_at">(.*?)</a>', row, re.S)
+        if not title_m:
+            continue
+        scholar_url = _abs_scholar(title_m.group(1)) or ""
+        cite_m = re.search(
+            r'<a href="([^"]+)" class="gsc_a_ac[^"]*">([^<]*)</a>', row
         )
-        page = context.new_page()
-        page.goto(profile_url, wait_until="domcontentloaded", timeout=60000)
-        if page_looks_blocked(page):
-            browser.close()
-            raise RuntimeError("Google Scholar blocked the request (CAPTCHA / unusual traffic).")
-        page.wait_for_selector(".gsc_a_at", timeout=60000)
-        page.wait_for_selector("a.gsc_a_ac", timeout=60000)
-        time.sleep(max(delay, 1.0))
-
-        raw_profile = page.evaluate(PROFILE_EXTRACT)
-        profile_data = json.loads(raw_profile)
-        articles = profile_data.get("articles", [])
-        if not articles:
-            browser.close()
-            raise RuntimeError("No articles found on Scholar profile — aborting.")
-
-        by_publication: dict[str, dict] = {}
-        for article in articles:
-            pub_key = match_publication_key(article.get("title", ""), pub_map)
-            cites_url = article.get("cited_by_url")
-            count = article.get("cited_by_count", 0)
-            citing_works: list[dict] = []
-
-            if cites_url and count > 0:
-                start = 0
-                while start < count:
-                    sep = "&" if "?" in cites_url else "?"
-                    page_url = f"{cites_url}{sep}start={start}"
-                    page.goto(page_url, wait_until="domcontentloaded", timeout=60000)
-                    if page_looks_blocked(page):
-                        print(
-                            f"  warn: blocked while fetching cites for {article.get('title')!r}; "
-                            "keeping partial list",
-                            file=sys.stderr,
-                        )
-                        break
-                    try:
-                        page.wait_for_selector(".gs_ri, #gs_res_ccl", timeout=30000)
-                    except Exception:
-                        print(
-                            f"  warn: timeout fetching cites for {article.get('title')!r}; "
-                            "keeping partial list",
-                            file=sys.stderr,
-                        )
-                        break
-                    time.sleep(delay)
-                    batch = json.loads(page.evaluate(CITING_EXTRACT))
-                    if not batch:
-                        break
-                    citing_works.extend(batch)
-                    if len(batch) < 10:
-                        break
-                    start += 10
-
-            entry = {
-                "scholar_title": article.get("title"),
-                "scholar_url": article.get("scholar_url"),
-                "citation_id": article.get("citation_id"),
-                "cites_cluster_id": article.get("cites_cluster_id"),
-                "cited_by_count": count,
-                "cited_by_url": cites_url,
-                "citing_works": citing_works,
+        cited_by_url = _abs_scholar(cite_m.group(1)) if cite_m else None
+        cited_by_count = int(cite_m.group(2).strip() or "0") if cite_m else 0
+        citation_id = (re.search(r"citation_for_view=([^&]+)", scholar_url) or [None, None])[1]
+        cluster = None
+        if cited_by_url:
+            cluster_m = re.search(r"cites=([0-9]+)", cited_by_url)
+            cluster = cluster_m.group(1) if cluster_m else None
+        articles.append(
+            {
+                "title": _text(title_m.group(2)),
+                "scholar_url": scholar_url,
+                "citation_id": citation_id,
+                "cites_cluster_id": cluster,
+                "cited_by_url": cited_by_url,
+                "cited_by_count": cited_by_count,
             }
-            key = pub_key or f"scholar:{article.get('citation_id', 'unknown')}"
-            by_publication[key] = entry
+        )
+    return {"profile": profile, "articles": articles}
 
-        browser.close()
 
-    out = {
+def _result_total(body: str) -> int | None:
+    block = re.search(r'id="gs_ab_md"[^>]*>(.*?)</div>', body, re.S)
+    if not block:
+        return None
+    match = re.search(r"([\d,]+)\s+results?", _text(block.group(1)))
+    if not match:
+        return None
+    return int(match.group(1).replace(",", ""))
+
+
+def parse_citing_works(body: str) -> list[dict]:
+    container = re.search(r'id="gs_res_ccl_mid">(.*)', body, re.S)
+    chunk = container.group(1) if container else body
+    works = []
+    for part in re.split(r'<div class="gs_ri">', chunk)[1:]:
+        head = re.split(r'<div class="gs_fl', part, maxsplit=1)[0]
+        h3 = re.search(r'<h3 class="gs_rt"[^>]*>(.*?)</h3>', head, re.S)
+        if not h3:
+            continue
+        link = re.search(r'<a [^>]*href="([^"]+)"[^>]*>(.*?)</a>', h3.group(1), re.S)
+        if link:
+            url = _abs_scholar(link.group(1))
+            title = _text(link.group(2))
+        else:
+            url = None
+            title = _text(h3.group(1))
+        title = re.sub(r"^\[(?:PDF|HTML|BOOK|CITATION|B)\]\s*", "", title).strip()
+        if not title:
+            continue
+        authors: list[dict] = []
+        year = None
+        authors_m = re.search(r'<div class="gs_a">(.*?)</div>', head, re.S)
+        if authors_m:
+            block = authors_m.group(1)
+            plain = _text(block)
+            years = re.findall(r"\b(?:19|20)\d{2}\b", plain)
+            if years:
+                year = int(years[-1])
+            linked: dict[str, str | None] = {}
+            for href, name in re.findall(r'<a [^>]*href="([^"]+)"[^>]*>(.*?)</a>', block, re.S):
+                href_abs = _abs_scholar(href) or ""
+                user = re.search(r"user=([^&]+)", href_abs)
+                scholar_url = (
+                    f"https://scholar.google.com/citations?user={user.group(1)}"
+                    if user
+                    else (href_abs if href_abs.startswith("http") else None)
+                )
+                author_name = _text(name)
+                if author_name:
+                    linked[author_name] = scholar_url
+            author_segment = re.split(r"\s[-–—]\s", plain, maxsplit=1)[0]
+            names = [n.strip() for n in author_segment.split(",") if n.strip()]
+            if not names:
+                names = list(linked)
+            for name in names:
+                authors.append({"name": name, "scholar_url": linked.get(name)})
+        works.append({"title": title, "url": url, "year": year, "authors": authors})
+    return works
+
+
+def _fetch_citing_page(client: ScholarHttp, url: str, title: str) -> str | None:
+    """Load one cited-by page, backing off when Scholar asks for JavaScript."""
+    last_error: Exception | None = None
+    for attempt in range(2):
+        try:
+            body = client.get(url)
+        except RuntimeError as exc:
+            last_error = exc
+            if attempt == 0:
+                time.sleep(15)
+                continue
+            print(
+                f"  warn: blocked while fetching cites for {title!r}; keeping partial list",
+                file=sys.stderr,
+            )
+            print(f"  warn: {exc}", file=sys.stderr)
+            return None
+        if parse_citing_works(body) or _result_total(body) == 0:
+            return body
+        if attempt == 0:
+            time.sleep(15)
+            continue
+        return body
+    if last_error:
+        print(f"  warn: {last_error}", file=sys.stderr)
+    return None
+
+
+def scrape_scholar(user_id: str, delay: float = 1.8) -> dict:
+    client = ScholarHttp(delay)
+    pub_map = load_publication_keys()
+    profile_url = (
+        f"https://scholar.google.com/citations?user={user_id}&hl=en&cstart=0&pagesize=100"
+    )
+    profile_html = client.get(profile_url)
+    profile_data = parse_profile(profile_html)
+    articles = profile_data.get("articles", [])
+    if not articles:
+        raise RuntimeError("No articles found on Scholar profile — aborting.")
+
+    by_publication: dict[str, dict] = {}
+    for article in articles:
+        pub_key = match_publication_key(article.get("title", ""), pub_map)
+        cites_url = article.get("cited_by_url")
+        count = article.get("cited_by_count", 0)
+        citing_works: list[dict] = []
+
+        if cites_url and count > 0:
+            start = 0
+            reported: int | None = None
+            while True:
+                sep = "&" if "?" in cites_url else "?"
+                page_url = f"{cites_url}{sep}start={start}&num=10"
+                page_html = _fetch_citing_page(client, page_url, article.get("title") or "")
+                if page_html is None:
+                    break
+                if reported is None:
+                    reported = _result_total(page_html)
+                batch = parse_citing_works(page_html)
+                if not batch:
+                    if start == 0 and count > 0 and not citing_works:
+                        print(
+                            f"  warn: no citing papers parsed for {article.get('title')!r} "
+                            f"(profile count {count})",
+                            file=sys.stderr,
+                        )
+                    break
+                citing_works.extend(batch)
+                start += len(batch)
+                if len(batch) < 10:
+                    break
+                if reported is not None and start >= reported:
+                    break
+                if start >= max(count, reported or 0) + 10:
+                    break
+
+        entry = {
+            "scholar_title": article.get("title"),
+            "scholar_url": article.get("scholar_url"),
+            "citation_id": article.get("citation_id"),
+            "cites_cluster_id": article.get("cites_cluster_id"),
+            "cited_by_count": count,
+            "cited_by_url": cites_url,
+            "citing_works": citing_works,
+        }
+        key = pub_key or f"scholar:{article.get('citation_id', 'unknown')}"
+        by_publication[key] = entry
+
+    return {
         "updated_at": date.today().isoformat(),
         "source": "google_scholar",
         "scholar_profile_url": f"https://scholar.google.com/citations?user={user_id}",
@@ -277,12 +427,15 @@ def scrape_scholar(user_id: str, headless: bool, delay: float = 1.8) -> dict:
         "by_publication": by_publication,
         "citing_author_leaderboard": build_leaderboard(by_publication),
     }
-    return out
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Update _data/citations.json from Google Scholar")
-    parser.add_argument("--headless", action="store_true", help="Run browser headless")
+    parser.add_argument(
+        "--headless",
+        action="store_true",
+        help="Ignored. Kept so the polsci cron command does not need to change.",
+    )
     parser.add_argument("--scholar-user", default=read_default_scholar_user())
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
@@ -299,7 +452,7 @@ def main() -> None:
     args = parser.parse_args()
 
     print(f"Fetching Scholar profile {args.scholar_user} …", file=sys.stderr)
-    data = scrape_scholar(args.scholar_user, headless=args.headless, delay=args.delay)
+    data = scrape_scholar(args.scholar_user, delay=args.delay)
 
     if not args.no_merge and OUTPUT_PATH.exists():
         try:

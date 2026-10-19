@@ -1,13 +1,13 @@
 # Manual fallback for refreshing _data/citations.json from Google Scholar.
 #
-# The scheduled refresh runs on the polsci server (cron, Mondays 06:15 CET),
-# which scrapes from a university IP and pushes via a repo-scoped deploy key —
-# see ~/scholar-updater/ on polsci and scripts/README.md.
+# The scheduled refresh runs on the polsci server (cron, Mondays 06:15 CET)
+# and pushes via a repo-scoped deploy key — see ~/scholar-updater/ on polsci
+# and scripts/README.md. The scraper uses ordinary HTTP; headless Chromium
+# is CAPTCHA-blocked even from that server.
 #
-# GitHub runners are usually CAPTCHA-blocked by Scholar, so this workflow
-# exists only as a manual fallback and will often fail. It merges with the
-# previous file when citing-paper lists are truncated and fails without
-# committing when the profile cannot be loaded.
+# GitHub runners may still be rate-limited, so this workflow is only a
+# manual fallback. It merges with the previous file when citing-paper lists
+# are truncated and fails without committing when the profile cannot be loaded.
 
 name: Update Scholar citations
 
@@ -33,12 +33,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Install Playwright
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r scripts/requirements-scholar.txt
-          python -m playwright install --with-deps chromium
 
       - name: Scrape Google Scholar
         id: scrape

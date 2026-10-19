@@ -1,19 +1,467 @@
 {
-  "updated_at": "2026-09-14",
+  "updated_at": "2026-10-19",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
-    "total_citations": 83,
+    "total_citations": 100,
     "h_index": 5,
     "i10_index": 4
   },
   "by_publication": {
+    "08_lancet-countdown-europe-2026_lancet-public-health": {
+      "scholar_title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
+      "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
+      "cites_cluster_id": "9118597870844943979",
+      "cited_by_count": 28,
+      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
+      "citing_works": [
+        {
+          "title": "Pan-European Commission on Climate and Health: recommendations for accelerating climate action for health",
+          "url": "https://www.thelancet.com/article/S0140-6736(26)00808-1/abstract",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Haines",
+              "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Fordítás: A Lancet „Visszaszámlálás az egészség és éghajlatváltozás kapcsán” 2026-os európai jelentésének vezetői összefoglalója",
+          "url": "https://ojs.mtak.hu/index.php/MEJ/article/view/22926",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Vitrai",
+              "scholar_url": "https://scholar.google.com/citations?user=DQQWl_IAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Environmental-Health Vulnerability and Respiratory Mortality in Europe: Evidence from Panel Econometrics, Clustering, and Machine Learning",
+          "url": "https://www.mdpi.com/2413-8851/10/7/351",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "O Resta",
+              "scholar_url": "https://scholar.google.com/citations?user=IdZSyl8AAAAJ"
+            },
+            {
+              "name": "P Liuzzi",
+              "scholar_url": "https://scholar.google.com/citations?user=wDBWJEwAAAAJ"
+            },
+            {
+              "name": "A Costantiello",
+              "scholar_url": "https://scholar.google.com/citations?user=_dk9sToAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Beyond the guidelines: Preventing heatwave-related admissions and decompensations through thermopharmacological frailty",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0953620526003833",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "F Epelde",
+              "scholar_url": "https://scholar.google.com/citations?user=4nRSsxAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Herz und Klima",
+          "url": "https://link.springer.com/article/10.1007/s00059-026-05384-8",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Maack",
+              "scholar_url": "https://scholar.google.com/citations?user=vwDtxHwAAAAJ"
+            },
+            {
+              "name": "A Daiber",
+              "scholar_url": "https://scholar.google.com/citations?user=dQ3bfTsAAAAJ"
+            },
+            {
+              "name": "J Lelieveld",
+              "scholar_url": "https://scholar.google.com/citations?user=ia24XqQAAAAJ"
+            },
+            {
+              "name": "O Hahad",
+              "scholar_url": "https://scholar.google.com/citations?user=peGX9rkAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "PROGRAMA DE PREVENCIÓN Y ATENCIÓN A LOS PROBLEMAS DE SALUD DERIVADOS DE LAS ALTAS TEMPERATURAS EN LA COMUNITAT …",
+          "url": "https://www.villardelarzobispo.es/sites/www.villardelarzobispo.es/files/users/user185/2026_Programa_prevenci%C3%B3n_y_atenci%C3%B3n_a_los_problemas_de_salud_derivados_de_las_altas_temperaturas_CV_2026_CAS.pdf",
+          "year": 2026,
+          "authors": []
+        },
+        {
+          "title": "One Health y Urgencias: lamentablemente, cada día con más evidencias",
+          "url": "https://www.reue.org/wp-content/uploads/2026/06/168-170.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "G Burillo-Putze",
+              "scholar_url": "https://scholar.google.com/citations?user=6_kS3AwAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "IKLIM DEĞIŞIKLIĞI ÇAĞINDA EBELIK: ANNE VE BEBEK SAĞLIĞININ KORUNMASINDA YENI ROLLER VE SORUMLULUKLAR",
+          "url": "https://www.seruvenyayinevi.com/Webkontrol/uploads/Fck/Ebelik_Alan%C4%B1nda_Uluslararas%C4%B1_G%C3%BCncel_Yakla%C5%9F%C4%B1mlar_-_Haziran_2026.pdf#page=77",
+          "year": null,
+          "authors": [
+            {
+              "name": "S GÜRAY",
+              "scholar_url": "https://scholar.google.com/citations?user=X9HpTSAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Cumulative Intersection Risks of Aging and Climate Vulnerability: A Spatiotemporal Analysis Based on Global Public Databases",
+          "url": "https://journal.physa.org/index.php/fpm/article/view/108",
+          "year": 2026,
+          "authors": []
+        },
+        {
+          "title": "The 2026 Europe Cities Report of the Lancet Countdown on health and climate change: cities at the forefront of climate change action",
+          "url": "https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(26)00100-3/fulltext",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "J Chen-Xu",
+              "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ"
+            },
+            {
+              "name": "HK Kriit",
+              "scholar_url": null
+            },
+            {
+              "name": "JC Semenza",
+              "scholar_url": null
+            },
+            {
+              "name": "H Heiliger …",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Redefining sustainable bioeconomy assessment for a changing climate",
+          "url": "https://www.biofueljournal.com/article_245025.html",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "M Moradi-Lakeh",
+              "scholar_url": "https://scholar.google.com/citations?user=3-Tj9RwAAAAJ"
+            },
+            {
+              "name": "MT Nguyen…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Climate risks for the European food system and policy preparedness",
+          "url": "https://www.sciencedirect.com/science/article/pii/S2211912426000350",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "C Müller",
+              "scholar_url": null
+            },
+            {
+              "name": "F Dentener",
+              "scholar_url": "https://scholar.google.com/citations?user=O15kdNwAAAAJ"
+            },
+            {
+              "name": "E Vanuytrecht",
+              "scholar_url": "https://scholar.google.com/citations?user=_Rg-K3YAAAAJ"
+            },
+            {
+              "name": "EJZ Robinson …",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Heat-health interventions for people experiencing homelessness",
+          "url": "https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(26)00160-X/fulltext",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "A Moses",
+              "scholar_url": null
+            },
+            {
+              "name": "SS Guo",
+              "scholar_url": null
+            },
+            {
+              "name": "L Wood",
+              "scholar_url": null
+            },
+            {
+              "name": "O Jay …",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Historical spells of extreme cold are inherently less frequent than exceptional heat waves at mid-latitudes areas",
+          "url": "https://www.sciencedirect.com/science/article/pii/S2212094726000952",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "B Bessagnet",
+              "scholar_url": "https://scholar.google.com/citations?user=KV5XJcQAAAAJ"
+            },
+            {
+              "name": "L Menut",
+              "scholar_url": "https://scholar.google.com/citations?user=nKwf34sAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Early-life exposure to ambient air pollution and respiratory outcomes: Mixture and sex-stratified associations with inflammatory cytokine responses",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0269749126014491",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "S Gómez-Olarte",
+              "scholar_url": "https://scholar.google.com/citations?user=W6FiX-cAAAAJ"
+            },
+            {
+              "name": "S Röder",
+              "scholar_url": null
+            },
+            {
+              "name": "K de Hoogh…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "The 2026 state of the climate report: challenges and opportunities",
+          "url": "https://academic.oup.com/bioscience/advance-article-abstract/doi/10.1093/biosci/biag125/8836482",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "WJ Ripple",
+              "scholar_url": "https://scholar.google.com/citations?user=0jpKiOMAAAAJ"
+            },
+            {
+              "name": "C Wolf",
+              "scholar_url": null
+            },
+            {
+              "name": "ME Mann",
+              "scholar_url": "https://scholar.google.com/citations?user=KrRw4RIAAAAJ"
+            },
+            {
+              "name": "J Rockström…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Joint Postprocessing of Air and Dew Point Temperature Ensemble Forecasts With Machine Learning",
+          "url": "https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/met.70237",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "E Casellas",
+              "scholar_url": "https://scholar.google.com/citations?user=NEd2njAAAAAJ"
+            },
+            {
+              "name": "JR Miró",
+              "scholar_url": "https://scholar.google.com/citations?user=grwQuSwAAAAJ"
+            },
+            {
+              "name": "M Cortès…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "clim4health: an R package to harmonise climate datasets for health impact studies",
+          "url": "https://wellcomeopenresearch.org/articles/11-729",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "E Ball",
+              "scholar_url": null
+            },
+            {
+              "name": "A Llabrés-Brustenga…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Climate-related migration: Is occupational therapy prepared?",
+          "url": "https://journals.sagepub.com/doi/abs/10.1177/03080226261484744",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "MR Yazici",
+              "scholar_url": "https://scholar.google.com/citations?user=ekFgRccAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Diurnal temperature fluctuations outweigh population origin in shaping thermal performance and range predictions in European Aedes albopictus",
+          "url": "https://ecoevorxiv.org/repository/view/15290/",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "D Da Re",
+              "scholar_url": "https://scholar.google.com/citations?user=efoqkBwAAAAJ"
+            },
+            {
+              "name": "M Blaha",
+              "scholar_url": null
+            },
+            {
+              "name": "F Reuss",
+              "scholar_url": null
+            },
+            {
+              "name": "D Arnoldi",
+              "scholar_url": null
+            },
+            {
+              "name": "ML Di Pasquale…",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Gesundheit in der klimaresilienten Stadtentwicklung: Öffentliche Räume als Hebel für Chancengerechtigkeit",
+          "url": "https://link.springer.com/article/10.1007/s11553-026-01356-2",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "T Bauer",
+              "scholar_url": null
+            },
+            {
+              "name": "I Horváth",
+              "scholar_url": null
+            },
+            {
+              "name": "M Brettenhofer",
+              "scholar_url": null
+            },
+            {
+              "name": "G Bolte",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Preparing for a Potentially All-Time Record Setting El Niño in 2026 and 2027",
+          "url": "https://www.researchgate.net/profile/Theodor-Nicolae-Carp/publication/415248267_Preparing_for_a_Potentially_All-Time_Record_El_Nino_-_A_scientific_call_for_coordinated_institutional_and_societal_resilience/links/6ac56e6ab6ed5276291af38f/Preparing-for-a-Potentially-All-Time-Record-El-Nino-A-scientific-call-for-coordinated-institutional-and-societal-resilience.pdf",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "TN Carp",
+              "scholar_url": "https://scholar.google.com/citations?user=9UqFB2cAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Klimawandel und gastrointestinale Erkrankungen",
+          "url": "https://link.springer.com/article/10.1007/s11377-026-01025-y",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "K Zimmermann",
+              "scholar_url": null
+            },
+            {
+              "name": "M Müller-Schilling",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "ZDRAVOTNÉ RIZIKÁ Z EXPOZÍCIE VYSOKÝM TEPLOTÁM A KLINICKÁ PRAX NA ODDELENÍ CENTRÁLNEHO PRÍJMU",
+          "url": "https://www.lekarskyobzor.sk/prezentacie/2026/2026-lo-09/2026-lekarsky-obzor-09-valent.pdf",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "P VALENT",
+              "scholar_url": null
+            },
+            {
+              "name": "A ZUBKOVÁ",
+              "scholar_url": null
+            },
+            {
+              "name": "J PAYER",
+              "scholar_url": null
+            },
+            {
+              "name": "P JACKULIAK …",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "One Health and Emergency Care: Regrettably, more evidence every day",
+          "url": "https://www.reue.org/wp-content/uploads/2026/07/168-170.pdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "G Burillo-Putze",
+              "scholar_url": "https://scholar.google.com/citations?user=6_kS3AwAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "SUOMALAISTEN YRITYSTEN PÄÄSTÖLASKENNAN TILA JA SEN YHTEISKUNNALLINEN MERKITYS",
+          "url": "https://trepo.tuni.fi/bitstream/handle/10024/237961/JarvinenPyry.pdf?sequence=2",
+          "year": null,
+          "authors": [
+            {
+              "name": "P Järvinen",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Mitigación y adaptación al calor: análisis integrado de la Universidad Politécnica de València",
+          "url": "https://riunet.upv.es/entities/publication/b566a22e-e48c-42fb-bf49-b80ddd4d1067",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "K Novikova",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "Saúde e Ambiente 2025: Urgência para Ação",
+          "url": "https://ordemdosfisioterapeutas.pt/wp-content/uploads/2026/10/Relatorio_Saude_Ambiente_2025_CPSA.pdf#page=11",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "L Campos",
+              "scholar_url": null
+            }
+          ]
+        }
+      ]
+    },
     "07_partypress-database_rap_2023": {
       "scholar_title": "The PARTYPRESS Database: A new comparative database of parties’ press releases",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:9yKSN-GCB0IC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:9yKSN-GCB0IC",
       "citation_id": "MMcwTuIAAAAJ:9yKSN-GCB0IC",
       "cites_cluster_id": "8471948866040535245",
-      "cited_by_count": 22,
+      "cited_by_count": 25,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=8471948866040535245",
       "citing_works": [
         {
@@ -83,7 +531,7 @@
         {
           "title": "The green transition and political polarization along occupational lines",
           "url": "https://www.cambridge.org/core/journals/american-political-science-review/article/green-transition-and-political-polarization-along-occupational-lines/5A563C0DBDC283E9111DBD980F1A52C9",
-          "year": 2025,
+          "year": 2026,
           "authors": [
             {
               "name": "V Heddesheimer",
@@ -237,7 +685,12 @@
           "title": "South Korean Election Campaign Booklet and Party Statements Corpora",
           "url": "https://search.proquest.com/openview/dae5d2a52625dfed3077c66de3981a1e/1?pq-origsite=gscholar&cbl=2041912",
           "year": null,
-          "authors": []
+          "authors": [
+            {
+              "name": "D DESCriPtor",
+              "scholar_url": null
+            }
+          ]
         },
         {
           "title": "[CITATION][C] ¿ Quién marca la agenda? Estudio de la influencia mediática en el discurso parlamentario mediante series temporales y clasificación textual multinivel",
@@ -265,134 +718,86 @@
           "url": "https://e-spacio.uned.es/entities/publication/6364c311-2483-46bc-ac7f-6a5753d1c890",
           "year": 2025,
           "authors": []
-        }
-      ]
-    },
-    "08_lancet-countdown-europe-2026_lancet-public-health": {
-      "scholar_title": "The 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:WF5omc3nYNoC",
-      "citation_id": "MMcwTuIAAAAJ:WF5omc3nYNoC",
-      "cites_cluster_id": "9118597870844943979",
-      "cited_by_count": 19,
-      "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9118597870844943979",
-      "citing_works": [
+        },
         {
-          "title": "Pan-European Commission on Climate and Health: recommendations for accelerating climate action for health",
-          "url": "https://www.thelancet.com/article/S0140-6736(26)00808-1/abstract",
+          "title": "PartySOME II: a dataset on parties' issue agendas on social media",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01402382.2026.2734520",
           "year": 2026,
           "authors": [
             {
-              "name": "A Haines",
-              "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ"
+              "name": "M Jan",
+              "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ"
+            },
+            {
+              "name": "L Sattelmayer",
+              "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ"
             }
           ]
         },
         {
-          "title": "Fordítás: A Lancet „Visszaszámlálás az egészség és éghajlatváltozás kapcsán” 2026-os európai jelentésének vezetői összefoglalója",
-          "url": "https://ojs.mtak.hu/index.php/MEJ/article/view/22926",
+          "title": "Politisierung durch Issue Reframing: Die diskursive Transformation der Verkehrspolitik im Bundestagswahlkampf 2025",
+          "url": "https://link.springer.com/content/pdf/10.1007/978-3-658-48664-8_25-1.pdf",
           "year": 2026,
           "authors": [
             {
-              "name": "J Vitrai",
-              "scholar_url": "https://scholar.google.com/citations?user=DQQWl_IAAAAJ"
+              "name": "I Schröder",
+              "scholar_url": "https://scholar.google.com/citations?user=TGwKiDcAAAAJ"
+            },
+            {
+              "name": "O Seliger",
+              "scholar_url": null
             }
           ]
         },
         {
-          "title": "Environmental-Health Vulnerability and Respiratory Mortality in Europe: Evidence from Panel Econometrics, Clustering, and Machine Learning",
-          "url": "https://www.mdpi.com/2413-8851/10/7/351",
-          "year": 2026,
+          "title": "Social media press releases as a tool for political communication in Nigerian politics: a study of post-2023 general election audience engagements on Facebook",
+          "url": "https://www.njomacs.com/paper/social-media-press-releases-as-a-tool-for-political-communication-in-nigerian-politics-a-study-of-post-2023-general-election-audience",
+          "year": 2024,
           "authors": [
             {
-              "name": "O Resta",
-              "scholar_url": "https://scholar.google.com/citations?user=IdZSyl8AAAAJ"
-            },
-            {
-              "name": "P Liuzzi",
-              "scholar_url": "https://scholar.google.com/citations?user=wDBWJEwAAAAJ"
-            },
-            {
-              "name": "A Costantiello",
-              "scholar_url": "https://scholar.google.com/citations?user=_dk9sToAAAAJ"
+              "name": "KS Dapiya",
+              "scholar_url": null
             }
           ]
         },
         {
-          "title": "Beyond the guidelines: Preventing heatwave-related admissions and decompensations through thermopharmacological frailty",
-          "url": "https://www.sciencedirect.com/science/article/pii/S0953620526003833",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "F Epelde",
-              "scholar_url": "https://scholar.google.com/citations?user=4nRSsxAAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "Herz und Klima",
-          "url": "https://link.springer.com/article/10.1007/s00059-026-05384-8",
-          "year": 2026,
-          "authors": [
-            {
-              "name": "C Maack",
-              "scholar_url": "https://scholar.google.com/citations?user=vwDtxHwAAAAJ"
-            },
-            {
-              "name": "A Daiber",
-              "scholar_url": "https://scholar.google.com/citations?user=dQ3bfTsAAAAJ"
-            },
-            {
-              "name": "J Lelieveld",
-              "scholar_url": "https://scholar.google.com/citations?user=ia24XqQAAAAJ"
-            },
-            {
-              "name": "O Hahad",
-              "scholar_url": "https://scholar.google.com/citations?user=peGX9rkAAAAJ"
-            }
-          ]
-        },
-        {
-          "title": "PROGRAMA DE PREVENCIÓN Y ATENCIÓN A LOS PROBLEMAS DE SALUD DERIVADOS DE LAS ALTAS TEMPERATURAS EN LA COMUNITAT …",
-          "url": "https://www.villardelarzobispo.es/sites/www.villardelarzobispo.es/files/users/user185/2026_Programa_prevenci%C3%B3n_y_atenci%C3%B3n_a_los_problemas_de_salud_derivados_de_las_altas_temperaturas_CV_2026_CAS.pdf",
-          "year": 2026,
-          "authors": []
-        },
-        {
-          "title": "One Health y Urgencias: lamentablemente, cada día con más evidencias",
-          "url": "https://www.reue.org/wp-content/uploads/2026/06/168-170.pdf",
+          "title": "DEClimate: A Dataset of Climate Change Discourse in German Politics",
+          "url": "https://www.korpuslab.uni-hamburg.de/en/konvens2026/80.pdf",
           "year": null,
           "authors": [
             {
-              "name": "G Burillo-Putze",
-              "scholar_url": "https://scholar.google.com/citations?user=6_kS3AwAAAAJ"
+              "name": "R Memminger",
+              "scholar_url": "https://scholar.google.com/citations?user=aszaGaoAAAAJ"
+            },
+            {
+              "name": "M Stede",
+              "scholar_url": "https://scholar.google.com/citations?user=I1wvHnIAAAAJ"
             }
           ]
         },
         {
-          "title": "IKLIM DEĞIŞIKLIĞI ÇAĞINDA EBELIK: ANNE VE BEBEK SAĞLIĞININ KORUNMASINDA YENI ROLLER VE SORUMLULUKLAR",
-          "url": "https://www.seruvenyayinevi.com/Webkontrol/uploads/Fck/Ebelik_Alan%C4%B1nda_Uluslararas%C4%B1_G%C3%BCncel_Yakla%C5%9F%C4%B1mlar_-_Haziran_2026.pdf#page=77",
+          "title": "Media Coverage and Party Press Releases in Germany and the UK–Who Follows Whom?",
+          "url": "https://voe-project.org/wp-content/uploads/2026/08/APSA_Horn_Zanotto_MediaCoverage_PartyPressReleases.pdf",
           "year": null,
           "authors": [
             {
-              "name": "S GÜRAY",
-              "scholar_url": "https://scholar.google.com/citations?user=X9HpTSAAAAAJ"
+              "name": "A Horn",
+              "scholar_url": "https://scholar.google.com/citations?user=D7laQREAAAAJ"
+            },
+            {
+              "name": "SE Zanotto",
+              "scholar_url": "https://scholar.google.com/citations?user=DuhzSmAAAAAJ"
             }
           ]
-        },
-        {
-          "title": "Cumulative Intersection Risks of Aging and Climate Vulnerability: A Spatiotemporal Analysis Based on Global Public Databases",
-          "url": "https://journal.physa.org/index.php/fpm/article/view/108",
-          "year": 2026,
-          "authors": []
         }
       ]
     },
     "04_targeting-voters-online_jelst_2024": {
       "scholar_title": "Targeting voters online: How parties’ campaigns differ",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "citation_id": "MMcwTuIAAAAJ:UeHWp8X0CEIC",
       "cites_cluster_id": "13181887300357457949",
-      "cited_by_count": 13,
+      "cited_by_count": 15,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13181887300357457949",
       "citing_works": [
         {
@@ -506,8 +911,8 @@
               "scholar_url": "https://scholar.google.com/citations?user=kdLjzS4AAAAJ"
             },
             {
-              "name": "MF Hove",
-              "scholar_url": "https://scholar.google.com/citations?user=YpyAPQIAAAAJ"
+              "name": "MF Hove …",
+              "scholar_url": null
             }
           ]
         },
@@ -527,12 +932,64 @@
           "url": "https://www.studiapolitologiczne.pl/pdf-226211-142630?filename=The-Impact-of-Social-Medi.pdf",
           "year": 2026,
           "authors": []
+        },
+        {
+          "title": "Simplicity over complexity? Political audience targeting approaches on Facebook and Instagram in 2024",
+          "url": "https://journalqd.org/article/view/9885",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "AT Hughes",
+              "scholar_url": null
+            },
+            {
+              "name": "F Votta",
+              "scholar_url": "https://scholar.google.com/citations?user=ZAGacR0AAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "A Critical Marketing Analysis of Contested Meaning in Political Campaigns: A Case Study of the Australian Voice Referendum",
+          "url": "https://ro.uow.edu.au/ndownloader/files/67290404/1",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "F Abbaspour",
+              "scholar_url": "https://scholar.google.com/citations?user=M7QrhEAAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "THE EVOLUTION OF ELECTORAL COMMUNICATION ON FACEBOOK IN KOSOVO (2014-2025): ACTIVITY, CONTENT FORMATS, AND AUDIENCE ENGAGEMENT.",
+          "url": "https://openurl.ebsco.com/contentitem/gcd:197670342?sid=ebsco:plink:crawler-gcd&id=ebsco:gcd:197670342&crl=c&jrnl=2616387X",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "B ALIU-FETAHU",
+              "scholar_url": null
+            }
+          ]
+        },
+        {
+          "title": "AI in Political Communication and Electoral Campaigns in Africa",
+          "url": "https://api.taylorfrancis.com/content/chapters/edit/download?identifierName=doi&identifierValue=10.4324/9781003740896-13&type=chapterpdf",
+          "year": null,
+          "authors": [
+            {
+              "name": "BO Daudu",
+              "scholar_url": "https://scholar.google.com/citations?user=3Jds_sMAAAAJ"
+            },
+            {
+              "name": "GU Osimen",
+              "scholar_url": "https://scholar.google.com/citations?user=wHvmTwEAAAAJ"
+            }
+          ]
         }
       ]
     },
     "01_gendered-targeting_jop_2026": {
       "scholar_title": "Gendered targeting: Do parties tailor their campaign ads to women?",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:u-x6o8ySG0sC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:u-x6o8ySG0sC",
       "citation_id": "MMcwTuIAAAAJ:u-x6o8ySG0sC",
       "cites_cluster_id": "16600700998086165375",
       "cited_by_count": 12,
@@ -759,10 +1216,10 @@
     },
     "06_zweitstimme-forecast_ps_2025": {
       "scholar_title": "The Zweitstimme Forecast for the German Federal Election 2025: Coalition Majorities and Vacant Districts",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:IjCSPb-OGe4C",
       "citation_id": "MMcwTuIAAAAJ:IjCSPb-OGe4C",
       "cites_cluster_id": "9031874089557118426",
-      "cited_by_count": 6,
+      "cited_by_count": 7,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9031874089557118426",
       "citing_works": [
         {
@@ -787,8 +1244,8 @@
               "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ"
             },
             {
-              "name": "S Munzert",
-              "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ"
+              "name": "S Munzert …",
+              "scholar_url": null
             }
           ]
         },
@@ -859,12 +1316,46 @@
               "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
             }
           ]
+        },
+        {
+          "title": "Thematic Introduction: Issue Saliency in the 2025 Federal Election",
+          "url": "https://link.springer.com/chapter/10.1007/978-3-032-20555-1_7",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "LC Wurthmann",
+              "scholar_url": "https://scholar.google.com/citations?user=KwPypDMAAAAJ"
+            },
+            {
+              "name": "S Wagner",
+              "scholar_url": "https://scholar.google.com/citations?user=5z3OdMcAAAAJ"
+            }
+          ]
+        },
+        {
+          "title": "Losing Political Representation",
+          "url": "https://direct.mit.edu/rest/article-abstract/doi/10.1162/REST.a.1872/138882",
+          "year": 2026,
+          "authors": [
+            {
+              "name": "T Wochner",
+              "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ"
+            },
+            {
+              "name": "A Günther",
+              "scholar_url": null
+            },
+            {
+              "name": "N Potrafke …",
+              "scholar_url": null
+            }
+          ]
         }
       ]
     },
     "05_forecasting-subnational-elections_jelst_2025": {
       "scholar_title": "An election forecasting model for subnational elections",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:zYLM7Y9cAGgC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:zYLM7Y9cAGgC",
       "citation_id": "MMcwTuIAAAAJ:zYLM7Y9cAGgC",
       "cites_cluster_id": "11895116147877479937",
       "cited_by_count": 5,
@@ -904,6 +1395,10 @@
           "year": 2025,
           "authors": [
             {
+              "name": "WW NINGRUM",
+              "scholar_url": null
+            },
+            {
               "name": "MBZ Tjenreng",
               "scholar_url": "https://scholar.google.com/citations?user=FlY_s5MAAAAJ"
             }
@@ -930,7 +1425,7 @@
     },
     "03_buying-voter-support_nuclear_jelst_2025": {
       "scholar_title": "How nuclear power hurts the Greens: Evidence from German nuclear power plants",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
       "citation_id": "MMcwTuIAAAAJ:Tyk-4Ss8FVUC",
       "cites_cluster_id": "15909930767043463675",
       "cited_by_count": 4,
@@ -992,10 +1487,10 @@
     },
     "02_issue-responsiveness_wep_2026": {
       "scholar_title": "Parties’ issue responsiveness between elections",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:YsMSGLbcyi4C",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:YsMSGLbcyi4C",
       "citation_id": "MMcwTuIAAAAJ:YsMSGLbcyi4C",
       "cites_cluster_id": "6273156438861862519",
-      "cited_by_count": 1,
+      "cited_by_count": 3,
       "cited_by_url": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=6273156438861862519,3469080524159254101",
       "citing_works": [
         {
@@ -1013,7 +1508,7 @@
     },
     "scholar:MMcwTuIAAAAJ:2osOgNQ5qMEC": {
       "scholar_title": "Measuring protest through news articles: A validation approach for manual and semi-supervised methods using government data",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:2osOgNQ5qMEC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:2osOgNQ5qMEC",
       "citation_id": "MMcwTuIAAAAJ:2osOgNQ5qMEC",
       "cites_cluster_id": "13074849629137909085",
       "cited_by_count": 1,
@@ -1034,11 +1529,11 @@
     },
     "09_swing-model-assumptions_jelst_2026": {
       "scholar_title": "How swing model assumptions shape vote-to-seat predictions",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&citation_for_view=MMcwTuIAAAAJ:ufrVoPGSRksC",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MMcwTuIAAAAJ&pagesize=100&citation_for_view=MMcwTuIAAAAJ:ufrVoPGSRksC",
       "citation_id": "MMcwTuIAAAAJ:ufrVoPGSRksC",
       "cites_cluster_id": null,
       "cited_by_count": 0,
-      "cited_by_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ&hl=en&view_op=list_works",
+      "cited_by_url": null,
       "citing_works": []
     }
   },
@@ -1059,13 +1554,23 @@
       "count": 4
     },
     {
+      "name": "L Sattelmayer",
+      "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ",
+      "count": 4
+    },
+    {
       "name": "LF Stoetzer",
       "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ",
       "count": 4
     },
     {
-      "name": "L Sattelmayer",
-      "scholar_url": "https://scholar.google.com/citations?user=JdLJOOMAAAAJ",
+      "name": "J Chen-Xu",
+      "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ",
+      "count": 3
+    },
+    {
+      "name": "M Jan",
+      "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ",
       "count": 3
     },
     {
@@ -1104,6 +1609,16 @@
       "count": 2
     },
     {
+      "name": "F Votta",
+      "scholar_url": "https://scholar.google.com/citations?user=ZAGacR0AAAAJ",
+      "count": 2
+    },
+    {
+      "name": "G Burillo-Putze",
+      "scholar_url": "https://scholar.google.com/citations?user=6_kS3AwAAAAJ",
+      "count": 2
+    },
+    {
       "name": "G De Francisci Morales",
       "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
       "count": 2
@@ -1114,28 +1629,18 @@
       "count": 2
     },
     {
-      "name": "J Chen-Xu",
-      "scholar_url": "https://scholar.google.com/citations?user=7VJ_bYUAAAAJ",
-      "count": 2
-    },
-    {
       "name": "L Paler",
       "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC",
       "count": 2
     },
     {
-      "name": "M Jan",
-      "scholar_url": "https://scholar.google.com/citations?user=jBlmf-sAAAAJ",
-      "count": 2
-    },
-    {
-      "name": "S Munzert",
-      "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
-      "count": 2
-    },
-    {
       "name": "T Gschwend",
       "scholar_url": "https://scholar.google.com/citations?user=n-CkJUgAAAAJ",
+      "count": 2
+    },
+    {
+      "name": "T Wochner",
+      "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ",
       "count": 2
     },
     {
@@ -1159,8 +1664,28 @@
       "count": 1
     },
     {
+      "name": "A Günther",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "A Haines",
       "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "A Horn",
+      "scholar_url": "https://scholar.google.com/citations?user=D7laQREAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "A Llabrés-Brustenga…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "A Moses",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1169,8 +1694,28 @@
       "count": 1
     },
     {
+      "name": "A ZUBKOVÁ",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "AF Ponce",
       "scholar_url": "https://scholar.google.com/citations?user=cZl28P4AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "AT Hughes",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "B ALIU-FETAHU",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "B Bessagnet",
+      "scholar_url": "https://scholar.google.com/citations?user=KV5XJcQAAAAJ",
       "count": 1
     },
     {
@@ -1184,13 +1729,43 @@
       "count": 1
     },
     {
+      "name": "BO Daudu",
+      "scholar_url": "https://scholar.google.com/citations?user=3Jds_sMAAAAJ",
+      "count": 1
+    },
+    {
       "name": "C Maack",
       "scholar_url": "https://scholar.google.com/citations?user=vwDtxHwAAAAJ",
       "count": 1
     },
     {
+      "name": "C Müller",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "C Wolf",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "CH Dausgaard",
       "scholar_url": "https://scholar.google.com/citations?user=cgRByH8AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "D Arnoldi",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "D DESCriPtor",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "D Da Re",
+      "scholar_url": "https://scholar.google.com/citations?user=efoqkBwAAAAJ",
       "count": 1
     },
     {
@@ -1204,8 +1779,38 @@
       "count": 1
     },
     {
+      "name": "E Ball",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "E Casellas",
+      "scholar_url": "https://scholar.google.com/citations?user=NEd2njAAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "E Vanuytrecht",
+      "scholar_url": "https://scholar.google.com/citations?user=_Rg-K3YAAAAJ",
+      "count": 1
+    },
+    {
       "name": "E Voeten",
       "scholar_url": "https://scholar.google.com/citations?user=M4QhACsAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "EJZ Robinson …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "F Abbaspour",
+      "scholar_url": "https://scholar.google.com/citations?user=M7QrhEAAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "F Dentener",
+      "scholar_url": "https://scholar.google.com/citations?user=O15kdNwAAAAJ",
       "count": 1
     },
     {
@@ -1234,13 +1839,13 @@
       "count": 1
     },
     {
-      "name": "F Rösel",
-      "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ",
+      "name": "F Reuss",
+      "scholar_url": null,
       "count": 1
     },
     {
-      "name": "F Votta",
-      "scholar_url": "https://scholar.google.com/citations?user=ZAGacR0AAAAJ",
+      "name": "F Rösel",
+      "scholar_url": "https://scholar.google.com/citations?user=jbX86mQAAAAJ",
       "count": 1
     },
     {
@@ -1249,13 +1854,23 @@
       "count": 1
     },
     {
-      "name": "G Burillo-Putze",
-      "scholar_url": "https://scholar.google.com/citations?user=6_kS3AwAAAAJ",
+      "name": "G Bolte",
+      "scholar_url": null,
       "count": 1
     },
     {
       "name": "GDEF MORALES",
       "scholar_url": "https://scholar.google.com/citations?user=R0JCEqMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "GU Osimen",
+      "scholar_url": "https://scholar.google.com/citations?user=wHvmTwEAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "H Heiliger …",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1269,8 +1884,23 @@
       "count": 1
     },
     {
+      "name": "HK Kriit",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "HT Karakoç",
       "scholar_url": "https://scholar.google.com/citations?user=Ie86Bh0AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "I Horváth",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "I Schröder",
+      "scholar_url": "https://scholar.google.com/citations?user=TGwKiDcAAAAJ",
       "count": 1
     },
     {
@@ -1279,8 +1909,28 @@
       "count": 1
     },
     {
+      "name": "J PAYER",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "J Rockström…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "J Vitrai",
       "scholar_url": "https://scholar.google.com/citations?user=DQQWl_IAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "JC Semenza",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "JR Miró",
+      "scholar_url": "https://scholar.google.com/citations?user=grwQuSwAAAAJ",
       "count": 1
     },
     {
@@ -1289,8 +1939,33 @@
       "count": 1
     },
     {
+      "name": "K Novikova",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "K Zimmermann",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "K de Hoogh…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "KM Møller",
       "scholar_url": "https://scholar.google.com/citations?user=UhBBFUcAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "KS Dapiya",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "L Campos",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1299,13 +1974,53 @@
       "count": 1
     },
     {
+      "name": "L Menut",
+      "scholar_url": "https://scholar.google.com/citations?user=nKwf34sAAAAJ",
+      "count": 1
+    },
+    {
       "name": "L Rødland",
       "scholar_url": "https://scholar.google.com/citations?user=AIqZdA0AAAAJ",
       "count": 1
     },
     {
+      "name": "L Wood",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "LC Wurthmann",
+      "scholar_url": "https://scholar.google.com/citations?user=KwPypDMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Blaha",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "M Brettenhofer",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "M Cortès…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "M KUBÁK",
       "scholar_url": "https://scholar.google.com/citations?user=XZVZdYgAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Moradi-Lakeh",
+      "scholar_url": "https://scholar.google.com/citations?user=3-Tj9RwAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Müller-Schilling",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1324,6 +2039,11 @@
       "count": 1
     },
     {
+      "name": "M Stede",
+      "scholar_url": "https://scholar.google.com/citations?user=I1wvHnIAAAAJ",
+      "count": 1
+    },
+    {
       "name": "M Tee",
       "scholar_url": "https://scholar.google.com/citations?user=sXx_CkYAAAAJ",
       "count": 1
@@ -1339,8 +2059,28 @@
       "count": 1
     },
     {
-      "name": "MF Hove",
-      "scholar_url": "https://scholar.google.com/citations?user=YpyAPQIAAAAJ",
+      "name": "ME Mann",
+      "scholar_url": "https://scholar.google.com/citations?user=KrRw4RIAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "MF Hove …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "ML Di Pasquale…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "MR Yazici",
+      "scholar_url": "https://scholar.google.com/citations?user=ekFgRccAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "MT Nguyen…",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1354,6 +2094,11 @@
       "count": 1
     },
     {
+      "name": "N Potrafke …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "N Tan",
       "scholar_url": "https://scholar.google.com/citations?user=0ql1hRYAAAAJ",
       "count": 1
@@ -1364,13 +2109,43 @@
       "count": 1
     },
     {
+      "name": "O Jay …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "O Resta",
       "scholar_url": "https://scholar.google.com/citations?user=IdZSyl8AAAAJ",
       "count": 1
     },
     {
+      "name": "O Seliger",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "P JACKULIAK …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "P Järvinen",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "P Liuzzi",
       "scholar_url": "https://scholar.google.com/citations?user=wDBWJEwAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "P VALENT",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "R Memminger",
+      "scholar_url": "https://scholar.google.com/citations?user=aszaGaoAAAAJ",
       "count": 1
     },
     {
@@ -1389,8 +2164,33 @@
       "count": 1
     },
     {
+      "name": "S Gómez-Olarte",
+      "scholar_url": "https://scholar.google.com/citations?user=W6FiX-cAAAAJ",
+      "count": 1
+    },
+    {
       "name": "S Handayani",
       "scholar_url": "https://scholar.google.com/citations?user=GF66k2gAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "S Munzert",
+      "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "S Munzert …",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "S Röder",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "S Wagner",
+      "scholar_url": "https://scholar.google.com/citations?user=5z3OdMcAAAAJ",
       "count": 1
     },
     {
@@ -1404,18 +2204,33 @@
       "count": 1
     },
     {
+      "name": "SE Zanotto",
+      "scholar_url": "https://scholar.google.com/citations?user=DuhzSmAAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "SS Guo",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
+      "name": "T Bauer",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "T Wappenhans",
       "scholar_url": "https://scholar.google.com/citations?user=KDtMlLEAAAAJ",
       "count": 1
     },
     {
-      "name": "T Wochner",
-      "scholar_url": "https://scholar.google.com/citations?user=OHQAsH4AAAAJ",
+      "name": "TH Lim",
+      "scholar_url": "https://scholar.google.com/citations?user=prfRV4AAAAAJ",
       "count": 1
     },
     {
-      "name": "TH Lim",
-      "scholar_url": "https://scholar.google.com/citations?user=prfRV4AAAAAJ",
+      "name": "TN Carp",
+      "scholar_url": "https://scholar.google.com/citations?user=9UqFB2cAAAAJ",
       "count": 1
     },
     {
@@ -1431,6 +2246,16 @@
     {
       "name": "VI Haas",
       "scholar_url": "https://scholar.google.com/citations?user=zbiC8-oAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "WJ Ripple",
+      "scholar_url": "https://scholar.google.com/citations?user=0jpKiOMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "WW NINGRUM",
+      "scholar_url": null,
       "count": 1
     },
     {
