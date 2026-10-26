@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19",
+  "updated_at": "2026-10-26",
   "source": "google_scholar",
   "scholar_profile_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
   "profile": {
@@ -21,6 +21,10 @@
           "url": "https://www.thelancet.com/article/S0140-6736(26)00808-1/abstract",
           "year": 2026,
           "authors": [
+            {
+              "name": "K Jakobsdóttir",
+              "scholar_url": null
+            },
             {
               "name": "A Haines",
               "scholar_url": "https://scholar.google.com/citations?user=TJyhU6YAAAAJ"
@@ -92,10 +96,15 @@
           ]
         },
         {
-          "title": "PROGRAMA DE PREVENCIÓN Y ATENCIÓN A LOS PROBLEMAS DE SALUD DERIVADOS DE LAS ALTAS TEMPERATURAS EN LA COMUNITAT …",
+          "title": "PROGRAMA DE PREVENCIÓN Y ATENCIÓN A LOS PROBLEMAS DE SALUD DERIVADOS DE LAS ALTAS TEMPERATURAS EN LA COMUNITAT …",
           "url": "https://www.villardelarzobispo.es/sites/www.villardelarzobispo.es/files/users/user185/2026_Programa_prevenci%C3%B3n_y_atenci%C3%B3n_a_los_problemas_de_salud_derivados_de_las_altas_temperaturas_CV_2026_CAS.pdf",
           "year": 2026,
-          "authors": []
+          "authors": [
+            {
+              "name": "SG DE EPIDEMIOLOGÍA",
+              "scholar_url": null
+            }
+          ]
         },
         {
           "title": "One Health y Urgencias: lamentablemente, cada día con más evidencias",
@@ -123,7 +132,24 @@
           "title": "Cumulative Intersection Risks of Aging and Climate Vulnerability: A Spatiotemporal Analysis Based on Global Public Databases",
           "url": "https://journal.physa.org/index.php/fpm/article/view/108",
           "year": 2026,
-          "authors": []
+          "authors": [
+            {
+              "name": "L Holt",
+              "scholar_url": null
+            },
+            {
+              "name": "C Dubois",
+              "scholar_url": null
+            },
+            {
+              "name": "M Torres",
+              "scholar_url": null
+            },
+            {
+              "name": "A Nwosu…",
+              "scholar_url": null
+            }
+          ]
         },
         {
           "title": "The 2026 Europe Cities Report of the Lancet Countdown on health and climate change: cities at the forefront of climate change action",
@@ -789,6 +815,25 @@
               "scholar_url": "https://scholar.google.com/citations?user=DuhzSmAAAAAJ"
             }
           ]
+        },
+        {
+          "title": "Parties' issue adaptation between elections",
+          "url": "https://osf.io/download/z6yfv/",
+          "year": 2024,
+          "authors": [
+            {
+              "name": "C Erfort",
+              "scholar_url": null
+            },
+            {
+              "name": "H Klüver",
+              "scholar_url": null
+            },
+            {
+              "name": "L Stoetzer",
+              "scholar_url": null
+            }
+          ]
         }
       ]
     },
@@ -1051,6 +1096,10 @@
               "scholar_url": "https://scholar.google.com/citations?user=y1V_dy0AAAAJ"
             },
             {
+              "name": "P Schleiter",
+              "scholar_url": null
+            },
+            {
               "name": "H Klüver",
               "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ"
             }
@@ -1109,6 +1158,10 @@
             {
               "name": "L Paler",
               "scholar_url": "https://scholar.google.com/citations?user=5ow0z4s9OmgC"
+            },
+            {
+              "name": "S Khan",
+              "scholar_url": null
             }
           ]
         },
@@ -1541,12 +1594,12 @@
     {
       "name": "C Erfort",
       "scholar_url": "https://scholar.google.com/citations?user=MMcwTuIAAAAJ",
-      "count": 4
+      "count": 5
     },
     {
       "name": "H Klüver",
       "scholar_url": "https://scholar.google.com/citations?user=5Ekplf8AAAAJ",
-      "count": 4
+      "count": 5
     },
     {
       "name": "J Huttunen",
@@ -1689,6 +1742,11 @@
       "count": 1
     },
     {
+      "name": "A Nwosu…",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "A Russo",
       "scholar_url": "https://scholar.google.com/citations?user=50_-_TsAAAAJ",
       "count": 1
@@ -1731,6 +1789,11 @@
     {
       "name": "BO Daudu",
       "scholar_url": "https://scholar.google.com/citations?user=3Jds_sMAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "C Dubois",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -1939,6 +2002,11 @@
       "count": 1
     },
     {
+      "name": "K Jakobsdóttir",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "K Novikova",
       "scholar_url": null,
       "count": 1
@@ -1974,6 +2042,11 @@
       "count": 1
     },
     {
+      "name": "L Holt",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "L Menut",
       "scholar_url": "https://scholar.google.com/citations?user=nKwf34sAAAAJ",
       "count": 1
@@ -1981,6 +2054,11 @@
     {
       "name": "L Rødland",
       "scholar_url": "https://scholar.google.com/citations?user=AIqZdA0AAAAJ",
+      "count": 1
+    },
+    {
+      "name": "L Stoetzer",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -2046,6 +2124,11 @@
     {
       "name": "M Tee",
       "scholar_url": "https://scholar.google.com/citations?user=sXx_CkYAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "M Torres",
+      "scholar_url": null,
       "count": 1
     },
     {
@@ -2139,6 +2222,11 @@
       "count": 1
     },
     {
+      "name": "P Schleiter",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "P VALENT",
       "scholar_url": null,
       "count": 1
@@ -2174,6 +2262,11 @@
       "count": 1
     },
     {
+      "name": "S Khan",
+      "scholar_url": null,
+      "count": 1
+    },
+    {
       "name": "S Munzert",
       "scholar_url": "https://scholar.google.com/citations?user=hIMdRkMAAAAJ",
       "count": 1
@@ -2206,6 +2299,11 @@
     {
       "name": "SE Zanotto",
       "scholar_url": "https://scholar.google.com/citations?user=DuhzSmAAAAAJ",
+      "count": 1
+    },
+    {
+      "name": "SG DE EPIDEMIOLOGÍA",
+      "scholar_url": null,
       "count": 1
     },
     {
